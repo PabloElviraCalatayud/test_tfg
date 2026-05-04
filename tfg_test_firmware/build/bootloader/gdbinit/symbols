@@ -17,4 +17,4 @@ set confirm off
 set confirm on
 
 # Load application symbols
-file /home/pelvira/Documents/Universidad/tfg_test_firmware/build/bootloader/bootloader.elf
+file /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/bootloader/bootloader.elf

@@ -13,8 +13,8 @@ end
 
 # Load bootloader symbols
 set confirm off
-    add-symbol-file /home/pelvira/Documents/Universidad/tfg_test_firmware/build/bootloader/bootloader.elf
+    add-symbol-file /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/bootloader/bootloader.elf
 set confirm on
 
 # Load application symbols
-file /home/pelvira/Documents/Universidad/tfg_test_firmware/build/tfg_test_firmware.elf
+file /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/tfg_test_firmware.elf
