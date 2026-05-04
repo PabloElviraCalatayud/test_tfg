@@ -1,0 +1,23 @@
+Command: ninja all
+[1/14] Linking C static library esp-idf/ble_transport/libble_transport.a
+[2/14] Linking C static library esp-idf/usb/libusb.a
+[3/14] Linking C static library esp-idf/wifi_provisioning/libwifi_provisioning.a
+[4/14] Linking C static library esp-idf/ota_manager/libota_manager.a
+[5/14] Performing build step for 'bootloader'
+[1/1] cd /home/pelvira/Documents/Universidad/tfg_test_firmware/build/bootloader/esp-idf/esptool_py && /home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/pelvira/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 /home/pelvira/Documents/Universidad/tfg_test_firmware/build/bootloader/bootloader.bin
+Bootloader binary size 0x5240 bytes. 0x2dc0 bytes (36%) free.
+[6/14] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+[7/14] No install step for 'bootloader'
+[8/14] Linking C static library esp-idf/main/libmain.a
+[9/14] Completed 'bootloader'
+[10/14] Generating esp-idf/esp_system/ld/sections.ld
+[11/14] Building C object CMakeFiles/tfg_test_firmware.elf.dir/project_elf_src_esp32s3.c.obj
+[12/14] Linking CXX executable tfg_test_firmware.elf
+[13/14] Generating binary image from built executable
+esptool.py v4.11.dev2
+Creating esp32s3 image...
+Merged 2 ELF sections
+Successfully created esp32s3 image.
+Generated /home/pelvira/Documents/Universidad/tfg_test_firmware/build/tfg_test_firmware.bin
+[14/14] cd /home/pelvira/Documents/Universidad/tfg_test_firmware/build/esp-idf/esptool_py && /home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/pelvira/esp/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /home/pelvira/Documents/Universidad/tfg_test_firmware/build/partition_table/partition-table.bin /home/pelvira/Documents/Universidad/tfg_test_firmware/build/tfg_test_firmware.bin
+tfg_test_firmware.bin binary size 0x864f0 bytes. Smallest app partition is 0x1a9000 bytes. 0x122b10 bytes (68%) free.

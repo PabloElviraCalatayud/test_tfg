@@ -1,0 +1,55 @@
+name: gait_app
+description: "Gait analysis companion app for ESP32 GaitSole sensor."
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State management
+  flutter_riverpod: ^2.5.1
+
+  # Navigation
+  go_router: ^13.2.0
+
+  # BLE
+  flutter_blue_plus: ^1.32.3
+
+  # Local persistence
+  shared_preferences: ^2.2.3
+
+  # Permissions (BLE + imagen)
+  permission_handler: ^11.3.1
+
+  # Image picker (foto de perfil)
+  image_picker: ^1.1.2
+
+  # File picker (firmware .bin local)
+  file_picker: ^8.1.2
+
+  # Google Sign-In + Drive API
+  google_sign_in: ^6.2.1
+  googleapis: ^13.2.0
+  http: ^1.2.1
+
+  # Typography
+  google_fonts: ^6.2.1
+
+  # SVG path parsing
+  path_drawing: ^1.0.1
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/

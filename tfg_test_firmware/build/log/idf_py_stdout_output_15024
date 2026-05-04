@@ -1,0 +1,912 @@
+Command: /home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/pelvira/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyACM0 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /home/pelvira/Documents/Universidad/tfg_test_firmware/build/tfg_test_firmware.elf /home/pelvira/Documents/Universidad/tfg_test_firmware/build/bootloader/bootloader.elf -m '/home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python' '/home/pelvira/esp/esp-idf/tools/idf.py'
+[0;32mI (104) esp_image: segment 0: paddr=00020020 vaddr=3c060020 sizeI (232) esp_image: segment 4: paddr=00097a88 vaddr=4037aabc size=0f214h ( 61972) load[0m
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x8 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x403cd7f1
+SPIWP:0xee
+Octal Flash Mode Enabled
+For OPI Flash, Use Default Flash Boot Mode
+mode:SLOW_RD, clock div:1
+load:0x3fce2820,len:0x158c
+load:0x403c8700,len:0xd24
+load:0x403cb700,len:0x2f34
+entry 0x403c8924
+[0;32mI (32) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (32) boot: compile time May  1 2026 14:04:05[0m
+[0;32mI (33) boot: Multicore bootloader[0m
+[0;32mI (33) boot: chip revision: v0.1[0m
+[0;32mI (35) boot: efuse block revision: v1.2[0m
+[0;32mI (39) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (43) boot.esp32s3: SPI Mode       : SLOW READ[0m
+[0;32mI (47) boot.esp32s3: SPI Flash Size : 4MB[0m
+[0;32mI (51) boot: Enabling RNG early entropy source...[0m
+[0;32mI (55) boot: Partition Table:[0m
+[0;32mI (58) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 otadata          OTA data         01 00 0000f000 00002000[0m
+[0;32mI (77) boot:  2 phy_init         RF data          01 01 00011000 00001000[0m
+[0;32mI (84) boot:  3 ota_0            OTA app          00 10 00020000 001a9000[0m
+[0;32mI (90) boot:  4 ota_1            OTA app          00 11 001d0000 001a9000[0m
+[0;32mI (97) boot: End of partition table[0m
+[0;32mI (100) boot: No factory image, trying OTA 0[0m
+[0;32mI (104) esp_image: segment 0: paddr=00020020 vaddr=3c060020 size=155b0h ( 87472) map[0m
+[0;32mI (132) esp_image: segment 1: paddr=000355d8 vaddr=3fc99d00 size=03f7ch ( 16252) load[0m
+[0;32mI (137) esp_image: segment 2: paddr=0003955c vaddr=40374000 size=06abch ( 27324) load[0m
+[0;32mI (145) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=57a60h (359008) map[0m
+[0;32mI (230) esp_image: segment 4: paddr=00097a88 vaddr=4037aabc size=0f214h ( 61972) load[0m
+[0;32mI (248) esp_image: segment 5: paddr=000a6ca4 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (257) boot: Loaded app from partition at offset 0x20000[0m
+[0;32mI (282) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (282) boot: Disabling RNG early entropy source...[0m
+[0;32mI (292) cpu_start: Multicore app[0m
+[0;32mI (300) cpu_start: Pro cpu start user code[0m
+[0;32mI (300) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (301) app_init: Application information:[0m
+[0;32mI (301) app_init: Project name:     tfg_test_firmware[0m
+[0;32mI (305) app_init: App version:      1[0m
+[0;32mI (309) app_init: Compile time:     May  1 2026 14:04:03[0m
+[0;32mI (314) app_init: ELF file SHA256:  b75b7a608...[0m
+[0;32mI (318) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (322) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (326) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (330) efuse_init: Chip rev:         v0.1[0m
+[0;32mI (334) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (340) heap_init: At 3FC9FE58 len 000498B8 (294 KiB): RAM[0m
+[0;32mI (345) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (350) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (355) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM[0m
+[0;33mW (361) spi_flash: Octal flash chip is using but dio mode is selected, will automatically switch to Octal mode[0m
+[0;32mI (371) spi_flash: detected chip: mxic (opi)[0m
+[0;32mI (374) spi_flash: flash io: opi_str[0m
+[0;33mW (378) spi_flash: Detected size(32768k) larger than the size in the binary image header(4096k). Using the size in the binary image header.[0m
+[0;32mI (390) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (396) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (403) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (407) coexist: coexist rom version e7ae62f[0m
+[0;32mI (412) main_task: Started on CPU0[0m
+[0;32mI (422) main_task: Calling app_main()[0m
+[0;32mI (422) MAIN: === ESP32-S3 DAS (mock) arrancando ===[0m
+[0;32mI (422) SYS_STATE: Initialized[0m
+[0;32mI (432) BLE_INIT: BT controller compile version [2edb0b0][0m
+[0;32mI (432) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (432) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (442) BLE_INIT: Bluetooth MAC: 68:b6:b3:3e:4c:a6[0m
+[0;32mI (452) phy_init: phy_version 701,f4f1da3a,Mar  3 2025,15:50:10[0m
+[0;32mI (482) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (512) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (512) NimBLE: Failed to restore IRKs from store; status=8[0m
+
+[0;32mI (512) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (512) NimBLE: disc_mode=2[0m
+[0;32mI (512) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (522) NimBLE: [0m
+
+[0;32mI (532) PKT_BUILDER: Initialized. Packet size: 34 bytes[0m
+[0;32mI (532) ADS1115_MOCK: Mock ADS1115 initialized[0m
+[0;32mI (532) LSM9DS1_MOCK: Mock LSM9DS1 initialized[0m
+[0;32mI (542) SYS_STATE: Transition: INIT → RUNNING[0m
+[0;32mI (542) MAIN: IMU  A[0.26 -0.88 1.00] G[-39.0 101.0 93.0][0m
+[0;32mI (552) MAIN: ADC  P[34636 73606 85090 59272] T[23.0 26.6][0m
+[0;32mI (552) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (562) MAIN: ─────────────────────────────[0m
+[0;32mI (572) MAIN: Listo. Conéctate con nRF Connect a 'ESP32S3-DAS'[0m
+[0;32mI (572) main_task: Returned from app_main()[0m
+[0;32mI (1572) MAIN: IMU  A[-0.45 0.59 1.00] G[-86.0 -81.0 -199.0][0m
+[0;32mI (1572) MAIN: ADC  P[28242 65060 20242 6757] T[23.5 22.0][0m
+[0;32mI (1572) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (1572) MAIN: ─────────────────────────────[0m
+[0;32mI (2582) MAIN: IMU  A[0.88 -0.57 1.00] G[179.0 147.0 -75.0][0m
+[0;32mI (2582) MAIN: ADC  P[39696 54060 87909 37454] T[23.4 22.5][0m
+[0;32mI (2582) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (2582) MAIN: ─────────────────────────────[0m
+[0;32mI (3592) MAIN: IMU  A[0.75 0.62 1.00] G[6.0 182.0 -178.0][0m
+[0;32mI (3592) MAIN: ADC  P[82727 55333 37393 77575] T[21.9 20.5][0m
+[0;32mI (3592) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (3592) MAIN: ─────────────────────────────[0m
+[0;32mI (4602) MAIN: IMU  A[0.36 -0.82 1.00] G[-157.0 -5.0 -243.0][0m
+[0;32mI (4602) MAIN: ADC  P[4515 82393 34060 89363] T[25.2 26.5][0m
+[0;32mI (4602) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (4602) MAIN: ─────────────────────────────[0m
+[0;32mI (5612) MAIN: IMU  A[0.96 -0.99 1.00] G[177.0 -208.0 -144.0][0m
+[0;32mI (5612) MAIN: ADC  P[40545 78484 64757 89575] T[21.0 28.0][0m
+[0;32mI (5612) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (5612) MAIN: ─────────────────────────────[0m
+[0;32mI (6622) MAIN: IMU  A[-0.56 -0.07 1.00] G[-232.0 237.0 -99.0][0m
+[0;32mI (6622) MAIN: ADC  P[5181 45878 74666 52272] T[29.5 25.0][0m
+[0;32mI (6622) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (6622) MAIN: ─────────────────────────────[0m
+[0;32mI (7632) MAIN: IMU  A[0.14 0.56 1.00] G[-72.0 -24.0 -247.0][0m
+[0;32mI (7632) MAIN: ADC  P[76151 40424 74151 55454] T[28.8 23.8][0m
+[0;32mI (7632) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (7632) MAIN: ─────────────────────────────[0m
+[0;32mI (8642) MAIN: IMU  A[0.21 0.89 1.00] G[-82.0 -147.0 223.0][0m
+[0;32mI (8642) MAIN: ADC  P[57363 3636 68060 21515] T[28.3 25.2][0m
+[0;32mI (8642) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (8642) MAIN: ─────────────────────────────[0m
+[0;32mI (9652) MAIN: IMU  A[-0.86 -0.41 1.00] G[110.0 -203.0 174.0][0m
+[0;32mI (9652) MAIN: ADC  P[87484 82121 70000 72606] T[21.9 20.0][0m
+[0;32mI (9652) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (9652) MAIN: ─────────────────────────────[0m
+[0;32mI (10662) MAIN: IMU  A[0.37 -0.53 1.00] G[-232.0 -27.0 -161.0][0m
+[0;32mI (10662) MAIN: ADC  P[62272 53757 15333 11151] T[25.5 23.2][0m
+[0;32mI (10662) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (10662) MAIN: ─────────────────────────────[0m
+[0;32mI (11672) MAIN: IMU  A[-0.75 -0.29 1.00] G[-56.0 198.0 123.0][0m
+[0;32mI (11672) MAIN: ADC  P[50727 73030 65303 27121] T[24.1 25.6][0m
+[0;32mI (11672) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (11672) MAIN: ─────────────────────────────[0m
+[0;32mI (12682) MAIN: IMU  A[0.21 -0.39 1.00] G[167.0 5.0 37.0][0m
+[0;32mI (12682) MAIN: ADC  P[16454 34454 88939 19060] T[21.2 27.2][0m
+[0;32mI (12682) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (12682) MAIN: ─────────────────────────────[0m
+[0;32mI (13692) MAIN: IMU  A[0.08 -0.22 1.00] G[149.0 -96.0 -22.0][0m
+[0;32mI (13692) MAIN: ADC  P[41000 41909 4696 26545] T[27.0 21.6][0m
+[0;32mI (13692) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (13692) MAIN: ─────────────────────────────[0m
+[0;32mI (14702) MAIN: IMU  A[0.95 -0.92 1.00] G[-48.0 115.0 203.0][0m
+[0;32mI (14702) MAIN: ADC  P[81242 23636 96545 97181] T[26.3 21.7][0m
+[0;32mI (14702) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (14702) MAIN: ─────────────────────────────[0m
+[0;32mI (15712) MAIN: IMU  A[-0.93 -0.89 1.00] G[6.0 -230.0 103.0][0m
+[0;32mI (15712) MAIN: ADC  P[93424 38393 1393 79636] T[27.7 24.8][0m
+[0;32mI (15712) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (15712) MAIN: ─────────────────────────────[0m
+[0;32mI (16722) MAIN: IMU  A[0.70 -0.29 1.00] G[1.0 -228.0 67.0][0m
+[0;32mI (16722) MAIN: ADC  P[81939 12424 61363 61545] T[27.1 25.3][0m
+[0;32mI (16722) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (16722) MAIN: ─────────────────────────────[0m
+[0;32mI (17732) MAIN: IMU  A[-0.60 -0.26 1.00] G[145.0 -1.0 157.0][0m
+[0;32mI (17732) MAIN: ADC  P[87212 37636 99636 79303] T[24.5 26.3][0m
+[0;32mI (17732) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (17732) MAIN: ─────────────────────────────[0m
+[0;32mI (18742) MAIN: IMU  A[-0.35 0.81 1.00] G[80.0 110.0 -34.0][0m
+[0;32mI (18742) MAIN: ADC  P[18121 19727 89909 20545] T[25.3 29.8][0m
+[0;32mI (18742) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (18742) MAIN: ─────────────────────────────[0m
+[0;32mI (19752) MAIN: IMU  A[-0.33 -0.71 1.00] G[-57.0 -85.0 199.0][0m
+[0;32mI (19752) MAIN: ADC  P[98000 14818 34272 3060] T[24.1 24.8][0m
+[0;32mI (19752) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (19752) MAIN: ─────────────────────────────[0m
+[0;32mI (20622) NimBLE: GATT procedure initiated: exchange mtu[0m
+
+[0;32mI (20762) MAIN: IMU  A[0.50 -0.73 1.00] G[-234.0 -186.0 27.0][0m
+[0;32mI (20762) MAIN: ADC  P[82696 87545 32969 25545] T[21.2 28.2][0m
+[0;32mI (20762) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (20762) MAIN: ─────────────────────────────[0m
+[0;32mI (21772) MAIN: IMU  A[0.36 0.39 1.00] G[23.0 -175.0 156.0][0m
+[0;32mI (21772) MAIN: ADC  P[52212 70424 37484 39515] T[25.9 26.3][0m
+[0;32mI (21772) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (21772) MAIN: ─────────────────────────────[0m
+[0;32mI (22782) MAIN: IMU  A[-0.81 0.36 1.00] G[180.0 73.0 133.0][0m
+[0;32mI (22782) MAIN: ADC  P[78090 25666 28727 34969] T[24.7 27.6][0m
+[0;32mI (22782) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (22782) MAIN: ─────────────────────────────[0m
+[0;32mI (23792) MAIN: IMU  A[-0.43 0.73 1.00] G[-244.0 141.0 -250.0][0m
+[0;32mI (23792) MAIN: ADC  P[90666 60727 71454 82242] T[21.8 26.8][0m
+[0;32mI (23792) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (23792) MAIN: ─────────────────────────────[0m
+[0;32mI (24802) MAIN: IMU  A[0.84 -0.77 1.00] G[180.0 164.0 -95.0][0m
+[0;32mI (24802) MAIN: ADC  P[38757 1909 5424 2000] T[29.6 20.0][0m
+[0;32mI (24802) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (24802) MAIN: ─────────────────────────────[0m
+[0;32mI (25812) MAIN: IMU  A[0.04 0.90 1.00] G[36.0 -93.0 127.0][0m
+[0;32mI (25812) MAIN: ADC  P[91000 41060 69121 16030] T[25.7 22.9][0m
+[0;32mI (25812) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (25812) MAIN: ─────────────────────────────[0m
+[0;32mI (26822) MAIN: IMU  A[-0.27 0.61 1.00] G[-136.0 -65.0 -103.0][0m
+[0;32mI (26822) MAIN: ADC  P[28515 62181 16969 61090] T[28.3 21.0][0m
+[0;32mI (26822) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (26822) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (26822) MAIN: ─────────────────────────────[0m
+[0;32mI (26822) NimBLE: att_handle=16[0m
+
+[0;32mI (27832) MAIN: IMU  A[-0.02 -0.28 1.00] G[231.0 -70.0 41.0][0m
+[0;32mI (27832) MAIN: ADC  P[90121 56696 78939 99121] T[23.2 26.8][0m
+[0;32mI (27832) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (27832) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (27832) MAIN: ─────────────────────────────[0m
+[0;32mI (27832) NimBLE: att_handle=16[0m
+
+[0;32mI (28842) MAIN: IMU  A[-0.08 -0.49 1.00] G[143.0 -102.0 207.0][0m
+[0;32mI (28842) MAIN: ADC  P[22000 44424 25878 4939] T[29.2 23.2][0m
+[0;32mI (28842) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (28842) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (28842) MAIN: ─────────────────────────────[0m
+[0;32mI (28842) NimBLE: att_handle=16[0m
+
+[0;32mI (29852) MAIN: IMU  A[0.15 0.52 1.00] G[173.0 152.0 -46.0][0m
+[0;32mI (29852) MAIN: ADC  P[73424 15424 58242 72000] T[22.5 22.8][0m
+[0;32mI (29852) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (29852) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (29852) MAIN: ─────────────────────────────[0m
+[0;32mI (29852) NimBLE: att_handle=16[0m
+
+[0;32mI (30862) MAIN: IMU  A[0.62 0.82 1.00] G[79.0 27.0 -26.0][0m
+[0;32mI (30862) MAIN: ADC  P[15939 20454 8000 22969] T[23.7 23.8][0m
+[0;32mI (30862) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (30862) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (30862) MAIN: ─────────────────────────────[0m
+[0;32mI (30862) NimBLE: att_handle=16[0m
+
+[0;32mI (31872) MAIN: IMU  A[0.97 -0.20 1.00] G[-195.0 -76.0 -22.0][0m
+[0;32mI (31872) MAIN: ADC  P[75121 17424 96878 72060] T[28.2 27.6][0m
+[0;32mI (31872) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (31872) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (31872) MAIN: ─────────────────────────────[0m
+[0;32mI (31872) NimBLE: att_handle=16[0m
+
+[0;32mI (32882) MAIN: IMU  A[0.03 0.81 1.00] G[68.0 125.0 188.0][0m
+[0;32mI (32882) MAIN: ADC  P[12939 87333 65484 51424] T[28.8 27.1][0m
+[0;32mI (32882) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (32882) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (32882) MAIN: ─────────────────────────────[0m
+[0;32mI (32882) NimBLE: att_handle=16[0m
+
+[0;32mI (33892) MAIN: IMU  A[0.41 0.21 1.00] G[-4.0 28.0 220.0][0m
+[0;32mI (33892) MAIN: ADC  P[83515 80727 32696 79939] T[29.6 20.8][0m
+[0;32mI (33892) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (33892) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (33892) MAIN: ─────────────────────────────[0m
+[0;32mI (33892) NimBLE: att_handle=16[0m
+
+[0;33mW (33932) OTA_MGR: Unknown cmd: 0x01[0m
+[0;32mI (34902) MAIN: IMU  A[-0.78 0.85 1.00] G[240.0 103.0 -11.0][0m
+[0;32mI (34902) MAIN: ADC  P[8121 42636 49939 44151] T[27.4 22.1][0m
+[0;32mI (34902) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (34902) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (34902) MAIN: ─────────────────────────────[0m
+[0;32mI (34902) NimBLE: att_handle=16[0m
+
+[0;32mI (35912) MAIN: IMU  A[0.14 -0.02 1.00] G[33.0 -66.0 -235.0][0m
+[0;32mI (35912) MAIN: ADC  P[46303 84636 37666 28909] T[25.1 22.2][0m
+[0;32mI (35912) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (35912) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (35912) MAIN: ─────────────────────────────[0m
+[0;32mI (35912) NimBLE: att_handle=16[0m
+
+[0;32mI (36922) MAIN: IMU  A[0.84 -0.49 1.00] G[138.0 172.0 29.0][0m
+[0;32mI (36922) MAIN: ADC  P[75424 11666 2303 16636] T[24.6 20.0][0m
+[0;32mI (36922) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (36922) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (36922) MAIN: ─────────────────────────────[0m
+[0;32mI (36922) NimBLE: att_handle=16[0m
+
+[0;32mI (37932) MAIN: IMU  A[0.27 -0.18 1.00] G[242.0 182.0 -152.0][0m
+[0;32mI (37932) MAIN: ADC  P[46121 1363 89606 75303] T[28.6 23.5][0m
+[0;32mI (37932) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (37932) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (37932) MAIN: ─────────────────────────────[0m
+[0;32mI (37932) NimBLE: att_handle=16[0m
+
+[0;32mI (38942) MAIN: IMU  A[0.34 0.29 1.00] G[-131.0 -235.0 137.0][0m
+[0;32mI (38942) MAIN: ADC  P[24363 53848 60454 41757] T[28.8 28.3][0m
+[0;32mI (38942) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (38942) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (38942) MAIN: ─────────────────────────────[0m
+[0;32mI (38942) NimBLE: att_handle=16[0m
+
+[0;32mI (39952) MAIN: IMU  A[-0.73 0.17 1.00] G[-12.0 -52.0 233.0][0m
+[0;32mI (39952) MAIN: ADC  P[29545 72999 48333 71787] T[24.2 25.3][0m
+[0;32mI (39952) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (39952) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (39952) MAIN: ─────────────────────────────[0m
+[0;32mI (39952) NimBLE: att_handle=16[0m
+
+[0;32mI (40962) MAIN: IMU  A[-0.66 -0.24 1.00] G[-53.0 -50.0 227.0][0m
+[0;32mI (40962) MAIN: ADC  P[90969 71060 8787 5121] T[25.0 20.3][0m
+[0;32mI (40962) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (40962) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (40962) MAIN: ─────────────────────────────[0m
+[0;32mI (40962) NimBLE: att_handle=16[0m
+
+[0;32mI (41972) MAIN: IMU  A[-0.85 -0.08 1.00] G[-142.0 76.0 95.0][0m
+[0;32mI (41972) MAIN: ADC  P[53939 41090 21818 42303] T[23.6 24.5][0m
+[0;32mI (41972) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (41972) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (41972) MAIN: ─────────────────────────────[0m
+[0;32mI (41972) NimBLE: att_handle=16[0m
+
+[0;32mI (42982) MAIN: IMU  A[-0.82 0.71 1.00] G[-11.0 106.0 -127.0][0m
+[0;32mI (42982) MAIN: ADC  P[28575 89545 98757 63000] T[25.3 20.8][0m
+[0;32mI (42982) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (42982) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (42982) MAIN: ─────────────────────────────[0m
+[0;32mI (42982) NimBLE: att_handle=16[0m
+
+[0;32mI (43992) MAIN: IMU  A[0.28 0.76 1.00] G[125.0 21.0 -136.0][0m
+[0;32mI (43992) MAIN: ADC  P[49515 49090 6484 20303] T[24.3 27.5][0m
+[0;32mI (43992) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (43992) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (43992) MAIN: ─────────────────────────────[0m
+[0;32mI (43992) NimBLE: att_handle=16[0m
+
+[0;32mI (45002) MAIN: IMU  A[-0.18 -0.16 1.00] G[-176.0 -240.0 52.0][0m
+[0;32mI (45002) MAIN: ADC  P[29000 79333 5212 44424] T[23.6 23.3][0m
+[0;32mI (45002) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (45002) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (45002) MAIN: ─────────────────────────────[0m
+[0;32mI (45002) NimBLE: att_handle=16[0m
+
+[0;32mI (46012) MAIN: IMU  A[-0.79 -0.85 1.00] G[-147.0 -181.0 37.0][0m
+[0;32mI (46012) MAIN: ADC  P[25272 63969 82212 91424] T[20.5 22.9][0m
+[0;32mI (46012) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (46012) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (46012) MAIN: ─────────────────────────────[0m
+[0;32mI (46012) NimBLE: att_handle=16[0m
+
+[0;32mI (46172) OTA_MGR: OTA START[0m
+[0;32mI (46172) SYS_STATE: Transition: RUNNING → OTA[0m
+[0;32mI (46472) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (46472) NimBLE: att_handle=16[0m
+
+[0;32mI (47022) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (47522) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (48022) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (48522) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (49022) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (49522) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (50022) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (50522) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (51022) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (51522) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (52022) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (52522) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (53022) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (53522) MAIN: [sensor_task] OTA activo → sensores pausados[0m
+[0;32mI (53632) SYS_STATE: Transition: OTA → RUNNING[0m
+[0;32mI (53632) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (53632) NimBLE: att_handle=16[0m
+
+[0;32mI (54022) MAIN: IMU  A[0.09 0.77 1.00] G[-186.0 -233.0 208.0][0m
+[0;32mI (54022) MAIN: ADC  P[40272 91242 38484 54272] T[28.3 21.6][0m
+[0;32mI (54022) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (54022) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (54022) MAIN: ─────────────────────────────[0m
+[0;32mI (54022) NimBLE: att_handle=16[0m
+
+[0;32mI (55032) MAIN: IMU  A[0.88 0.91 1.00] G[-201.0 -227.0 199.0][0m
+[0;32mI (55032) MAIN: ADC  P[69939 62303 60303 15000] T[26.4 20.2][0m
+[0;32mI (55032) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (55032) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (55032) MAIN: ─────────────────────────────[0m
+[0;32mI (55032) NimBLE: att_handle=16[0m
+
+[0;32mI (56042) MAIN: IMU  A[-0.17 0.40 1.00] G[98.0 -161.0 15.0][0m
+[0;32mI (56042) MAIN: ADC  P[25545 74515 8151 86424] T[26.6 22.2][0m
+[0;32mI (56042) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (56042) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (56042) MAIN: ─────────────────────────────[0m
+[0;32mI (56042) NimBLE: att_handle=16[0m
+
+[0;32mI (57052) MAIN: IMU  A[-0.87 0.73 1.00] G[-172.0 -214.0 -67.0][0m
+[0;32mI (57052) MAIN: ADC  P[19030 58939 52030 64212] T[20.6 21.3][0m
+[0;32mI (57052) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (57052) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (57052) MAIN: ─────────────────────────────[0m
+[0;32mI (57052) NimBLE: att_handle=16[0m
+
+[0;32mI (58062) MAIN: IMU  A[-0.98 0.94 1.00] G[198.0 -152.0 136.0][0m
+[0;32mI (58062) MAIN: ADC  P[60333 17878 65090 94454] T[29.4 22.4][0m
+[0;32mI (58062) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (58062) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (58062) MAIN: ─────────────────────────────[0m
+[0;32mI (58062) NimBLE: att_handle=16[0m
+
+[0;32mI (59072) MAIN: IMU  A[0.54 0.08 1.00] G[167.0 -18.0 -135.0][0m
+[0;32mI (59072) MAIN: ADC  P[57060 65060 73878 18030] T[21.4 27.1][0m
+[0;32mI (59072) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (59072) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (59072) MAIN: ─────────────────────────────[0m
+[0;32mI (59072) NimBLE: att_handle=16[0m
+
+[0;32mI (60082) MAIN: IMU  A[-0.42 0.28 1.00] G[-170.0 118.0 -92.0][0m
+[0;32mI (60082) MAIN: ADC  P[41000 75696 94212 27969] T[24.3 26.6][0m
+[0;32mI (60082) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (60082) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (60082) MAIN: ─────────────────────────────[0m
+[0;32mI (60082) NimBLE: att_handle=16[0m
+
+[0;32mI (61092) MAIN: IMU  A[0.20 0.94 1.00] G[248.0 61.0 134.0][0m
+[0;32mI (61092) MAIN: ADC  P[77969 62181 50939 99939] T[24.3 27.8][0m
+[0;32mI (61092) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (61092) NimBLE: GATT procedure initiated: notify; [0m
+[0;32mI (61092) MAIN: ─────────────────────────────[0m
+[0;32mI (61092) NimBLE: att_handle=16[0m
+
+[0;32mI (62062) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (62062) NimBLE: disc_mode=2[0m
+[0;32mI (62062) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (62072) NimBLE: [0m
+
+[0;32mI (62102) MAIN: IMU  A[-0.55 0.29 1.00] G[-202.0 -46.0 41.0][0m
+[0;32mI (62102) MAIN: ADC  P[64757 18636 32333 49545] T[25.5 26.7][0m
+[0;32mI (62102) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (62102) MAIN: ─────────────────────────────[0m
+[0;32mI (63112) MAIN: IMU  A[0.92 0.95 1.00] G[-40.0 203.0 -227.0][0m
+[0;32mI (63112) MAIN: ADC  P[25000 85636 2636 21939] T[25.5 25.9][0m
+[0;32mI (63112) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (63112) MAIN: ─────────────────────────────[0m
+[0;32mI (64122) MAIN: IMU  A[0.44 0.77 1.00] G[211.0 36.0 -49.0][0m
+[0;32mI (64122) MAIN: ADC  P[20818 90 17696 21515] T[24.1 21.8][0m
+[0;32mI (64122) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (64122) MAIN: ─────────────────────────────[0m
+[0;32mI (65132) MAIN: IMU  A[0.89 -0.68 1.00] G[-97.0 -249.0 -227.0][0m
+[0;32mI (65132) MAIN: ADC  P[50787 19181 51333 71818] T[24.2 26.7][0m
+[0;32mI (65132) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (65132) MAIN: ─────────────────────────────[0m
+[0;32mI (66142) MAIN: IMU  A[-0.79 0.26 1.00] G[244.0 -134.0 25.0][0m
+[0;32mI (66142) MAIN: ADC  P[51212 47727 87636 37636] T[27.9 27.3][0m
+[0;32mI (66142) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (66142) MAIN: ─────────────────────────────[0m
+[0;32mI (67152) MAIN: IMU  A[-0.21 0.52 1.00] G[42.0 148.0 98.0][0m
+[0;32mI (67152) MAIN: ADC  P[32303 52787 26696 61636] T[21.4 22.0][0m
+[0;32mI (67152) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (67152) MAIN: ─────────────────────────────[0m
+[0;32mI (68162) MAIN: IMU  A[-0.75 0.96 1.00] G[-245.0 203.0 -196.0][0m
+[0;32mI (68162) MAIN: ADC  P[12272 93606 45545 9545] T[23.1 20.4][0m
+[0;32mI (68162) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (68162) MAIN: ─────────────────────────────[0m
+[0;32mI (68202) NimBLE: GATT procedure initiated: exchange mtu[0m
+
+[0;32mI (69172) MAIN: IMU  A[0.13 -0.40 1.00] G[-171.0 -148.0 -191.0][0m
+[0;32mI (69172) MAIN: ADC  P[32909 30787 14090 38666] T[25.3 24.7][0m
+[0;32mI (69172) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (69172) MAIN: ─────────────────────────────[0m
+[0;32mI (70182) MAIN: IMU  A[0.78 -0.66 1.00] G[125.0 -183.0 -7.0][0m
+[0;32mI (70182) MAIN: ADC  P[55090 8575 31212 53484] T[29.6 21.6][0m
+[0;32mI (70182) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (70182) MAIN: ─────────────────────────────[0m
+[0;32mI (71192) MAIN: IMU  A[-0.45 -0.65 1.00] G[-115.0 14.0 -3.0][0m
+[0;32mI (71192) MAIN: ADC  P[87484 90939 25545 47818] T[22.7 20.2][0m
+[0;32mI (71192) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (71192) MAIN: ─────────────────────────────[0m
+[0;32mI (72202) MAIN: IMU  A[-0.75 -0.16 1.00] G[-23.0 -219.0 136.0][0m
+[0;32mI (72202) MAIN: ADC  P[79181 45969 27969 24757] T[21.8 23.8][0m
+[0;32mI (72202) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (72202) MAIN: ─────────────────────────────[0m
+[0;32mI (73212) MAIN: IMU  A[-0.07 0.17 1.00] G[-111.0 -31.0 -40.0][0m
+[0;32mI (73212) MAIN: ADC  P[21969 2151 7696 40939] T[24.7 25.4][0m
+[0;32mI (73212) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (73212) MAIN: ─────────────────────────────[0m
+[0;32mI (74222) MAIN: IMU  A[0.61 -0.08 1.00] G[15.0 -89.0 190.0][0m
+[0;32mI (74222) MAIN: ADC  P[94454 36878 92000 95363] T[23.4 23.5][0m
+[0;32mI (74222) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (74222) MAIN: ─────────────────────────────[0m
+[0;32mI (75232) MAIN: IMU  A[0.68 -0.66 1.00] G[38.0 -132.0 125.0][0m
+[0;32mI (75232) MAIN: ADC  P[56878 47909 34030 4909] T[20.4 23.1][0m
+[0;32mI (75232) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (75232) MAIN: ─────────────────────────────[0m
+[0;32mI (76242) MAIN: IMU  A[0.66 -0.25 1.00] G[223.0 157.0 -242.0][0m
+[0;32mI (76242) MAIN: ADC  P[78393 90727 54303 86363] T[29.4 24.6][0m
+[0;32mI (76242) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (76242) MAIN: ─────────────────────────────[0m
+[0;32mI (77252) MAIN: IMU  A[0.19 0.07 1.00] G[145.0 237.0 176.0][0m
+[0;32mI (77252) MAIN: ADC  P[66242 55393 8181 49545] T[21.0 26.0][0m
+[0;32mI (77252) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (77252) MAIN: ─────────────────────────────[0m
+[0;32mI (78262) MAIN: IMU  A[0.33 0.24 1.00] G[-208.0 31.0 -58.0][0m
+[0;32mI (78262) MAIN: ADC  P[51454 96333 60363 15121] T[24.1 27.1][0m
+[0;32mI (78262) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (78262) MAIN: ─────────────────────────────[0m
+[0;32mI (79272) MAIN: IMU  A[0.57 0.46 1.00] G[8.0 -63.0 183.0][0m
+[0;32mI (79272) MAIN: ADC  P[11878 26272 18424 97272] T[25.6 21.2][0m
+[0;32mI (79272) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (79272) MAIN: ─────────────────────────────[0m
+[0;32mI (80282) MAIN: IMU  A[-0.31 0.31 1.00] G[-85.0 51.0 -249.0][0m
+[0;32mI (80282) MAIN: ADC  P[18878 8424 16303 75818] T[25.2 28.0][0m
+[0;32mI (80282) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (80282) MAIN: ─────────────────────────────[0m
+[0;32mI (81292) MAIN: IMU  A[0.49 -0.02 1.00] G[-24.0 -147.0 71.0][0m
+[0;32mI (81292) MAIN: ADC  P[59484 91939 87212 97575] T[29.9 20.3][0m
+[0;32mI (81292) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (81292) MAIN: ─────────────────────────────[0m
+[0;32mI (82302) MAIN: IMU  A[0.86 0.01 1.00] G[107.0 -45.0 -210.0][0m
+[0;32mI (82302) MAIN: ADC  P[67818 87878 96636 37666] T[24.4 27.5][0m
+[0;32mI (82302) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (82302) MAIN: ─────────────────────────────[0m
+[0;32mI (83312) MAIN: IMU  A[0.56 -0.80 1.00] G[-90.0 97.0 -249.0][0m
+[0;32mI (83312) MAIN: ADC  P[21696 55484 69727 10909] T[25.2 24.2][0m
+[0;32mI (83312) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (83312) MAIN: ─────────────────────────────[0m
+[0;32mI (84322) MAIN: IMU  A[0.55 0.19 1.00] G[-139.0 41.0 -56.0][0m
+[0;32mI (84322) MAIN: ADC  P[21818 48818 30454 83151] T[27.5 27.7][0m
+[0;32mI (84322) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (84322) MAIN: ─────────────────────────────[0m
+[0;32mI (85332) MAIN: IMU  A[0.05 0.82 1.00] G[-105.0 172.0 44.0][0m
+[0;32mI (85332) MAIN: ADC  P[63212 57000 93090 39303] T[23.4 20.4][0m
+[0;32mI (85332) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (85332) MAIN: ─────────────────────────────[0m
+[0;32mI (86342) MAIN: IMU  A[-0.05 -0.16 1.00] G[36.0 47.0 -7.0][0m
+[0;32mI (86342) MAIN: ADC  P[89909 91818 78060 9848] T[24.8 22.5][0m
+[0;32mI (86342) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (86342) MAIN: ─────────────────────────────[0m
+[0;32mI (87352) MAIN: IMU  A[0.71 -0.32 1.00] G[132.0 96.0 75.0][0m
+[0;32mI (87352) MAIN: ADC  P[83151 94121 79121 34636] T[25.8 27.0][0m
+[0;32mI (87352) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (87352) MAIN: ─────────────────────────────[0m
+[0;32mI (88362) MAIN: IMU  A[0.17 -0.70 1.00] G[-227.0 66.0 144.0][0m
+[0;32mI (88362) MAIN: ADC  P[13969 34969 83363 47121] T[28.3 20.0][0m
+[0;32mI (88362) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (88362) MAIN: ─────────────────────────────[0m
+[0;32mI (89372) MAIN: IMU  A[-0.56 0.47 1.00] G[71.0 -116.0 3.0][0m
+[0;32mI (89372) MAIN: ADC  P[42818 62333 4545 84242] T[23.3 21.1][0m
+[0;32mI (89372) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (89372) MAIN: ─────────────────────────────[0m
+[0;32mI (90382) MAIN: IMU  A[-0.11 0.89 1.00] G[-88.0 -81.0 -192.0][0m
+[0;32mI (90382) MAIN: ADC  P[17696 46848 84545 46636] T[25.3 28.9][0m
+[0;32mI (90382) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (90382) MAIN: ─────────────────────────────[0m
+[0;32mI (91392) MAIN: IMU  A[-0.40 0.94 1.00] G[-63.0 -204.0 4.0][0m
+[0;32mI (91392) MAIN: ADC  P[15969 89272 91818 15545] T[28.2 23.3][0m
+[0;32mI (91392) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (91392) MAIN: ─────────────────────────────[0m
+[0;32mI (92402) MAIN: IMU  A[0.90 0.43 1.00] G[-75.0 154.0 76.0][0m
+[0;32mI (92402) MAIN: ADC  P[64303 61878 57878 2212] T[27.8 25.4][0m
+[0;32mI (92402) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (92402) MAIN: ─────────────────────────────[0m
+[0;32mI (93412) MAIN: IMU  A[-0.25 -0.34 1.00] G[193.0 -103.0 205.0][0m
+[0;32mI (93412) MAIN: ADC  P[30000 91242 94636 98181] T[21.2 28.0][0m
+[0;32mI (93412) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (93412) MAIN: ─────────────────────────────[0m
+[0;32mI (94422) MAIN: IMU  A[-0.84 -0.57 1.00] G[-58.0 -52.0 -237.0][0m
+[0;32mI (94422) MAIN: ADC  P[76666 49121 75848 75121] T[24.7 24.9][0m
+[0;32mI (94422) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (94422) MAIN: ─────────────────────────────[0m
+[0;32mI (95432) MAIN: IMU  A[0.31 -0.98 1.00] G[10.0 45.0 -11.0][0m
+[0;32mI (95432) MAIN: ADC  P[87727 32636 70878 31060] T[29.3 21.6][0m
+[0;32mI (95432) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (95432) MAIN: ─────────────────────────────[0m
+[0;32mI (96442) MAIN: IMU  A[0.52 -0.85 1.00] G[-106.0 -84.0 -214.0][0m
+[0;32mI (96442) MAIN: ADC  P[11484 11454 1969 71666] T[29.9 22.9][0m
+[0;32mI (96442) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (96442) MAIN: ─────────────────────────────[0m
+[0;32mI (97452) MAIN: IMU  A[0.11 0.43 1.00] G[-145.0 131.0 -49.0][0m
+[0;32mI (97452) MAIN: ADC  P[15939 69787 50606 81363] T[26.9 27.2][0m
+[0;32mI (97452) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (97452) MAIN: ─────────────────────────────[0m
+[0;32mI (98462) MAIN: IMU  A[-0.37 0.69 1.00] G[73.0 -163.0 203.0][0m
+[0;32mI (98462) MAIN: ADC  P[10000 52545 23030 17696] T[24.2 22.1][0m
+[0;32mI (98462) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (98462) MAIN: ─────────────────────────────[0m
+[0;32mI (99472) MAIN: IMU  A[-0.50 0.90 1.00] G[44.0 72.0 141.0][0m
+[0;32mI (99472) MAIN: ADC  P[24848 33818 45484 81727] T[24.4 27.7][0m
+[0;32mI (99472) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (99472) MAIN: ─────────────────────────────[0m
+[0;32mI (100482) MAIN: IMU  A[-0.43 -0.15 1.00] G[-193.0 -235.0 -123.0][0m
+[0;32mI (100482) MAIN: ADC  P[59575 26787 88060 7666] T[29.1 25.1][0m
+[0;32mI (100482) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (100482) MAIN: ─────────────────────────────[0m
+[0;32mI (101492) MAIN: IMU  A[-0.38 -0.36 1.00] G[116.0 52.0 92.0][0m
+[0;32mI (101492) MAIN: ADC  P[93727 5484 1484 7303] T[29.0 27.1][0m
+[0;32mI (101492) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (101492) MAIN: ─────────────────────────────[0m
+[0;32mI (102502) MAIN: IMU  A[-0.56 -0.89 1.00] G[54.0 45.0 -53.0][0m
+[0;32mI (102502) MAIN: ADC  P[1303 25939 21393 54121] T[29.9 21.3][0m
+[0;32mI (102502) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (102502) MAIN: ─────────────────────────────[0m
+[0;32mI (103512) MAIN: IMU  A[-0.54 -0.92 1.00] G[147.0 -239.0 11.0][0m
+[0;32mI (103512) MAIN: ADC  P[40696 515 7939 8242] T[29.1 27.0][0m
+[0;32mI (103512) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (103512) MAIN: ─────────────────────────────[0m
+[0;32mI (104522) MAIN: IMU  A[0.70 0.15 1.00] G[74.0 -46.0 -210.0][0m
+[0;32mI (104522) MAIN: ADC  P[43030 78666 47363 53030] T[27.3 22.5][0m
+[0;32mI (104522) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (104522) MAIN: ─────────────────────────────[0m
+[0;32mI (105532) MAIN: IMU  A[-0.49 -0.52 1.00] G[-249.0 -239.0 79.0][0m
+[0;32mI (105532) MAIN: ADC  P[94272 75424 78636 70272] T[26.3 27.0][0m
+[0;32mI (105532) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (105532) MAIN: ─────────────────────────────[0m
+[0;32mI (106542) MAIN: IMU  A[0.31 0.54 1.00] G[184.0 72.0 -103.0][0m
+[0;32mI (106542) MAIN: ADC  P[94606 69060 48303 96939] T[26.9 21.4][0m
+[0;32mI (106542) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (106542) MAIN: ─────────────────────────────[0m
+[0;32mI (107552) MAIN: IMU  A[-0.03 -0.27 1.00] G[-145.0 75.0 -212.0][0m
+[0;32mI (107552) MAIN: ADC  P[12121 18000 71060 79333] T[26.3 26.6][0m
+[0;32mI (107552) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (107552) MAIN: ─────────────────────────────[0m
+[0;32mI (108562) MAIN: IMU  A[-0.56 0.61 1.00] G[79.0 -163.0 -157.0][0m
+[0;32mI (108562) MAIN: ADC  P[21212 89939 28060 53454] T[29.7 23.6][0m
+[0;32mI (108562) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (108562) MAIN: ─────────────────────────────[0m
+[0;32mI (109572) MAIN: IMU  A[-0.75 -0.38 1.00] G[89.0 -118.0 204.0][0m
+[0;32mI (109572) MAIN: ADC  P[20424 45030 61909 2272] T[28.5 29.7][0m
+[0;32mI (109572) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (109572) MAIN: ─────────────────────────────[0m
+[0;32mI (110582) MAIN: IMU  A[-0.72 0.23 1.00] G[101.0 123.0 -24.0][0m
+[0;32mI (110582) MAIN: ADC  P[83939 10878 39939 47090] T[26.7 24.4][0m
+[0;32mI (110582) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (110582) MAIN: ─────────────────────────────[0m
+[0;32mI (111592) MAIN: IMU  A[0.26 -0.20 1.00] G[-89.0 147.0 152.0][0m
+[0;32mI (111592) MAIN: ADC  P[43636 67060 90000 97545] T[21.4 25.1][0m
+[0;32mI (111592) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (111592) MAIN: ─────────────────────────────[0m
+[0;32mI (112602) MAIN: IMU  A[-0.78 0.76 1.00] G[242.0 167.0 -205.0][0m
+[0;32mI (112602) MAIN: ADC  P[44151 27515 90575 58424] T[29.5 21.6][0m
+[0;32mI (112602) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (112602) MAIN: ─────────────────────────────[0m
+[0;32mI (113612) MAIN: IMU  A[0.70 0.14 1.00] G[-145.0 -5.0 11.0][0m
+[0;32mI (113612) MAIN: ADC  P[21000 90 22000 31090] T[27.5 27.7][0m
+[0;32mI (113612) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (113612) MAIN: ─────────────────────────────[0m
+[0;32mI (114622) MAIN: IMU  A[0.97 -0.35 1.00] G[-110.0 189.0 242.0][0m
+[0;32mI (114622) MAIN: ADC  P[64696 63212 11212 55424] T[25.5 28.1][0m
+[0;32mI (114622) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (114622) MAIN: ─────────────────────────────[0m
+[0;32mI (115632) MAIN: IMU  A[0.17 0.22 1.00] G[33.0 156.0 -197.0][0m
+[0;32mI (115632) MAIN: ADC  P[78424 86181 94424 42484] T[25.6 22.0][0m
+[0;32mI (115632) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (115632) MAIN: ─────────────────────────────[0m
+[0;32mI (116642) MAIN: IMU  A[-0.24 -0.31 1.00] G[210.0 66.0 229.0][0m
+[0;32mI (116642) MAIN: ADC  P[70696 41090 99333 61484] T[29.8 22.0][0m
+[0;32mI (116642) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (116642) MAIN: ─────────────────────────────[0m
+[0;32mI (117652) MAIN: IMU  A[-0.84 -0.65 1.00] G[26.0 -241.0 -189.0][0m
+[0;32mI (117652) MAIN: ADC  P[60090 5757 42393 51939] T[26.1 20.1][0m
+[0;32mI (117652) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (117652) MAIN: ─────────────────────────────[0m
+[0;32mI (118662) MAIN: IMU  A[-0.33 -0.49 1.00] G[95.0 133.0 194.0][0m
+[0;32mI (118662) MAIN: ADC  P[86636 96030 73121 58848] T[20.1 24.9][0m
+[0;32mI (118662) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (118662) MAIN: ─────────────────────────────[0m
+[0;32mI (119672) MAIN: IMU  A[0.20 -0.33 1.00] G[-56.0 -132.0 168.0][0m
+[0;32mI (119672) MAIN: ADC  P[20333 90090 3333 28606] T[23.8 26.7][0m
+[0;32mI (119672) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (119672) MAIN: ─────────────────────────────[0m
+[0;32mI (120682) MAIN: IMU  A[-0.44 0.22 1.00] G[169.0 -244.0 36.0][0m
+[0;32mI (120682) MAIN: ADC  P[62363 55121 22878 34939] T[22.9 20.7][0m
+[0;32mI (120682) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (120682) MAIN: ─────────────────────────────[0m
+[0;32mI (121692) MAIN: IMU  A[-0.65 -0.98 1.00] G[126.0 -224.0 -95.0][0m
+[0;32mI (121692) MAIN: ADC  P[98212 7727 9333 6000] T[26.8 29.7][0m
+[0;32mI (121692) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (121692) MAIN: ─────────────────────────────[0m
+[0;32mI (122702) MAIN: IMU  A[-0.69 -0.50 1.00] G[177.0 1.0 125.0][0m
+[0;32mI (122702) MAIN: ADC  P[52848 78242 57909 52272] T[27.4 26.7][0m
+[0;32mI (122702) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (122702) MAIN: ─────────────────────────────[0m
+[0;32mI (123712) MAIN: IMU  A[0.63 0.71 1.00] G[13.0 -196.0 245.0][0m
+[0;32mI (123712) MAIN: ADC  P[89181 19242 54090 72757] T[21.5 21.0][0m
+[0;32mI (123712) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (123712) MAIN: ─────────────────────────────[0m
+[0;32mI (124722) MAIN: IMU  A[-0.29 -0.17 1.00] G[-221.0 -170.0 -84.0][0m
+[0;32mI (124722) MAIN: ADC  P[47181 71515 40303 43272] T[29.3 29.7][0m
+[0;32mI (124722) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (124722) MAIN: ─────────────────────────────[0m
+[0;32mI (125732) MAIN: IMU  A[-0.76 0.48 1.00] G[95.0 -57.0 -82.0][0m
+[0;32mI (125732) MAIN: ADC  P[80424 23696 22696 85060] T[27.0 24.1][0m
+[0;32mI (125732) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (125732) MAIN: ─────────────────────────────[0m
+[0;32mI (126742) MAIN: IMU  A[-0.85 -0.53 1.00] G[45.0 65.0 -122.0][0m
+[0;32mI (126742) MAIN: ADC  P[38454 85121 35606 75757] T[25.0 21.0][0m
+[0;32mI (126742) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (126742) MAIN: ─────────────────────────────[0m
+[0;32mI (127752) MAIN: IMU  A[-0.86 0.22 1.00] G[-71.0 -202.0 -192.0][0m
+[0;32mI (127752) MAIN: ADC  P[42333 96000 91939 39757] T[26.5 22.7][0m
+[0;32mI (127752) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (127752) MAIN: ─────────────────────────────[0m
+[0;32mI (128762) MAIN: IMU  A[0.61 0.69 1.00] G[35.0 -246.0 -104.0][0m
+[0;32mI (128762) MAIN: ADC  P[19393 87151 26303 36727] T[25.3 20.6][0m
+[0;32mI (128762) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (128762) MAIN: ─────────────────────────────[0m
+[0;32mI (129772) MAIN: IMU  A[0.89 -0.81 1.00] G[-62.0 46.0 -184.0][0m
+[0;32mI (129772) MAIN: ADC  P[2787 52848 79878 49212] T[24.0 27.1][0m
+[0;32mI (129772) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (129772) MAIN: ─────────────────────────────[0m
+[0;32mI (130782) MAIN: IMU  A[0.84 -0.75 1.00] G[113.0 -224.0 148.0][0m
+[0;32mI (130782) MAIN: ADC  P[50363 82575 52242 93090] T[27.2 26.1][0m
+[0;32mI (130782) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (130782) MAIN: ─────────────────────────────[0m
+[0;32mI (131792) MAIN: IMU  A[-0.72 1.00 1.00] G[-175.0 155.0 83.0][0m
+[0;32mI (131792) MAIN: ADC  P[40030 30545 1636 67393] T[26.0 24.4][0m
+[0;32mI (131792) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (131792) MAIN: ─────────────────────────────[0m
+[0;32mI (132802) MAIN: IMU  A[0.36 -0.33 1.00] G[-162.0 -166.0 -192.0][0m
+[0;32mI (132802) MAIN: ADC  P[46818 28909 73757 121] T[24.4 28.8][0m
+[0;32mI (132802) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (132802) MAIN: ─────────────────────────────[0m
+[0;32mI (133812) MAIN: IMU  A[-0.20 0.16 1.00] G[48.0 -101.0 60.0][0m
+[0;32mI (133812) MAIN: ADC  P[50939 50151 87121 89121] T[25.8 24.0][0m
+[0;32mI (133812) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (133812) MAIN: ─────────────────────────────[0m
+[0;32mI (134822) MAIN: IMU  A[0.34 0.22 1.00] G[124.0 225.0 -25.0][0m
+[0;32mI (134822) MAIN: ADC  P[68151 68424 9666 23454] T[29.8 27.9][0m
+[0;32mI (134822) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (134822) MAIN: ─────────────────────────────[0m
+[0;32mI (135832) MAIN: IMU  A[0.65 0.73 1.00] G[155.0 -137.0 81.0][0m
+[0;32mI (135832) MAIN: ADC  P[44030 72030 79000 19484] T[20.0 20.3][0m
+[0;32mI (135832) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (135832) MAIN: ─────────────────────────────[0m
+[0;32mI (136842) MAIN: IMU  A[-0.12 0.19 1.00] G[-170.0 193.0 171.0][0m
+[0;32mI (136842) MAIN: ADC  P[58636 60090 20363 50666] T[25.1 24.7][0m
+[0;32mI (136842) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (136842) MAIN: ─────────────────────────────[0m
+[0;32mI (137852) MAIN: IMU  A[-0.04 0.85 1.00] G[114.0 -85.0 -142.0][0m
+[0;32mI (137852) MAIN: ADC  P[32939 53090 13575 77848] T[23.5 27.6][0m
+[0;32mI (137852) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (137852) MAIN: ─────────────────────────────[0m
+[0;32mI (138862) MAIN: IMU  A[-0.13 0.07 1.00] G[9.0 156.0 203.0][0m
+[0;32mI (138862) MAIN: ADC  P[40727 37272 88696 40818] T[29.9 24.3][0m
+[0;32mI (138862) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (138862) MAIN: ─────────────────────────────[0m
+[0;32mI (139872) MAIN: IMU  A[-0.38 -0.02 1.00] G[176.0 -46.0 57.0][0m
+[0;32mI (139872) MAIN: ADC  P[22969 91212 80727 7242] T[23.1 25.0][0m
+[0;32mI (139872) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (139872) MAIN: ─────────────────────────────[0m
+[0;32mI (140882) MAIN: IMU  A[-0.01 0.75 1.00] G[158.0 -161.0 150.0][0m
+[0;32mI (140882) MAIN: ADC  P[25303 14878 47636 84757] T[24.4 24.7][0m
+[0;32mI (140882) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (140882) MAIN: ─────────────────────────────[0m
+[0;32mI (141892) MAIN: IMU  A[0.18 -0.21 1.00] G[109.0 -98.0 3.0][0m
+[0;32mI (141892) MAIN: ADC  P[51121 22303 39060 2151] T[29.8 24.8][0m
+[0;32mI (141892) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (141892) MAIN: ─────────────────────────────[0m
+[0;32mI (142902) MAIN: IMU  A[-0.53 -0.59 1.00] G[65.0 -224.0 120.0][0m
+[0;32mI (142902) MAIN: ADC  P[82181 5666 36000 51303] T[29.2 23.9][0m
+[0;32mI (142902) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (142902) MAIN: ─────────────────────────────[0m
+[0;32mI (143912) MAIN: IMU  A[0.20 -0.08 1.00] G[-130.0 -246.0 145.0][0m
+[0;32mI (143912) MAIN: ADC  P[10606 28424 65454 90515] T[28.1 27.5][0m
+[0;32mI (143912) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (143912) MAIN: ─────────────────────────────[0m
+[0;32mI (144922) MAIN: IMU  A[0.10 0.36 1.00] G[162.0 219.0 221.0][0m
+[0;32mI (144922) MAIN: ADC  P[25454 90757 31000 81787] T[23.0 29.5][0m
+[0;32mI (144922) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (144922) MAIN: ─────────────────────────────[0m
+[0;32mI (145932) MAIN: IMU  A[0.52 -0.01 1.00] G[147.0 -7.0 -57.0][0m
+[0;32mI (145932) MAIN: ADC  P[4151 6333 32818 84272] T[29.0 28.0][0m
+[0;32mI (145932) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (145932) MAIN: ─────────────────────────────[0m
+[0;32mI (146942) MAIN: IMU  A[-0.08 -0.06 1.00] G[28.0 -19.0 -240.0][0m
+[0;32mI (146942) MAIN: ADC  P[48969 6060 50757 73121] T[21.4 20.6][0m
+[0;32mI (146942) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (146942) MAIN: ─────────────────────────────[0m
+[0;32mI (147952) MAIN: IMU  A[-0.47 0.90 1.00] G[98.0 120.0 -97.0][0m
+[0;32mI (147952) MAIN: ADC  P[14181 27696 50181 10090] T[27.9 27.7][0m
+[0;32mI (147952) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (147952) MAIN: ─────────────────────────────[0m
+[0;32mI (148962) MAIN: IMU  A[-0.36 0.69 1.00] G[-223.0 -159.0 -156.0][0m
+[0;32mI (148962) MAIN: ADC  P[9515 58272 7363 9909] T[20.7 28.8][0m
+[0;32mI (148962) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (148962) MAIN: ─────────────────────────────[0m
+[0;32mI (149972) MAIN: IMU  A[-0.40 -0.91 1.00] G[-242.0 133.0 -45.0][0m
+[0;32mI (149972) MAIN: ADC  P[63030 9181 68454 38666] T[22.1 26.3][0m
+[0;32mI (149972) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (149972) MAIN: ─────────────────────────────[0m
+[0;32mI (150982) MAIN: IMU  A[-0.36 -0.52 1.00] G[115.0 -78.0 -3.0][0m
+[0;32mI (150982) MAIN: ADC  P[39878 25121 95242 47303] T[22.8 22.9][0m
+[0;32mI (150982) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (150982) MAIN: ─────────────────────────────[0m
+[0;32mI (151992) MAIN: IMU  A[0.00 0.77 1.00] G[138.0 -26.0 142.0][0m
+[0;32mI (151992) MAIN: ADC  P[96787 32878 82454 44939] T[24.0 22.0][0m
+[0;32mI (151992) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (151992) MAIN: ─────────────────────────────[0m
+[0;32mI (153002) MAIN: IMU  A[-0.83 -0.11 1.00] G[182.0 198.0 196.0][0m
+[0;32mI (153002) MAIN: ADC  P[28333 5606 76787 75030] T[27.3 21.7][0m
+[0;32mI (153002) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (153002) MAIN: ─────────────────────────────[0m
+[0;32mI (154012) MAIN: IMU  A[0.82 -0.30 1.00] G[-124.0 81.0 -100.0][0m
+[0;32mI (154012) MAIN: ADC  P[44333 54424 40000 91303] T[23.7 27.8][0m
+[0;32mI (154012) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (154012) MAIN: ─────────────────────────────[0m
+[0;32mI (155022) MAIN: IMU  A[-0.24 0.15 1.00] G[-187.0 71.0 -93.0][0m
+[0;32mI (155022) MAIN: ADC  P[40939 8242 59606 53818] T[28.0 26.6][0m
+[0;32mI (155022) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (155022) MAIN: ─────────────────────────────[0m
+[0;32mI (156032) MAIN: IMU  A[-0.14 -0.28 1.00] G[37.0 -52.0 -134.0][0m
+[0;32mI (156032) MAIN: ADC  P[78636 28575 31666 515] T[22.9 24.5][0m
+[0;32mI (156032) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (156032) MAIN: ─────────────────────────────[0m
+[0;32mI (157042) MAIN: IMU  A[-0.91 -0.27 1.00] G[-55.0 -95.0 234.0][0m
+[0;32mI (157042) MAIN: ADC  P[7575 87424 67545 32000] T[25.7 26.3][0m
+[0;32mI (157042) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (157042) MAIN: ─────────────────────────────[0m
+[0;32mI (158052) MAIN: IMU  A[-0.44 -0.33 1.00] G[-238.0 146.0 -48.0][0m
+[0;32mI (158052) MAIN: ADC  P[99454 69848 9787 3484] T[21.6 25.5][0m
+[0;32mI (158052) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (158052) MAIN: ─────────────────────────────[0m
+[0;32mI (159062) MAIN: IMU  A[-0.06 0.07 1.00] G[-50.0 122.0 -127.0][0m
+[0;32mI (159062) MAIN: ADC  P[67181 57636 74909 64515] T[21.1 20.1][0m
+[0;32mI (159062) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (159062) MAIN: ─────────────────────────────[0m
+[0;32mI (160072) MAIN: IMU  A[-0.64 -0.16 1.00] G[93.0 86.0 -138.0][0m
+[0;32mI (160072) MAIN: ADC  P[52999 2424 41363 71757] T[27.7 22.2][0m
+[0;32mI (160072) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (160072) MAIN: ─────────────────────────────[0m
+[0;32mI (161082) MAIN: IMU  A[0.88 0.53 1.00] G[-50.0 126.0 133.0][0m
+[0;32mI (161082) MAIN: ADC  P[8272 69393 51333 97909] T[24.7 29.4][0m
+[0;32mI (161082) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (161082) MAIN: ─────────────────────────────[0m
+[0;32mI (162092) MAIN: IMU  A[-0.28 0.94 1.00] G[135.0 -42.0 -157.0][0m
+[0;32mI (162092) MAIN: ADC  P[48515 10969 24939 56454] T[20.3 26.0][0m
+[0;32mI (162092) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (162092) MAIN: ─────────────────────────────[0m
+[0;32mI (163102) MAIN: IMU  A[-0.90 0.81 1.00] G[238.0 -125.0 33.0][0m
+[0;32mI (163102) MAIN: ADC  P[62090 95121 69424 71818] T[21.2 21.7][0m
+[0;32mI (163102) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (163102) MAIN: ─────────────────────────────[0m
+[0;32mI (164112) MAIN: IMU  A[-0.96 -0.43 1.00] G[-3.0 13.0 191.0][0m
+[0;32mI (164112) MAIN: ADC  P[70242 78939 32151 72818] T[23.7 25.0][0m
+[0;32mI (164112) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (164112) MAIN: ─────────────────────────────[0m
+[0;32mI (165122) MAIN: IMU  A[-0.93 -0.92 1.00] G[208.0 -164.0 126.0][0m
+[0;32mI (165122) MAIN: ADC  P[9636 60181 21181 37969] T[27.0 20.8][0m
+[0;32mI (165122) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (165122) MAIN: ─────────────────────────────[0m
+[0;32mI (166132) MAIN: IMU  A[-0.70 0.39 1.00] G[-70.0 175.0 -5.0][0m
+[0;32mI (166132) MAIN: ADC  P[11151 15121 65060 71939] T[23.8 24.8][0m
+[0;32mI (166132) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (166132) MAIN: ─────────────────────────────[0m
+[0;32mI (167142) MAIN: IMU  A[0.70 0.05 1.00] G[117.0 -181.0 -92.0][0m
+[0;32mI (167142) MAIN: ADC  P[67000 2181 81454 81272] T[21.6 27.5][0m
+[0;32mI (167142) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (167142) MAIN: ─────────────────────────────[0m
+[0;32mI (168152) MAIN: IMU  A[0.31 0.88 1.00] G[195.0 -143.0 -131.0][0m
+[0;32mI (168152) MAIN: ADC  P[37515 6878 10242 65424] T[22.1 28.5][0m
+[0;32mI (168152) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (168152) MAIN: ─────────────────────────────[0m
+[0;32mI (169162) MAIN: IMU  A[-0.63 0.56 1.00] G[-43.0 152.0 -162.0][0m
+[0;32mI (169162) MAIN: ADC  P[53666 80242 36242 90545] T[20.4 23.4][0m
+[0;32mI (169162) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (169162) MAIN: ─────────────────────────────[0m
+[0;32mI (170172) MAIN: IMU  A[-0.38 0.62 1.00] G[-181.0 -190.0 7.0][0m
+[0;32mI (170172) MAIN: ADC  P[63393 24242 40090 51121] T[27.5 20.8][0m
+[0;32mI (170172) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (170172) MAIN: ─────────────────────────────[0m
+[0;32mI (171182) MAIN: IMU  A[0.38 0.69 1.00] G[-241.0 193.0 218.0][0m
+[0;32mI (171182) MAIN: ADC  P[10818 25636 6545 18272] T[21.9 29.4][0m
+[0;32mI (171182) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (171182) MAIN: ─────────────────────────────[0m
+[0;32mI (172192) MAIN: IMU  A[0.27 -0.70 1.00] G[-216.0 59.0 51.0][0m
+[0;32mI (172192) MAIN: ADC  P[10212 86454 53030 24060] T[24.1 27.8][0m
+[0;32mI (172192) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (172192) MAIN: ─────────────────────────────[0m
+[0;32mI (173202) MAIN: IMU  A[0.28 0.37 1.00] G[53.0 99.0 59.0][0m
+[0;32mI (173202) MAIN: ADC  P[72969 88727 35636 77303] T[21.7 26.6][0m
+[0;32mI (173202) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (173202) MAIN: ─────────────────────────────[0m
+[0;32mI (174212) MAIN: IMU  A[-0.93 -0.34 1.00] G[-56.0 198.0 121.0][0m
+[0;32mI (174212) MAIN: ADC  P[93090 65666 78696 58878] T[27.6 21.9][0m
+[0;32mI (174212) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (174212) MAIN: ─────────────────────────────[0m
+[0;32mI (175222) MAIN: IMU  A[-0.38 -0.04 1.00] G[-120.0 197.0 54.0][0m
+[0;32mI (175222) MAIN: ADC  P[90696 61424 13606 60181] T[28.1 27.8][0m
+[0;32mI (175222) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (175222) MAIN: ─────────────────────────────[0m
+[0;32mI (176232) MAIN: IMU  A[-0.81 0.34 1.00] G[-178.0 -171.0 -26.0][0m
+[0;32mI (176232) MAIN: ADC  P[25393 89515 55818 70606] T[24.9 28.0][0m
+[0;32mI (176232) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (176232) MAIN: ─────────────────────────────[0m
+[0;32mI (177242) MAIN: IMU  A[0.02 -0.24 1.00] G[-161.0 -113.0 -67.0][0m
+[0;32mI (177242) MAIN: ADC  P[38636 19696 77545 86030] T[24.7 21.9][0m
+[0;32mI (177242) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (177242) MAIN: ─────────────────────────────[0m
+[0;32mI (178252) MAIN: IMU  A[-0.62 0.85 1.00] G[67.0 13.0 -146.0][0m
+[0;32mI (178252) MAIN: ADC  P[52787 67242 69545 26848] T[29.5 25.9][0m
+[0;32mI (178252) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (178252) MAIN: ─────────────────────────────[0m
+[0;32mI (179262) MAIN: IMU  A[0.95 0.82 1.00] G[-37.0 -116.0 -12.0][0m
+[0;32mI (179262) MAIN: ADC  P[83606 71696 86515 45545] T[27.2 29.6][0m
+[0;32mI (179262) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (179262) MAIN: ─────────────────────────────[0m
+[0;32mI (180272) MAIN: IMU  A[0.38 0.35 1.00] G[248.0 -146.0 -19.0][0m
+[0;32mI (180272) MAIN: ADC  P[2454 2303 45818 1242] T[20.3 22.3][0m
+[0;32mI (180272) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (180272) MAIN: ─────────────────────────────[0m
+[0;32mI (181282) MAIN: IMU  A[-0.65 -0.04 1.00] G[56.0 -112.0 162.0][0m
+[0;32mI (181282) MAIN: ADC  P[77090 30454 74272 7333] T[27.7 25.0][0m
+[0;32mI (181282) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (181282) MAIN: ─────────────────────────────[0m
+[0;32mI (182292) MAIN: IMU  A[-0.17 0.21 1.00] G[17.0 -124.0 204.0][0m
+[0;32mI (182292) MAIN: ADC  P[62454 86515 22636 64727] T[23.9 21.5][0m
+[0;32mI (182292) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (182292) MAIN: ─────────────────────────────[0m
+[0;32mI (183302) MAIN: IMU  A[0.59 -0.16 1.00] G[-82.0 121.0 179.0][0m
+[0;32mI (183302) MAIN: ADC  P[78666 14030 21272 91030] T[29.9 27.2][0m
+[0;32mI (183302) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (183302) MAIN: ─────────────────────────────[0m
+[0;32mI (184312) MAIN: IMU  A[-0.65 0.30 1.00] G[-152.0 125.0 225.0][0m
+[0;32mI (184312) MAIN: ADC  P[84969 72030 61606 60727] T[29.7 29.5][0m
+[0;32mI (184312) MAIN: PKT  34 bytes → BLE OK[0m
+[0;32mI (184312) MAIN: ─────────────────────────────[0m

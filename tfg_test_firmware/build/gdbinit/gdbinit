@@ -1,0 +1,2 @@
+source /home/pelvira/Documents/Universidad/tfg_test_firmware/build/gdbinit/symbols
+source /home/pelvira/Documents/Universidad/tfg_test_firmware/build/gdbinit/connect

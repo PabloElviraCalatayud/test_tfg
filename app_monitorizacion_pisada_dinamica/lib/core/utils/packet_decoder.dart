@@ -1,0 +1,246 @@
+// lib/core/utils/packet_decoder.dart
+//
+// Espejo exacto del bit-packing definido en packet_builder.h / packet_builder.c
+// del firmware ESP32-NimBLE.
+//
+// Formato del paquete (34 bytes):
+//   [0]      type     (0x01 = sensor, 0x02 = ACK, 0x03 = status)
+//   [1-2]    seq      uint16 big-endian
+//   [3-6]    ts_ms    uint32 big-endian
+//   [7-32]   payload  26 bytes, 205 bits empaquetados
+//   [33]     CRC-8    polinomio 0x07, init 0xFF
+//
+// Layout del payload (bits acumulados):
+//   Accel X/Y/Z   : 3 × 12 bits, offset 1600, scale 100  → g
+//   Gyro  X/Y/Z   : 3 × 13 bits, offset 4000, scale 2    → °/s
+//   Mag   X/Y/Z   : 3 × 14 bits, offset 8000, scale 1000 → Gauss
+//   Pressure[0-3] : 4 × 17 bits, 0–100000 g directo
+//   Thermistor[0-1]: 2 × 10 bits, ×10 → °C
+//   Total: 36+39+42+68+20 = 205 bits
+
+import 'dart:math';
+import 'dart:typed_data';
+import '../../shared/models/sensor_data.dart';
+
+// ─── Constantes del protocolo ─────────────────────────────────────────────────
+
+const int kPktTypeSensor = 0x01;
+const int kPktTypeAck    = 0x02;
+const int kPktTypeStatus = 0x03;
+const int kPktSensorSize = 34;
+const int kPktHeaderBytes = 7;
+const int kPktPayloadBytes = 26;
+
+// OTA commands (Flutter → ESP32 via CHR_CMD write)
+const int kOtaCmdStart = 0x10; // [0x10][4B total_size LE]
+const int kOtaCmdChunk = 0x11; // [0x11][2B chunk_idx LE][data...]
+const int kOtaCmdEnd   = 0x12; // [0x12]
+const int kOtaCmdAbort = 0x13; // [0x13]
+
+// OTA ACK types (ESP32 → Flutter via CHR_SENSOR notification)
+const int kOtaAckStart = 0x10;
+const int kOtaAckChunk = 0x11;
+const int kOtaAckEnd   = 0x12;
+
+// ─── Resultado de decodificación ──────────────────────────────────────────────
+
+sealed class DecodedPacket {}
+
+class SensorPacket extends DecodedPacket {
+  final int seq;
+  final int tsMs;
+  final SensorData data;
+  SensorPacket({required this.seq, required this.tsMs, required this.data});
+}
+
+class AckPacket extends DecodedPacket {
+  final int ackType;
+  final int status; // 0 = OK
+  AckPacket({required this.ackType, required this.status});
+}
+
+class UnknownPacket extends DecodedPacket {
+  final int type;
+  UnknownPacket(this.type);
+}
+
+// ─── Decoder ─────────────────────────────────────────────────────────────────
+
+class PacketDecoder {
+
+  // ── CRC-8, polinomio 0x07, init 0xFF — igual que packet_builder.c ─────────
+  static int crc8(Uint8List data, int len) {
+    int crc = 0xFF;
+    for (int i = 0; i < len; i++) {
+      crc ^= data[i];
+      for (int j = 0; j < 8; j++) {
+        if ((crc & 0x80) != 0) {
+          crc = ((crc << 1) ^ 0x07) & 0xFF;
+        } else {
+          crc = (crc << 1) & 0xFF;
+        }
+      }
+    }
+    return crc;
+  }
+
+  // ── Leer N bits desde la posición bitPos del buffer ───────────────────────
+  // Replica exactamente bitpack_write() en sentido inverso:
+  //   bit_pos 0 → byte 0, bit 7 (MSB)
+  //   bit_pos 1 → byte 0, bit 6
+  //   ...
+  static int _readBits(Uint8List buf, int bitPos, int numBits) {
+    int result = 0;
+    for (int i = numBits - 1; i >= 0; i--) {
+      final byteIdx = bitPos ~/ 8;
+      final bitIdx  = 7 - (bitPos % 8);
+      if (byteIdx < buf.length && (buf[byteIdx] >> bitIdx) & 1 == 1) {
+        result |= (1 << i);
+      }
+      bitPos++;
+    }
+    return result;
+  }
+
+  // ── Punto de entrada principal ────────────────────────────────────────────
+  static DecodedPacket? decode(List<int> raw) {
+    if (raw.isEmpty) return null;
+    final buf = Uint8List.fromList(raw);
+
+    final type = buf[0];
+
+    if (type == kPktTypeAck && buf.length >= 4) {
+      // ACK packet: [type][ack_type][status][crc]
+      final expectedCrc = crc8(buf, 3);
+      if (buf[3] != expectedCrc) return null; // CRC error
+      return AckPacket(ackType: buf[1], status: buf[2]);
+    }
+
+    if (type == kPktTypeSensor) {
+      return _decodeSensorPacket(buf);
+    }
+
+    return UnknownPacket(type);
+  }
+
+  static SensorPacket? _decodeSensorPacket(Uint8List buf) {
+    if (buf.length < kPktSensorSize) return null;
+
+    // ── Verificar CRC ─────────────────────────────────────────────────────
+    final expectedCrc = crc8(buf, kPktHeaderBytes + kPktPayloadBytes);
+    if (buf[33] != expectedCrc) return null;
+
+    // ── Header ────────────────────────────────────────────────────────────
+    final seq  = (buf[1] << 8) | buf[2];
+    final tsMs = (buf[3] << 24) | (buf[4] << 16) | (buf[5] << 8) | buf[6];
+
+    // ── Payload ───────────────────────────────────────────────────────────
+    final payload = buf.sublist(kPktHeaderBytes, kPktHeaderBytes + kPktPayloadBytes);
+    int bitPos = 0;
+
+    // Acelerómetro — 3 × 12 bits, offset 1600, scale 100 → g → ×9.81 = m/s²
+    final axG = (_readBits(payload, bitPos,      12) - 1600) / 100.0; bitPos += 12;
+    final ayG = (_readBits(payload, bitPos,      12) - 1600) / 100.0; bitPos += 12;
+    final azG = (_readBits(payload, bitPos,      12) - 1600) / 100.0; bitPos += 12;
+
+    // Giróscopo — 3 × 13 bits, offset 4000, scale 2 → °/s
+    final gx = (_readBits(payload, bitPos, 13) - 4000) / 2.0; bitPos += 13;
+    final gy = (_readBits(payload, bitPos, 13) - 4000) / 2.0; bitPos += 13;
+    final gz = (_readBits(payload, bitPos, 13) - 4000) / 2.0; bitPos += 13;
+
+    // Magnetómetro — 3 × 14 bits, offset 8000, scale 1000 → Gauss → ×100 = µT
+    final mx = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
+    final my = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
+    final mz = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
+
+    // Presión — 4 × 17 bits, valor directo en gramos (0–100000)
+    final List<double> pressure = [];
+    for (int i = 0; i < 4; i++) {
+      pressure.add(_readBits(payload, bitPos, 17).toDouble()); bitPos += 17;
+    }
+
+    // Termistores — 2 × 10 bits, ×10 → °C
+    final List<double> temperature = [];
+    for (int i = 0; i < 2; i++) {
+      temperature.add(_readBits(payload, bitPos, 10) / 10.0); bitPos += 10;
+    }
+
+    // ── Orientación derivada ──────────────────────────────────────────────
+    // Acelerómetro en g, convertir a m/s² para el modelo
+    final accX = axG * 9.81;
+    final accY = ayG * 9.81;
+    final accZ = azG * 9.81;
+
+    // Roll y pitch desde acelerómetro (aproximación estática)
+    final roll  = atan2(ayG, azG) * 180.0 / pi;
+    final pitch = atan2(-axG, sqrt(ayG * ayG + azG * azG)) * 180.0 / pi;
+    // Yaw simplificado desde magnetómetro (asumiendo dispositivo nivelado)
+    final yaw   = atan2(-my, mx) * 180.0 / pi;
+
+    // ── Mapeo de 4 sensores de presión → 15 posiciones FSR ───────────────
+    // NOTA: adaptar cuando el firmware soporte 15 sensores.
+    // Distribución anatómica provisional:
+    //   pressure[0] → talón      → FSR índices 12, 13, 14
+    //   pressure[1] → arco       → FSR índices  9, 10, 11
+    //   pressure[2] → metatarso  → FSR índices  4,  5,  6,  7,  8
+    //   pressure[3] → dedos      → FSR índices  0,  1,  2,  3
+    const double kMaxPressureG = 100000.0;
+    final fsr = List<double>.filled(15, 0.0);
+    final pNorm = pressure.map((g) => (g / kMaxPressureG).clamp(0.0, 1.0)).toList();
+    for (final i in [12, 13, 14]) fsr[i] = pNorm[0]; // talón
+    for (final i in [9, 10, 11])  fsr[i] = pNorm[1]; // arco
+    for (final i in [4, 5, 6, 7, 8]) fsr[i] = pNorm[2]; // metatarso
+    for (final i in [0, 1, 2, 3]) fsr[i] = pNorm[3]; // dedos
+
+    // ── Mapeo de 2 termistores → 5 posiciones ────────────────────────────
+    // NOTA: adaptar cuando el firmware soporte 5 sensores.
+    //   temperature[0] → talón (idx 0) + arco (idx 1)
+    //   temperature[1] → metatarso (idx 2) + antepié (idx 3) + dedos (idx 4)
+    final temps = [
+      temperature[0],
+      temperature[0],
+      temperature[1],
+      temperature[1],
+      temperature[1],
+    ];
+
+    return SensorPacket(
+      seq: seq,
+      tsMs: tsMs,
+      data: SensorData(
+        fsr: fsr,
+        temperature: temps,
+        accX: accX, accY: accY, accZ: accZ,
+        gyroX: gx,  gyroY: gy,  gyroZ: gz,
+        magX: mx,   magY: my,   magZ: mz,
+        roll: roll, pitch: pitch, yaw: yaw,
+        stepCount: 0, // detectado por lógica de pasos (futura)
+        stepGoal: 10000,
+      ),
+    );
+  }
+
+  // ── Constructores de comandos OTA ─────────────────────────────────────────
+
+  static Uint8List buildOtaStart(int totalSize) {
+    final buf = Uint8List(5);
+    buf[0] = kOtaCmdStart;
+    buf[1] = (totalSize      ) & 0xFF;
+    buf[2] = (totalSize >>  8) & 0xFF;
+    buf[3] = (totalSize >> 16) & 0xFF;
+    buf[4] = (totalSize >> 24) & 0xFF;
+    return buf;
+  }
+
+  static Uint8List buildOtaChunk(int chunkIdx, Uint8List data) {
+    final buf = Uint8List(3 + data.length);
+    buf[0] = kOtaCmdChunk;
+    buf[1] = chunkIdx & 0xFF;
+    buf[2] = (chunkIdx >> 8) & 0xFF;
+    buf.setRange(3, buf.length, data);
+    return buf;
+  }
+
+  static Uint8List buildOtaEnd()   => Uint8List.fromList([kOtaCmdEnd]);
+  static Uint8List buildOtaAbort() => Uint8List.fromList([kOtaCmdAbort]);
+}
