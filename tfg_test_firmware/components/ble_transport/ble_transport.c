@@ -1,5 +1,7 @@
 #include "ble_transport.h"
 
+#include "system_state.h"
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
@@ -124,24 +126,36 @@ static int gap_event_cb(struct ble_gap_event *event, void *arg) {
 
     case BLE_GAP_EVENT_CONNECT:
       if (event->connect.status == 0) {
+        ESP_LOGI(TAG, "Cliente conectado");
         s_conn_handle = event->connect.conn_handle;
+
+        system_state_set(SYS_STATE_CONNECTED);
+
         ble_att_set_preferred_mtu(247);
         ble_gattc_exchange_mtu(s_conn_handle, NULL, NULL);
+
       } else {
+        ESP_LOGW(TAG, "Fallo conexión");
         s_conn_handle = BLE_HS_CONN_HANDLE_NONE;
         das_ble_advertise();
       }
       break;
 
     case BLE_GAP_EVENT_DISCONNECT:
+      ESP_LOGI(TAG, "Cliente desconectado");
+
       s_conn_handle = BLE_HS_CONN_HANDLE_NONE;
       s_notify_enabled = false;
+
+      system_state_set(SYS_STATE_RUNNING);
+
       das_ble_advertise();
       break;
 
     case BLE_GAP_EVENT_SUBSCRIBE:
       if (event->subscribe.attr_handle == s_sensor_val_hdl) {
         s_notify_enabled = event->subscribe.cur_notify;
+        ESP_LOGI(TAG, "Notify %s", s_notify_enabled ? "ON" : "OFF");
       }
       break;
 

@@ -36,9 +36,17 @@ class BleService {
   StreamSubscription?       _notifySub;
   StreamSubscription?       _connStateSub;
   StreamSubscription?       _scanSub;
-  BleConnectionState        _state = BleConnectionState.disconnected;
+
+  BleConnectionState _state = BleConnectionState.disconnected;
 
   final _ackCtrl = StreamController<AckPacket>.broadcast();
+
+  bool _isDisconnecting = false;
+  bool _isConnecting    = false;
+
+  void _log(String msg) {
+    print('[BLE] $msg');
+  }
 
   Future<bool> requestPermissions() async {
     final statuses = await [
@@ -72,12 +80,14 @@ class BleService {
     _scanSub = FlutterBluePlus.scanResults.listen((results) {
       for (final r in results) {
         if (r.device.platformName.isEmpty) continue;
+
         seen[r.device.remoteId.str] = BleDeviceInfo(
           id: r.device.remoteId.str,
           name: r.device.platformName,
           rssi: r.rssi,
         );
       }
+
       _scanResultsCtrl.add(seen.values.toList());
     });
 
@@ -90,7 +100,9 @@ class BleService {
 
   Future<void> stopScan() async {
     await FlutterBluePlus.stopScan();
-    _scanSub?.cancel();
+    await _scanSub?.cancel();
+    _scanSub = null;
+
     if (_state == BleConnectionState.scanning) {
       _setState(BleConnectionState.disconnected);
     }
@@ -98,23 +110,54 @@ class BleService {
 
   Future<void> connectToDevice(String deviceId) async {
     await stopScan();
+
+    if (_state == BleConnectionState.connecting) {
+      _log('Ya conectando, ignorando...');
+      return;
+    }
+
     _setState(BleConnectionState.connecting);
+    _isDisconnecting = false;
+    _isConnecting = true;
 
     try {
       final device = BluetoothDevice.fromId(deviceId);
       _device = device;
 
-      _connStateSub?.cancel();
+      await _connStateSub?.cancel();
       _connStateSub = device.connectionState.listen((state) {
+        _log('Device state update: $state');
+
         if (state == BluetoothConnectionState.disconnected) {
+          if (_isConnecting) {
+            _log('⚠️ Ignorando disconnect durante conexión');
+            return;
+          }
           _onDisconnected();
         }
       });
 
-      await device.connect(timeout: const Duration(seconds: 15));
+      _log('Conectando...');
+      await device.connect(
+        timeout: const Duration(seconds: 15),
+        autoConnect: false,
+      );
+
+      if (_device == null) {
+        _log('⚠️ Conexión abortada (device null)');
+        return;
+      }
+
+      _log('Solicitando MTU...');
       await device.requestMtu(247);
 
+      _log('Descubriendo servicios...');
       final services = await device.discoverServices();
+
+      if (_device == null) {
+        _log('⚠️ Conexión abortada tras discoverServices');
+        return;
+      }
 
       final service = services.firstWhere(
             (s) => s.serviceUuid == Guid(kServiceUuid),
@@ -128,43 +171,77 @@ class BleService {
             (c) => c.characteristicUuid == Guid(kCmdUuid),
       );
 
+      _log('Activando notificaciones...');
       await _sensorChr!.setNotifyValue(true);
 
-      _notifySub?.cancel();
+      await _notifySub?.cancel();
       _notifySub = _sensorChr!.lastValueStream.listen(_onNotification);
 
+      _isConnecting = false;
+
       _setState(BleConnectionState.connected);
+      _log('✅ Conectado correctamente');
 
     } catch (e) {
-      _onDisconnected();
+      _isConnecting = false;
+      _log('❌ Error conectando: $e');
+      await _forceCleanup();
       rethrow;
     }
   }
 
   Future<void> disconnect() async {
-    final deviceToDisconnect = _device;
-    if (deviceToDisconnect == null) return;
+    if (_device == null) return;
+
+    if (_isDisconnecting) {
+      _log('Ya en proceso de desconexión...');
+      return;
+    }
+
+    _isDisconnecting = true;
+    _log('🔌 Desconectando manualmente...');
 
     try {
-      await deviceToDisconnect.disconnect();
-    } catch (_) {}
+      await _device!.disconnect();
+    } catch (e) {
+      _log('Error en disconnect(): $e');
+    }
   }
 
   void _onDisconnected() {
-    _notifySub?.cancel();
+    if (_isDisconnecting) {
+      _log('✅ Desconectado correctamente');
+    } else {
+      _log('⚠️ Desconexión inesperada');
+    }
+
+    _forceCleanup();
+  }
+
+  Future<void> _forceCleanup() async {
+    _log('🧹 Limpiando recursos BLE...');
+
+    try { await _notifySub?.cancel(); } catch (_) {}
     _notifySub = null;
 
-    _connStateSub?.cancel();
+    try { await _connStateSub?.cancel(); } catch (_) {}
     _connStateSub = null;
 
-    _scanSub?.cancel();
+    try { await _scanSub?.cancel(); } catch (_) {}
     _scanSub = null;
 
     _sensorChr = null;
-    _cmdChr    = null;
-    _device    = null;
+    _cmdChr = null;
+    _device = null;
 
-    _setState(BleConnectionState.disconnected);
+    _isDisconnecting = false;
+    _isConnecting = false;
+
+    if (_state != BleConnectionState.disconnected) {
+      _setState(BleConnectionState.disconnected);
+    }
+
+    _log('🧹 Cleanup completo');
   }
 
   void _onNotification(List<int> raw) {
@@ -184,6 +261,8 @@ class BleService {
   }
 
   void _setState(BleConnectionState s) {
+    if (_state == s) return;
+    _log('Estado: $_state -> $s');
     _state = s;
     _connectionStateCtrl.add(s);
   }
@@ -201,6 +280,7 @@ class BleService {
     _otaProgressCtrl.close();
     _ackCtrl.close();
   }
+
   Future<void> flashFirmware(
       Uint8List firmware, {
         required Function(double) onProgress,
@@ -214,7 +294,6 @@ class BleService {
       final totalSize = firmware.length;
       int offset = 0;
 
-      // ─── 1. Comando inicio OTA (opcional según tu firmware ESP32) ───
       await writeCmd(Uint8List.fromList([0x01]));
 
       while (offset < totalSize) {
@@ -224,10 +303,8 @@ class BleService {
 
         final chunk = firmware.sublist(offset, end);
 
-        // ─── 2. Enviar chunk ───
         await writeCmd(chunk);
 
-        // ─── 3. Esperar ACK del ESP32 ───
         await _ackCtrl.stream.first.timeout(
           const Duration(seconds: 3),
           onTimeout: () {
@@ -242,7 +319,6 @@ class BleService {
         _otaProgressCtrl.add(progress);
       }
 
-      // ─── 4. Finalizar OTA ───
       await writeCmd(Uint8List.fromList([0x02]));
 
     } catch (e) {

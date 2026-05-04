@@ -6,4 +6,5 @@ idf_component_register(
     nvs_flash
     freertos
     log
+    system_state
 )
