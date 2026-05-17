@@ -171,6 +171,8 @@ $<TARGET_FILE:__idf_packet_builder>
 $<TARGET_FILE:idf::drivers>
 $<TARGET_FILE:idf::sensors_mock>
 $<TARGET_FILE:__idf_drivers>
+$<TARGET_FILE:idf::sensor_manager>
 $<TARGET_FILE:idf::main>
 $<TARGET_FILE:__idf_ota_manager>
 $<TARGET_FILE:__idf_sensors_mock>
+$<TARGET_FILE:__idf_sensor_manager>

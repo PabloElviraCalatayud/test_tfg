@@ -1,55 +1,63 @@
-// lib/shared/providers/sensor_provider.dart
 import 'dart:async';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/sensor_data.dart';
+import '../models/mqtt_message.dart';
 import '../../core/utils/fake_data.dart';
 import '../../core/utils/packet_decoder.dart';
 import '../../core/services/ble_service.dart';
 import 'device_provider.dart';
+import '../../core/services/mqtt_service.dart';
 
-/// Alterna entre datos simulados y datos BLE reales.
 final useFakeDataProvider = StateProvider<bool>((ref) => true);
-
-/// Pasos acumulados durante la sesión de datos simulados.
 final _extraStepsProvider = StateProvider<int>((ref) => 0);
-
-/// Objetivo de pasos editable por el usuario.
 final stepGoalProvider = StateProvider<int>((ref) => FakeData.stepGoal);
 
-/// Proveedor principal de datos de sensores.
-/// • useFakeData = true  → genera datos aleatorios cada 1 segundo.
-/// • useFakeData = false → espera notificaciones BLE reales del ESP32.
 final sensorDataProvider =
 StateNotifierProvider<SensorDataNotifier, SensorData>((ref) {
   return SensorDataNotifier(ref);
 });
 
-class SensorDataNotifier extends StateNotifier<SensorData> {
+class SensorDataNotifier extends StateNotifier<SensorData>
+    with WidgetsBindingObserver {
   final Ref _ref;
-  Timer?              _fakeTimer;
+  Timer? _fakeTimer;
   StreamSubscription? _bleSub;
 
   SensorDataNotifier(this._ref)
       : super(SensorData.fromSnapshot(FakeData.generateRandom())) {
+    WidgetsBinding.instance.addObserver(this);
     Future.microtask(_init);
   }
 
   Future<void> _init() async {
     if (!mounted) return;
 
-    // Reacciona a cambios del toggle simulado/real
     _ref.listen<bool>(useFakeDataProvider, (_, useFake) {
-      _stopAll();
-      if (useFake) {
-        _startFakeTimer();
-      } else {
-        _startBleListener();
-        // Estado neutro inmediato hasta que llegue el primer paquete BLE
-        state = SensorData.fromSnapshot(FakeData.zero());
-      }
+      _restartFlow();
     });
 
-    // Arranca según el valor inicial
+    _restartFlow();
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // LIFECYCLE
+  // ─────────────────────────────────────────────────────────
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _onResume();
+    }
+  }
+
+  void _onResume() {
+    _restartFlow();
+  }
+
+  void _restartFlow() {
+    _stopAll();
+
     if (_ref.read(useFakeDataProvider)) {
       _startFakeTimer();
     } else {
@@ -58,43 +66,132 @@ class SensorDataNotifier extends StateNotifier<SensorData> {
     }
   }
 
-  // ── Datos simulados ──────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────
+  // MQTT
+  // ─────────────────────────────────────────────────────────
+
+  void _publish(MqttMessage msg) {
+    final mqtt = _ref.read(mqttServiceProvider);
+    if (!mqtt.isConnected) return;
+
+    mqtt.publish(msg.topic, msg.toJson());
+  }
+
+  void _publishAll(SensorData data) {
+    final deviceId = _ref.read(deviceProvider).deviceId ?? "unknown";
+    final baseTopic = "esp32/$deviceId";
+    final now = DateTime.now();
+
+    _publish(MqttMessage(
+      topic: "$baseTopic/pressure",
+      deviceId: deviceId,
+      timestamp: now,
+      data: {
+        "fsr": data.fsr,
+      },
+    ));
+
+    _publish(MqttMessage(
+      topic: "$baseTopic/temperature",
+      deviceId: deviceId,
+      timestamp: now,
+      data: {
+        "temperature": data.temperature,
+      },
+    ));
+
+    _publish(MqttMessage(
+      topic: "$baseTopic/imu",
+      deviceId: deviceId,
+      timestamp: now,
+      data: {
+        "acc": [data.accX, data.accY, data.accZ],
+        "gyro": [data.gyroX, data.gyroY, data.gyroZ],
+        "mag": [data.magX, data.magY, data.magZ],
+      },
+    ));
+
+    _publish(MqttMessage(
+      topic: "$baseTopic/orientation",
+      deviceId: deviceId,
+      timestamp: now,
+      data: {
+        "roll": data.roll,
+        "pitch": data.pitch,
+        "yaw": data.yaw,
+      },
+    ));
+
+    _publish(MqttMessage(
+      topic: "$baseTopic/steps",
+      deviceId: deviceId,
+      timestamp: now,
+      data: {
+        "steps": data.stepCount,
+        "goal": data.stepGoal,
+      },
+    ));
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // FAKE DATA
+  // ─────────────────────────────────────────────────────────
 
   void _startFakeTimer() {
     _fakeTimer?.cancel();
     _fakeTimer = Timer.periodic(const Duration(seconds: 1), (_) => _fakeTick());
-    _fakeTick(); // primer valor inmediato
+    _fakeTick();
   }
 
   void _fakeTick() {
     if (!mounted) return;
+
     final extra = _ref.read(_extraStepsProvider) + 1;
     _ref.read(_extraStepsProvider.notifier).state = extra;
-    state = SensorData.fromSnapshot(
+
+    final newData = SensorData.fromSnapshot(
       FakeData.generateRandom(stepCount: 6842 + extra),
     );
+
+    state = newData;
+    _publishAll(newData);
   }
 
-  // ── Datos BLE reales ──────────────────────────────────────────────────────────
+  // ─────────────────────────────────────────────────────────
+  // BLE DATA
+  // ─────────────────────────────────────────────────────────
 
   void _startBleListener() {
     final ble = _ref.read(bleServiceProvider);
+
     _bleSub?.cancel();
     _bleSub = ble.packetStream.listen((packet) {
       if (!mounted) return;
+
       if (packet is SensorPacket) {
-        // Preservar el objetivo de pasos que el usuario puede haber editado
         final goal = _ref.read(stepGoalProvider);
-        state = SensorData(
-          fsr:         packet.data.fsr,
+
+        final newData = SensorData(
+          fsr: packet.data.fsr,
           temperature: packet.data.temperature,
-          accX:  packet.data.accX,  accY: packet.data.accY,  accZ: packet.data.accZ,
-          gyroX: packet.data.gyroX, gyroY: packet.data.gyroY, gyroZ: packet.data.gyroZ,
-          magX:  packet.data.magX,  magY: packet.data.magY,  magZ: packet.data.magZ,
-          roll:  packet.data.roll,  pitch: packet.data.pitch, yaw: packet.data.yaw,
+          accX: packet.data.accX,
+          accY: packet.data.accY,
+          accZ: packet.data.accZ,
+          gyroX: packet.data.gyroX,
+          gyroY: packet.data.gyroY,
+          gyroZ: packet.data.gyroZ,
+          magX: packet.data.magX,
+          magY: packet.data.magY,
+          magZ: packet.data.magZ,
+          roll: packet.data.roll,
+          pitch: packet.data.pitch,
+          yaw: packet.data.yaw,
           stepCount: packet.data.stepCount,
-          stepGoal:  goal,
+          stepGoal: goal,
         );
+
+        state = newData;
+        _publishAll(newData);
       }
     });
   }
@@ -108,6 +205,7 @@ class SensorDataNotifier extends StateNotifier<SensorData> {
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _stopAll();
     super.dispose();
   }

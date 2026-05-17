@@ -1,0 +1,225 @@
+Command: /home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/pelvira/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyACM0 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/tfg_test_firmware.elf /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/bootloader/bootloader.elf -m '/home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python' '/home/pelvira/esp/esp-idf/tools/idf.py'
+[0;33m--- esp-idf-monitor 1.9.0 on /dev/ttyACM0 115200[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H[0m
+[0m--- 0x40056f59: [0;33mmemcpy[0m[0m in [0;32mROM[0m
+[0m--- 0x403c8700: [0;33m_stext[0m[0m at [0;32m??[0m[0m:[1;31m?[0m
+[0m--- 0x403c8924: [0;33mcall_start_cpu0[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/bootloader/subproject/main/bootloader_start.c[0m[0m:[1;31m25[0m
+[0m--- 0x4202ed0e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x4202f124: [0;33mtask_wdt_isr[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x4037b5e5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x42007298: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/hal/esp32s3/include/hal/uart_ll.h[0m[0m:[1;31m422[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x420081a1: [0;33muart_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x42047bde: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420093ac: [0;33mconsole_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4204759e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x42046c11: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x42046c62: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42047261: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x4204e2c3: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x4204dcca: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42047615: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4038715b: [0;33mesp_log_va[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x420571ad: [0;33ms_i2c_asynchronous_transaction[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m889[0m
+[0m--- 0x42057e7b: [0;33mi2c_master_transmit_receive[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m1250[0m
+[0m--- 0x4202ada1: [0;33mread_regs[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m39[0m
+[0m--- 0x4202b03f: [0;33mimu_driver_read[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m92[0m
+[0m--- 0x4202ac7c: [0;33msensor_task_fn[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/sensor_manager.c[0m[0m:[1;31m36[0m
+[0m--- 0x40381101: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x4202ed0e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x4202f124: [0;33mtask_wdt_isr[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x4037b5e5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x42007292: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/hal/esp32s3/include/hal/uart_ll.h[0m[0m:[1;31m422[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x420081a1: [0;33muart_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x42047bde: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420093ac: [0;33mconsole_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4204759e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x42046c11: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x42046c62: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42047261: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x4204e2c3: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x4204dcca: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42047615: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4038715b: [0;33mesp_log_va[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x4202b062: [0;33mimu_driver_read[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m92[0m
+[0m--- 0x4202ac7c: [0;33msensor_task_fn[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/sensor_manager.c[0m[0m:[1;31m36[0m
+[0m--- 0x40381101: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x4202ed0e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x4202f124: [0;33mtask_wdt_isr[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x4037b5e5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x42007292: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/hal/esp32s3/include/hal/uart_ll.h[0m[0m:[1;31m422[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x420081a1: [0;33muart_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x42047bde: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420093ac: [0;33mconsole_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4204759e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x42046c11: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x42046c62: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42047261: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x4204e2c3: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x4204dcca: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42047615: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4038715b: [0;33mesp_log_va[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x42057e9f: [0;33mi2c_master_transmit_receive[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m1250[0m
+[0m--- 0x4202ada1: [0;33mread_regs[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m39[0m
+[0m--- 0x4202b03f: [0;33mimu_driver_read[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m92[0m
+[0m--- 0x4202ac7c: [0;33msensor_task_fn[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/sensor_manager.c[0m[0m:[1;31m36[0m
+[0m--- 0x40381101: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x4202ed0e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x4202f124: [0;33mtask_wdt_isr[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x4037b5e5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x42007292: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/hal/esp32s3/include/hal/uart_ll.h[0m[0m:[1;31m422[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x420081a1: [0;33muart_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x42047bde: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420093ac: [0;33mconsole_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4204759e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x42046c11: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x42046c62: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42047261: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x4204e2c3: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x4204dcca: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42047615: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4038715b: [0;33mesp_log_va[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x4202b062: [0;33mimu_driver_read[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m92[0m
+[0m--- 0x4202ac7c: [0;33msensor_task_fn[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/sensor_manager.c[0m[0m:[1;31m36[0m
+[0m--- 0x40381101: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x4202ed0e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x4202f124: [0;33mtask_wdt_isr[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x4037b5e5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x42007292: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/hal/esp32s3/include/hal/uart_ll.h[0m[0m:[1;31m422[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x420081a1: [0;33muart_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x42047bde: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420093ac: [0;33mconsole_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4204759e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x42046c11: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x42046c62: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42047261: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x4204e2c3: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x4204dcca: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42047615: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4038715b: [0;33mesp_log_va[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x4202b062: [0;33mimu_driver_read[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m92[0m
+[0m--- 0x4202ac7c: [0;33msensor_task_fn[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/sensor_manager.c[0m[0m:[1;31m36[0m
+[0m--- 0x40381101: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x4202ed0e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x4202f124: [0;33mtask_wdt_isr[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x4037b5e5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x4200728d: [0;33muart_tx_char[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m188[0m
+[0m--- 0x420081a1: [0;33muart_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x42047bde: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420093ac: [0;33mconsole_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4204759e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x42046c11: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x42046c62: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42047261: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x4204e2c3: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x4204dcca: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42047615: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4038715b: [0;33mesp_log_va[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x420571ad: [0;33ms_i2c_asynchronous_transaction[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m889[0m
+[0m--- 0x42057e7b: [0;33mi2c_master_transmit_receive[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m1250[0m
+[0m--- 0x4202ada1: [0;33mread_regs[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m39[0m
+[0m--- 0x4202b03f: [0;33mimu_driver_read[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m92[0m
+[0m--- 0x4202ac7c: [0;33msensor_task_fn[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/sensor_manager.c[0m[0m:[1;31m36[0m
+[0m--- 0x40381101: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x4202ed0e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x4202f124: [0;33mtask_wdt_isr[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x4037b5e5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x42007292: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/hal/esp32s3/include/hal/uart_ll.h[0m[0m:[1;31m422[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x420081a1: [0;33muart_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x42047bde: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420093ac: [0;33mconsole_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4204759e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x42046c11: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x42046c62: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42047261: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x4204e2c3: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x4204dcca: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42047615: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4038715b: [0;33mesp_log_va[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x42057e9f: [0;33mi2c_master_transmit_receive[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m1250[0m
+[0m--- 0x4202ada1: [0;33mread_regs[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m39[0m
+[0m--- 0x4202b03f: [0;33mimu_driver_read[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m92[0m
+[0m--- 0x4202ac7c: [0;33msensor_task_fn[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/sensor_manager.c[0m[0m:[1;31m36[0m
+[0m--- 0x40381101: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x4202ed0e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x4202f124: [0;33mtask_wdt_isr[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x4037b5e5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x42007292: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/hal/esp32s3/include/hal/uart_ll.h[0m[0m:[1;31m422[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x420081a1: [0;33muart_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x42047bde: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420093ac: [0;33mconsole_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4204759e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x42046c11: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x42046c62: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42047261: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x4204e2c3: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x4204dcca: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42047615: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4038715b: [0;33mesp_log_va[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x4202b062: [0;33mimu_driver_read[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m92[0m
+[0m--- 0x4202ac7c: [0;33msensor_task_fn[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/sensor_manager.c[0m[0m:[1;31m36[0m
+[0m--- 0x40381101: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m--- 0x4202ed0e: [0;33mtask_wdt_timeout_handling[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m436[0m
+[0m--- 0x4202f124: [0;33mtask_wdt_isr[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_system/task_wdt/task_wdt.c[0m[0m:[1;31m509[0m
+[0m--- 0x4037b5e5: [0;33m_xt_lowint1[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/xtensa/xtensa_vectors.S[0m[0m:[1;31m1240[0m
+[0m--- 0x42007292: [0;33muart_ll_get_txfifo_len[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/hal/esp32s3/include/hal/uart_ll.h[0m[0m:[1;31m422[0m
+[0m--- (inlined by) [0;33muart_tx_char[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m190[0m
+[0m--- 0x420081a1: [0;33muart_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_uart/src/uart_vfs.c[0m[0m:[1;31m245[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x42047bde: [0;33mwrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/syscalls/syswrite.c[0m[0m:[1;31m11[0m
+[0m--- 0x420093ac: [0;33mconsole_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_vfs_console/vfs_console.c[0m[0m:[1;31m83[0m
+[0m--- 0x420099ca: [0;33mesp_vfs_write[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/vfs/vfs.c[0m[0m:[1;31m982[0m
+[0m--- 0x4204759e: [0;33m__swrite[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/stdio.c[0m[0m:[1;31m94[0m
+[0m--- 0x42046c11: [0;33m__sflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m224[0m
+[0m--- 0x42046c62: [0;33m_fflush_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fflush.c[0m[0m:[1;31m278[0m
+[0m--- 0x42047261: [0;33m__sfvwrite_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/fvwrite.c[0m[0m:[1;31m251[0m
+[0m--- 0x4204e2c3: [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m429[0m
+[0m--- (inlined by) [0;33m__sprint_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m399[0m
+[0m--- 0x4204dcca: [0;33m_vfprintf_r[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vfprintf.c[0m[0m:[1;31m1774[0m
+[0m--- 0x42047615: [0;33mvprintf[0m[0m at [0;32m/builds/idf/crosstool-NG/.build/xtensa-esp-elf/src/newlib/newlib/libc/stdio/vprintf.c[0m[0m:[1;31m34[0m
+[0m--- 0x4038715b: [0;33mesp_log_va[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m43[0m
+[0m--- (inlined by) [0;33mesp_log[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/log/src/log.c[0m[0m:[1;31m88[0m
+[0m--- 0x42057e9f: [0;33mi2c_master_transmit_receive[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/esp_driver_i2c/i2c_master.c[0m[0m:[1;31m1250[0m
+[0m--- 0x4202ada1: [0;33mread_regs[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m39[0m
+[0m--- 0x4202b03f: [0;33mimu_driver_read[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/imu_driver.c[0m[0m:[1;31m92[0m
+[0m--- 0x4202ac7c: [0;33msensor_task_fn[0m[0m at [0;32m/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/components/sensor_manager/sensor_manager.c[0m[0m:[1;31m36[0m
+[0m--- 0x40381101: [0;33mvPortTaskWrapper[0m[0m at [0;32m/home/pelvira/esp/esp-idf/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c[0m[0m:[1;31m139[0m
+[0m

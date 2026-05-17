@@ -7,6 +7,7 @@ idf_component_register(
     ota_manager
     packet_builder
     sensors_mock
+    sensor_manager
     nvs_flash
     freertos
     log

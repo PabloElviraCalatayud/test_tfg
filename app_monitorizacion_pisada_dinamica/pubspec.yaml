@@ -24,6 +24,8 @@ dependencies:
   path_drawing: ^1.0.1
   cupertino_icons: ^1.0.8
 
+  mqtt_client: ^10.2.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

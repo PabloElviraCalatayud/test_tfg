@@ -6,6 +6,7 @@ typedef enum {
   SYS_STATE_INIT,
   SYS_STATE_IDLE,
   SYS_STATE_RUNNING,
+  SYS_STATE_CONNECTED,
   SYS_STATE_OTA,
   SYS_STATE_ERROR
 } system_state_t;

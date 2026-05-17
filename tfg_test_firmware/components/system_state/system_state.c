@@ -14,12 +14,13 @@ static int               s_cb_count = 0;
 
 static const char *state_name(system_state_t s) {
   switch (s) {
-    case SYS_STATE_INIT:    return "INIT";
-    case SYS_STATE_IDLE:    return "IDLE";
-    case SYS_STATE_RUNNING: return "RUNNING";
-    case SYS_STATE_OTA:     return "OTA";
-    case SYS_STATE_ERROR:   return "ERROR";
-    default:                return "UNKNOWN";
+    case SYS_STATE_INIT:      return "INIT";
+    case SYS_STATE_IDLE:      return "IDLE";
+    case SYS_STATE_RUNNING:   return "RUNNING";
+    case SYS_STATE_CONNECTED: return "CONNECTED";
+    case SYS_STATE_OTA:       return "OTA";
+    case SYS_STATE_ERROR:     return "ERROR";
+    default:                  return "UNKNOWN";
   }
 }
 

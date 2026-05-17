@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/services/ble_service.dart';
+import '../../core/services/mqtt_service.dart';
 
-// ─── BLE SERVICE (singleton) ────────────────────────────────────────────────
+// ─── BLE SERVICE ────────────────────────────────────────────────
 
 final bleServiceProvider = Provider<BleService>((ref) {
   final svc = BleService();
@@ -10,7 +11,15 @@ final bleServiceProvider = Provider<BleService>((ref) {
   return svc;
 });
 
-// ─── MODELO DE ESTADO ───────────────────────────────────────────────────────
+// ─── MQTT SERVICE ───────────────────────────────────────────────
+
+final mqttServiceProvider = Provider<MqttService>((ref) {
+  final svc = MqttService();
+  ref.onDispose(() => svc.disconnect());
+  return svc;
+});
+
+// ─── MODELO DE ESTADO ───────────────────────────────────────────
 
 enum DeviceStatus { disconnected, scanning, connecting, connected }
 
@@ -50,7 +59,7 @@ class DeviceInfo {
   }
 }
 
-// ─── SCAN RESULTS ───────────────────────────────────────────────────────────
+// ─── SCAN RESULTS ───────────────────────────────────────────────
 
 class ScanResult {
   final String id;
@@ -67,7 +76,7 @@ class ScanResult {
 final scanResultsProvider =
 StateProvider<List<ScanResult>>((ref) => []);
 
-// ─── NOTIFIER ───────────────────────────────────────────────────────────────
+// ─── NOTIFIER ───────────────────────────────────────────────────
 
 class DeviceNotifier extends StateNotifier<DeviceInfo> {
   final BleService _ble;
@@ -86,13 +95,9 @@ class DeviceNotifier extends StateNotifier<DeviceInfo> {
   }
 
   void _init() {
-    _log('Inicializando DeviceNotifier');
-
     _connSub = _ble.connectionStateStream.listen(_onBleStateChange);
 
     _scanSub = _ble.scanResultsStream.listen((results) {
-      _log('Scan results recibidos: ${results.length}');
-
       _ref.read(scanResultsProvider.notifier).state = results
           .map((r) => ScanResult(
         id: r.id,
@@ -103,11 +108,7 @@ class DeviceNotifier extends StateNotifier<DeviceInfo> {
     });
   }
 
-  // ─── BLE → UI STATE ──────────────────────────────────────────────────────
-
   void _onBleStateChange(BleConnectionState bleState) {
-    _log('BLE state -> $bleState');
-
     switch (bleState) {
       case BleConnectionState.disconnected:
         state = state.copyWith(
@@ -139,11 +140,7 @@ class DeviceNotifier extends StateNotifier<DeviceInfo> {
     }
   }
 
-  // ─── API PÚBLICA ─────────────────────────────────────────────────────────
-
   Future<void> startScan() async {
-    _log('startScan()');
-
     state = state.copyWith(
       status: DeviceStatus.scanning,
       errorMessage: null,
@@ -152,8 +149,6 @@ class DeviceNotifier extends StateNotifier<DeviceInfo> {
     try {
       await _ble.startScan();
     } catch (e) {
-      _log('Error en scan: $e');
-
       state = DeviceInfo(
         status: DeviceStatus.disconnected,
         errorMessage: e.toString(),
@@ -162,13 +157,10 @@ class DeviceNotifier extends StateNotifier<DeviceInfo> {
   }
 
   Future<void> stopScan() async {
-    _log('stopScan()');
     await _ble.stopScan();
   }
 
   Future<void> connectTo(ScanResult result) async {
-    _log('connectTo() -> ${result.name} (${result.id})');
-
     state = state.copyWith(
       status: DeviceStatus.connecting,
       name: result.name,
@@ -178,10 +170,10 @@ class DeviceNotifier extends StateNotifier<DeviceInfo> {
 
     try {
       await _ble.connectToDevice(result.id);
-      // ❗ NO tocar estado aquí → lo controla el stream BLE
-    } catch (e) {
-      _log('Error conectando: $e');
 
+      final mqtt = _ref.read(mqttServiceProvider);
+      await mqtt.connect(result.id);
+    } catch (e) {
       state = DeviceInfo(
         status: DeviceStatus.disconnected,
         errorMessage: 'Error al conectar: ${e.toString()}',
@@ -190,30 +182,23 @@ class DeviceNotifier extends StateNotifier<DeviceInfo> {
   }
 
   Future<void> disconnect() async {
-    _log('DeviceNotifier.disconnect() llamado');
-
     try {
-      await _ble.disconnect();
-      _log('BLE disconnect() completado');
-    } catch (e) {
-      _log('Error en disconnect: $e');
-    }
-  }
+      final mqtt = _ref.read(mqttServiceProvider);
+      mqtt.disconnect();
 
-  // ─── CLEANUP ─────────────────────────────────────────────────────────────
+      await _ble.disconnect();
+    } catch (_) {}
+  }
 
   @override
   void dispose() {
-    _log('dispose()');
-
     _connSub?.cancel();
     _scanSub?.cancel();
-
     super.dispose();
   }
 }
 
-// ─── PROVIDER ───────────────────────────────────────────────────────────────
+// ─── PROVIDER ───────────────────────────────────────────────────
 
 final deviceProvider =
 StateNotifierProvider<DeviceNotifier, DeviceInfo>((ref) {

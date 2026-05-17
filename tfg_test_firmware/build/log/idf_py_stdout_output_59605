@@ -1,0 +1,532 @@
+Command: /home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/pelvira/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyACM0 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/tfg_test_firmware.elf /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/bootloader/bootloader.elf -m '/home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python' '/home/pelvira/esp/esp-idf/tools/idf.py'
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x8 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40048e22
+SPIWP:0xee
+Octal Flash Mode Enabled
+For OPI Flash, Use Default Flash Boot Mode
+mode:SLOW_RD, clock div:1
+load:0x3fce2820,len:0x158c
+load:0x403c8700,len:0xd24
+load:0x403cb700,len:0x2f34
+entry 0x403c8924
+[0;32mI (32) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (32) boot: compile time May  7 2026 15:40:23[0m
+[0;32mI (33) boot: Multicore bootloader[0m
+[0;32mI (33) boot: chip revision: v0.1[0m
+[0;32mI (35) boot: efuse block revision: v1.2[0m
+[0;32mI (39) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (43) boot.esp32s3: SPI Mode       : SLOW READ[0m
+[0;32mI (47) boot.esp32s3: SPI Flash Size : 4MB[0m
+[0;32mI (51) boot: Enabling RNG early entropy source...[0m
+[0;32mI (55) boot: Partition Table:[0m
+[0;32mI (58) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 otadata          OTA data         01 00 0000f000 00002000[0m
+[0;32mI (77) boot:  2 phy_init         RF data          01 01 00011000 00001000[0m
+[0;32mI (84) boot:  3 ota_0            OTA app          00 10 00020000 001a9000[0m
+[0;32mI (90) boot:  4 ota_1            OTA app          00 11 001d0000 001a9000[0m
+[0;32mI (97) boot: End of partition table[0m
+[0;32mI (100) esp_image: segment 0: paddr=00020020 vaddr=3c060020 size=16928h ( 92456) map[0m
+[0;32mI (129) esp_image: segment 1: paddr=00036950 vaddr=3fc9a200 size=03f8ch ( 16268) load[0m
+[0;32mI (134) esp_image: segment 2: paddr=0003a8e4 vaddr=40374000 size=05734h ( 22324) load[0m
+[0;32mI (141) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=5b348h (373576) map[0m
+[0;32mI (229) esp_image: segment 4: paddr=0009b370 vaddr=40379734 size=10a58h ( 68184) load[0m
+[0;32mI (249) esp_image: segment 5: paddr=000abdd0 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (258) boot: Loaded app from partition at offset 0x20000[0m
+[0;32mI (259) boot: Disabling RNG early entropy source...[0m
+[0;32mI (269) cpu_start: Multicore app[0m
+[0;32mI (278) cpu_start: Pro cpu start user code[0m
+[0;32mI (278) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (278) app_init: Application information:[0m
+[0;32mI (279) app_init: Project name:     tfg_test_firmware[0m
+[0;32mI (283) app_init: App version:      b23da00-dirty[0m
+[0;32mI (287) app_init: Compile time:     May  7 2026 15:40:20[0m
+[0;32mI (292) app_init: ELF file SHA256:  b1e502f73...[0m
+[0;32mI (296) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (300) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (304) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (308) efuse_init: Chip rev:         v0.1[0m
+[0;32mI (312) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (318) heap_init: At 3FCA03D0 len 00049340 (292 KiB): RAM[0m
+[0;32mI (323) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (328) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (334) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM[0m
+[0;33mW (339) spi_flash: Octal flash chip is using but dio mode is selected, will automatically switch to Octal mode[0m
+[0;32mI (349) spi_flash: detected chip: mxic (opi)[0m
+[0;32mI (353) spi_flash: flash io: opi_str[0m
+[0;33mW (356) spi_flash: Detected size(32768k) larger than the size in the binary image header(4096k). Using the size in the binary image header.[0m
+[0;32mI (368) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (375) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (381) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (385) coexist: coexist rom version e7ae62f[0m
+[0;32mI (390) main_task: Started on CPU0[0m
+[0;32mI (400) main_task: Calling app_main()[0m
+[0;32mI (400) MAIN: === ESP32-S3 DAS arrancando ===[0m
+[0;32mI (400) SYS_STATE: Initialized[0m
+[0;32mI (410) BLE_INIT: BT controller compile version [2edb0b0][0m
+[0;32mI (410) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (410) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (420) BLE_INIT: Bluetooth MAC: 68:b6:b3:3e:4c:a6[0m
+[0;32mI (430) phy_init: phy_version 701,f4f1da3a,Mar  3 2025,15:50:10[0m
+[0;32mI (470) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (470) NimBLE: Failed to restore IRKs from store; status=8[0m
+
+[0;32mI (470) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (480) NimBLE: disc_mode=2[0m
+[0;32mI (480) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (490) NimBLE: [0m
+
+[0;32mI (490) PKT_BUILDER: Initialized. Packet size: 34 bytes[0m
+[0;33mW (490) i2c.master: Please check pull-up resistances whether be connected properly. Otherwise unexpected behavior would happen. For more detailed information, please read docs[0m
+[0;33mW (510) i2c.master: Please note i2c asynchronous is only used for specific scenario currently. It's experimental for other users because user cannot get bus error from API. And It's not compatible with ``i2c_master_probe``. If user makes sure there won't be any error on bus and tested with no problem, this message can be ignored.[0m
+[0;32mI (540) SYS_STATE: Transition: INIT → RUNNING[0m
+[0;32mI (540) MAIN: IMU A[1.15 1.00 0.00] G[165.5 142.9 0.0][0m
+[0;32mI (550) MAIN: PKT 34 bytes → BLE no conn[0m
+[1;31mE (550) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (560) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (570) IMU_DRV: imu_driver_read(98): gyro read fail[0m
+[1;31mE (570) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (580) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (590) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (590) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (600) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (610) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (620) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (630) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (630) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (640) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (650) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (650) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (660) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (670) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (680) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (680) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (690) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (700) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (700) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (710) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (720) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (720) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (730) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (740) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (740) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (750) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (760) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (770) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (780) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (780) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (790) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (800) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (800) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (810) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (820) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (830) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (830) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (840) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (850) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (850) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (860) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (870) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (870) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (880) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (890) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (890) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (900) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (910) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (920) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (930) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (930) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (940) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (950) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (950) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (960) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (970) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (980) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (980) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (990) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1000) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1000) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1010) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1020) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1020) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1030) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1040) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1040) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1050) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1060) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1070) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1080) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1080) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1090) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1100) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1110) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1110) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1120) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1130) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1130) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1140) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1150) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1150) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1160) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1170) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1170) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1190) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1190) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1200) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1210) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1210) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1220) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1230) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1240) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1240) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1250) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1260) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1260) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1270) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1280) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1280) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1290) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1300) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1310) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1320) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1320) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1330) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1340) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1340) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1350) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1360) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1370) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1370) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1380) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1390) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1390) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1400) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1410) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1410) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1420) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1430) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1440) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1450) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1450) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1460) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1470) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1470) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1480) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1490) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1500) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1500) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1510) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1520) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1520) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1530) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1540) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1540) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1550) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1560) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1570) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1580) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1580) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1590) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1600) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1600) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1610) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1620) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1630) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[0;32mI (1560) MAIN: IMU A[1.15 1.00 0.00] G[165.5 142.9 0.0][0m
+[0;32mI (1640) MAIN: PKT 34 bytes → BLE no conn[0m
+[1;31mE (1640) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1650) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1660) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1660) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1670) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1680) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1680) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1690) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1700) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1700) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1720) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1720) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1730) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1740) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1740) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1750) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1760) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1770) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1770) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1780) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1790) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1790) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1800) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1810) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1810) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1820) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1830) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1830) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1850) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1850) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1860) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1870) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1870) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1880) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1890) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1900) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1900) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1910) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1920) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1920) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1930) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1940) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1940) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1950) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1960) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1960) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (1980) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (1980) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (1990) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2000) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2000) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2010) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2020) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2030) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2030) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2040) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2050) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2050) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2060) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2070) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2070) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2080) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2090) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2100) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2110) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2110) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2120) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2130) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2130) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2140) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2150) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2160) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2160) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2170) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2180) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2180) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2190) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2200) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2200) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2210) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2220) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2230) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2240) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2240) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2250) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2260) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2260) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2270) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2280) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2290) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2290) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2300) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2310) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2310) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2320) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2330) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2330) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2340) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2350) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2360) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2370) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2370) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2380) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2390) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2390) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2400) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2410) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2420) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2420) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2430) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2440) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2440) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2450) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2460) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2460) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2470) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2480) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2490) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2500) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2500) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2510) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2520) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2520) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2530) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2540) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2550) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2550) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2560) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2570) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2570) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2580) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2590) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2590) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2600) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2610) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2620) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2630) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2630) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2640) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2650) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2650) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2660) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2670) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2680) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2680) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2690) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2700) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2700) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2710) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2720) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2720) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2740) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2740) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2750) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2760) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2760) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2770) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2780) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2780) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2790) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2800) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2810) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2810) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2820) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2830) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[0;32mI (2640) MAIN: IMU A[1.15 1.00 0.00] G[165.5 142.9 0.0][0m
+[0;32mI (2840) MAIN: PKT 34 bytes → BLE no conn[0m
+[1;31mE (2830) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2850) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2860) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2860) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2870) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2880) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2890) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2900) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2900) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2910) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2920) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2920) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2930) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2940) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2950) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2950) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2960) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2970) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2970) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (2980) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (2990) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (2990) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3000) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3010) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3020) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3030) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3030) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3040) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3050) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3050) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3060) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3070) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3080) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3080) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3090) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3100) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3100) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3110) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3120) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3120) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3130) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3140) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3150) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3160) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3160) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3170) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3180) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3180) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3190) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3200) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3210) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3210) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3220) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3230) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3230) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3240) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3250) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3250) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3260) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3270) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3280) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3290) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3290) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3300) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3310) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3320) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3320) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3330) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3340) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3340) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3350) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3360) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3360) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3370) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3380) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3380) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3390) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3400) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3410) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3420) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3420) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3430) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3440) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3450) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3450) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3460) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3470) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3470) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3480) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3490) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3490) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3500) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3510) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3510) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3530) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3530) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3540) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3550) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3550) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3560) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3570) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3580) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3580) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3590) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3600) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3600) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3610) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3620) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3620) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3630) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3640) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3640) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3660) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3660) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3670) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3680) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3680) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3690) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3700) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3710) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3710) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3720) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3730) IMU_DRV: imu_driver_read(92): acc read fail[0m
+[1;31mE (3730) i2c.master: s_i2c_asynchronous_transaction(889): ops list is full, please increase your trans_queue_depth[0m
+[1;31mE (3740) i2c.master: i2c_master_transmit_receive(1250): I2C transaction failed[0m
+[1;31mE (3750) IMU_DRV: imu_driver_read(92): acc read fail[0m

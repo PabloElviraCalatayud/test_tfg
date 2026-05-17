@@ -905,6 +905,13 @@
 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensors_mock/CMakeFiles/install.dir
 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensors_mock/CMakeFiles/install/local.dir
 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensors_mock/CMakeFiles/install/strip.dir
+/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensor_manager/CMakeFiles/__idf_sensor_manager.dir
+/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensor_manager/CMakeFiles/edit_cache.dir
+/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensor_manager/CMakeFiles/rebuild_cache.dir
+/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensor_manager/CMakeFiles/list_install_components.dir
+/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensor_manager/CMakeFiles/install.dir
+/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensor_manager/CMakeFiles/install/local.dir
+/home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/sensor_manager/CMakeFiles/install/strip.dir
 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/main/CMakeFiles/__idf_main.dir
 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/main/CMakeFiles/edit_cache.dir
 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/esp-idf/main/CMakeFiles/rebuild_cache.dir
