@@ -13,20 +13,21 @@ class MqttService {
   Future<void> connect(String clientId) async {
     _clientId = clientId;
 
-    _client = MqttServerClient('192.168.1.19', clientId);
+    _client = MqttServerClient('broker.emqx.io', clientId);
     _client.port = 1883;
+    _client.secure = false;
     _client.keepAlivePeriod = 20;
-    _client.logging(on: true);
+    _client.logging(on: false);
 
     _client.onDisconnected = _onDisconnected;
     _client.onConnected = _onConnected;
 
     _client.onSubscribed = (topic) {
-      print('Subscribed to $topic');
+      print('[MQTT] Subscribed to $topic');
     };
 
     _client.pongCallback = () {
-      print('Ping response received');
+      print('[MQTT] Ping response received');
     };
 
     final connMess = mqtt.MqttConnectMessage()
@@ -40,44 +41,49 @@ class MqttService {
 
   Future<void> _tryConnect() async {
     try {
-      print("Intentando conectar...");
+      print("[MQTT] Intentando conectar a EMQX...");
       await _client.connect();
 
-      if (_client.connectionStatus?.state ==
-          mqtt.MqttConnectionState.connected) {
-        print("Conectado al broker MQTT");
+      final status = _client.connectionStatus;
+
+      if (status?.state == mqtt.MqttConnectionState.connected) {
+        print("[MQTT] Conectado al broker EMQX");
         _connected = true;
 
-        _client.updates?.listen((List<mqtt.MqttReceivedMessage<mqtt.MqttMessage?>> c) {
-          final recMess = c[0].payload as mqtt.MqttPublishMessage;
-          final payload = mqtt.MqttPublishPayload.bytesToStringAsString(
-            recMess.payload.message,
-          );
-          print("Mensaje recibido: $payload");
-        });
+        _client.updates?.listen(
+              (List<mqtt.MqttReceivedMessage<mqtt.MqttMessage?>> c) {
+            final recMess = c[0].payload as mqtt.MqttPublishMessage;
+            final payload =
+            mqtt.MqttPublishPayload.bytesToStringAsString(
+              recMess.payload.message,
+            );
 
+            print("[MQTT] Mensaje recibido -> Topic: ${c[0].topic}");
+            print("[MQTT] Payload: $payload");
+          },
+        );
       } else {
-        print("Fallo de conexión: ${_client.connectionStatus}");
+        print("[MQTT] Fallo de conexión: $status");
         _connected = false;
         _client.disconnect();
         _scheduleReconnect();
       }
     } catch (e) {
-      print("Excepción al conectar: $e");
+      print("[MQTT] Excepción al conectar: $e");
       _connected = false;
       _scheduleReconnect();
     }
   }
 
   void _onConnected() {
-    print("Callback: conectado");
+    print("[MQTT] Callback: conectado");
     _connected = true;
     _reconnectTimer?.cancel();
     _reconnectTimer = null;
   }
 
   void _onDisconnected() {
-    print("Callback: desconectado");
+    print("[MQTT] Callback: desconectado");
     _connected = false;
     _scheduleReconnect();
   }
@@ -85,7 +91,7 @@ class MqttService {
   void _scheduleReconnect() {
     if (_reconnectTimer != null) return;
 
-    print("Intentando reconectar cada 5s...");
+    print("[MQTT] Intentando reconectar cada 5s...");
 
     _reconnectTimer = Timer.periodic(const Duration(seconds: 5), (_) async {
       if (_connected) {
@@ -102,14 +108,15 @@ class MqttService {
 
   void publish(String topic, Map<String, dynamic> payload) {
     if (!_connected) {
-      print("No conectado, no se puede publicar");
+      print("[MQTT] No conectado, no se puede publicar");
       return;
     }
 
     final builder = mqtt.MqttClientPayloadBuilder();
     builder.addString(jsonEncode(payload));
 
-    print("Publicando en $topic: $payload");
+    print("[MQTT] Publicando -> Topic: $topic");
+    print("[MQTT] Payload: $payload");
 
     _client.publishMessage(
       topic,
@@ -120,14 +127,16 @@ class MqttService {
 
   void subscribe(String topic) {
     if (!_connected) {
-      print("No conectado, no se puede suscribir");
+      print("[MQTT] No conectado, no se puede suscribir");
       return;
     }
 
+    print("[MQTT] Suscribiéndose a $topic");
     _client.subscribe(topic, mqtt.MqttQos.atLeastOnce);
   }
 
   void disconnect() {
+    print("[MQTT] Desconectando cliente");
     _reconnectTimer?.cancel();
     _client.disconnect();
     _connected = false;
@@ -139,17 +148,17 @@ class MqttService {
     int retries = 0;
 
     while (!_connected && retries < 10) {
-      print("Esperando conexión...");
+      print("[MQTT] Esperando conexión...");
       await Future.delayed(const Duration(seconds: 1));
       retries++;
     }
 
     if (!_connected) {
-      print("No se pudo conectar tras varios intentos");
+      print("[MQTT] No se pudo conectar tras varios intentos");
       return;
     }
 
-    publish("test/topic", {
+    publish("miapp/test", {
       "device_id": _clientId,
       "msg": "hola desde flutter",
       "timestamp": DateTime.now().toIso8601String(),
