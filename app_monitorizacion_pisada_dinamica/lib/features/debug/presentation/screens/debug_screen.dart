@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/providers/device_provider.dart';
 import '../../../../shared/providers/sensor_provider.dart';
+import '../../../../core/services/mqtt_service.dart';
 
 class DebugScreen extends ConsumerWidget {
   const DebugScreen({super.key});

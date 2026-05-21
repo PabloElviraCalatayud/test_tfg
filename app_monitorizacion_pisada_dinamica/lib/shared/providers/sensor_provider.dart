@@ -79,7 +79,7 @@ class SensorDataNotifier extends StateNotifier<SensorData>
 
   void _publishAll(SensorData data) {
     final deviceId = _ref.read(deviceProvider).deviceId ?? "unknown";
-    final baseTopic = "esp32/$deviceId";
+    final baseTopic = "flutter_pisada/$deviceId";
     final now = DateTime.now();
 
     _publish(MqttMessage(
