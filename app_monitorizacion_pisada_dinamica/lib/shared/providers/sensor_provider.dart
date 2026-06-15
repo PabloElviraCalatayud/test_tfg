@@ -78,59 +78,39 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   }
 
   void _publishAll(SensorData data) {
-    final deviceId = _ref.read(deviceProvider).deviceId ?? "unknown";
-    final baseTopic = "flutter_pisada/$deviceId";
-    final now = DateTime.now();
+    final rawDeviceId = _ref.read(deviceProvider).deviceId ?? "unknown";
+    final topicDeviceId = rawDeviceId.replaceAll(':', '');
 
-    _publish(MqttMessage(
-      topic: "$baseTopic/pressure",
-      deviceId: deviceId,
-      timestamp: now,
-      data: {
-        "fsr": data.fsr,
-      },
-    ));
+    _publish(
+      MqttMessage(
+        topic: "flutter_pisada/$topicDeviceId/telemetry",
+        deviceId: rawDeviceId,
+        timestamp: DateTime.now(),
+        data: {
+          "fsr": data.fsr,
+          "temperature": data.temperature,
 
-    _publish(MqttMessage(
-      topic: "$baseTopic/temperature",
-      deviceId: deviceId,
-      timestamp: now,
-      data: {
-        "temperature": data.temperature,
-      },
-    ));
+          "acc_x": data.accX,
+          "acc_y": data.accY,
+          "acc_z": data.accZ,
 
-    _publish(MqttMessage(
-      topic: "$baseTopic/imu",
-      deviceId: deviceId,
-      timestamp: now,
-      data: {
-        "acc": [data.accX, data.accY, data.accZ],
-        "gyro": [data.gyroX, data.gyroY, data.gyroZ],
-        "mag": [data.magX, data.magY, data.magZ],
-      },
-    ));
+          "gyro_x": data.gyroX,
+          "gyro_y": data.gyroY,
+          "gyro_z": data.gyroZ,
 
-    _publish(MqttMessage(
-      topic: "$baseTopic/orientation",
-      deviceId: deviceId,
-      timestamp: now,
-      data: {
-        "roll": data.roll,
-        "pitch": data.pitch,
-        "yaw": data.yaw,
-      },
-    ));
+          "mag_x": data.magX,
+          "mag_y": data.magY,
+          "mag_z": data.magZ,
 
-    _publish(MqttMessage(
-      topic: "$baseTopic/steps",
-      deviceId: deviceId,
-      timestamp: now,
-      data: {
-        "steps": data.stepCount,
-        "goal": data.stepGoal,
-      },
-    ));
+          "roll": data.roll,
+          "pitch": data.pitch,
+          "yaw": data.yaw,
+
+          "step_count": data.stepCount,
+          "step_goal": data.stepGoal,
+        },
+      ),
+    );
   }
 
   // ─────────────────────────────────────────────────────────

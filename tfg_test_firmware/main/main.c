@@ -140,7 +140,7 @@ static void app_task(void *arg) {
     }
 
     vTaskDelay(
-      pdMS_TO_TICKS(1000)
+      pdMS_TO_TICKS(10)
     );
   }
 }
