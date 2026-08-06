@@ -11,4 +11,6 @@ idf_component_register(
     freertos
     esp_common
     system_state
+    drivers
+    log
 )
