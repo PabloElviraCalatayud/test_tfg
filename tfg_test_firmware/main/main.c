@@ -159,16 +159,13 @@ static void app_task(void *arg) {
 
 #endif
 
-    ESP_LOGI(
-      TAG,
-      "IMU A[%.2f %.2f %.2f] G[%.1f %.1f %.1f]",
-      data.accel_x,
-      data.accel_y,
-      data.accel_z,
-      data.gyro_x,
-      data.gyro_y,
-      data.gyro_z
-    );
+    /*
+     * El detalle de IMU/FSR/NTC ya se ve en la linea consolidada que
+     * imprime sensor_manager (2 Hz). Aqui solo dejamos un heartbeat de
+     * estado BLE, throttled a ~1 Hz, para no inundar la consola con un
+     * log por paquete (este bucle corre a 100 Hz).
+     */
+    static int pkt_count = 0;
 
     if (packet_build_sensor(
           &data,
@@ -181,14 +178,19 @@ static void app_task(void *arg) {
         (uint16_t)pkt_len
       );
 
+      pkt_count++;
+    }
+
+    if (pkt_count >= 100) {
+
       ESP_LOGI(
         TAG,
-        "PKT %d bytes -> BLE %s",
-        (int)pkt_len,
-        das_ble_is_connected()
-          ? "OK"
-          : "no conn"
+        "BLE %s | %d paquetes/s",
+        das_ble_is_connected() ? "OK" : "no conn",
+        pkt_count
       );
+
+      pkt_count = 0;
     }
 
     vTaskDelay(
@@ -202,6 +204,14 @@ void app_main(void) {
     TAG,
     "=== ESP32-S3 DAS arrancando ==="
   );
+
+  /*
+   * NimBLE imprime una linea por cada "GATT procedure initiated" (osea,
+   * por cada notificacion BLE que mandamos). A la tasa de envio actual
+   * eso inunda la consola sin aportar nada que no sepamos ya; se deja
+   * en WARN para seguir viendo errores reales del stack BLE.
+   */
+  esp_log_level_set("NimBLE", ESP_LOG_WARN);
 
   system_state_init();
 

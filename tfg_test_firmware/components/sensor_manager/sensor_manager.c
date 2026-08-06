@@ -9,6 +9,7 @@
 #include "driver/i2c_master.h"
 #include "esp_log.h"
 
+#include <stdio.h>
 #include <string.h>
 
 #define I2C_PORT0 I2C_NUM_0
@@ -63,6 +64,7 @@ static SemaphoreHandle_t mutex;
 
 static TaskHandle_t imu_task_handle;
 static TaskHandle_t adc_task_handle;
+static TaskHandle_t console_task_handle;
 
 static void imu_task(void *arg) {
   imu_data_t data;
@@ -109,7 +111,7 @@ static void adc_task(void *arg) {
             res.voltage[ch], FSR_V_REF, FSR_PRESSURE_MAX_G
           );
 
-          ESP_LOGI(
+          ESP_LOGD(
             TAG,
             "FSR[%2d] bus=%d addr=0x%02X ch=%d  V=%.3fV  P=%u g",
             fsr_idx, ADC_I2C_BUS[dev], ADC_I2C_ADDR[dev], ch,
@@ -137,7 +139,7 @@ static void adc_task(void *arg) {
       for (int ch = 0; ch < SM_NUM_THERMISTOR_SENSORS; ch++) {
         temperature[ch] = ads1115_ntc_to_celsius(res.voltage[ch], NTC_V_REF, NTC_R_REF_OHM);
 
-        ESP_LOGI(
+        ESP_LOGD(
           TAG,
           "NTC[%d] bus=%d addr=0x%02X ch=%d  V=%.3fV  T=%.1f C",
           ch, ADC_I2C_BUS[ADS1115_TEMP_DEVICE_INDEX],
@@ -167,6 +169,51 @@ static void adc_task(void *arg) {
     xSemaphoreGive(mutex);
 
     vTaskDelay(pdMS_TO_TICKS(200));
+  }
+}
+
+/*
+ * Volcado por consola en tiempo real. IMU, FSR y termistores se leen a
+ * ritmos distintos (20/200 ms) en tasks separadas; en vez de que cada
+ * una imprima por su cuenta (ilegible, se intercalan sin orden), esta
+ * task toma una unica foto de `frame` y la imprime en UNA linea, a un
+ * ritmo fijo y lento (2 Hz) para poder seguirla a simple vista.
+ */
+static void console_task(void *arg) {
+  sensor_frame_t snap;
+
+  while (1) {
+    xSemaphoreTake(mutex, portMAX_DELAY);
+    snap = frame;
+    xSemaphoreGive(mutex);
+
+    char fsr_str[SM_NUM_FSR_SENSORS * 7 + 1];
+    int  pos = 0;
+    for (int i = 0; i < SM_NUM_FSR_SENSORS; i++) {
+      pos += snprintf(
+        fsr_str + pos, sizeof(fsr_str) - pos,
+        "%s%u", (i == 0) ? "" : " ", (unsigned int)snap.pressure[i]
+      );
+    }
+
+    char ntc_str[SM_NUM_THERMISTOR_SENSORS * 7 + 1];
+    pos = 0;
+    for (int i = 0; i < SM_NUM_THERMISTOR_SENSORS; i++) {
+      pos += snprintf(
+        ntc_str + pos, sizeof(ntc_str) - pos,
+        "%s%.1f", (i == 0) ? "" : " ", snap.temperature[i]
+      );
+    }
+
+    ESP_LOGI(
+      TAG,
+      "IMU A[%5.2f %5.2f %5.2f] G[%6.1f %6.1f %6.1f] | FSR(g)[%s] | NTC(C)[%s]",
+      snap.ax, snap.ay, snap.az,
+      snap.gx, snap.gy, snap.gz,
+      fsr_str, ntc_str
+    );
+
+    vTaskDelay(pdMS_TO_TICKS(500));
   }
 }
 
@@ -259,6 +306,15 @@ void sensor_manager_init(void) {
     NULL,
     4,
     &adc_task_handle
+  );
+
+  xTaskCreate(
+    console_task,
+    "console_task",
+    4096,
+    NULL,
+    3,
+    &console_task_handle
   );
 }
 
