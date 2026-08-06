@@ -181,9 +181,20 @@ void sensor_manager_init(void) {
       .data_rate = ADS1115_DR_128SPS,
     };
 
-    ESP_ERROR_CHECK(
-      ads1115_init(&adc_cfg, &s_adc[i])
-    );
+    /*
+     * No se aborta si un ADS1115 no responde: puede que ese chip todavia
+     * no este cableado (ej. bring-up parcial de los 16 canales). Se deja
+     * su handle a NULL y adc_task lo detecta y lo omite en cada lectura.
+     */
+    esp_err_t err = ads1115_init(&adc_cfg, &s_adc[i]);
+    if (err != ESP_OK) {
+      ESP_LOGW(
+        TAG,
+        "ADS1115 addr=0x%02X no disponible (err=0x%x), se omite",
+        ADC_I2C_ADDR[i], err
+      );
+      s_adc[i] = NULL;
+    }
   }
 
   mutex = xSemaphoreCreateMutex();
