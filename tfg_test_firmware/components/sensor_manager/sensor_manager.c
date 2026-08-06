@@ -11,17 +11,28 @@
 
 #include <string.h>
 
-#define I2C_PORT 0
-#define I2C_SDA  GPIO_NUM_8
-#define I2C_SCL  GPIO_NUM_9
+#define I2C_PORT0 I2C_NUM_0
+#define I2C_SDA0  GPIO_NUM_8
+#define I2C_SCL0  GPIO_NUM_9
+
+#define I2C_PORT1 I2C_NUM_1
+#define I2C_SDA1  GPIO_NUM_4
+#define I2C_SCL1  GPIO_NUM_5
+
+/* Igual que en el hardware de referencia que sí funciona con los 4 ADS1115:
+ * 100 kHz es mas robusto en breadboard/cableado largo que 400 kHz. */
+#define I2C_FREQ_HZ 100000
 
 static const char *TAG = "SENSOR_MGR";
 
 /*
- * El ADS1115 solo tiene 4 entradas single-ended, así que para llegar a los
- * 12 FSR + 4 termistores (16 canales) se usan 4 chips en el mismo bus I2C,
- * uno por cada dirección posible (GND/VCC/SDA/SCL). Los primeros 3 chips
- * (12 canales) alimentan los FSR y el 4º chip (4 canales) los termistores.
+ * El ADS1115 solo tiene 4 entradas single-ended. En vez de poner los 4
+ * chips en un unico bus con 4 direcciones distintas (lo que exige atar
+ * ADDR a SDA/SCL en dos de ellos -- un cableado delicado que si falla
+ * puede tumbar el bus entero), se usan 2 buses I2C fisicos, con 2 chips
+ * por bus en las direcciones simples GND/VCC (0x48/0x49). Los primeros
+ * 3 chips (12 canales) alimentan los FSR y el 4º chip (4 canales) los
+ * termistores.
  */
 #define ADS1115_NUM_DEVICES        4
 #define ADS1115_FSR_DEVICE_COUNT   3
@@ -34,10 +45,14 @@ static const char *TAG = "SENSOR_MGR";
 #define NTC_R_REF_OHM       10000.0f
 
 static const uint8_t ADC_I2C_ADDR[ADS1115_NUM_DEVICES] = {
-  ADS1115_ADDR_GND,
-  ADS1115_ADDR_VCC,
-  ADS1115_ADDR_SDA,
-  ADS1115_ADDR_SCL,
+  ADS1115_ADDR_GND, ADS1115_ADDR_VCC,
+  ADS1115_ADDR_GND, ADS1115_ADDR_VCC,
+};
+
+/* A que bus fisico (0 = GPIO8/9, 1 = GPIO4/5) pertenece cada chip */
+static const uint8_t ADC_I2C_BUS[ADS1115_NUM_DEVICES] = {
+  0, 0,
+  1, 1,
 };
 
 static ads1115_handle_t s_adc[ADS1115_NUM_DEVICES];
@@ -96,8 +111,8 @@ static void adc_task(void *arg) {
 
           ESP_LOGI(
             TAG,
-            "FSR[%2d] addr=0x%02X ch=%d  V=%.3fV  P=%u g",
-            fsr_idx, ADC_I2C_ADDR[dev], ch,
+            "FSR[%2d] bus=%d addr=0x%02X ch=%d  V=%.3fV  P=%u g",
+            fsr_idx, ADC_I2C_BUS[dev], ADC_I2C_ADDR[dev], ch,
             res.voltage[ch], (unsigned int)pressure[fsr_idx]
           );
 
@@ -106,7 +121,10 @@ static void adc_task(void *arg) {
 
       } else {
 
-        ESP_LOGW(TAG, "Fallo lectura ADS1115 FSR addr=0x%02X", ADC_I2C_ADDR[dev]);
+        ESP_LOGW(
+          TAG, "Fallo lectura ADS1115 FSR bus=%d addr=0x%02X",
+          ADC_I2C_BUS[dev], ADC_I2C_ADDR[dev]
+        );
 
         for (int ch = 0; ch < ADS1115_NUM_CHANNELS; ch++) {
           pressure[fsr_idx++] = 0;
@@ -121,8 +139,9 @@ static void adc_task(void *arg) {
 
         ESP_LOGI(
           TAG,
-          "NTC[%d] addr=0x%02X ch=%d  V=%.3fV  T=%.1f C",
-          ch, ADC_I2C_ADDR[ADS1115_TEMP_DEVICE_INDEX], ch,
+          "NTC[%d] bus=%d addr=0x%02X ch=%d  V=%.3fV  T=%.1f C",
+          ch, ADC_I2C_BUS[ADS1115_TEMP_DEVICE_INDEX],
+          ADC_I2C_ADDR[ADS1115_TEMP_DEVICE_INDEX], ch,
           res.voltage[ch], temperature[ch]
         );
       }
@@ -130,7 +149,8 @@ static void adc_task(void *arg) {
     } else {
 
       ESP_LOGW(
-        TAG, "Fallo lectura ADS1115 NTC addr=0x%02X",
+        TAG, "Fallo lectura ADS1115 NTC bus=%d addr=0x%02X",
+        ADC_I2C_BUS[ADS1115_TEMP_DEVICE_INDEX],
         ADC_I2C_ADDR[ADS1115_TEMP_DEVICE_INDEX]
       );
 
@@ -150,40 +170,75 @@ static void adc_task(void *arg) {
   }
 }
 
-void sensor_manager_init(void) {
+static i2c_master_bus_handle_t create_bus(
+  i2c_port_t port,
+  gpio_num_t sda,
+  gpio_num_t scl
+) {
   i2c_master_bus_handle_t bus;
 
   i2c_master_bus_config_t cfg = {
-    .i2c_port = I2C_PORT,
-    .sda_io_num = I2C_SDA,
-    .scl_io_num = I2C_SCL,
+    .i2c_port = port,
+    .sda_io_num = sda,
+    .scl_io_num = scl,
     .clk_source = I2C_CLK_SRC_DEFAULT,
     .glitch_ignore_cnt = 7,
-    .flags.enable_internal_pullup = false
+    .flags.enable_internal_pullup = true
   };
 
   ESP_ERROR_CHECK(
-    i2c_new_master_bus(
-      &cfg,
-      &bus
-    )
+    i2c_new_master_bus(&cfg, &bus)
   );
 
+  return bus;
+}
+
+/* Escanea el bus y vuelca por consola que direcciones responden de
+ * verdad, para poder diagnosticar cableado sin herramientas externas. */
+static void scan_bus(i2c_master_bus_handle_t bus, int bus_index) {
+  ESP_LOGI(TAG, "Escaneando bus I2C %d...", bus_index);
+
+  for (uint8_t addr = 0x03; addr < 0x78; addr++) {
+    if (i2c_master_probe(bus, addr, 50) == ESP_OK) {
+      ESP_LOGI(TAG, "  bus %d: dispositivo encontrado en 0x%02X", bus_index, addr);
+    }
+  }
+}
+
+void sensor_manager_init(void) {
+  i2c_master_bus_handle_t bus0 = create_bus(I2C_PORT0, I2C_SDA0, I2C_SCL0);
+  i2c_master_bus_handle_t bus1 = create_bus(I2C_PORT1, I2C_SDA1, I2C_SCL1);
+  i2c_master_bus_handle_t buses[2] = { bus0, bus1 };
+
+  scan_bus(bus0, 0);
+  scan_bus(bus1, 1);
+
   ESP_ERROR_CHECK(
-    imu_driver_init(bus)
+    imu_driver_init(bus0)
   );
 
   for (int i = 0; i < ADS1115_NUM_DEVICES; i++) {
     ads1115_config_t adc_cfg = {
-      .bus = bus,
+      .bus = buses[ADC_I2C_BUS[i]],
       .addr = ADC_I2C_ADDR[i],
       .fsr = ADS1115_FSR_4096MV,
       .data_rate = ADS1115_DR_128SPS,
     };
 
-    ESP_ERROR_CHECK(
-      ads1115_init(&adc_cfg, &s_adc[i])
-    );
+    /*
+     * No se aborta si un ADS1115 no responde: puede que ese chip todavia
+     * no este cableado (ej. bring-up parcial de los 16 canales). Se deja
+     * su handle a NULL y adc_task lo detecta y lo omite en cada lectura.
+     */
+    esp_err_t err = ads1115_init(&adc_cfg, &s_adc[i]);
+    if (err != ESP_OK) {
+      ESP_LOGW(
+        TAG,
+        "ADS1115 bus=%d addr=0x%02X no disponible (err=0x%x), se omite",
+        ADC_I2C_BUS[i], ADC_I2C_ADDR[i], err
+      );
+      s_adc[i] = NULL;
+    }
   }
 
   mutex = xSemaphoreCreateMutex();

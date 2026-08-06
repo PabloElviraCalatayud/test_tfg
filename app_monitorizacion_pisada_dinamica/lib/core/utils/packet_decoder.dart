@@ -3,20 +3,20 @@
 // Espejo exacto del bit-packing definido en packet_builder.h / packet_builder.c
 // del firmware ESP32-NimBLE.
 //
-// Formato del paquete (34 bytes):
+// Formato del paquete (54 bytes):
 //   [0]      type     (0x01 = sensor, 0x02 = ACK, 0x03 = status)
 //   [1-2]    seq      uint16 big-endian
 //   [3-6]    ts_ms    uint32 big-endian
-//   [7-32]   payload  26 bytes, 205 bits empaquetados
-//   [33]     CRC-8    polinomio 0x07, init 0xFF
+//   [7-52]   payload  46 bytes, 361 bits empaquetados
+//   [53]     CRC-8    polinomio 0x07, init 0xFF
 //
 // Layout del payload (bits acumulados):
-//   Accel X/Y/Z   : 3 × 12 bits, offset 1600, scale 100  → g
-//   Gyro  X/Y/Z   : 3 × 13 bits, offset 4000, scale 2    → °/s
-//   Mag   X/Y/Z   : 3 × 14 bits, offset 8000, scale 1000 → Gauss
-//   Pressure[0-3] : 4 × 17 bits, 0–100000 g directo
-//   Thermistor[0-1]: 2 × 10 bits, ×10 → °C
-//   Total: 36+39+42+68+20 = 205 bits
+//   Accel X/Y/Z    : 3 × 12 bits, offset 1600, scale 100  → g
+//   Gyro  X/Y/Z    : 3 × 13 bits, offset 4000, scale 2    → °/s
+//   Mag   X/Y/Z    : 3 × 14 bits, offset 8000, scale 1000 → Gauss
+//   Pressure[0-11] : 12 × 17 bits, 0–100000 g directo
+//   Thermistor[0-3]: 4 × 10 bits, ×10 → °C
+//   Total: 36+39+42+204+40 = 361 bits
 
 import 'dart:math';
 import 'dart:typed_data';
@@ -27,9 +27,11 @@ import '../../shared/models/sensor_data.dart';
 const int kPktTypeSensor = 0x01;
 const int kPktTypeAck    = 0x02;
 const int kPktTypeStatus = 0x03;
-const int kPktSensorSize = 34;
+const int kPktSensorSize = 54;
 const int kPktHeaderBytes = 7;
-const int kPktPayloadBytes = 26;
+const int kPktPayloadBytes = 46;
+const int kNumPressureSensors = 12;
+const int kNumThermistorSensors = 4;
 
 // OTA commands (Flutter → ESP32 via CHR_CMD write)
 const int kOtaCmdStart = 0x10; // [0x10][4B total_size LE]
@@ -128,7 +130,7 @@ class PacketDecoder {
 
     // ── Verificar CRC ─────────────────────────────────────────────────────
     final expectedCrc = crc8(buf, kPktHeaderBytes + kPktPayloadBytes);
-    if (buf[33] != expectedCrc) return null;
+    if (buf[kPktHeaderBytes + kPktPayloadBytes] != expectedCrc) return null;
 
     // ── Header ────────────────────────────────────────────────────────────
     final seq  = (buf[1] << 8) | buf[2];
@@ -153,15 +155,15 @@ class PacketDecoder {
     final my = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
     final mz = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
 
-    // Presión — 4 × 17 bits, valor directo en gramos (0–100000)
+    // Presión — 12 × 17 bits, valor directo en gramos (0–100000)
     final List<double> pressure = [];
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < kNumPressureSensors; i++) {
       pressure.add(_readBits(payload, bitPos, 17).toDouble()); bitPos += 17;
     }
 
-    // Termistores — 2 × 10 bits, ×10 → °C
+    // Termistores — 4 × 10 bits, ×10 → °C
     final List<double> temperature = [];
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < kNumThermistorSensors; i++) {
       temperature.add(_readBits(payload, bitPos, 10) / 10.0); bitPos += 10;
     }
 
@@ -177,39 +179,16 @@ class PacketDecoder {
     // Yaw simplificado desde magnetómetro (asumiendo dispositivo nivelado)
     final yaw   = atan2(-my, mx) * 180.0 / pi;
 
-    // ── Mapeo de 4 sensores de presión → 15 posiciones FSR ───────────────
-    // NOTA: adaptar cuando el firmware soporte 15 sensores.
-    // Distribución anatómica provisional:
-    //   pressure[0] → talón      → FSR índices 12, 13, 14
-    //   pressure[1] → arco       → FSR índices  9, 10, 11
-    //   pressure[2] → metatarso  → FSR índices  4,  5,  6,  7,  8
-    //   pressure[3] → dedos      → FSR índices  0,  1,  2,  3
+    // ── 12 sensores FSR y 4 termistores, uno a uno (sin agrupar por zonas) ──
     const double kMaxPressureG = 100000.0;
-    final fsr = List<double>.filled(15, 0.0);
-    final pNorm = pressure.map((g) => (g / kMaxPressureG).clamp(0.0, 1.0)).toList();
-    for (final i in [12, 13, 14]) fsr[i] = pNorm[0]; // talón
-    for (final i in [9, 10, 11])  fsr[i] = pNorm[1]; // arco
-    for (final i in [4, 5, 6, 7, 8]) fsr[i] = pNorm[2]; // metatarso
-    for (final i in [0, 1, 2, 3]) fsr[i] = pNorm[3]; // dedos
-
-    // ── Mapeo de 2 termistores → 5 posiciones ────────────────────────────
-    // NOTA: adaptar cuando el firmware soporte 5 sensores.
-    //   temperature[0] → talón (idx 0) + arco (idx 1)
-    //   temperature[1] → metatarso (idx 2) + antepié (idx 3) + dedos (idx 4)
-    final temps = [
-      temperature[0],
-      temperature[0],
-      temperature[1],
-      temperature[1],
-      temperature[1],
-    ];
+    final fsr = pressure.map((g) => (g / kMaxPressureG).clamp(0.0, 1.0)).toList();
 
     return SensorPacket(
       seq: seq,
       tsMs: tsMs,
       data: SensorData(
         fsr: fsr,
-        temperature: temps,
+        temperature: temperature,
         accX: accX, accY: accY, accZ: accZ,
         gyroX: gx,  gyroY: gy,  gyroZ: gz,
         magX: mx,   magY: my,   magZ: mz,

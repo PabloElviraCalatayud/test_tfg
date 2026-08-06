@@ -52,13 +52,13 @@ class SensorData {
 
   /// Pressure-weighted centre of pressure (x, y) in 0..1 space.
   /// x: medial(0) – lateral(1), y: heel(0) – toe(1)
+  /// Debe coincidir con _fsrPositions en pressure_map_widget.dart (12 FSR reales).
   (double, double) get centerOfPressure {
     const positions = [
-      (0.38, 0.93), (0.48, 0.96), (0.58, 0.95), (0.66, 0.91),
-      (0.30, 0.74), (0.40, 0.77), (0.52, 0.76), (0.62, 0.73),
-      (0.67, 0.68),
-      (0.35, 0.54), (0.47, 0.52), (0.57, 0.53),
-      (0.35, 0.21), (0.47, 0.18), (0.60, 0.21),
+      (0.40, 0.93), (0.50, 0.95), (0.60, 0.92),               // dedos
+      (0.32, 0.74), (0.44, 0.77), (0.56, 0.76), (0.66, 0.71), // metatarsos
+      (0.36, 0.52), (0.60, 0.50),                              // arco
+      (0.36, 0.22), (0.48, 0.19), (0.60, 0.22),                // talón
     ];
     double totalW = 0, cx = 0, cy = 0;
     for (int i = 0; i < fsr.length && i < positions.length; i++) {
