@@ -5,7 +5,7 @@
 #include "esp_check.h"
 #include "esp_log.h"
 
-#define I2C_FREQ_HZ       400000
+#define I2C_FREQ_HZ       100000
 
 #define LSM9DS1_AG_ADDR   0x6B
 #define LSM9DS1_MAG_ADDR  0x1E
