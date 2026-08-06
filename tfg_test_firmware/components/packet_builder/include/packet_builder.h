@@ -15,19 +15,19 @@
  * │ Accel X/Y/Z  │ ±16 g        │ 0.01 g → 3200v │ 12 bit │ 2^12=4096 > 3200 │
  * │ Gyro  X/Y/Z  │ ±2000 °/s    │ 0.5  → 8000 v  │ 13 bit │ 2^13=8192 > 8000 │
  * │ Mag   X/Y/Z  │ ±8 Gauss     │ 0.001→ 16000 v │ 14 bit │ 2^14=16384>16000 │
- * │ Presion ×4   │ 0–100 kg     │ 1 g → 100000 v │ 17 bit │ 2^17=131072>1e5  │
- * │ Termistor ×2 │ 0–100 °C     │ 0.1°→ 1000 v   │ 10 bit │ 2^10=1024 > 1000 │
+ * │ Presion ×12  │ 0–100 kg     │ 1 g → 100000 v │ 17 bit │ 2^17=131072>1e5  │
+ * │ Termistor ×4 │ 0–100 °C     │ 0.1°→ 1000 v   │ 10 bit │ 2^10=1024 > 1000 │
  * └──────────────┴──────────────┴────────────────┴────────┴──────────────────┘
  *
  * Payload total:
- *   3×12 + 3×13 + 3×14 + 4×17 + 2×10 = 36+39+42+68+20 = 205 bits = 26 bytes
+ *   3×12 + 3×13 + 3×14 + 12×17 + 4×10 = 36+39+42+204+40 = 361 bits = 46 bytes
  *
- * Paquete completo (header 7B + payload 26B + CRC 1B) = 34 BYTES
+ * Paquete completo (header 7B + payload 46B + CRC 1B) = 54 BYTES
  *
  * Comparación:
- *   - 15 floats (sin empaquetar)     → 60 bytes solo payload
- *   - JSON                           → ~300–500 bytes
- *   - Bit-packed (esta impl.)        → 34 bytes totales  ← 82% menos que JSON
+ *   - 25 floats (sin empaquetar)     → 100 bytes solo payload
+ *   - JSON                           → ~500–800 bytes
+ *   - Bit-packed (esta impl.)        → 54 bytes totales  ← ~90% menos que JSON
  *
  * IMPACTO ENERGÉTICO:
  *   Con NimBLE y MTU=247B, todos los datos caben en 1 sola notificación BLE.
@@ -64,15 +64,15 @@
 #define THERMISTOR_BITS  10       /* 0–100.0°C (×10) → [0, 1000]       */
 #define THERMISTOR_SCALE 10
 
-#define NUM_PRESSURE_SENSORS  4
-#define NUM_THERMISTOR_SENSORS 2
+#define NUM_PRESSURE_SENSORS  12
+#define NUM_THERMISTOR_SENSORS 4
 
 /* ── Tamaños de paquete ─────────────────────────────────────────────────── */
 #define PKT_HEADER_BYTES  7       /* type(1) + seq(2) + ts_ms(4)        */
-#define PKT_PAYLOAD_BITS  205
-#define PKT_PAYLOAD_BYTES ((PKT_PAYLOAD_BITS + 7) / 8)  /* 26 bytes    */
+#define PKT_PAYLOAD_BITS  361
+#define PKT_PAYLOAD_BYTES ((PKT_PAYLOAD_BITS + 7) / 8)  /* 46 bytes    */
 #define PKT_CRC_BYTES     1
-#define PKT_SENSOR_SIZE   (PKT_HEADER_BYTES + PKT_PAYLOAD_BYTES + PKT_CRC_BYTES)  /* 34 */
+#define PKT_SENSOR_SIZE   (PKT_HEADER_BYTES + PKT_PAYLOAD_BYTES + PKT_CRC_BYTES)  /* 54 */
 #define PKT_ACK_SIZE      4       /* type(1) + ack_type(1) + status(1) + crc(1) */
 
 /* ── Estructura de datos de sensores ───────────────────────────────────── */

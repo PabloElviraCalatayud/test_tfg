@@ -22,6 +22,64 @@
 
 static const char *TAG = "MAIN";
 
+#if !USE_REAL_SENSORS
+/*
+ * Réplica del esquema de 4 ADS1115 (12 canales FSR + 4 canales termistor)
+ * usado por sensor_manager, pero con lecturas simuladas para poder probar
+ * sin hardware conectado.
+ */
+#define MOCK_ADS1115_NUM_DEVICES       4
+#define MOCK_ADS1115_FSR_DEVICE_COUNT  3
+#define MOCK_ADS1115_TEMP_DEVICE_INDEX 3
+
+static const uint8_t MOCK_ADC_I2C_ADDR[MOCK_ADS1115_NUM_DEVICES] = {
+  ADS1115_ADDR_GND,
+  ADS1115_ADDR_VCC,
+  ADS1115_ADDR_SDA,
+  ADS1115_ADDR_SCL,
+};
+
+static ads1115_handle_t s_mock_adc[MOCK_ADS1115_NUM_DEVICES];
+
+static void mock_read_adc(sensor_data_t *data) {
+  ads1115_result_t res;
+  int fsr_idx = 0;
+
+  for (int dev = 0; dev < MOCK_ADS1115_FSR_DEVICE_COUNT; dev++) {
+    ads1115_mock_read_all(s_mock_adc[dev], &res);
+
+    for (int ch = 0; ch < ADS1115_NUM_CHANNELS; ch++) {
+      data->pressure[fsr_idx] = (uint32_t)(
+        res.voltage[ch] / 3.3f * 100000.0f
+      );
+
+      ESP_LOGI(
+        TAG,
+        "FSR[%2d] addr=0x%02X ch=%d  V=%.3fV  P=%u g",
+        fsr_idx, MOCK_ADC_I2C_ADDR[dev], ch,
+        res.voltage[ch], (unsigned int)data->pressure[fsr_idx]
+      );
+
+      fsr_idx++;
+    }
+  }
+
+  ads1115_mock_read_all(s_mock_adc[MOCK_ADS1115_TEMP_DEVICE_INDEX], &res);
+
+  for (int ch = 0; ch < NUM_THERMISTOR_SENSORS; ch++) {
+    data->temperature[ch] =
+      20.0f + (res.voltage[ch] / 3.3f) * 30.0f;
+
+    ESP_LOGI(
+      TAG,
+      "NTC[%d] addr=0x%02X ch=%d  V=%.3fV  T=%.1f C",
+      ch, MOCK_ADC_I2C_ADDR[MOCK_ADS1115_TEMP_DEVICE_INDEX], ch,
+      res.voltage[ch], data->temperature[ch]
+    );
+  }
+}
+#endif
+
 static void app_task(void *arg) {
   uint8_t pkt_buf[PKT_SENSOR_SIZE];
   size_t pkt_len;
@@ -29,9 +87,8 @@ static void app_task(void *arg) {
   sensor_data_t data;
 
 #if USE_REAL_SENSORS
-  imu_frame_t imu;
+  sensor_frame_t frame;
 #else
-  ads1115_result_t adc;
   lsm9ds1_data_t imu;
 #endif
 
@@ -53,7 +110,7 @@ static void app_task(void *arg) {
 
 #if USE_REAL_SENSORS
 
-    if (!sensor_manager_get_frame(&imu)) {
+    if (!sensor_manager_get_frame(&frame)) {
 
       vTaskDelay(
         pdMS_TO_TICKS(10)
@@ -62,21 +119,27 @@ static void app_task(void *arg) {
       continue;
     }
 
-    data.accel_x = imu.ax;
-    data.accel_y = imu.ay;
-    data.accel_z = imu.az;
+    data.accel_x = frame.ax;
+    data.accel_y = frame.ay;
+    data.accel_z = frame.az;
 
-    data.gyro_x = imu.gx;
-    data.gyro_y = imu.gy;
-    data.gyro_z = imu.gz;
+    data.gyro_x = frame.gx;
+    data.gyro_y = frame.gy;
+    data.gyro_z = frame.gz;
 
-    data.mag_x = imu.mx;
-    data.mag_y = imu.my;
-    data.mag_z = imu.mz;
+    data.mag_x = frame.mx;
+    data.mag_y = frame.my;
+    data.mag_z = frame.mz;
+
+    for (int i = 0; i < NUM_PRESSURE_SENSORS; i++) {
+      data.pressure[i] = frame.pressure[i];
+    }
+
+    for (int i = 0; i < NUM_THERMISTOR_SENSORS; i++) {
+      data.temperature[i] = frame.temperature[i];
+    }
 
 #else
-
-    ads1115_mock_read_all(&adc);
 
     lsm9ds1_mock_read(&imu);
 
@@ -92,20 +155,9 @@ static void app_task(void *arg) {
     data.mag_y = imu.my;
     data.mag_z = imu.mz;
 
-    for (int i = 0; i < NUM_PRESSURE_SENSORS; i++) {
-
-      data.pressure[i] = (uint32_t)(
-        adc.voltage[i] / 3.3f * 100000.0f
-      );
-    }
+    mock_read_adc(&data);
 
 #endif
-
-    data.temperature[0] =
-      20.0f + ((float)(rand() % 100)) / 10.0f;
-
-    data.temperature[1] =
-      20.0f + ((float)(rand() % 100)) / 10.0f;
 
     ESP_LOGI(
       TAG,
@@ -181,22 +233,27 @@ void app_main(void) {
     Sensor manager:
     - crea I2C
     - inicializa IMU
-    - crea task de adquisición
+    - inicializa los 4 ADS1115 (12 canales FSR + 4 canales termistor)
+    - crea tasks de adquisición (IMU y ADC) que muestran las lecturas
+      por consola
   */
   sensor_manager_init();
 
 #else
 
-  ads1115_config_t ads_cfg = {
-    .bus = NULL,
-    .addr = 0x48,
-    .fsr = ADS1115_FSR_4096MV,
-    .data_rate = ADS1115_DR_128SPS
-  };
+  for (int i = 0; i < MOCK_ADS1115_NUM_DEVICES; i++) {
+    ads1115_config_t ads_cfg = {
+      .bus = NULL,
+      .addr = MOCK_ADC_I2C_ADDR[i],
+      .fsr = ADS1115_FSR_4096MV,
+      .data_rate = ADS1115_DR_128SPS
+    };
 
-  ads1115_mock_init(
-    &ads_cfg
-  );
+    ads1115_mock_init(
+      &ads_cfg,
+      &s_mock_adc[i]
+    );
+  }
 
   lsm9ds1_config_t imu_cfg = {
     .bus = NULL,
