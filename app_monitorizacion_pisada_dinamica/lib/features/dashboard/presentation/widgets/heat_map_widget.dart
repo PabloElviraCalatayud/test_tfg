@@ -6,18 +6,17 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/svg_path_utils.dart';
 import '../../../../shared/providers/sensor_provider.dart';
 
-// ─── Posiciones normalizadas de los 5 termistores ─────────────────────────────
+// ─── Posiciones normalizadas de los 4 termistores ─────────────────────────────
 // x: 0=medial, 1=lateral  |  y: 0=talón, 1=dedos
 const List<(double, double)> _thermistorPositions = [
-  (0.46, 0.18), // Talón
-  (0.42, 0.50), // Arco
-  (0.46, 0.72), // Metatarso
-  (0.36, 0.85), // Antepié
-  (0.46, 0.93), // Dedos
+  (0.46, 0.20), // Talón
+  (0.44, 0.50), // Arco
+  (0.46, 0.74), // Metatarso
+  (0.46, 0.92), // Dedos
 ];
 
 const List<String> _thermistorLabels = [
-  'Talón', 'Arco', 'Metatarso', 'Antepié', 'Dedos',
+  'Talón', 'Arco', 'Metatarso', 'Dedos',
 ];
 
 Color _thermalColor(double norm) {

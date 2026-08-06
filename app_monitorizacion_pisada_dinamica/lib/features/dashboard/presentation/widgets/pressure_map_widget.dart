@@ -6,14 +6,14 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/svg_path_utils.dart';
 import '../../../../shared/providers/sensor_provider.dart';
 
-/// Posiciones normalizadas (x, y) de los 15 FSR en espacio sensor.
+/// Posiciones normalizadas (x, y) de los 12 FSR en espacio sensor.
 /// x: 0=medial, 1=lateral  |  y: 0=talón, 1=dedos
+/// Debe coincidir con centerOfPressure en shared/models/sensor_data.dart.
 const List<(double, double)> _fsrPositions = [
-  (0.38, 0.93), (0.48, 0.96), (0.58, 0.95), (0.66, 0.91), // dedos T1-T4
-  (0.30, 0.74), (0.40, 0.77), (0.52, 0.76), (0.62, 0.73), // metatarsos M1-M4
-  (0.67, 0.68),                                             // M5 lateral
-  (0.35, 0.54), (0.47, 0.52), (0.57, 0.53),                // arco MF1-MF3
-  (0.35, 0.21), (0.47, 0.18), (0.60, 0.21),                // talón H1-H3
+  (0.40, 0.93), (0.50, 0.95), (0.60, 0.92),               // dedos T1-T3
+  (0.32, 0.74), (0.44, 0.77), (0.56, 0.76), (0.66, 0.71), // metatarsos M1-M4
+  (0.36, 0.52), (0.60, 0.50),                              // arco MF1-MF2
+  (0.36, 0.22), (0.48, 0.19), (0.60, 0.22),                // talón H1-H3
 ];
 
 Color _pressureColor(double value) {

@@ -31,14 +31,12 @@ class FakeData {
   static SensorDataSnapshot generateRandom({int stepCount = 6842}) {
     return SensorDataSnapshot(
       fsr: [
-        // Toes T1–T4: light contact, occasional lift
-        _rand(0.05, 0.60), _rand(0.05, 0.50), _rand(0.02, 0.40), _rand(0.02, 0.35),
+        // Toes T1–T3: light contact, occasional lift
+        _rand(0.05, 0.60), _rand(0.05, 0.50), _rand(0.02, 0.40),
         // Metatarsals M1–M4: medium-high load
         _rand(0.40, 0.95), _rand(0.45, 0.98), _rand(0.35, 0.90), _rand(0.20, 0.75),
-        // Lateral metatarsal M5
-        _rand(0.10, 0.70),
-        // Midfoot arch MF1–MF3: low (arch is suspended)
-        _rand(0.00, 0.20), _rand(0.00, 0.15), _rand(0.00, 0.18),
+        // Midfoot arch MF1–MF2: low (arch is suspended)
+        _rand(0.00, 0.20), _rand(0.00, 0.15),
         // Heel H1–H3: medium-high during stance
         _rand(0.30, 0.85), _rand(0.35, 0.90), _rand(0.25, 0.80),
       ],
@@ -46,7 +44,6 @@ class FakeData {
         _rand(29.5, 33.0), // Heel
         _rand(28.5, 32.0), // Arch (slightly cooler)
         _rand(31.0, 35.5), // Metatarsal
-        _rand(32.0, 37.0), // Ball (most active)
         _rand(30.5, 35.0), // Toes
       ],
       accX:  _rand(-2.0, 2.0),
@@ -70,8 +67,8 @@ class FakeData {
   /// Uses neutral values that prevent division-by-zero in all widgets.
   static SensorDataSnapshot zero() {
     return const SensorDataSnapshot(
-      fsr: [0,0,0,0, 0,0,0,0, 0, 0,0,0, 0,0,0],
-      temperature: [30.5, 30.0, 30.8, 31.0, 30.3], // safe neutral temps
+      fsr: [0,0,0, 0,0,0,0, 0,0, 0,0,0],
+      temperature: [30.5, 30.0, 30.8, 30.3], // safe neutral temps
       accX: 0, accY: 9.81, accZ: 0,
       gyroX: 0, gyroY: 0, gyroZ: 0,
       magX: 0, magY: 0, magZ: 0,
