@@ -27,14 +27,17 @@ static const uint16_t DR_WAIT_MS[] = {
 static esp_err_t write_reg16(ads1115_handle_t h, uint8_t reg, uint16_t val)
 {
   uint8_t buf[3] = { reg, (uint8_t)(val >> 8), (uint8_t)(val & 0xFF) };
-  return i2c_master_transmit(h->dev, buf, 3, pdMS_TO_TICKS(10));
+  /* xfer_timeout_ms es en milisegundos directos (no ticks de FreeRTOS);
+   * -1 = esperar indefinidamente, igual que el resto de drivers I2C
+   * de este proyecto (imu_driver.c) y que el hardware de referencia. */
+  return i2c_master_transmit(h->dev, buf, 3, -1);
 }
 
 static esp_err_t read_reg16(ads1115_handle_t h, uint8_t reg, uint16_t *out)
 {
   uint8_t reg_buf = reg;
   uint8_t raw[2];
-  esp_err_t err = i2c_master_transmit_receive(h->dev, &reg_buf, 1, raw, 2, pdMS_TO_TICKS(10));
+  esp_err_t err = i2c_master_transmit_receive(h->dev, &reg_buf, 1, raw, 2, -1);
   if (err == ESP_OK) {
     *out = (uint16_t)((raw[0] << 8) | raw[1]);
   }
