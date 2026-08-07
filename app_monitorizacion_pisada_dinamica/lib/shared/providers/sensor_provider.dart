@@ -46,7 +46,10 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   bool _stepArmed = true;
 
   int _detectSteps(List<double> fsr) {
-    if (fsr.isEmpty) return _stepCount;
+    if (fsr.isEmpty) {
+      debugPrint('[STEPS] fsr vacio, no se puede detectar nada');
+      return _stepCount;
+    }
 
     final peak = fsr.reduce((a, b) => a > b ? a : b);
     final pressed = peak >= _stepThreshold;
@@ -54,8 +57,12 @@ class SensorDataNotifier extends StateNotifier<SensorData>
     if (pressed && _stepArmed) {
       _stepCount++;
       _stepArmed = false;
+      debugPrint('[STEPS] ¡PASO! peak=${peak.toStringAsFixed(4)} -> total=$_stepCount');
     } else if (!pressed) {
+      if (!_stepArmed) debugPrint('[STEPS] rearmado (peak=${peak.toStringAsFixed(4)})');
       _stepArmed = true;
+    } else {
+      debugPrint('[STEPS] peak=${peak.toStringAsFixed(4)} armed=$_stepArmed pressed=$pressed (sin cambio)');
     }
 
     return _stepCount;
@@ -95,7 +102,10 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   void _restartFlow() {
     _stopAll();
 
-    if (_ref.read(useFakeDataProvider)) {
+    final useFake = _ref.read(useFakeDataProvider);
+    debugPrint('[STEPS] _restartFlow useFakeData=$useFake');
+
+    if (useFake) {
       _startFakeTimer();
     } else {
       _startBleListener();
@@ -180,6 +190,7 @@ class SensorDataNotifier extends StateNotifier<SensorData>
 
   void _startBleListener() {
     final ble = _ref.read(bleServiceProvider);
+    debugPrint('[STEPS] _startBleListener: suscrito a ble.packetStream');
 
     _bleSub?.cancel();
     _bleSub = ble.packetStream.listen((packet) {
@@ -187,6 +198,7 @@ class SensorDataNotifier extends StateNotifier<SensorData>
 
       if (packet is SensorPacket) {
         final goal = _ref.read(stepGoalProvider);
+        final newStepCount = _detectSteps(packet.data.fsr);
 
         final newData = SensorData(
           fsr: packet.data.fsr,
@@ -203,12 +215,14 @@ class SensorDataNotifier extends StateNotifier<SensorData>
           roll: packet.data.roll,
           pitch: packet.data.pitch,
           yaw: packet.data.yaw,
-          stepCount: _detectSteps(packet.data.fsr),
+          stepCount: newStepCount,
           stepGoal: goal,
         );
 
         state = newData;
         _publishAll(newData);
+      } else {
+        debugPrint('[STEPS] Paquete recibido pero NO es SensorPacket: ${packet.runtimeType}');
       }
     });
   }
