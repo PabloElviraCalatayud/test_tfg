@@ -28,12 +28,19 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   // DETECCIÓN DE PASOS (datos BLE reales)
   // ─────────────────────────────────────────────────────────
   // El firmware no calcula pasos (packet_decoder siempre manda
-  // stepCount=0): se detectan aquí por umbral con histéresis sobre el
-  // pico de presión de los 12 FSR (valores normalizados 0..1). Se usa
-  // el máximo (no la media) para que un único sensor presionado —como
-  // al probar pulsando los FSR con la mano— ya cuente como paso.
-  static const double _stepPressThreshold = 0.15;
-  static const double _stepReleaseThreshold = 0.08;
+  // stepCount=0): se detectan aquí sobre el pico de presión de los 12
+  // FSR (valores normalizados 0..1). Se usa el máximo (no la media)
+  // para que un único sensor presionado —como al probar pulsando los
+  // FSR con la mano— ya cuente como paso.
+  //
+  // Un único umbral, casi cero: básicamente "hay contacto o no lo hay".
+  // Antes se usaba histéresis con dos umbrales (subida/bajada), pero si
+  // el ADC no vuelve nunca por debajo del umbral de bajada (offset/ruido
+  // residual), el detector se queda "armado en falso" para siempre y
+  // deja de contar pasos. Con un único umbral no hay forma de quedarse
+  // atascado: en cuanto el pico cae por debajo, ya está listo para el
+  // siguiente contacto.
+  static const double _stepThreshold = 0.001;
 
   int _stepCount = 0;
   bool _stepArmed = true;
@@ -42,11 +49,12 @@ class SensorDataNotifier extends StateNotifier<SensorData>
     if (fsr.isEmpty) return _stepCount;
 
     final peak = fsr.reduce((a, b) => a > b ? a : b);
+    final pressed = peak >= _stepThreshold;
 
-    if (_stepArmed && peak >= _stepPressThreshold) {
+    if (pressed && _stepArmed) {
       _stepCount++;
       _stepArmed = false;
-    } else if (!_stepArmed && peak <= _stepReleaseThreshold) {
+    } else if (!pressed) {
       _stepArmed = true;
     }
 

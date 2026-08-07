@@ -133,10 +133,8 @@ class _DeviceButton extends StatelessWidget {
     switch (device.status) {
       case DeviceStatus.connected:    return AppColors.bleConnected;
       case DeviceStatus.connecting:   return AppColors.bleConnecting;
+      case DeviceStatus.scanning:     return AppColors.bleConnecting;
       case DeviceStatus.disconnected: return AppColors.bleDisconnected;
-      case DeviceStatus.scanning:
-      // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 
@@ -144,10 +142,8 @@ class _DeviceButton extends StatelessWidget {
     switch (device.status) {
       case DeviceStatus.connected:    return Icons.sensors;
       case DeviceStatus.connecting:   return Icons.sensors_outlined;
+      case DeviceStatus.scanning:     return Icons.bluetooth_searching;
       case DeviceStatus.disconnected: return Icons.sensors_off_outlined;
-      case DeviceStatus.scanning:
-        // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 
@@ -170,11 +166,14 @@ class _DeviceButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                device.status == DeviceStatus.connected
-                    ? (device.name ?? 'Dispositivo')
-                    : device.status == DeviceStatus.connecting
-                    ? 'Conectando...'
-                    : 'Sin dispositivo',
+                switch (device.status) {
+                  DeviceStatus.connected    => device.name ?? 'Dispositivo',
+                  DeviceStatus.connecting   => 'Conectando...',
+                  DeviceStatus.scanning     => 'Buscando...',
+                  DeviceStatus.disconnected => 'Sin dispositivo',
+                },
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: _color, fontSize: 10, fontWeight: FontWeight.w600,
                 ),
