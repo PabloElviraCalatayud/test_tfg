@@ -193,7 +193,7 @@ class PacketDecoder {
         gyroX: gx,  gyroY: gy,  gyroZ: gz,
         magX: mx,   magY: my,   magZ: mz,
         roll: roll, pitch: pitch, yaw: yaw,
-        stepCount: 0, // detectado por lógica de pasos (futura)
+        stepCount: 0, // detección de pasos: ver SensorDataNotifier._detectSteps
         stepGoal: 10000,
       ),
     );

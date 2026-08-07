@@ -125,32 +125,49 @@ class _FootPressurePainter extends CustomPainter {
       final px  = nx * size.width;
       final py  = (1 - ny) * size.height; // flip: y=0 es talón=abajo
       final val = fsrValues[i];
+      final pressed = val >= 0.02;
 
-      if (val < 0.02) continue; // sin presión apreciable
-
-      final color  = _pressureColor(val);
-      final radius = 14.0 + val * 14.0;
-
-      // Halo exterior
+      // Marcador base del nodo, SIEMPRE visible (con o sin presión) para
+      // poder identificar y recolocar cada uno de los 12 sensores fisicos.
       canvas.drawCircle(
         Offset(px, py),
-        radius * 1.8,
+        10,
         Paint()
-          ..color      = color.withOpacity(0.15)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 16),
+          ..color       = AppColors.textDisabled.withOpacity(0.4)
+          ..style       = PaintingStyle.stroke
+          ..strokeWidth = 1.2,
       );
 
-      // Blob principal
-      canvas.drawCircle(
-        Offset(px, py),
-        radius,
-        Paint()
-          ..color      = color.withOpacity(0.75)
-          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6),
-      );
+      if (pressed) {
+        final color  = _pressureColor(val);
+        // Blobs mas grandes (antes 14-28px) y con mas radio/opacidad de
+        // halo para poder ver si dos sensores cercanos llegan a blendear.
+        final radius = 22.0 + val * 26.0;
 
-      // Punto central
-      canvas.drawCircle(Offset(px, py), 4, Paint()..color = color);
+        // Halo exterior
+        canvas.drawCircle(
+          Offset(px, py),
+          radius * 2.2,
+          Paint()
+            ..color      = color.withOpacity(0.25)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 22),
+        );
+
+        // Blob principal
+        canvas.drawCircle(
+          Offset(px, py),
+          radius,
+          Paint()
+            ..color      = color.withOpacity(0.8)
+            ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 8),
+        );
+
+        // Punto central
+        canvas.drawCircle(Offset(px, py), 4, Paint()..color = color);
+      }
+
+      // Numero de nodo (1-12), siempre encima de todo lo demas.
+      _drawNodeNumber(canvas, Offset(px, py), i + 1, pressed);
     }
 
     canvas.restore();
@@ -166,6 +183,25 @@ class _FootPressurePainter extends CustomPainter {
 
     // ── Centro de presión + flecha de dirección ──────────────────────────
     _drawArrow(canvas, size);
+  }
+
+  void _drawNodeNumber(Canvas canvas, Offset pos, int number, bool pressed) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: '$number',
+        style: TextStyle(
+          color: pressed ? Colors.white : AppColors.textSecondary,
+          fontSize: 10,
+          fontWeight: FontWeight.w700,
+          shadows: pressed
+              ? const [Shadow(color: Colors.black54, blurRadius: 3)]
+              : null,
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+
+    tp.paint(canvas, pos - Offset(tp.width / 2, tp.height / 2));
   }
 
   void _drawArrow(Canvas canvas, Size size) {

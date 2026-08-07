@@ -24,6 +24,35 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   Timer? _fakeTimer;
   StreamSubscription? _bleSub;
 
+  // ─────────────────────────────────────────────────────────
+  // DETECCIÓN DE PASOS (datos BLE reales)
+  // ─────────────────────────────────────────────────────────
+  // El firmware no calcula pasos (packet_decoder siempre manda
+  // stepCount=0): se detectan aquí por umbral con histéresis sobre el
+  // pico de presión de los 12 FSR (valores normalizados 0..1). Se usa
+  // el máximo (no la media) para que un único sensor presionado —como
+  // al probar pulsando los FSR con la mano— ya cuente como paso.
+  static const double _stepPressThreshold = 0.15;
+  static const double _stepReleaseThreshold = 0.08;
+
+  int _stepCount = 0;
+  bool _stepArmed = true;
+
+  int _detectSteps(List<double> fsr) {
+    if (fsr.isEmpty) return _stepCount;
+
+    final peak = fsr.reduce((a, b) => a > b ? a : b);
+
+    if (_stepArmed && peak >= _stepPressThreshold) {
+      _stepCount++;
+      _stepArmed = false;
+    } else if (!_stepArmed && peak <= _stepReleaseThreshold) {
+      _stepArmed = true;
+    }
+
+    return _stepCount;
+  }
+
   SensorDataNotifier(this._ref)
       : super(SensorData.fromSnapshot(FakeData.generateRandom())) {
     WidgetsBinding.instance.addObserver(this);
@@ -166,7 +195,7 @@ class SensorDataNotifier extends StateNotifier<SensorData>
           roll: packet.data.roll,
           pitch: packet.data.pitch,
           yaw: packet.data.yaw,
-          stepCount: packet.data.stepCount,
+          stepCount: _detectSteps(packet.data.fsr),
           stepGoal: goal,
         );
 
