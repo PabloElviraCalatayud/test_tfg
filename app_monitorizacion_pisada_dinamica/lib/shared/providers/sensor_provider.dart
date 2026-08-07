@@ -33,15 +33,18 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   // para que un único sensor presionado —como al probar pulsando los
   // FSR con la mano— ya cuente como paso.
   //
-  // Un único umbral, casi cero: básicamente "hay contacto o no lo hay".
-  // Antes se usaba histéresis con dos umbrales (subida/bajada), pero si
-  // el ADC no vuelve nunca por debajo del umbral de bajada (offset/ruido
-  // residual), el detector se queda "armado en falso" para siempre y
-  // deja de contar pasos. Con un único umbral no hay forma de quedarse
-  // atascado: en cuanto el pico cae por debajo, ya está listo para el
-  // siguiente contacto.
-  static const double _stepThreshold = 0.001;
+  // Un umbral ABSOLUTO (p.ej. "cuenta si peak >= 0.15") asume que "sin
+  // presión" lee cerca de 0. En la práctica el reposo de este hardware
+  // se ha visto asentado en ~0.17 (precarga mecánica del sensor/insuela)
+  // y ahí se queda siempre por encima de cualquier umbral razonable: se
+  // arma una vez al conectar y ya no vuelve a bajar nunca -> nunca vuelve
+  // a contar. Por eso se detecta la SUBIDA relativa (delta entre paquetes
+  // consecutivos) en vez del nivel absoluto: da igual en que nivel esté
+  // el reposo, un paso siempre implica un salto hacia arriba seguido, mas
+  // tarde, de uno hacia abajo.
+  static const double _stepRiseThreshold = 0.01; // ~1000 g de subida entre paquetes
 
+  double? _lastPeak; // null = aun no se ha fijado la base tras (re)conectar
   int _stepCount = 0;
   bool _stepArmed = true;
 
@@ -52,17 +55,27 @@ class SensorDataNotifier extends StateNotifier<SensorData>
     }
 
     final peak = fsr.reduce((a, b) => a > b ? a : b);
-    final pressed = peak >= _stepThreshold;
 
-    if (pressed && _stepArmed) {
+    if (_lastPeak == null) {
+      // Primera lectura tras (re)conectar: solo fija la base (sea cual
+      // sea el reposo real), no cuenta como paso.
+      _lastPeak = peak;
+      debugPrint('[STEPS] base inicial fijada en peak=${peak.toStringAsFixed(4)}');
+      return _stepCount;
+    }
+
+    final delta = peak - _lastPeak!;
+    _lastPeak = peak;
+
+    if (_stepArmed && delta >= _stepRiseThreshold) {
       _stepCount++;
       _stepArmed = false;
-      debugPrint('[STEPS] ¡PASO! peak=${peak.toStringAsFixed(4)} -> total=$_stepCount');
-    } else if (!pressed) {
-      if (!_stepArmed) debugPrint('[STEPS] rearmado (peak=${peak.toStringAsFixed(4)})');
+      debugPrint('[STEPS] ¡PASO! peak=${peak.toStringAsFixed(4)} '
+          'delta=${delta.toStringAsFixed(4)} -> total=$_stepCount');
+    } else if (!_stepArmed && delta <= -_stepRiseThreshold) {
       _stepArmed = true;
-    } else {
-      debugPrint('[STEPS] peak=${peak.toStringAsFixed(4)} armed=$_stepArmed pressed=$pressed (sin cambio)');
+      debugPrint('[STEPS] rearmado peak=${peak.toStringAsFixed(4)} '
+          'delta=${delta.toStringAsFixed(4)}');
     }
 
     return _stepCount;
@@ -191,6 +204,10 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   void _startBleListener() {
     final ble = _ref.read(bleServiceProvider);
     debugPrint('[STEPS] _startBleListener: suscrito a ble.packetStream');
+
+    // Re-fijar la base al (re)conectar: no comparar contra el ultimo
+    // valor de una sesion BLE anterior.
+    _lastPeak = null;
 
     _bleSub?.cancel();
     _bleSub = ble.packetStream.listen((packet) {
