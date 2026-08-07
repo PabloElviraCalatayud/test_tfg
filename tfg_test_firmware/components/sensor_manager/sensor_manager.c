@@ -39,8 +39,10 @@ static const char *TAG = "SENSOR_MGR";
 #define ADS1115_FSR_DEVICE_COUNT   3
 #define ADS1115_TEMP_DEVICE_INDEX  3
 
-#define FSR_V_REF           3.3f      /* tensión de alimentación del divisor FSR */
-#define FSR_PRESSURE_MAX_G  100000u   /* debe coincidir con PRESSURE_MAX del packet_builder */
+#define FSR_V_REF           3.3f     /* tensión de alimentación del divisor FSR */
+#define FSR_PRESSURE_MAX_G  10000u   /* fondo de escala real del sensor: 10 kg. Debe
+                                       * coincidir con PRESSURE_MAX del packet_builder
+                                       * y con kMaxPressureG en packet_decoder.dart */
 
 #define NTC_V_REF           3.3f
 #define NTC_R_REF_OHM       10000.0f

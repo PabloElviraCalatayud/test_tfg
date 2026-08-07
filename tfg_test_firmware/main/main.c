@@ -50,7 +50,7 @@ static void mock_read_adc(sensor_data_t *data) {
 
     for (int ch = 0; ch < ADS1115_NUM_CHANNELS; ch++) {
       data->pressure[fsr_idx] = (uint32_t)(
-        res.voltage[ch] / 3.3f * 100000.0f
+        res.voltage[ch] / 3.3f * 10000.0f
       );
 
       ESP_LOGI(

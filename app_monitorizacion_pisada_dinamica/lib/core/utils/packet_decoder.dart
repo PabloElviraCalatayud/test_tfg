@@ -14,7 +14,7 @@
 //   Accel X/Y/Z    : 3 × 12 bits, offset 1600, scale 100  → g
 //   Gyro  X/Y/Z    : 3 × 13 bits, offset 4000, scale 2    → °/s
 //   Mag   X/Y/Z    : 3 × 14 bits, offset 8000, scale 1000 → Gauss
-//   Pressure[0-11] : 12 × 17 bits, 0–100000 g directo
+//   Pressure[0-11] : 12 × 17 bits, 0–10000 g directo (fondo real del FSR: 10 kg)
 //   Thermistor[0-3]: 4 × 10 bits, ×10 → °C
 //   Total: 36+39+42+204+40 = 361 bits
 
@@ -155,7 +155,7 @@ class PacketDecoder {
     final my = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
     final mz = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
 
-    // Presión — 12 × 17 bits, valor directo en gramos (0–100000)
+    // Presión — 12 × 17 bits, valor directo en gramos (0–10000, fondo real del FSR)
     final List<double> pressure = [];
     for (int i = 0; i < kNumPressureSensors; i++) {
       pressure.add(_readBits(payload, bitPos, 17).toDouble()); bitPos += 17;
@@ -180,7 +180,9 @@ class PacketDecoder {
     final yaw   = atan2(-my, mx) * 180.0 / pi;
 
     // ── 12 sensores FSR y 4 termistores, uno a uno (sin agrupar por zonas) ──
-    const double kMaxPressureG = 100000.0;
+    // Debe coincidir con FSR_PRESSURE_MAX_G en sensor_manager.c y PRESSURE_MAX
+    // en packet_builder.h: fondo de escala real del sensor (10 kg).
+    const double kMaxPressureG = 10000.0;
     final fsr = pressure.map((g) => (g / kMaxPressureG).clamp(0.0, 1.0)).toList();
 
     return SensorPacket(

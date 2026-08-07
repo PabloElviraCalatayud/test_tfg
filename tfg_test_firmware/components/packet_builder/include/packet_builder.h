@@ -15,7 +15,7 @@
  * │ Accel X/Y/Z  │ ±16 g        │ 0.01 g → 3200v │ 12 bit │ 2^12=4096 > 3200 │
  * │ Gyro  X/Y/Z  │ ±2000 °/s    │ 0.5  → 8000 v  │ 13 bit │ 2^13=8192 > 8000 │
  * │ Mag   X/Y/Z  │ ±8 Gauss     │ 0.001→ 16000 v │ 14 bit │ 2^14=16384>16000 │
- * │ Presion ×12  │ 0–100 kg     │ 1 g → 100000 v │ 17 bit │ 2^17=131072>1e5  │
+ * │ Presion ×12  │ 0–10 kg      │ 1 g → 10000 v  │ 17 bit │ fondo escala FSR │
  * │ Termistor ×4 │ 0–100 °C     │ 0.1°→ 1000 v   │ 10 bit │ 2^10=1024 > 1000 │
  * └──────────────┴──────────────┴────────────────┴────────┴──────────────────┘
  *
@@ -58,8 +58,8 @@
 #define MAG_SCALE        1000     /* ×1000 → 0.001G resolución          */
 #define MAG_OFFSET       8000     /* ±8G → [0, 16000]                   */
 
-#define PRESSURE_BITS    17       /* 0–100000 g directo                 */
-#define PRESSURE_MAX     100000u
+#define PRESSURE_BITS    17       /* 17 bit dan margen de sobra; fondo real 10000 g */
+#define PRESSURE_MAX     10000u   /* fondo de escala real del FSR (10 kg)     */
 
 #define THERMISTOR_BITS  10       /* 0–100.0°C (×10) → [0, 1000]       */
 #define THERMISTOR_SCALE 10
