@@ -66,3 +66,11 @@ void ads1115_deinit(ads1115_handle_t handle);
 
 float ads1115_ntc_to_celsius(float v_adc, float v_ref, float r_ref_ohm);
 uint32_t ads1115_voltage_to_grams(float voltage, float v_max, uint32_t pressure_max_g);
+
+/**
+ * Reconstruye el voltaje a partir de una cuenta RAW ya guardada (ej. la
+ * que se manda por BLE) y el ajuste de PGA usado al leerla. Solo sirve
+ * para volcar unidades legibles por consola/depuracion -- el paquete BLE
+ * siempre manda la cuenta RAW tal cual, nunca el voltaje ni los gramos.
+ */
+float ads1115_raw_to_voltage(int16_t raw, ads1115_fsr_t fsr);

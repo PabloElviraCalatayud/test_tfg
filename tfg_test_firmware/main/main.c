@@ -5,6 +5,7 @@
 #include "freertos/task.h"
 
 #include "esp_log.h"
+#include "esp_pm.h"
 
 #include "system_state.h"
 #include "ble_transport.h"
@@ -49,15 +50,12 @@ static void mock_read_adc(sensor_data_t *data) {
     ads1115_mock_read_all(s_mock_adc[dev], &res);
 
     for (int ch = 0; ch < ADS1115_NUM_CHANNELS; ch++) {
-      data->pressure[fsr_idx] = (uint32_t)(
-        res.voltage[ch] / 3.3f * 10000.0f
-      );
+      data->pressure_raw[fsr_idx] = res.raw[ch];
 
       ESP_LOGI(
         TAG,
-        "FSR[%2d] addr=0x%02X ch=%d  V=%.3fV  P=%u g",
-        fsr_idx, MOCK_ADC_I2C_ADDR[dev], ch,
-        res.voltage[ch], (unsigned int)data->pressure[fsr_idx]
+        "FSR[%2d] addr=0x%02X ch=%d  raw=%d",
+        fsr_idx, MOCK_ADC_I2C_ADDR[dev], ch, res.raw[ch]
       );
 
       fsr_idx++;
@@ -67,14 +65,12 @@ static void mock_read_adc(sensor_data_t *data) {
   ads1115_mock_read_all(s_mock_adc[MOCK_ADS1115_TEMP_DEVICE_INDEX], &res);
 
   for (int ch = 0; ch < NUM_THERMISTOR_SENSORS; ch++) {
-    data->temperature[ch] =
-      20.0f + (res.voltage[ch] / 3.3f) * 30.0f;
+    data->thermistor_raw[ch] = res.raw[ch];
 
     ESP_LOGI(
       TAG,
-      "NTC[%d] addr=0x%02X ch=%d  V=%.3fV  T=%.1f C",
-      ch, MOCK_ADC_I2C_ADDR[MOCK_ADS1115_TEMP_DEVICE_INDEX], ch,
-      res.voltage[ch], data->temperature[ch]
+      "NTC[%d] addr=0x%02X ch=%d  raw=%d",
+      ch, MOCK_ADC_I2C_ADDR[MOCK_ADS1115_TEMP_DEVICE_INDEX], ch, res.raw[ch]
     );
   }
 }
@@ -93,6 +89,16 @@ static void app_task(void *arg) {
 #endif
 
   while (1) {
+
+#if USE_REAL_SENSORS
+    /*
+     * Dirigido por eventos: espera a que sensor_manager avise de que hay
+     * una lectura de IMU nueva (~50Hz, el ritmo real del sensor) en vez
+     * de hacer polling a una tasa fija mas alta que la de los datos --
+     * la mayoria de esos ciclos extra solo reenviaban el mismo paquete.
+     */
+    ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+#endif
 
     if (system_state_get() == SYS_STATE_OTA) {
 
@@ -132,28 +138,31 @@ static void app_task(void *arg) {
     data.mag_z = frame.mz;
 
     for (int i = 0; i < NUM_PRESSURE_SENSORS; i++) {
-      data.pressure[i] = frame.pressure[i];
+      data.pressure_raw[i] = frame.pressure_raw[i];
     }
 
     for (int i = 0; i < NUM_THERMISTOR_SENSORS; i++) {
-      data.temperature[i] = frame.temperature[i];
+      data.thermistor_raw[i] = frame.thermistor_raw[i];
     }
 
 #else
 
     lsm9ds1_mock_read(&imu);
 
-    data.accel_x = imu.ax;
-    data.accel_y = imu.ay;
-    data.accel_z = imu.az;
+    /* lsm9ds1_mock sigue devolviendo unidades fisicas (driver legacy,
+     * no forma parte del path real); se castea a int16 solo para que
+     * esta rama de mock compile con el formato RAW del paquete. */
+    data.accel_x = (int16_t)imu.ax;
+    data.accel_y = (int16_t)imu.ay;
+    data.accel_z = (int16_t)imu.az;
 
-    data.gyro_x = imu.gx;
-    data.gyro_y = imu.gy;
-    data.gyro_z = imu.gz;
+    data.gyro_x = (int16_t)imu.gx;
+    data.gyro_y = (int16_t)imu.gy;
+    data.gyro_z = (int16_t)imu.gz;
 
-    data.mag_x = imu.mx;
-    data.mag_y = imu.my;
-    data.mag_z = imu.mz;
+    data.mag_x = (int16_t)imu.mx;
+    data.mag_y = (int16_t)imu.my;
+    data.mag_z = (int16_t)imu.mz;
 
     mock_read_adc(&data);
 
@@ -163,7 +172,7 @@ static void app_task(void *arg) {
      * El detalle de IMU/FSR/NTC ya se ve en la linea consolidada que
      * imprime sensor_manager (2 Hz). Aqui solo dejamos un heartbeat de
      * estado BLE, throttled a ~1 Hz, para no inundar la consola con un
-     * log por paquete (este bucle corre a 100 Hz).
+     * log por paquete (el bucle corre a ~50 Hz, dirigido por eventos).
      */
     static int pkt_count = 0;
 
@@ -181,7 +190,7 @@ static void app_task(void *arg) {
       pkt_count++;
     }
 
-    if (pkt_count >= 100) {
+    if (pkt_count >= 50) {
 
       ESP_LOGI(
         TAG,
@@ -193,9 +202,13 @@ static void app_task(void *arg) {
       pkt_count = 0;
     }
 
+#if !USE_REAL_SENSORS
+    /* Rama mock: no hay sensor_manager que avise por notificacion, asi
+     * que se mantiene el ritmo por polling. */
     vTaskDelay(
       pdMS_TO_TICKS(10)
     );
+#endif
   }
 }
 
@@ -203,6 +216,21 @@ void app_main(void) {
   ESP_LOGI(
     TAG,
     "=== ESP32-S3 DAS arrancando ==="
+  );
+
+  /*
+   * DFS + light-sleep automatico: baja la frecuencia de CPU (y entra en
+   * light-sleep) en los huecos de inactividad entre tasks, sin tocar la
+   * frecuencia maxima disponible cuando hay trabajo real. min_freq_mhz=80
+   * deja margen de sobra para el timing de I2C/BLE; se puede bajar mas
+   * (ej. 40) tras validar en campo que no afecta a la estabilidad BLE.
+   */
+  ESP_ERROR_CHECK(
+    esp_pm_configure(&(esp_pm_config_t){
+      .max_freq_mhz = 160,
+      .min_freq_mhz = 80,
+      .light_sleep_enable = true,
+    })
   );
 
   /*
@@ -280,14 +308,22 @@ void app_main(void) {
     SYS_STATE_RUNNING
   );
 
+  TaskHandle_t app_task_handle;
+
   xTaskCreate(
     app_task,
     "app_task",
     6144,
     NULL,
     5,
-    NULL
+    &app_task_handle
   );
+
+#if USE_REAL_SENSORS
+  /* app_task espera en ulTaskNotifyTake() a que sensor_manager avise de
+   * una lectura de IMU nueva -- ver comentario en app_task(). */
+  sensor_manager_set_notify_task(app_task_handle);
+#endif
 
   ESP_LOGI(
     TAG,

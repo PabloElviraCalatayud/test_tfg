@@ -236,17 +236,22 @@ esp_err_t imu_driver_read(
   int16_t my_raw = make_int16(mag_raw[2], mag_raw[3]);
   int16_t mz_raw = make_int16(mag_raw[4], mag_raw[5]);
 
-  data->gx = gx_raw * 0.00875f;
-  data->gy = gy_raw * 0.00875f;
-  data->gz = gz_raw * 0.00875f;
+  /*
+   * RAW puro, sin convertir. La conversion a unidades fisicas (antes
+   * aqui: gyro x0.00875 dps/LSB, accel x0.000061 g/LSB, mag x0.00014
+   * gauss/LSB) vive ahora en sensor_calibration.dart, en la app movil.
+   */
+  data->gx = gx_raw;
+  data->gy = gy_raw;
+  data->gz = gz_raw;
 
-  data->ax = ax_raw * 0.000061f;
-  data->ay = ay_raw * 0.000061f;
-  data->az = az_raw * 0.000061f;
+  data->ax = ax_raw;
+  data->ay = ay_raw;
+  data->az = az_raw;
 
-  data->mx = mx_raw * 0.00014f;
-  data->my = my_raw * 0.00014f;
-  data->mz = mz_raw * 0.00014f;
+  data->mx = mx_raw;
+  data->my = my_raw;
+  data->mz = mz_raw;
 
   return ESP_OK;
 }

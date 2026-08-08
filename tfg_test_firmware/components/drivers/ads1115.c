@@ -124,14 +124,12 @@ esp_err_t ads1115_read_all(ads1115_handle_t h, ads1115_result_t *out)
     ADS1115_MUX_AIN3_GND,
   };
 
-  float uv_per_lsb = FSR_UV_PER_LSB[h->fsr & 0x07];
-
   for (int i = 0; i < ADS1115_NUM_CHANNELS; i++) {
     if (ads1115_read_channel(h, channels[i], &out->raw[i]) != ESP_OK) {
       out->raw[i] = 0;
       out->voltage[i] = 0;
     } else {
-      out->voltage[i] = (float)out->raw[i] * uv_per_lsb / 1e6f;
+      out->voltage[i] = ads1115_raw_to_voltage(out->raw[i], h->fsr);
     }
   }
   return ESP_OK;
@@ -165,4 +163,10 @@ uint32_t ads1115_voltage_to_grams(float voltage, float v_max, uint32_t pressure_
   if (voltage <= 0.0f) return 0;
   if (voltage >= v_max) return pressure_max_g;
   return (uint32_t)(voltage / v_max * pressure_max_g);
+}
+
+float ads1115_raw_to_voltage(int16_t raw, ads1115_fsr_t fsr)
+{
+  float uv_per_lsb = FSR_UV_PER_LSB[fsr & 0x07];
+  return (float)raw * uv_per_lsb / 1e6f;
 }

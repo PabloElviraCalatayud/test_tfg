@@ -40,9 +40,10 @@ static const char *TAG = "SENSOR_MGR";
 #define ADS1115_TEMP_DEVICE_INDEX  3
 
 #define FSR_V_REF           3.3f     /* tensión de alimentación del divisor FSR */
-#define FSR_PRESSURE_MAX_G  10000u   /* fondo de escala real del sensor: 10 kg. Debe
-                                       * coincidir con PRESSURE_MAX del packet_builder
-                                       * y con kMaxPressureG en packet_decoder.dart */
+#define FSR_PRESSURE_MAX_G  10000u   /* fondo de escala real del sensor: 10 kg. Solo
+                                       * se usa para el log de consola (el paquete BLE
+                                       * manda la cuenta RAW). Debe coincidir con
+                                       * kFsrPressureMaxG en sensor_calibration.dart */
 
 #define NTC_V_REF           3.3f
 #define NTC_R_REF_OHM       10000.0f
@@ -68,6 +69,15 @@ static TaskHandle_t imu_task_handle;
 static TaskHandle_t adc_task_handle;
 static TaskHandle_t console_task_handle;
 
+/* Task (normalmente app_task en main.c) a la que avisar cuando hay IMU
+ * nuevo, para poder mandar por BLE dirigido por eventos en vez de a una
+ * tasa de polling fija. NULL hasta que main.c la registra. */
+static TaskHandle_t s_notify_task = NULL;
+
+void sensor_manager_set_notify_task(TaskHandle_t task) {
+  s_notify_task = task;
+}
+
 static void imu_task(void *arg) {
   imu_data_t data;
 
@@ -90,6 +100,10 @@ static void imu_task(void *arg) {
       frame.mz = data.mz;
 
       xSemaphoreGive(mutex);
+
+      if (s_notify_task) {
+        xTaskNotifyGive(s_notify_task);
+      }
     }
 
     vTaskDelay(pdMS_TO_TICKS(20));
@@ -98,8 +112,8 @@ static void imu_task(void *arg) {
 
 static void adc_task(void *arg) {
   ads1115_result_t res;
-  uint32_t pressure[SM_NUM_FSR_SENSORS];
-  float    temperature[SM_NUM_THERMISTOR_SENSORS];
+  int16_t pressure_raw[SM_NUM_FSR_SENSORS];
+  int16_t thermistor_raw[SM_NUM_THERMISTOR_SENSORS];
 
   while (1) {
 
@@ -109,15 +123,16 @@ static void adc_task(void *arg) {
       if (ads1115_read_all(s_adc[dev], &res) == ESP_OK) {
 
         for (int ch = 0; ch < ADS1115_NUM_CHANNELS; ch++) {
-          pressure[fsr_idx] = ads1115_voltage_to_grams(
-            res.voltage[ch], FSR_V_REF, FSR_PRESSURE_MAX_G
-          );
+          pressure_raw[fsr_idx] = res.raw[ch];
 
+          /* Conversion SOLO para el log de depuracion; el paquete BLE
+           * manda pressure_raw[] tal cual, sin convertir. */
           ESP_LOGD(
             TAG,
-            "FSR[%2d] bus=%d addr=0x%02X ch=%d  V=%.3fV  P=%u g",
+            "FSR[%2d] bus=%d addr=0x%02X ch=%d  raw=%d  V=%.3fV  P=%u g",
             fsr_idx, ADC_I2C_BUS[dev], ADC_I2C_ADDR[dev], ch,
-            res.voltage[ch], (unsigned int)pressure[fsr_idx]
+            res.raw[ch], res.voltage[ch],
+            (unsigned int)ads1115_voltage_to_grams(res.voltage[ch], FSR_V_REF, FSR_PRESSURE_MAX_G)
           );
 
           fsr_idx++;
@@ -131,7 +146,7 @@ static void adc_task(void *arg) {
         );
 
         for (int ch = 0; ch < ADS1115_NUM_CHANNELS; ch++) {
-          pressure[fsr_idx++] = 0;
+          pressure_raw[fsr_idx++] = 0;
         }
       }
     }
@@ -139,14 +154,15 @@ static void adc_task(void *arg) {
     if (ads1115_read_all(s_adc[ADS1115_TEMP_DEVICE_INDEX], &res) == ESP_OK) {
 
       for (int ch = 0; ch < SM_NUM_THERMISTOR_SENSORS; ch++) {
-        temperature[ch] = ads1115_ntc_to_celsius(res.voltage[ch], NTC_V_REF, NTC_R_REF_OHM);
+        thermistor_raw[ch] = res.raw[ch];
 
         ESP_LOGD(
           TAG,
-          "NTC[%d] bus=%d addr=0x%02X ch=%d  V=%.3fV  T=%.1f C",
+          "NTC[%d] bus=%d addr=0x%02X ch=%d  raw=%d  V=%.3fV  T=%.1f C",
           ch, ADC_I2C_BUS[ADS1115_TEMP_DEVICE_INDEX],
           ADC_I2C_ADDR[ADS1115_TEMP_DEVICE_INDEX], ch,
-          res.voltage[ch], temperature[ch]
+          res.raw[ch], res.voltage[ch],
+          ads1115_ntc_to_celsius(res.voltage[ch], NTC_V_REF, NTC_R_REF_OHM)
         );
       }
 
@@ -159,14 +175,14 @@ static void adc_task(void *arg) {
       );
 
       for (int ch = 0; ch < SM_NUM_THERMISTOR_SENSORS; ch++) {
-        temperature[ch] = 0.0f;
+        thermistor_raw[ch] = 0;
       }
     }
 
     xSemaphoreTake(mutex, portMAX_DELAY);
 
-    memcpy(frame.pressure, pressure, sizeof(pressure));
-    memcpy(frame.temperature, temperature, sizeof(temperature));
+    memcpy(frame.pressure_raw, pressure_raw, sizeof(pressure_raw));
+    memcpy(frame.thermistor_raw, thermistor_raw, sizeof(thermistor_raw));
 
     xSemaphoreGive(mutex);
 
@@ -189,29 +205,40 @@ static void console_task(void *arg) {
     snap = frame;
     xSemaphoreGive(mutex);
 
+    /*
+     * snap.pressure_raw/thermistor_raw son cuentas RAW (lo que se manda
+     * por BLE). Aqui se reconvierten SOLO para que el log de consola siga
+     * siendo legible en el banco de pruebas; el paquete BLE nunca lleva
+     * estos valores convertidos.
+     */
     char fsr_str[SM_NUM_FSR_SENSORS * 7 + 1];
     int  pos = 0;
     for (int i = 0; i < SM_NUM_FSR_SENSORS; i++) {
+      float v = ads1115_raw_to_voltage(snap.pressure_raw[i], ADS1115_FSR_4096MV);
+      uint32_t grams = ads1115_voltage_to_grams(v, FSR_V_REF, FSR_PRESSURE_MAX_G);
       pos += snprintf(
         fsr_str + pos, sizeof(fsr_str) - pos,
-        "%s%u", (i == 0) ? "" : " ", (unsigned int)snap.pressure[i]
+        "%s%u", (i == 0) ? "" : " ", (unsigned int)grams
       );
     }
 
     char ntc_str[SM_NUM_THERMISTOR_SENSORS * 7 + 1];
     pos = 0;
     for (int i = 0; i < SM_NUM_THERMISTOR_SENSORS; i++) {
+      float v = ads1115_raw_to_voltage(snap.thermistor_raw[i], ADS1115_FSR_4096MV);
+      float celsius = ads1115_ntc_to_celsius(v, NTC_V_REF, NTC_R_REF_OHM);
       pos += snprintf(
         ntc_str + pos, sizeof(ntc_str) - pos,
-        "%s%.1f", (i == 0) ? "" : " ", snap.temperature[i]
+        "%s%.1f", (i == 0) ? "" : " ", celsius
       );
     }
 
     ESP_LOGI(
       TAG,
-      "IMU A[%5.2f %5.2f %5.2f] G[%6.1f %6.1f %6.1f] | FSR(g)[%s] | NTC(C)[%s]",
+      "IMU_raw A[%d %d %d] G[%d %d %d] M[%d %d %d] | FSR(g)[%s] | NTC(C)[%s]",
       snap.ax, snap.ay, snap.az,
       snap.gx, snap.gy, snap.gz,
+      snap.mx, snap.my, snap.mz,
       fsr_str, ntc_str
     );
 
@@ -271,7 +298,15 @@ void sensor_manager_init(void) {
       .bus = buses[ADC_I2C_BUS[i]],
       .addr = ADC_I2C_ADDR[i],
       .fsr = ADS1115_FSR_4096MV,
-      .data_rate = ADS1115_DR_128SPS,
+      /*
+       * 860SPS en vez de 128SPS: baja la espera de conversion por canal
+       * de ~10ms a ~2ms (tabla DR_WAIT_MS de ads1115.c) -- es el reloj
+       * interno del ADC, no toca el bus I2C, asi que no reintroduce el
+       * problema de fiabilidad que forzo bajar el I2C a 100kHz. Libera
+       * ~128ms de cada ciclo de 200ms de adc_task para que la CPU pueda
+       * entrar en light-sleep.
+       */
+      .data_rate = ADS1115_DR_860SPS,
     };
 
     /*
@@ -310,6 +345,7 @@ void sensor_manager_init(void) {
     &adc_task_handle
   );
 
+#if CONFIG_DAS_ENABLE_CONSOLE_TASK
   xTaskCreate(
     console_task,
     "console_task",
@@ -318,6 +354,7 @@ void sensor_manager_init(void) {
     3,
     &console_task_handle
   );
+#endif
 }
 
 bool sensor_manager_get_frame(
