@@ -8,6 +8,7 @@ import '../../core/utils/packet_decoder.dart';
 import '../../core/services/ble_service.dart';
 import 'device_provider.dart';
 import '../../core/services/mqtt_service.dart';
+import 'history_provider.dart';
 
 final useFakeDataProvider = StateProvider<bool>((ref) => true);
 final _extraStepsProvider = StateProvider<int>((ref) => 0);
@@ -23,6 +24,7 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   final Ref _ref;
   Timer? _fakeTimer;
   StreamSubscription? _bleSub;
+  StreamSubscription? _bleConnStateSub;
 
   // ─────────────────────────────────────────────────────────
   // DETECCIÓN DE PASOS (datos BLE reales)
@@ -72,6 +74,13 @@ class SensorDataNotifier extends StateNotifier<SensorData>
       _stepArmed = false;
       debugPrint('[STEPS] ¡PASO! peak=${peak.toStringAsFixed(4)} '
           'delta=${delta.toStringAsFixed(4)} -> total=$_stepCount');
+
+      // Fire-and-forget: no bloquea el procesado del siguiente paquete BLE.
+      // Solo pasos reales (datos BLE) se persisten -- _fakeTick() nunca
+      // llama a _detectSteps, asi que el modo demo no contamina el historial.
+      _ref.read(historyServiceProvider).incrementToday(1).catchError((e) {
+        debugPrint('[STEPS] Error guardando en el historial: $e');
+      });
     } else if (!_stepArmed && delta <= -_stepRiseThreshold) {
       _stepArmed = true;
       debugPrint('[STEPS] rearmado peak=${peak.toStringAsFixed(4)} '
@@ -88,6 +97,17 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   }
 
   Future<void> _init() async {
+    if (!mounted) return;
+
+    // Siembra el contador en memoria con lo ya guardado hoy, para que un
+    // relanzamiento de la app el mismo dia no muestre el contador a 0
+    // mientras llega el primer paquete BLE.
+    try {
+      _stepCount = await _ref.read(historyServiceProvider).getTodaySteps();
+    } catch (e) {
+      debugPrint('[STEPS] Error leyendo historial de hoy: $e');
+    }
+
     if (!mounted) return;
 
     _ref.listen<bool>(useFakeDataProvider, (_, useFake) {
@@ -205,9 +225,26 @@ class SensorDataNotifier extends StateNotifier<SensorData>
     final ble = _ref.read(bleServiceProvider);
     debugPrint('[STEPS] _startBleListener: suscrito a ble.packetStream');
 
-    // Re-fijar la base al (re)conectar: no comparar contra el ultimo
-    // valor de una sesion BLE anterior.
-    _lastPeak = null;
+    /*
+     * _lastPeak SOLO se re-fija en una conexion GATT genuinamente nueva,
+     * nunca aqui. Antes se reseteaba en cada llamada a este metodo, que
+     * se dispara en cada _restartFlow() -- y _restartFlow() se llama en
+     * CADA resume de la app (ver didChangeAppLifecycleState), pase lo
+     * que pase con la conexion BLE real. Resultado: minimizar/reabrir la
+     * app a mitad de zancada borraba la base sin motivo, dando la
+     * impresion de que el contador de pasos "no funcionaba".
+     */
+    _bleConnStateSub?.cancel();
+    BleConnectionState? lastBleState;
+    _bleConnStateSub = ble.connectionStateStream.listen((bleState) {
+      if (bleState == BleConnectionState.connected &&
+          lastBleState != BleConnectionState.connected) {
+        _lastPeak = null;
+        _stepArmed = true;
+        debugPrint('[STEPS] Conexion BLE nueva -> base de pasos reseteada');
+      }
+      lastBleState = bleState;
+    });
 
     _bleSub?.cancel();
     _bleSub = ble.packetStream.listen((packet) {
@@ -249,6 +286,8 @@ class SensorDataNotifier extends StateNotifier<SensorData>
     _fakeTimer = null;
     _bleSub?.cancel();
     _bleSub = null;
+    _bleConnStateSub?.cancel();
+    _bleConnStateSub = null;
   }
 
   @override

@@ -13,14 +13,16 @@ class AppScaffold extends ConsumerWidget {
   const AppScaffold({super.key, required this.child});
 
   int _locationToIndex(String location) {
-    if (location.startsWith('/debug')) return 1;
+    if (location.startsWith('/history')) return 1;
+    if (location.startsWith('/debug')) return 2;
     return 0;
   }
 
   void _onNavTap(BuildContext context, int index) {
     switch (index) {
       case 0: context.go('/dashboard'); break;
-      case 1: context.go('/debug'); break;
+      case 1: context.go('/history'); break;
+      case 2: context.go('/debug'); break;
     }
   }
 
@@ -81,6 +83,11 @@ class AppScaffold extends ConsumerWidget {
             icon: Icon(Icons.home_outlined),
             selectedIcon: Icon(Icons.home),
             label: 'Inicio',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.history_outlined),
+            selectedIcon: Icon(Icons.history),
+            label: 'Historial',
           ),
           NavigationDestination(
             icon: Icon(Icons.bug_report_outlined),

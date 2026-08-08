@@ -26,6 +26,10 @@ dependencies:
 
   mqtt_client: ^10.2.0
 
+  flutter_foreground_task: ^8.10.4
+  sqflite: ^2.3.3
+  path: ^1.9.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

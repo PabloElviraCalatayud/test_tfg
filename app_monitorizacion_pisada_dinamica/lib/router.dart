@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'core/widgets/app_scaffold.dart';
 import 'features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'features/debug/presentation/screens/debug_screen.dart';
+import 'features/history/presentation/screens/history_screen.dart';
 import 'features/profile/presentation/screens/profile_screen.dart';
 import 'features/ota/presentation/screens/ota_screen.dart';
 
@@ -22,6 +23,11 @@ final router = GoRouter(
           path: '/debug',
           pageBuilder: (_, __) =>
           const NoTransitionPage(child: DebugScreen()),
+        ),
+        GoRoute(
+          path: '/history',
+          pageBuilder: (_, __) =>
+          const NoTransitionPage(child: HistoryScreen()),
         ),
       ],
     ),
