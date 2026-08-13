@@ -1,0 +1,35 @@
+\chapter*{Resumen}
+El análisis de la pisada es una herramienta de diagnóstico con aplicaciones que abarcan desde el campo de la medicina clínica hasta el rendimiento deportivo. La forma en la que una persona realiza sus pisadas a la hora de caminar, correr o realizar cualquier actividad de esta índole proporciona métricas físicas de gran valor a la hora de realizar el análisis de las alteraciones en los patrones de dichos movimientos. Alteraciones en los patrones de presión, temperatura o estabilidad dinámica pueden ser indicativas de patologías tales como la diabetes o el Parkinson, cuya detección temprana impacta de manera directa en la calidad y en el coste del tratamiento de las mismas.
+
+En las últimas décadas, el avance en los conocidos *wearables* ha supuesto una transformación radical en la forma en la que se monitorizan los parámetros fisiológicos y biomecánicos de las personas, impulsando de manera exponencial la telemedicina y permitiendo la monitorización continua de un paciente fuera del entorno clínico. Los sistemas embebidos de bajo consumo, los protocolos de comunicación inalámbrica de bajo consumo y las plataformas IoT en la nube han hecho posible la captura, transmisión y análisis de datos en tiempo real desde cualquier entorno.
+
+Conocemos como análisis dinámico de la pisada la medición de un conjunto de variables durante el movimiento real de un sujeto. Requiere de un sistema capaz de adquirir datos de la presión plantar, temperatura superficial e información del comportamiento inercial del pie de forma sincronizada. Este conjunto de variables permite caracterizar tanto la distribución de cargas como la cinemática del pie, ofreciendo una imagen completa del ciclo de marcha del usuario.
+
+A pesar de la relevancia clínica y deportiva del análisis dinámico de la pisada, las soluciones disponibles presentan barreras de acceso que limitan su uso generalizado. Los sistemas de laboratorio basados en plataformas de presión y sistemas de cámaras encargadas de analizar el movimiento quedan recluidos a un entorno especializado por su coste e infraestructura. Las plantillas sensorizadas orientadas al ámbito médico dependen de material específico, como pueden ser tobilleras o botas ortopédicas, disminuyendo la accesibilidad. Finalmente, las soluciones más autónomas existentes en el mercado presentan un precio elevado, quedando reservadas para aplicaciones profesionales. Actualmente no existe una solución que combine portabilidad completa, autonomía de operación y un bajo coste en un único dispositivo.
+
+En este trabajo se presenta el diseño, desarrollo y validación tanto de un dispositivo como de una plataforma IoT para la monitorización dinámica de la pisada. El dispositivo de recolección de datos está compuesto por 15 sensores de fuerza resistiva, 5 termorresistencias y una IMU de 9 grados de libertad, adheridos a una plantilla impresa en 3D y recubierta por goma EVA, así como por un microcontrolador ESP32-S3 situado en una tobillera impresa en 3D encargado de gestionar la recolección y el envío de los datos. Los datos recolectados son transmitidos en tiempo real mediante NimBLE a una aplicación donde pueden visualizarse en forma de mapas de calor o de un horizonte artificial empleado para indicar la posición relativa del pie durante la pisada. La plataforma IoT se completa con una cadena de datos IoT que incluye un *broker* MQTT, almacenamiento persistente en PostgreSQL y visualización de los datos en Grafana.
+
+[RELLENAR]
+
+[RESULTADOS DEL ESTADO DEL ARTE]
+
+Los resultados obtenidos demuestran la viabilidad de construir un sistema de análisis dinámico de la pisada autónomo y de bajo coste. La integración de la cadena completa, desde la adquisición de los datos hasta la visualización en la nube, abre la posibilidad de democratizar este tipo de análisis más allá del laboratorio, hacia entornos clínicos de atención primaria, consultas de rehabilitación y deportistas de forma remota.
+
+Más allá de la validación del sistema desarrollado, las capacidades de adquisición y almacenamiento continuo de datos plantean nuevas oportunidades para ampliar el alcance funcional de la plataforma. La principal línea de trabajo a futuro es la incorporación de un modelo de inteligencia artificial para el análisis e interpretación automática de los datos, sirviendo de ayuda tanto a profesionales como a usuarios finales no especializados.
+
+\\
+
+\textbf{Contenido de la sección:}
+\begin{itemize}
+    \item Resumen / síntesis de la tesis completa (Executive Summary):
+    \begin{itemize}
+        \item \href{https://s3-service-broker-live-19ea8b98-4d41-4cb4-be4c-d68f4963b7dd.s3.amazonaws.com/uploads/ckeditor/attachments/7808/2c_Summary_para.pdf}{Link: Como construir un resumen}
+    \end{itemize}
+    \item Introducción
+    \item Contextualización
+    \item Problemática general abordada
+    \item Resultados principales
+    \item Resultados principales en contraposición con existentes (SOTA)
+    \item Contextualización general de los resultados
+    \item Perspectivas futuras, evolución, aplicaciones
+\end{itemize}

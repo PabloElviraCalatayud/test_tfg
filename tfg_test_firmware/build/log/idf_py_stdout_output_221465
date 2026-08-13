@@ -1,0 +1,164 @@
+Command: /home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/pelvira/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyACM0 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/tfg_test_firmware.elf /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/bootloader/bootloader.elf -m '/home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python' '/home/pelvira/esp/esp-idf/tools/idf.py'
+[0;32mI (104) esp_image: segment 0: paddr=00020020 vaddr=3c060020 sizeI (236) esp_image: segment 4: paddr=0ESP-ROM:esp32s3-20210327[0m
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2a (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40043ce8
+SPIWP:0xee
+Octal Flash Mode Enabled
+For OPI Flash, Use Default Flash Boot Mode
+mode:SLOW_RD, clock div:1
+load:0x3fce2820,len:0x158c
+load:0x403c8700,len:0xd24
+load:0x403cb700,len:0x2f34
+entry 0x403c8924
+[0;32mI (32) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (32) boot: compile time Aug  6 2026 18:16:22[0m
+[0;32mI (33) boot: Multicore bootloader[0m
+[0;32mI (33) boot: chip revision: v0.1[0m
+[0;32mI (35) boot: efuse block revision: v1.2[0m
+[0;32mI (39) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (43) boot.esp32s3: SPI Mode       : SLOW READ[0m
+[0;32mI (47) boot.esp32s3: SPI Flash Size : 4MB[0m
+[0;32mI (51) boot: Enabling RNG early entropy source...[0m
+[0;32mI (55) boot: Partition Table:[0m
+[0;32mI (58) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 otadata          OTA data         01 00 0000f000 00002000[0m
+[0;32mI (77) boot:  2 phy_init         RF data          01 01 00011000 00001000[0m
+[0;32mI (84) boot:  3 ota_0            OTA app          00 10 00020000 001a9000[0m
+[0;32mI (90) boot:  4 ota_1            OTA app          00 11 001d0000 001a9000[0m
+[0;32mI (97) boot: End of partition table[0m
+[0;32mI (100) boot: No factory image, trying OTA 0[0m
+[0;32mI (104) esp_image: segment 0: paddr=00020020 vaddr=3c060020 size=16c18h ( 93208) map[0m
+[0;32mI (133) esp_image: segment 1: paddr=00036c40 vaddr=3fc9a100 size=03f8ch ( 16268) load[0m
+[0;32mI (138) esp_image: segment 2: paddr=0003abd4 vaddr=40374000 size=05444h ( 21572) load[0m
+[0;32mI (145) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=5c0b0h (377008) map[0m
+[0;32mI (234) esp_image: segment 4: paddr=0009c0d8 vaddr=40379444 size=10c9ch ( 68764) load[0m
+[0;32mI (253) esp_image: segment 5: paddr=000acd7c vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (262) boot: Loaded app from partition at offset 0x20000[0m
+[0;32mI (287) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (287) boot: Disabling RNG early entropy source...[0m
+[0;32mI (297) cpu_start: Multicore app[0m
+[0;32mI (306) cpu_start: Pro cpu start user code[0m
+[0;32mI (306) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (306) app_init: Application information:[0m
+[0;32mI (307) app_init: Project name:     tfg_test_firmware[0m
+[0;32mI (311) app_init: App version:      5cd1d48-dirty[0m
+[0;32mI (315) app_init: Compile time:     Aug  6 2026 19:30:27[0m
+[0;32mI (320) app_init: ELF file SHA256:  9390b0cf5...[0m
+[0;32mI (324) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (328) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (332) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (336) efuse_init: Chip rev:         v0.1[0m
+[0;32mI (340) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (346) heap_init: At 3FCA0320 len 000493F0 (292 KiB): RAM[0m
+[0;32mI (351) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (356) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (362) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM[0m
+[0;33mW (367) spi_flash: Octal flash chip is using but dio mode is selected, will automatically switch to Octal mode[0m
+[0;32mI (377) spi_flash: detected chip: mxic (opi)[0m
+[0;32mI (381) spi_flash: flash io: opi_str[0m
+[0;33mW (384) spi_flash: Detected size(32768k) larger than the size in the binary image header(4096k). Using the size in the binary image header.[0m
+[0;32mI (396) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (403) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (409) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (413) coexist: coexist rom version e7ae62f[0m
+[0;32mI (418) main_task: Started on CPU0[0m
+[0;32mI (428) main_task: Calling app_main()[0m
+[0;32mI (428) MAIN: === ESP32-S3 DAS arrancando ===[0m
+[0;32mI (428) SYS_STATE: Initialized[0m
+[0;32mI (438) BLE_INIT: BT controller compile version [2edb0b0][0m
+[0;32mI (438) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (438) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (448) BLE_INIT: Bluetooth MAC: 68:b6:b3:3e:4c:a6[0m
+[0;32mI (458) phy_init: phy_version 701,f4f1da3a,Mar  3 2025,15:50:10[0m
+[0;32mI (498) PKT_BUILDER: Initialized. Packet size: 54 bytes[0m
+[0;32mI (498) SENSOR_MGR: Escaneando bus I2C 0...[0m
+[0;32mI (508) SENSOR_MGR:   bus 0: dispositivo encontrado en 0x1E[0m
+[0;32mI (508) SENSOR_MGR:   bus 0: dispositivo encontrado en 0x48[0m
+[0;32mI (508) SENSOR_MGR:   bus 0: dispositivo encontrado en 0x49[0m
+[0;32mI (518) SENSOR_MGR:   bus 0: dispositivo encontrado en 0x6B[0m
+[0;32mI (518) SENSOR_MGR: Escaneando bus I2C 1...[0m
+[0;32mI (528) SENSOR_MGR:   bus 1: dispositivo encontrado en 0x48[0m
+[0;32mI (528) SENSOR_MGR:   bus 1: dispositivo encontrado en 0x49[0m
+[0;32mI (538) IMU_DRIVER: AG WHO_AM_I = 0x00[0m
+[0;32mI (538) ADS1115: ADS1115 iniciado en addr 0x48[0m
+[0;32mI (538) ADS1115: ADS1115 iniciado en addr 0x49[0m
+[0;32mI (548) ADS1115: ADS1115 iniciado en addr 0x48[0m
+[0;32mI (548) ADS1115: ADS1115 iniciado en addr 0x49[0m
+[0;32mI (548) SENSOR_MGR: IMU A[ 0.00  0.00  0.00] G[   0.0    0.0    0.0] | FSR(g)[0 0 0 0 0 0 0 0 0 0 0 0] | NTC(C)[0.0 0.0 0.0 0.0][0m
+[0;32mI (568) SYS_STATE: Transition: INIT → RUNNING[0m
+[0;32mI (568) MAIN: Listo. Conectate a BLE[0m
+[0;32mI (568) main_task: Returned from app_main()[0m
+[0;32mI (1068) SENSOR_MGR: IMU A[ 0.60 -0.35  1.01] G[   1.4    2.1    0.8] | FSR(g)[0 0 0 0 17189 17196 17208 17212 17128 17159 17140 17174] | NTC(C)[65.5 65.3 65.4 65.2][0m
+[0;32mI (1558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (1568) SENSOR_MGR: IMU A[ 0.60 -0.36  0.93] G[   1.3    2.0    0.6] | FSR(g)[0 0 0 0 17196 17200 17212 17204 17132 17147 17136 17178] | NTC(C)[65.5 65.3 65.4 65.2][0m
+[0;32mI (2068) SENSOR_MGR: IMU A[ 0.60 -0.36  0.86] G[   1.4    1.9    0.6] | FSR(g)[0 0 0 0 17181 17196 17215 17219 17117 17143 17147 17166] | NTC(C)[65.4 65.4 65.4 65.2][0m
+[0;32mI (2558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (2568) SENSOR_MGR: IMU A[ 0.60 -0.36  0.82] G[   1.3    2.0    0.7] | FSR(g)[0 0 0 0 17193 17200 17215 17208 17121 17147 17136 17170] | NTC(C)[65.5 65.3 65.4 65.2][0m
+[0;32mI (3068) SENSOR_MGR: IMU A[ 0.60 -0.36  0.81] G[   1.1    1.7    0.7] | FSR(g)[0 0 0 0 17189 17196 17208 17219 17117 17147 17136 17185] | NTC(C)[65.4 65.3 65.4 65.2][0m
+[0;32mI (3558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (3568) SENSOR_MGR: IMU A[ 0.65 -0.40  0.95] G[  -0.1    1.4    1.8] | FSR(g)[0 0 0 0 17196 17193 17215 17200 17125 17136 17132 17178] | NTC(C)[65.4 65.3 65.4 65.2][0m
+[0;32mI (4068) SENSOR_MGR: IMU A[ 0.73 -0.31  0.77] G[ -61.6   40.1  -64.6] | FSR(g)[0 0 0 0 17219 17215 17268 17246 17151 17162 17174 17185] | NTC(C)[65.4 65.3 65.2 64.9][0m
+[0;32mI (4558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (4568) SENSOR_MGR: IMU A[ 0.61 -0.35  0.78] G[   1.2    1.5    0.5] | FSR(g)[0 0 0 0 17204 17200 17246 17204 17132 17132 17151 17170] | NTC(C)[65.4 65.3 65.3 65.2][0m
+[0;32mI (5068) SENSOR_MGR: IMU A[ 0.61 -0.35  0.79] G[   1.3    2.2    0.6] | FSR(g)[0 0 0 0 17212 17181 17227 17200 17147 17140 17151 17159] | NTC(C)[65.4 65.4 65.3 65.3][0m
+[0;32mI (5558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (5568) SENSOR_MGR: IMU A[ 0.61 -0.35  0.77] G[   1.2    2.1    0.9] | FSR(g)[0 0 0 0 17208 17181 17223 17204 17128 17147 17155 17155] | NTC(C)[65.4 65.4 65.3 65.2][0m
+[0;32mI (6068) SENSOR_MGR: IMU A[ 0.61 -0.34  0.77] G[   1.7    2.7    2.4] | FSR(g)[0 0 0 0 17193 17185 17223 17208 17136 17147 17166 17162] | NTC(C)[65.4 65.4 65.3 65.3][0m
+[0;32mI (6558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (6568) SENSOR_MGR: IMU A[ 0.61 -0.35  0.76] G[   1.4    1.7    0.6] | FSR(g)[49772 49606 49988 49666 17185 17189 17215 17193 17132 17151 17143 17162] | NTC(C)[65.4 65.4 65.3 65.3][0m
+[0;32mI (7068) SENSOR_MGR: IMU A[ 0.61 -0.35  0.77] G[   1.1    2.1    0.7] | FSR(g)[52390 52606 52431 52553 17193 17185 17215 17208 17121 17136 17147 17155] | NTC(C)[65.4 65.4 65.3 65.3][0m
+[0;32mI (7558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (7568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.76] G[   1.6    1.6    0.7] | FSR(g)[50549 50450 50181 50140 17204 17193 17215 17185 17128 17143 17151 17166] | NTC(C)[65.4 65.4 65.3 65.3][0m
+[0;32mI (8068) SENSOR_MGR: IMU A[ 0.61 -0.35  0.75] G[   1.3    1.7    0.7] | FSR(g)[48750 48738 48412 48219 17193 17185 17212 17200 17128 17140 17143 17159] | NTC(C)[65.4 65.4 65.3 65.3][0m
+[0;32mI (8558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (8568) SENSOR_MGR: IMU A[ 0.61 -0.35  0.77] G[   1.8    1.9    0.5] | FSR(g)[50151 49753 49924 49992 17181 17196 17204 17196 17132 17125 17151 17159] | NTC(C)[65.4 65.4 65.3 65.4][0m
+[0;32mI (9068) SENSOR_MGR: IMU A[ 0.68 -0.27  0.61] G[  70.8  -47.1   74.8] | FSR(g)[0 0 0 0 17193 17170 17200 17151 17106 16946 17079 16996] | NTC(C)[65.4 65.5 65.3 65.6][0m
+[0;32mI (9558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (9568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.75] G[   1.5    1.5    0.7] | FSR(g)[0 0 0 0 17257 17238 17303 17257 17155 17200 17162 17185] | NTC(C)[65.2 65.3 65.0 65.2][0m
+[0;32mI (10068) SENSOR_MGR: IMU A[ 0.61 -0.37  0.75] G[   1.6    1.8    0.6] | FSR(g)[0 0 0 0 17215 17196 17253 17200 17132 17136 17166 17155] | NTC(C)[65.4 65.4 65.3 65.3][0m
+[0;32mI (10558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (10568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.76] G[   1.4    1.9    0.8] | FSR(g)[0 0 0 0 17212 17189 17227 17204 17128 17128 17151 17159] | NTC(C)[65.4 65.4 65.3 65.4][0m
+[0;32mI (11068) SENSOR_MGR: IMU A[ 0.61 -0.37  0.76] G[   1.1    1.1    0.9] | FSR(g)[0 0 0 0 17196 17196 17223 17193 17136 17128 17159 17140] | NTC(C)[65.4 65.4 65.3 65.4][0m
+[0;32mI (11558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (11568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.76] G[   1.5    1.5    0.7] | FSR(g)[0 0 0 0 17212 17189 17238 17200 17140 17140 17159 17140] | NTC(C)[65.4 65.4 65.3 65.3][0m
+[0;32mI (12068) SENSOR_MGR: IMU A[ 0.61 -0.36  0.76] G[   1.4    1.9    0.7] | FSR(g)[0 0 0 0 17212 17185 17227 17200 17140 17140 17166 17140] | NTC(C)[65.4 65.4 65.3 65.4][0m
+[0;32mI (12558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (12568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.76] G[   1.4    1.8    0.8] | FSR(g)[0 0 0 0 17215 17185 17231 17189 17128 17143 17166 17155] | NTC(C)[65.4 65.4 65.3 65.4][0m
+[0;32mI (13068) SENSOR_MGR: IMU A[ 0.61 -0.36  0.76] G[   1.3    1.8    0.8] | FSR(g)[0 0 0 0 17212 17185 17238 17185 17147 17132 17166 17136] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (13558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (13568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.74] G[   1.3    1.8    0.5] | FSR(g)[0 0 0 0 17204 17174 17238 17185 17143 17136 17166 17136] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (14068) SENSOR_MGR: IMU A[ 0.61 -0.35  0.74] G[   1.3    1.7    0.7] | FSR(g)[0 0 0 0 17208 17189 17234 17185 17140 17132 17178 17143] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (14558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (14568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.74] G[   1.4    1.8    0.8] | FSR(g)[0 0 0 0 17212 17181 17250 17193 17140 17128 17174 17136] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (15068) SENSOR_MGR: IMU A[ 0.61 -0.36  0.75] G[   1.3    1.8    0.7] | FSR(g)[0 0 0 0 17208 17185 17238 17174 17140 17136 17166 17136] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (15558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (15568) SENSOR_MGR: IMU A[ 0.61 -0.37  0.75] G[   1.2    1.9    0.8] | FSR(g)[0 0 0 0 17219 17178 17234 17178 17147 17125 17166 17140] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (16068) SENSOR_MGR: IMU A[ 0.61 -0.36  0.75] G[   1.4    1.8    0.7] | FSR(g)[0 0 0 0 17204 17166 17227 17185 17151 17121 17166 17140] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (16558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (16568) SENSOR_MGR: IMU A[ 0.61 -0.37  0.76] G[   1.2    1.9    0.8] | FSR(g)[0 0 0 0 17204 17185 17246 17185 17147 17140 17174 17140] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (17068) SENSOR_MGR: IMU A[ 0.61 -0.37  0.75] G[   1.5    1.2    0.7] | FSR(g)[0 0 0 0 17208 17185 17234 17178 17143 17125 17181 17140] | NTC(C)[65.3 65.5 65.2 65.4][0m
+[0;32mI (17558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (17568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.76] G[   1.0    2.1    0.8] | FSR(g)[0 0 0 0 17208 17185 17223 17189 17143 17128 17166 17125] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (18068) SENSOR_MGR: IMU A[ 0.61 -0.37  0.75] G[   1.6    2.0    0.8] | FSR(g)[0 0 0 0 17181 17181 17223 17189 17136 17128 17170 17132] | NTC(C)[65.3 65.5 65.2 65.4][0m
+[0;32mI (18558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (18568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.77] G[   1.4    1.6    0.7] | FSR(g)[0 0 0 0 17196 17189 17227 17174 17143 17128 17166 17136] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (19068) SENSOR_MGR: IMU A[ 0.60 -0.36  0.75] G[   1.4    1.4    0.7] | FSR(g)[0 0 0 0 17200 17174 17212 17189 17132 17125 17170 17140] | NTC(C)[65.3 65.5 65.2 65.4][0m
+[0;32mI (19558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (19568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.74] G[   1.3    1.6    0.8] | FSR(g)[0 0 0 0 17196 17181 17227 17193 17132 17132 17178 17128] | NTC(C)[65.3 65.4 65.2 65.4][0m
+[0;32mI (20068) SENSOR_MGR: IMU A[ 0.61 -0.37  0.74] G[   1.3    2.1    0.7] | FSR(g)[0 0 0 0 17196 17181 17227 17189 17132 17140 17181 17143] | NTC(C)[65.3 65.5 65.2 65.4][0m
+[0;32mI (20558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (20568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.74] G[   1.5    1.6    0.7] | FSR(g)[0 0 0 0 17185 17185 17215 17189 17132 17136 17170 17136] | NTC(C)[65.3 65.5 65.2 65.4][0m
+[0;32mI (21068) SENSOR_MGR: IMU A[ 0.61 -0.37  0.75] G[   1.3    1.8    0.8] | FSR(g)[0 0 0 0 17193 17178 17200 17174 17132 17136 17178 17143] | NTC(C)[65.3 65.5 65.2 65.5][0m
+[0;32mI (21558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (21568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.75] G[   1.7    1.9    0.8] | FSR(g)[0 0 0 0 17189 17178 17219 17181 17125 17143 17174 17140] | NTC(C)[65.3 65.5 65.2 65.4][0m
+[0;32mI (22068) SENSOR_MGR: IMU A[ 0.60 -0.37  0.75] G[   2.2    1.4    0.5] | FSR(g)[0 0 0 0 17189 17170 17208 17185 17125 17147 17155 17159] | NTC(C)[65.4 65.4 65.2 65.4][0m
+[0;32mI (22558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (22568) SENSOR_MGR: IMU A[ 0.61 -0.35  0.74] G[   2.2    0.9    0.6] | FSR(g)[0 0 0 0 17174 17178 17208 17178 17125 17143 17147 17162] | NTC(C)[65.4 65.4 65.2 65.4][0m
+[0;32mI (23068) SENSOR_MGR: IMU A[ 0.60 -0.37  0.76] G[   1.4    1.7    0.8] | FSR(g)[0 0 0 0 17178 17185 17212 17185 17128 17147 17155 17155] | NTC(C)[65.4 65.5 65.2 65.4][0m
+[0;32mI (23558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (23568) SENSOR_MGR: IMU A[ 0.61 -0.36  0.75] G[   1.2    2.2    0.8] | FSR(g)[0 0 0 0 17178 17189 17193 17189 17128 17143 17162 17159] | NTC(C)[65.4 65.5 65.2 65.5][0m
+[0;32mI (24068) SENSOR_MGR: IMU A[ 0.61 -0.37  0.77] G[   0.9    1.8    0.8] | FSR(g)[0 0 0 0 17178 17181 17196 17178 17125 17143 17162 17159] | NTC(C)[65.4 65.5 65.2 65.4][0m
+[0;32mI (24558) MAIN: BLE no conn | 100 paquetes/s[0m
+[0;32mI (24568) SENSOR_MGR: IMU A[ 0.61 -0.35  0.74] G[   1.6    1.6    0.7] | FSR(g)[0 0 0 0 17185 17189 17196 17185 17125 17143 17162 17151] | NTC

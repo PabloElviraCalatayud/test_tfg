@@ -1,0 +1,136 @@
+\chapter{Introducción}
+<<Aquí va la introducción del TFG. Extensión máxima: 10 páginas.>>\\
+
+\textbf{Contenido de la sección:}
+\begin{itemize}
+    \item Introducción al tema del TFG y las preguntas respondidas en él
+    \item Contextualización
+    \begin{itemize}
+        \item Contexto general
+    \end{itemize}
+    \item Motivación
+    \begin{itemize}
+        \item Problemática detectada a resolver
+        \item Relevancia en el contexto actual
+    \end{itemize}
+    \item Objetivos
+    \begin{itemize}
+        \item Objetivos generales y específicos
+        \item Hipótesis / Pregunta de investigación
+    \end{itemize}
+    \item (Estructura del manuscrito) <- Solo si es necesario
+    \begin{itemize}
+        \item Qué hay en cada capítulo
+    \end{itemize}
+\end{itemize}
+
+\textbf{= OLD =}
+
+
+Esta plantilla muestra la estructura básica de la memoria final del TFG, así como algunas instrucciones de formato.
+
+El \textbf{esquema básico de una memoria} final \textbf{de TFG} es el siguiente:
+\begin{itemize}
+\item[•] Resumen en español [máximo 2 páginas]
+\item[•] Abstract en inglés [máximo 2 páginas]
+\item[•] Tabla de contenidos
+\item[•] Introducción [máximo 10 páginas]
+\begin{itemize}
+    \item Contextualización del proyecto
+    \item Motivación para su realización
+\end{itemize}
+\begin{itemize}
+    \item Objetivos del Proyecto
+\end{itemize}
+\item[•]   Planificación [máximo 5 páginas]
+\begin{itemize}
+    \item Planificación de tiempos
+    \item Costes
+\end{itemize}
+\begin{itemize}
+    \item Casos de Uso
+    \item Requisitos del Proyecto
+    \item Diseño y Pruebas
+\end{itemize}
+\item[•] Estado del Arte [máximo 15 páginas]
+\begin{itemize}
+    \item Análisis del mercado
+    \item Análisis de las tecnologías empleadas
+\end{itemize}
+\item[•] Desarrollo [máximo 60 páginas]
+\begin{itemize}
+    \item Desarrollo
+    \item Resultados preliminares y Verificación (Cumpliendo los requisitos)
+\end{itemize}
+\item[•] Resultados [máximo 4 páginas]
+\begin{itemize}
+    \item Validación (Condiciones de uso reales): Resultados finales
+\end{itemize}
+\item[•] Conclusiones [máximo 1 página]
+\begin{itemize}
+    \item Conclusiones
+    \item Trabajos Futuros
+\end{itemize}
+\item[•] Objetivos de Desarrollo Sostenible (ODS) y Aspectos Sociales [máximo 1 página]
+\begin{itemize}
+    \item ODSs
+    \item Impacto Social y Medioambiental 
+\end{itemize}
+\item[•] Bibliografía (publicaciones utilizadas en el estudio y desarrollo del Trabajo)
+\item[•] Anexos (opcional)
+\end{itemize}
+
+En cualquier caso, es el tutor del TFG quien indicará a su estudiante la estructura final de la memoria que mejor se ajuste al trabajo realizado.
+
+Con respecto al formato, se seguirán las siguientes pautas, que se muestran en esta plantilla:
+\begin{itemize}
+\item[•] \textit{\textbf{Tamaño de papel}:} DIN A4
+\item[•] \textit{\textbf{Portada}:} Tal y como se recoge en esta plantilla, con la indicación de la universidad, centro, título del TFG y autor.
+\item[•] \textit{\textbf{Segunda página}:} Información bibliográfica, incluyendo todos los datos del Tutor del TFG y del codirector (si lo hubiera).
+\item[•] \textit{\textbf{Tipo de letra para el texto}:} Preferiblemente “Bookman Old Style” de 11 puntos. Si no fuera posible, las alternativas recomendadas son, por orden de preferencia: “Palatino Linotype”, “Garamond” o “Georgia”.
+\item[•] \textit{\textbf{Tipo de letra para código fuente}:} “Consolas” o “Roboto mono”
+\item[•] \textit{\textbf{Márgenes}:} Superior e inferior $3$ cm, izquierdo y derecho $2.54$ cm.
+\item[•] \textit{\textbf{Secciones y subsecciones}:} Reseñadas con numeración decimal a continuación del número del capítulo. Ej.: subsecciones 2.3.1.
+\item[•] \textit{\textbf{Números de página}:} Siempre centrados en el margen inferior. La página 1 comienza en el capítulo 1, y todas las secciones anteriores al capítulo 1 se numeran en números romanos en minúscula (i, ii, iii…).
+\end{itemize}
+
+\vspace*{1.5cm}
+Para elaborar la memoria final del TFG con esta plantilla, seguir los siguientes pasos:
+\begin{enumerate}
+%\item Descargar e instalar MiKTeX:  \url{https://miktex.org/}
+%\item Descargar e instalar un editor de \LaTeX~, por ejemplo Texmaker:\\
+%\url{https://www.xm1math.net/texmaker/}
+
+\item Editar el archivo \textbf{secciones/ \_DatosTFM.tex}, que está en la carpeta \textbf{secciones} de esta plantilla. Cumplimentar todos los datos solicitados en dicho archivo. Guardar y cerrar.
+\item Compilar el archivo \textbf{plantilla\_TFG.tex} (puede ser renombrado). Se generará como resultado un archivo \textbf{pdf}.
+\item Para escribir la memoria final del TFG, se pueden añadir y/o modificar los archivos de la carpeta \textbf{secciones} según sea necesario. El resultado se obtiene al compilar el archivo \textbf{plantilla\_TFG.tex}, por lo que se debe modificar en consecuencia.
+\end{enumerate}
+
+
+\section{Ejemplo de código en Python}
+\begin{lstlisting}[style=Python]
+import numpy as np
+from scipy.spatial.transform import Rotation
+
+def main(args=None):
+    print('Hola mundo!')
+
+if __name__ == '__main__':
+    main()
+\end{lstlisting}
+
+\section{Ejemplo de código en C++}
+\begin{lstlisting}[style=C++]
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    vector<int> v = {1, 2, 3};
+    for (int i = 0; i < 10; i++) {
+        cout << i << " ";
+    }
+    cout << endl;
+    return 0;
+}
+\end{lstlisting}

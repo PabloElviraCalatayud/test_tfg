@@ -1,0 +1,24 @@
+\chapter*{Abstract}
+Gait analysis is a diagnostic tool with applications ranging from clinical medicine to sports performance. The way a person steps while walking, running, or performing any similar activity provides highly valuable physical metrics for analyzing alterations in movement patterns. Changes in pressure distribution, temperature, or dynamic stability may indicate pathologies such as diabetes or Parkinson’s disease, whose early detection has a direct impact on both quality of life and treatment costs.
+
+In recent decades, advances in so-called wearables have brought about a radical transformation in the way physiological and biomechanical parameters are monitored, exponentially driving telemedicine by enabling continuous patient monitoring outside clinical environments. Low-power embedded systems, low-energy wireless communication protocols, and cloud-based IoT platforms have made it possible to capture, transmit, and analyze data in real time from virtually any environment.
+
+Dynamic gait analysis refers to the measurement of a set of variables during a subject’s actual movement. It requires a system capable of synchronously acquiring plantar pressure data, surface temperature, and information regarding the inertial behavior of the foot. This set of variables enables characterization of both load distribution and foot kinematics, providing a complete picture of the user’s gait cycle.
+
+Despite the clinical and sports relevance of dynamic gait analysis, currently available solutions present accessibility barriers that limit their widespread use. Laboratory systems based on pressure platforms and camera systems used to analyze movement remain confined to specialized environments due to their cost and infrastructure requirements. Instrumented insoles designed for medical applications often depend on specific equipment, such as ankle braces or orthopedic boots, reducing accessibility. Finally, the more autonomous solutions currently available on the market are expensive and therefore reserved for professional applications. At present, no solution combines full portability, operational autonomy, and low cost within a single device.
+
+This work presents the design, development, and validation of both a device and an IoT platform for dynamic gait monitoring. The data acquisition device consists of 15 force-sensitive resistors, 5 thermistors, and a 9-degree-of-freedom IMU attached to a 3D-printed insole covered with EVA foam, along with an ESP32-S3 microcontroller located in a 3D-printed ankle support responsible for managing data acquisition and transmission. The collected data are transmitted in real time using NimBLE to an application where they can be visualized as heat maps or through an artificial horizon used to indicate the relative position of the foot during gait. The IoT platform is completed with a full IoT data pipeline that includes an MQTT broker, persistent storage in PostgreSQL, and data visualization in Grafana.
+
+[TO BE COMPLETED]
+
+[STATE OF THE ART RESULTS]
+
+The obtained results demonstrate the feasibility of building an autonomous and low-cost dynamic gait analysis system. The integration of the complete pipeline, from data acquisition to cloud visualization, opens the possibility of democratizing this type of analysis beyond laboratory environments and extending it to primary healthcare settings, rehabilitation clinics, and remote monitoring for athletes.
+
+Beyond validating the developed system, the capabilities for continuous data acquisition and storage create new opportunities to expand the platform’s functional scope. The main future line of work is the incorporation of an artificial intelligence model for the automatic analysis and interpretation of the data, serving as a support tool for both professionals and non-specialized end users.
+
+
+\textbf{Contenido de la sección:}
+\begin{itemize}
+    \item Traducción al inglés del resumen
+\end{itemize}
