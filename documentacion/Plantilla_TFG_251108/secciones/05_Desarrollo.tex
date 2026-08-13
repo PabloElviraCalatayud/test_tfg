@@ -29,6 +29,17 @@ El sistema se organiza en tres capas claramente diferenciadas: el \textbf{dispos
 
 Una decisión de arquitectura transversal a todo el sistema, adoptada durante una reestructuración del proyecto ya avanzado su desarrollo, es que el dispositivo de adquisición transmite exclusivamente \textbf{datos RAW}: cuentas del convertidor analógico-digital sin convertir a gramos o grados Celsius, y registros de la IMU sin convertir a unidades de aceleración angular o campo magnético. Toda la conversión a unidades físicas se realiza en la aplicación móvil. Esta decisión, motivada por un incidente de calibración detallado en la \cref{sec:proto_raw}, reduce el coste de iterar sobre la calibración de los sensores a modificar un único fichero de constantes en la aplicación, sin necesidad de recompilar y volver a flashear el firmware del microcontrolador.
 
+% Figura pendiente: diagrama de arquitectura de tres capas
+% (dispositivo -> aplicación móvil -> MQTT/PostgreSQL/Grafana),
+% pendiente de generar y subir por el autor/a.
+% \begin{figure}[H]
+%   \centering
+%   \includegraphics[width=0.8\linewidth]{figuras/arquitectura_sistema.png}
+%   \caption{Arquitectura general del sistema, en tres capas.}
+%   \label{fig:arquitectura}
+% \end{figure}
+\textcolor{colorIA}{[Figura pendiente: diagrama de arquitectura de tres capas — dispositivo, aplicación móvil y plataforma en la nube. El bloque \texttt{figure} ya preparado arriba está comentado; al añadir la imagen a \texttt{figuras/}, basta con descomentarlo.]}
+
 \section{Hardware}
 
 El dispositivo de adquisición está compuesto por:
