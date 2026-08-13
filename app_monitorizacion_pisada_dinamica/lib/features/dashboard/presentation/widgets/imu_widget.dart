@@ -312,12 +312,22 @@ class _HorizonPainter extends CustomPainter {
 
     final pitchOffset = pitch * (r / 45);
 
+    // El circulo visible (radio r) es invariante ante la rotacion de roll,
+    // asi que su extension local sigue siendo [-r, r] en ambos ejes pase
+    // lo que pase con roll. El unico riesgo real es pitchOffset: con pitch
+    // cerca de ±90° puede desplazar hasta ±2r el horizonte, y un alto fijo
+    // de r*2 en cada rectangulo no llega a cubrir el circulo entero en el
+    // lado que se "encoge" (aparecen huecos en blanco). Con un alcance
+    // generoso (independiente de pitchOffset) en ambas franjas se cubre
+    // el circulo completo para cualquier pitch realista.
+    final farExtent = r * 8;
+
     canvas.drawRect(
-      Rect.fromLTWH(-r * 2, -r * 2, r * 4, r * 2 + pitchOffset),
+      Rect.fromLTWH(-farExtent, -farExtent, farExtent * 2, farExtent + pitchOffset),
       Paint()..color = const Color(0xFF0A1E3D),
     );
     canvas.drawRect(
-      Rect.fromLTWH(-r * 2, pitchOffset, r * 4, r * 2),
+      Rect.fromLTWH(-farExtent, pitchOffset, farExtent * 2, farExtent),
       Paint()..color = const Color(0xFF2D1B00),
     );
 

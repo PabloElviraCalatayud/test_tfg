@@ -13,14 +13,16 @@ class AppScaffold extends ConsumerWidget {
   const AppScaffold({super.key, required this.child});
 
   int _locationToIndex(String location) {
-    if (location.startsWith('/debug')) return 1;
+    if (location.startsWith('/history')) return 1;
+    if (location.startsWith('/debug')) return 2;
     return 0;
   }
 
   void _onNavTap(BuildContext context, int index) {
     switch (index) {
       case 0: context.go('/dashboard'); break;
-      case 1: context.go('/debug'); break;
+      case 1: context.go('/history'); break;
+      case 2: context.go('/debug'); break;
     }
   }
 
@@ -83,6 +85,11 @@ class AppScaffold extends ConsumerWidget {
             label: 'Inicio',
           ),
           NavigationDestination(
+            icon: Icon(Icons.history_outlined),
+            selectedIcon: Icon(Icons.history),
+            label: 'Historial',
+          ),
+          NavigationDestination(
             icon: Icon(Icons.bug_report_outlined),
             selectedIcon: Icon(Icons.bug_report),
             label: 'Debug',
@@ -133,10 +140,8 @@ class _DeviceButton extends StatelessWidget {
     switch (device.status) {
       case DeviceStatus.connected:    return AppColors.bleConnected;
       case DeviceStatus.connecting:   return AppColors.bleConnecting;
+      case DeviceStatus.scanning:     return AppColors.bleConnecting;
       case DeviceStatus.disconnected: return AppColors.bleDisconnected;
-      case DeviceStatus.scanning:
-      // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 
@@ -144,10 +149,8 @@ class _DeviceButton extends StatelessWidget {
     switch (device.status) {
       case DeviceStatus.connected:    return Icons.sensors;
       case DeviceStatus.connecting:   return Icons.sensors_outlined;
+      case DeviceStatus.scanning:     return Icons.bluetooth_searching;
       case DeviceStatus.disconnected: return Icons.sensors_off_outlined;
-      case DeviceStatus.scanning:
-        // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 
@@ -170,11 +173,14 @@ class _DeviceButton extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                device.status == DeviceStatus.connected
-                    ? (device.name ?? 'Dispositivo')
-                    : device.status == DeviceStatus.connecting
-                    ? 'Conectando...'
-                    : 'Sin dispositivo',
+                switch (device.status) {
+                  DeviceStatus.connected    => device.name ?? 'Dispositivo',
+                  DeviceStatus.connecting   => 'Conectando...',
+                  DeviceStatus.scanning     => 'Buscando...',
+                  DeviceStatus.disconnected => 'Sin dispositivo',
+                },
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: _color, fontSize: 10, fontWeight: FontWeight.w600,
                 ),

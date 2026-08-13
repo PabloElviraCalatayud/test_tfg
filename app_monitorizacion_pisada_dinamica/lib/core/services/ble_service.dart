@@ -246,7 +246,19 @@ class BleService {
 
   void _onNotification(List<int> raw) {
     final packet = PacketDecoder.decode(raw);
-    if (packet == null) return;
+
+    if (packet == null) {
+      _log('❌ Paquete descartado (CRC/longitud invalida). '
+          'len=${raw.length} bytes=${raw.take(8).toList()}...');
+      return;
+    }
+
+    if (packet is SensorPacket) {
+      final fsr = packet.data.fsr;
+      final peak = fsr.isEmpty ? 0.0 : fsr.reduce((a, b) => a > b ? a : b);
+      _log('📦 SensorPacket seq=${packet.seq} fsrPeak=${peak.toStringAsFixed(4)} '
+          'fsr=$fsr');
+    }
 
     if (packet is AckPacket) {
       _ackCtrl.add(packet);

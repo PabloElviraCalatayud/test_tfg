@@ -134,6 +134,28 @@ static int gap_event_cb(struct ble_gap_event *event, void *arg) {
         ble_att_set_preferred_mtu(247);
         ble_gattc_exchange_mtu(s_conn_handle, NULL, NULL);
 
+        /*
+         * Sin esto el central propone el intervalo (tipico: corto,
+         * pensado para apps interactivas) y el periferico lo acepta
+         * sin mas -- gasta radio de sobra. Se pide un intervalo acorde
+         * al ritmo real de datos (~50Hz = 20ms): itvl en unidades de
+         * 1.25ms -> 16*1.25=20ms min, 24*1.25=30ms max. latency=0
+         * porque se esta transmitiendo continuamente (un latency>0
+         * dejaria que el central se salte eventos, metiendo jitter).
+         * supervision_timeout en unidades de 10ms (400*10=4000ms), con
+         * margen de sobra sobre el minimo exigido por el spec
+         * (>(1+latency)*itvl_max*2).
+         */
+        struct ble_gap_upd_params conn_params = {
+          .itvl_min = 16,
+          .itvl_max = 24,
+          .latency = 0,
+          .supervision_timeout = 400,
+          .min_ce_len = 0,
+          .max_ce_len = 0,
+        };
+        ble_gap_update_params(s_conn_handle, &conn_params);
+
       } else {
         ESP_LOGW(TAG, "Fallo conexión");
         s_conn_handle = BLE_HS_CONN_HANDLE_NONE;
@@ -194,7 +216,12 @@ static void ble_tx_task(void *arg) {
 
     ble_gatts_notify_custom(s_conn_handle, s_sensor_val_hdl, om);
 
-    vTaskDelay(pdMS_TO_TICKS(15));
+    /*
+     * Sin delay artificial aqui: el productor (app_task) ya esta
+     * dirigido por eventos a ~50Hz (20ms), mas lento que el antiguo
+     * cap fijo de 15ms -- esta task se queda bloqueada en
+     * xQueueReceive esperando el siguiente paquete real.
+     */
   }
 }
 

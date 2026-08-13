@@ -1,0 +1,2786 @@
+Command: /home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python /home/pelvira/esp/esp-idf/tools/idf_monitor.py -p /dev/ttyACM0 -b 115200 --toolchain-prefix xtensa-esp32s3-elf- --target esp32s3 --revision 0 /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/tfg_test_firmware.elf /home/pelvira/Documents/Universidad/test_tfg/tfg_test_firmware/build/bootloader/bootloader.elf -m '/home/pelvira/.espressif/python_env/idf5.5_py3.10_env/bin/python' '/home/pelvira/esp/esp-idf/tools/idf.py'
+[0;32mI (104) esp_image: segment 0: paddr=00020020 vaddr=3c060020 sizeESP-ROM:esp32s3-20210327[0m
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x2a (SPI_FAST_FLASH_BOOT)
+Saved PC:0x403cd7ef
+SPIWP:0xee
+Octal Flash Mode Enabled
+For OPI Flash, Use Default Flash Boot Mode
+mode:SLOW_RD, clock div:1
+load:0x3fce2820,len:0x158c
+load:0x403c8700,len:0xd24
+load:0x403cb700,len:0x2f34
+entry 0x403c8924
+[0;32mI (32) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (32) boot: compile time Aug  6 2026 18:16:22[0m
+[0;32mI (33) boot: Multicore bootloader[0m
+[0;32mI (33) boot: chip revision: v0.1[0m
+[0;32mI (35) boot: efuse block revision: v1.2[0m
+[0;32mI (39) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (43) boot.esp32s3: SPI Mode       : SLOW READ[0m
+[0;32mI (47) boot.esp32s3: SPI Flash Size : 4MB[0m
+[0;32mI (51) boot: Enabling RNG early entropy source...[0m
+[0;32mI (55) boot: Partition Table:[0m
+[0;32mI (58) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (64) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (71) boot:  1 otadata          OTA data         01 00 0000f000 00002000[0m
+[0;32mI (77) boot:  2 phy_init         RF data          01 01 00011000 00001000[0m
+[0;32mI (84) boot:  3 ota_0            OTA app          00 10 00020000 001a9000[0m
+[0;32mI (90) boot:  4 ota_1            OTA app          00 11 001d0000 001a9000[0m
+[0;32mI (97) boot: End of partition table[0m
+[0;32mI (100) boot: No factory image, trying OTA 0[0m
+[0;32mI (104) esp_image: segment 0: paddr=00020020 vaddr=3c060020 size=16c38h ( 93240) map[0m
+[0;32mI (133) esp_image: segment 1: paddr=00036c60 vaddr=3fc9a100 size=03f8ch ( 16268) load[0m
+[0;32mI (138) esp_image: segment 2: paddr=0003abf4 vaddr=40374000 size=05424h ( 21540) load[0m
+[0;32mI (145) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=5bd8ch (376204) map[0m
+[0;32mI (233) esp_image: segment 4: paddr=0009bdb4 vaddr=40379424 size=10cbch ( 68796) load[0m
+[0;32mI (253) esp_image: segment 5: paddr=000aca78 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (262) boot: Loaded app from partition at offset 0x20000[0m
+[0;32mI (287) boot: Set actual ota_seq=1 in otadata[0][0m
+[0;32mI (287) boot: Disabling RNG early entropy source...[0m
+[0;32mI (296) cpu_start: Multicore app[0m
+[0;32mI (305) cpu_start: Pro cpu start user code[0m
+[0;32mI (305) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (306) app_init: Application information:[0m
+[0;32mI (306) app_init: Project name:     tfg_test_firmware[0m
+[0;32mI (310) app_init: App version:      3d692e4-dirty[0m
+[0;32mI (315) app_init: Compile time:     Aug  6 2026 19:20:11[0m
+[0;32mI (320) app_init: ELF file SHA256:  9f8af9147...[0m
+[0;32mI (324) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (328) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (332) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (336) efuse_init: Chip rev:         v0.1[0m
+[0;32mI (339) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (346) heap_init: At 3FCA0318 len 000493F8 (292 KiB): RAM[0m
+[0;32mI (351) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (356) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (361) heap_init: At 600FE000 len 00001FE8 (7 KiB): RTCRAM[0m
+[0;33mW (367) spi_flash: Octal flash chip is using but dio mode is selected, will automatically switch to Octal mode[0m
+[0;32mI (376) spi_flash: detected chip: mxic (opi)[0m
+[0;32mI (380) spi_flash: flash io: opi_str[0m
+[0;33mW (383) spi_flash: Detected size(32768k) larger than the size in the binary image header(4096k). Using the size in the binary image header.[0m
+[0;32mI (396) sleep_gpio: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (402) sleep_gpio: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (409) coexist: coex firmware version: b0bcc39[0m
+[0;32mI (413) coexist: coexist rom version e7ae62f[0m
+[0;32mI (417) main_task: Started on CPU0[0m
+[0;32mI (427) main_task: Calling app_main()[0m
+[0;32mI (427) MAIN: === ESP32-S3 DAS arrancando ===[0m
+[0;32mI (427) SYS_STATE: Initialized[0m
+[0;32mI (437) BLE_INIT: BT controller compile version [2edb0b0][0m
+[0;32mI (437) BLE_INIT: Using main XTAL as clock source[0m
+[0;32mI (437) BLE_INIT: Feature Config, ADV:1, BLE_50:1, DTM:1, SCAN:1, CCA:0, SMP:1, CONNECT:1[0m
+[0;32mI (447) BLE_INIT: Bluetooth MAC: 68:b6:b3:3e:4c:a6[0m
+[0;32mI (457) phy_init: phy_version 701,f4f1da3a,Mar  3 2025,15:50:10[0m
+[0;32mI (497) NimBLE: GAP procedure initiated: stop advertising.[0m
+
+[0;32mI (497) NimBLE: Failed to restore IRKs from store; status=8[0m
+
+[0;32mI (497) NimBLE: GAP procedure initiated: advertise; [0m
+[0;32mI (497) NimBLE: disc_mode=2[0m
+[0;32mI (497) NimBLE:  adv_channel_map=0 own_addr_type=0 adv_filter_policy=0 adv_itvl_min=0 adv_itvl_max=0[0m
+[0;32mI (507) NimBLE: [0m
+
+[0;32mI (517) PKT_BUILDER: Initialized. Packet size: 54 bytes[0m
+[0;32mI (517) SENSOR_MGR: Escaneando bus I2C 0...[0m
+[0;32mI (527) SENSOR_MGR:   bus 0: dispositivo encontrado en 0x1E[0m
+[0;32mI (537) SENSOR_MGR:   bus 0: dispositivo encontrado en 0x48[0m
+[0;32mI (537) SENSOR_MGR:   bus 0: dispositivo encontrado en 0x49[0m
+[0;32mI (547) SENSOR_MGR:   bus 0: dispositivo encontrado en 0x6B[0m
+[0;32mI (547) SENSOR_MGR: Escaneando bus I2C 1...[0m
+[0;32mI (557) SENSOR_MGR:   bus 1: dispositivo encontrado en 0x48[0m
+[0;32mI (557) SENSOR_MGR:   bus 1: dispositivo encontrado en 0x49[0m
+[0;32mI (567) IMU_DRIVER: AG WHO_AM_I = 0x00[0m
+[1;31mE (567) i2c.master: s_i2c_synchronous_transaction(945): I2C transaction failed[0m
+[1;31mE (567) i2c.master: i2c_master_transmit_receive(1248): I2C transaction failed[0m
+[0;33mW (577) SENSOR_MGR: ADS1115 bus=0 addr=0x48 no disponible (err=0x103), se omite[0m
+[1;31mE (577) i2c.master: s_i2c_synchronous_transaction(945): I2C transaction failed[0m
+[1;31mE (587) i2c.master: i2c_master_transmit_receive(1248): I2C transaction failed[0m
+[0;33mW (597) SENSOR_MGR: ADS1115 bus=0 addr=0x49 no disponible (err=0x103), se omite[0m
+[1;31mE (607) i2c.master: s_i2c_synchronous_transaction(945): I2C transaction failed[0m
+[1;31mE (607) i2c.master: i2c_master_transmit_receive(1248): I2C transaction failed[0m
+[0;33mW (617) SENSOR_MGR: ADS1115 bus=1 addr=0x48 no disponible (err=0x103), se omite[0m
+[1;31mE (627) i2c.master: s_i2c_synchronous_transaction(945): I2C transaction failed[0m
+[1;31mE (627) i2c.master: i2c_master_transmit_receive(1248): I2C transaction failed[0m
+[0;33mW (637) SENSOR_MGR: ADS1115 bus=1 addr=0x49 no disponible (err=0x103), se omite[0m
+[0;33mW (647) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (647) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (657) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;33mW (657) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (667) SYS_STATE: Transition: INIT → RUNNING[0m
+[0;32mI (667) MAIN: IMU A[0.60 -0.32 1.18] G[1.2 2.2 0.9][0m
+[0;32mI (677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (677) MAIN: Listo. Conectate a BLE[0m
+[0;32mI (677) main_task: Returned from app_main()[0m
+[0;32mI (687) MAIN: IMU A[0.60 -0.32 1.18] G[1.2 2.2 0.9][0m
+[0;32mI (687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (707) MAIN: IMU A[0.61 -0.32 1.20] G[1.3 2.5 0.9][0m
+[0;32mI (707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (717) MAIN: IMU A[0.61 -0.32 1.20] G[1.3 2.5 0.9][0m
+[0;32mI (717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (727) MAIN: IMU A[0.60 -0.33 1.20] G[1.4 2.2 0.7][0m
+[0;32mI (727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (737) MAIN: IMU A[0.60 -0.33 1.20] G[1.4 2.2 0.7][0m
+[0;32mI (737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (747) MAIN: IMU A[0.60 -0.33 1.18] G[1.4 2.3 0.9][0m
+[0;32mI (747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (757) MAIN: IMU A[0.60 -0.33 1.18] G[1.4 2.3 0.9][0m
+[0;32mI (757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (767) MAIN: IMU A[0.60 -0.34 1.19] G[1.5 2.4 0.8][0m
+[0;32mI (767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (777) MAIN: IMU A[0.60 -0.34 1.19] G[1.5 2.4 0.8][0m
+[0;32mI (777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (787) MAIN: IMU A[0.60 -0.34 1.18] G[1.3 2.3 0.9][0m
+[0;32mI (787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (797) MAIN: IMU A[0.60 -0.34 1.18] G[1.3 2.3 0.9][0m
+[0;32mI (797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (807) MAIN: IMU A[0.60 -0.34 1.17] G[1.5 2.2 0.8][0m
+[0;32mI (807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (817) MAIN: IMU A[0.60 -0.34 1.17] G[1.5 2.2 0.8][0m
+[0;32mI (817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (827) MAIN: IMU A[0.60 -0.34 1.14] G[1.0 2.3 0.8][0m
+[0;32mI (827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (837) MAIN: IMU A[0.60 -0.34 1.14] G[1.0 2.3 0.8][0m
+[0;32mI (837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (847) MAIN: IMU A[0.60 -0.34 1.14] G[1.3 2.2 0.8][0m
+[0;32mI (847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (857) MAIN: IMU A[0.60 -0.34 1.14] G[1.3 2.2 0.8][0m
+[0;32mI (857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (867) MAIN: IMU A[0.60 -0.34 1.13] G[1.4 2.4 0.9][0m
+[0;32mI (867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (867) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (867) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (867) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (877) MAIN: IMU A[0.60 -0.34 1.13] G[1.4 2.4 0.9][0m
+[0;33mW (877) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (897) MAIN: IMU A[0.60 -0.34 1.14] G[1.2 2.5 0.8][0m
+[0;32mI (897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (907) MAIN: IMU A[0.60 -0.34 1.12] G[1.3 2.2 0.8][0m
+[0;32mI (907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (917) MAIN: IMU A[0.60 -0.34 1.12] G[1.3 2.2 0.8][0m
+[0;32mI (917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (927) MAIN: IMU A[0.60 -0.34 1.09] G[1.5 2.1 0.6][0m
+[0;32mI (927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (937) MAIN: IMU A[0.60 -0.34 1.09] G[1.5 2.1 0.6][0m
+[0;32mI (937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (947) MAIN: IMU A[0.61 -0.34 1.10] G[1.4 2.3 0.8][0m
+[0;32mI (947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (957) MAIN: IMU A[0.61 -0.34 1.10] G[1.4 2.3 0.8][0m
+[0;32mI (957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (967) MAIN: IMU A[0.60 -0.34 1.11] G[1.3 2.4 0.9][0m
+[0;32mI (967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (977) MAIN: IMU A[0.60 -0.34 1.11] G[1.3 2.4 0.9][0m
+[0;32mI (977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (987) MAIN: IMU A[0.60 -0.34 1.11] G[1.4 2.3 0.8][0m
+[0;32mI (987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (997) MAIN: IMU A[0.60 -0.34 1.11] G[1.4 2.3 0.8][0m
+[0;32mI (997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1007) MAIN: IMU A[0.60 -0.35 1.09] G[1.4 2.5 0.9][0m
+[0;32mI (1007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1017) MAIN: IMU A[0.60 -0.35 1.09] G[1.4 2.5 0.9][0m
+[0;32mI (1017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1027) MAIN: IMU A[0.60 -0.35 1.09] G[1.4 2.1 0.9][0m
+[0;32mI (1027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1037) MAIN: IMU A[0.60 -0.35 1.09] G[1.4 2.1 0.9][0m
+[0;32mI (1037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1047) MAIN: IMU A[0.60 -0.35 1.08] G[1.4 2.2 0.8][0m
+[0;32mI (1047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1057) MAIN: IMU A[0.60 -0.35 1.08] G[1.4 2.2 0.8][0m
+[0;32mI (1057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1067) MAIN: IMU A[0.61 -0.35 1.07] G[1.4 2.2 0.9][0m
+[0;32mI (1067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1077) MAIN: IMU A[0.61 -0.35 1.07] G[1.4 2.2 0.9][0m
+[0;32mI (1077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1087) MAIN: IMU A[0.60 -0.35 1.06] G[1.4 2.3 0.9][0m
+[0;32mI (1087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (1087) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (1087) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (1087) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (1097) MAIN: IMU A[0.60 -0.35 1.06] G[1.4 2.3 0.9][0m
+[0;33mW (1097) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (1097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1117) MAIN: IMU A[0.60 -0.35 1.06] G[1.4 2.2 0.9][0m
+[0;32mI (1117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1127) MAIN: IMU A[0.60 -0.35 1.04] G[1.4 2.2 0.7][0m
+[0;32mI (1127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1137) MAIN: IMU A[0.60 -0.35 1.04] G[1.4 2.2 0.7][0m
+[0;32mI (1137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1147) MAIN: IMU A[0.60 -0.35 1.04] G[1.4 2.1 0.8][0m
+[0;32mI (1147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1157) MAIN: IMU A[0.60 -0.35 1.04] G[1.4 2.1 0.8][0m
+[0;32mI (1157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1167) MAIN: IMU A[0.60 -0.35 1.04] G[1.3 2.2 0.8][0m
+[0;32mI (1167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1177) MAIN: IMU A[0.60 -0.35 1.04] G[1.3 2.2 0.8][0m
+[0;32mI (1177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1187) MAIN: IMU A[0.60 -0.35 1.03] G[1.3 2.1 0.8][0m
+[0;32mI (1187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1197) MAIN: IMU A[0.60 -0.35 1.03] G[1.3 2.1 0.8][0m
+[0;32mI (1197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1207) MAIN: IMU A[0.61 -0.35 1.02] G[1.2 2.3 0.7][0m
+[0;32mI (1207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1217) MAIN: IMU A[0.61 -0.35 1.02] G[1.2 2.3 0.7][0m
+[0;32mI (1217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1227) MAIN: IMU A[0.60 -0.35 1.02] G[1.3 2.3 0.8][0m
+[0;32mI (1227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1237) MAIN: IMU A[0.60 -0.35 1.02] G[1.3 2.3 0.8][0m
+[0;32mI (1237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1247) MAIN: IMU A[0.60 -0.35 1.01] G[1.5 2.1 0.7][0m
+[0;32mI (1247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1257) MAIN: IMU A[0.60 -0.35 1.01] G[1.5 2.1 0.7][0m
+[0;32mI (1257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1267) MAIN: IMU A[0.61 -0.35 1.01] G[1.3 2.4 0.8][0m
+[0;32mI (1267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1277) MAIN: IMU A[0.61 -0.35 1.01] G[1.3 2.4 0.8][0m
+[0;32mI (1277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1287) MAIN: IMU A[0.61 -0.36 1.01] G[1.6 2.2 0.8][0m
+[0;32mI (1287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1297) MAIN: IMU A[0.61 -0.36 1.01] G[1.6 2.2 0.8][0m
+[0;32mI (1297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1307) MAIN: IMU A[0.60 -0.35 1.00] G[1.5 2.1 0.6][0m
+[0;32mI (1307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (1307) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (1307) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (1307) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (1317) MAIN: IMU A[0.60 -0.35 1.00] G[1.5 2.1 0.6][0m
+[0;33mW (1317) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (1317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1337) MAIN: IMU A[0.61 -0.35 0.99] G[1.3 2.3 0.9][0m
+[0;32mI (1337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1347) MAIN: IMU A[0.61 -0.35 0.99] G[1.4 2.3 0.6][0m
+[0;32mI (1347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1357) MAIN: IMU A[0.61 -0.35 0.99] G[1.4 2.3 0.6][0m
+[0;32mI (1357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1367) MAIN: IMU A[0.60 -0.36 0.99] G[1.6 2.0 0.7][0m
+[0;32mI (1367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1377) MAIN: IMU A[0.60 -0.36 0.99] G[1.6 2.0 0.7][0m
+[0;32mI (1377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1387) MAIN: IMU A[0.61 -0.35 0.99] G[1.2 2.3 0.8][0m
+[0;32mI (1387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1397) MAIN: IMU A[0.61 -0.35 0.99] G[1.2 2.3 0.8][0m
+[0;32mI (1397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1407) MAIN: IMU A[0.60 -0.35 0.97] G[1.1 2.5 0.8][0m
+[0;32mI (1407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1417) MAIN: IMU A[0.60 -0.35 0.97] G[1.1 2.5 0.8][0m
+[0;32mI (1417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1427) MAIN: IMU A[0.61 -0.36 0.97] G[1.2 2.1 0.7][0m
+[0;32mI (1427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1437) MAIN: IMU A[0.61 -0.36 0.97] G[1.2 2.1 0.7][0m
+[0;32mI (1437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1447) MAIN: IMU A[0.61 -0.35 0.97] G[1.5 2.2 0.7][0m
+[0;32mI (1447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1457) MAIN: IMU A[0.61 -0.35 0.97] G[1.5 2.2 0.7][0m
+[0;32mI (1457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1467) MAIN: IMU A[0.60 -0.35 0.97] G[1.4 1.9 0.6][0m
+[0;32mI (1467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1477) MAIN: IMU A[0.60 -0.35 0.97] G[1.4 1.9 0.6][0m
+[0;32mI (1477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1487) MAIN: IMU A[0.61 -0.36 0.97] G[1.2 2.1 0.7][0m
+[0;32mI (1487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1497) MAIN: IMU A[0.61 -0.36 0.97] G[1.2 2.1 0.7][0m
+[0;32mI (1497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1507) MAIN: IMU A[0.61 -0.35 0.96] G[1.5 2.0 0.6][0m
+[0;32mI (1507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1517) MAIN: IMU A[0.61 -0.35 0.96] G[1.5 2.0 0.6][0m
+[0;32mI (1517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1527) MAIN: IMU A[0.61 -0.35 0.95] G[1.3 2.2 0.7][0m
+[0;32mI (1527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (1527) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (1527) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (1527) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (1537) MAIN: IMU A[0.61 -0.35 0.95] G[1.3 2.2 0.7][0m
+[0;33mW (1537) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (1537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1557) MAIN: IMU A[0.61 -0.36 0.95] G[1.4 2.0 0.6][0m
+[0;32mI (1557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1567) MAIN: IMU A[0.61 -0.35 0.95] G[1.4 2.1 0.7][0m
+[0;32mI (1567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1577) MAIN: IMU A[0.61 -0.35 0.95] G[1.4 2.1 0.7][0m
+[0;32mI (1577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1587) MAIN: IMU A[0.61 -0.36 0.95] G[1.3 2.1 0.7][0m
+[0;32mI (1587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1597) MAIN: IMU A[0.61 -0.36 0.95] G[1.3 2.1 0.7][0m
+[0;32mI (1597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1607) MAIN: IMU A[0.61 -0.35 0.93] G[1.3 2.2 0.7][0m
+[0;32mI (1607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1617) MAIN: IMU A[0.61 -0.35 0.93] G[1.3 2.2 0.7][0m
+[0;32mI (1617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1627) MAIN: IMU A[0.61 -0.35 0.93] G[1.3 2.0 0.7][0m
+[0;32mI (1627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1637) MAIN: IMU A[0.61 -0.35 0.93] G[1.3 2.0 0.7][0m
+[0;32mI (1637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1647) MAIN: IMU A[0.61 -0.35 0.93] G[1.3 2.2 0.8][0m
+[0;32mI (1647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1657) MAIN: IMU A[0.61 -0.35 0.93] G[1.3 2.2 0.8][0m
+[0;32mI (1657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1667) MAIN: IMU A[0.61 -0.36 0.93] G[1.4 2.0 0.8][0m
+[0;32mI (1667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1677) MAIN: IMU A[0.61 -0.36 0.93] G[1.4 2.0 0.8][0m
+[0;32mI (1677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1687) MAIN: IMU A[0.61 -0.36 0.93] G[1.4 2.1 0.7][0m
+[0;32mI (1687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1697) MAIN: IMU A[0.61 -0.36 0.93] G[1.4 2.1 0.7][0m
+[0;32mI (1697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1707) MAIN: IMU A[0.60 -0.35 0.92] G[1.3 2.1 0.7][0m
+[0;32mI (1707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1717) MAIN: IMU A[0.60 -0.35 0.92] G[1.3 2.1 0.7][0m
+[0;32mI (1717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1727) MAIN: IMU A[0.61 -0.35 0.92] G[1.6 2.0 0.6][0m
+[0;32mI (1727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1737) MAIN: IMU A[0.61 -0.35 0.92] G[1.6 2.0 0.6][0m
+[0;32mI (1737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1747) MAIN: IMU A[0.61 -0.36 0.93] G[1.4 2.1 0.7][0m
+[0;32mI (1747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (1747) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (1747) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (1747) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (1757) MAIN: IMU A[0.61 -0.36 0.93] G[1.4 2.1 0.7][0m
+[0;33mW (1757) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (1757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1777) MAIN: IMU A[0.61 -0.36 0.93] G[1.4 2.2 0.7][0m
+[0;32mI (1777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1787) MAIN: IMU A[0.61 -0.35 0.92] G[1.6 1.8 0.6][0m
+[0;32mI (1787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1797) MAIN: IMU A[0.61 -0.35 0.92] G[1.6 1.8 0.6][0m
+[0;32mI (1797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1807) MAIN: IMU A[0.60 -0.35 0.91] G[1.4 1.9 0.6][0m
+[0;32mI (1807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1817) MAIN: IMU A[0.60 -0.35 0.91] G[1.4 1.9 0.6][0m
+[0;32mI (1817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1827) MAIN: IMU A[0.61 -0.35 0.90] G[1.3 2.1 0.7][0m
+[0;32mI (1827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1837) MAIN: IMU A[0.61 -0.35 0.90] G[1.3 2.1 0.7][0m
+[0;32mI (1837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1847) MAIN: IMU A[0.61 -0.35 0.91] G[1.4 2.1 0.7][0m
+[0;32mI (1847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1857) MAIN: IMU A[0.61 -0.35 0.91] G[1.4 2.1 0.7][0m
+[0;32mI (1857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1867) MAIN: IMU A[0.61 -0.36 0.92] G[1.3 2.2 0.8][0m
+[0;32mI (1867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1877) MAIN: IMU A[0.61 -0.36 0.92] G[1.3 2.2 0.8][0m
+[0;32mI (1877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1887) MAIN: IMU A[0.61 -0.36 0.91] G[1.5 2.2 0.6][0m
+[0;32mI (1887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1897) MAIN: IMU A[0.61 -0.36 0.91] G[1.5 2.2 0.6][0m
+[0;32mI (1897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1907) MAIN: IMU A[0.60 -0.35 0.90] G[1.4 1.7 0.4][0m
+[0;32mI (1907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1917) MAIN: IMU A[0.60 -0.35 0.90] G[1.4 1.7 0.4][0m
+[0;32mI (1917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1927) MAIN: IMU A[0.61 -0.35 0.90] G[1.4 2.0 0.7][0m
+[0;32mI (1927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1937) MAIN: IMU A[0.61 -0.35 0.90] G[1.4 2.0 0.7][0m
+[0;32mI (1937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1947) MAIN: IMU A[0.61 -0.35 0.91] G[1.4 2.0 0.9][0m
+[0;32mI (1947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1957) MAIN: IMU A[0.61 -0.35 0.91] G[1.4 2.0 0.9][0m
+[0;32mI (1957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1967) MAIN: IMU A[0.60 -0.36 0.91] G[1.7 1.8 0.6][0m
+[0;32mI (1967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (1967) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (1967) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (1967) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (1977) MAIN: IMU A[0.60 -0.36 0.91] G[1.7 1.8 0.6][0m
+[0;33mW (1977) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (1977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (1997) MAIN: IMU A[0.61 -0.36 0.91] G[1.2 1.8 0.7][0m
+[0;32mI (1997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2007) MAIN: IMU A[0.61 -0.35 0.88] G[1.5 1.9 0.7][0m
+[0;32mI (2007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2017) MAIN: IMU A[0.61 -0.35 0.88] G[1.5 1.9 0.7][0m
+[0;32mI (2017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2027) MAIN: IMU A[0.61 -0.35 0.90] G[1.2 2.3 0.7][0m
+[0;32mI (2027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2037) MAIN: IMU A[0.61 -0.35 0.90] G[1.2 2.3 0.7][0m
+[0;32mI (2037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2047) MAIN: IMU A[0.61 -0.35 0.90] G[1.5 2.2 0.8][0m
+[0;32mI (2047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2057) MAIN: IMU A[0.61 -0.35 0.90] G[1.5 2.2 0.8][0m
+[0;32mI (2057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2067) MAIN: IMU A[0.60 -0.36 0.90] G[1.2 2.1 0.7][0m
+[0;32mI (2067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2077) MAIN: IMU A[0.60 -0.36 0.90] G[1.2 2.1 0.7][0m
+[0;32mI (2077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2087) MAIN: IMU A[0.61 -0.36 0.90] G[1.3 2.0 0.7][0m
+[0;32mI (2087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2097) MAIN: IMU A[0.61 -0.36 0.90] G[1.3 2.0 0.7][0m
+[0;32mI (2097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2107) MAIN: IMU A[0.61 -0.35 0.86] G[1.4 1.8 0.5][0m
+[0;32mI (2107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2117) MAIN: IMU A[0.61 -0.35 0.86] G[1.4 1.8 0.5][0m
+[0;32mI (2117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2127) MAIN: IMU A[0.61 -0.35 0.89] G[1.3 2.0 0.7][0m
+[0;32mI (2127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2137) MAIN: IMU A[0.61 -0.35 0.89] G[1.3 2.0 0.7][0m
+[0;32mI (2137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2147) MAIN: IMU A[0.61 -0.36 0.90] G[1.4 2.1 0.6][0m
+[0;32mI (2147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2157) MAIN: IMU A[0.61 -0.36 0.90] G[1.4 2.1 0.6][0m
+[0;32mI (2157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2167) MAIN: IMU A[0.61 -0.35 0.89] G[1.7 1.9 0.6][0m
+[0;32mI (2167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2177) MAIN: IMU A[0.61 -0.35 0.89] G[1.7 1.9 0.6][0m
+[0;32mI (2177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2187) MAIN: IMU A[0.61 -0.36 0.89] G[1.4 2.0 0.7][0m
+[0;32mI (2187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (2187) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (2187) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (2187) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (2197) MAIN: IMU A[0.61 -0.36 0.89] G[1.4 2.0 0.7][0m
+[0;33mW (2197) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (2197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2217) MAIN: IMU A[0.61 -0.36 0.89] G[1.3 2.2 0.8][0m
+[0;32mI (2217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2227) MAIN: IMU A[0.61 -0.36 0.88] G[1.3 2.1 0.7][0m
+[0;32mI (2227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2237) MAIN: IMU A[0.61 -0.36 0.88] G[1.3 2.1 0.7][0m
+[0;32mI (2237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2247) MAIN: IMU A[0.61 -0.36 0.88] G[1.3 2.1 0.6][0m
+[0;32mI (2247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2257) MAIN: IMU A[0.61 -0.36 0.88] G[1.3 2.1 0.6][0m
+[0;32mI (2257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2267) MAIN: IMU A[0.61 -0.36 0.88] G[1.3 2.2 0.6][0m
+[0;32mI (2267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2277) MAIN: IMU A[0.61 -0.36 0.88] G[1.3 2.2 0.6][0m
+[0;32mI (2277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2287) MAIN: IMU A[0.61 -0.36 0.87] G[1.4 2.0 0.7][0m
+[0;32mI (2287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2297) MAIN: IMU A[0.61 -0.36 0.87] G[1.4 2.0 0.7][0m
+[0;32mI (2297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2307) MAIN: IMU A[0.61 -0.36 0.87] G[1.4 2.0 0.7][0m
+[0;32mI (2307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2317) MAIN: IMU A[0.61 -0.36 0.87] G[1.4 2.0 0.7][0m
+[0;32mI (2317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2327) MAIN: IMU A[0.61 -0.36 0.87] G[1.4 2.2 0.7][0m
+[0;32mI (2327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2337) MAIN: IMU A[0.61 -0.36 0.87] G[1.4 2.2 0.7][0m
+[0;32mI (2337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2347) MAIN: IMU A[0.61 -0.36 0.87] G[1.3 2.0 0.9][0m
+[0;32mI (2347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2357) MAIN: IMU A[0.61 -0.36 0.87] G[1.3 2.0 0.9][0m
+[0;32mI (2357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2367) MAIN: IMU A[0.61 -0.36 0.87] G[1.5 1.9 0.7][0m
+[0;32mI (2367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2377) MAIN: IMU A[0.61 -0.36 0.87] G[1.5 1.9 0.7][0m
+[0;32mI (2377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2387) MAIN: IMU A[0.61 -0.36 0.86] G[1.4 2.0 0.7][0m
+[0;32mI (2387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2397) MAIN: IMU A[0.61 -0.36 0.86] G[1.4 2.0 0.7][0m
+[0;32mI (2397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2407) MAIN: IMU A[0.61 -0.36 0.86] G[1.1 2.1 0.7][0m
+[0;32mI (2407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (2407) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (2407) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (2407) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (2417) MAIN: IMU A[0.61 -0.36 0.86] G[1.1 2.1 0.7][0m
+[0;33mW (2417) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (2417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2437) MAIN: IMU A[0.61 -0.36 0.86] G[1.3 2.1 0.8][0m
+[0;32mI (2437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2447) MAIN: IMU A[0.61 -0.36 0.86] G[1.4 2.0 0.8][0m
+[0;32mI (2447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2457) MAIN: IMU A[0.61 -0.36 0.86] G[1.4 2.0 0.8][0m
+[0;32mI (2457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2467) MAIN: IMU A[0.61 -0.36 0.86] G[1.4 2.1 0.7][0m
+[0;32mI (2467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2477) MAIN: IMU A[0.61 -0.36 0.86] G[1.4 2.1 0.7][0m
+[0;32mI (2477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2487) MAIN: IMU A[0.61 -0.36 0.85] G[1.5 1.9 0.7][0m
+[0;32mI (2487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2497) MAIN: IMU A[0.61 -0.36 0.85] G[1.5 1.9 0.7][0m
+[0;32mI (2497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2507) MAIN: IMU A[0.61 -0.36 0.85] G[1.3 1.9 0.7][0m
+[0;32mI (2507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2517) MAIN: IMU A[0.61 -0.36 0.85] G[1.3 1.9 0.7][0m
+[0;32mI (2517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2527) MAIN: IMU A[0.61 -0.36 0.85] G[1.4 2.1 0.7][0m
+[0;32mI (2527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2537) MAIN: IMU A[0.61 -0.36 0.85] G[1.4 2.1 0.7][0m
+[0;32mI (2537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2547) MAIN: IMU A[0.61 -0.36 0.85] G[1.4 2.0 0.7][0m
+[0;32mI (2547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2557) MAIN: IMU A[0.61 -0.36 0.85] G[1.4 2.0 0.7][0m
+[0;32mI (2557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2567) MAIN: IMU A[0.61 -0.36 0.85] G[1.3 2.0 0.8][0m
+[0;32mI (2567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2577) MAIN: IMU A[0.61 -0.36 0.85] G[1.3 2.0 0.8][0m
+[0;32mI (2577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2587) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 1.9 0.6][0m
+[0;32mI (2587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2597) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 1.9 0.6][0m
+[0;32mI (2597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2607) MAIN: IMU A[0.61 -0.36 0.84] G[1.5 2.0 0.6][0m
+[0;32mI (2607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2617) MAIN: IMU A[0.61 -0.36 0.84] G[1.5 2.0 0.6][0m
+[0;32mI (2617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2627) MAIN: IMU A[0.61 -0.36 0.85] G[1.3 2.1 0.7][0m
+[0;32mI (2627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (2627) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (2627) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (2627) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (2637) MAIN: IMU A[0.61 -0.36 0.85] G[1.3 2.1 0.7][0m
+[0;33mW (2637) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (2637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2657) MAIN: IMU A[0.61 -0.36 0.84] G[1.6 2.0 0.7][0m
+[0;32mI (2657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2667) MAIN: IMU A[0.61 -0.36 0.85] G[1.4 1.9 0.6][0m
+[0;32mI (2667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2677) MAIN: IMU A[0.61 -0.36 0.85] G[1.4 1.9 0.6][0m
+[0;32mI (2677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2687) MAIN: IMU A[0.60 -0.35 0.83] G[1.4 1.8 0.7][0m
+[0;32mI (2687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2697) MAIN: IMU A[0.60 -0.35 0.83] G[1.4 1.8 0.7][0m
+[0;32mI (2697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2707) MAIN: IMU A[0.61 -0.35 0.83] G[1.3 2.1 0.7][0m
+[0;32mI (2707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2717) MAIN: IMU A[0.61 -0.35 0.83] G[1.3 2.1 0.7][0m
+[0;32mI (2717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2727) MAIN: IMU A[0.61 -0.36 0.84] G[1.3 2.1 0.7][0m
+[0;32mI (2727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2737) MAIN: IMU A[0.61 -0.36 0.84] G[1.3 2.1 0.7][0m
+[0;32mI (2737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2747) MAIN: IMU A[0.61 -0.36 0.84] G[1.5 2.1 0.7][0m
+[0;32mI (2747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2757) MAIN: IMU A[0.61 -0.36 0.84] G[1.5 2.1 0.7][0m
+[0;32mI (2757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2767) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.7][0m
+[0;32mI (2767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2777) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.7][0m
+[0;32mI (2777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2787) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.1 0.7][0m
+[0;32mI (2787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2797) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.1 0.7][0m
+[0;32mI (2797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2807) MAIN: IMU A[0.61 -0.36 0.83] G[1.5 2.1 0.6][0m
+[0;32mI (2807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2817) MAIN: IMU A[0.61 -0.36 0.83] G[1.5 2.1 0.6][0m
+[0;32mI (2817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2827) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.8][0m
+[0;32mI (2827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2837) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.8][0m
+[0;32mI (2837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2847) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.7][0m
+[0;32mI (2847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (2847) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (2847) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (2847) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (2857) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.7][0m
+[0;33mW (2857) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (2857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2877) MAIN: IMU A[0.61 -0.36 0.84] G[1.5 2.1 0.7][0m
+[0;32mI (2877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2887) MAIN: IMU A[0.61 -0.35 0.82] G[1.3 1.8 0.6][0m
+[0;32mI (2887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2897) MAIN: IMU A[0.61 -0.35 0.82] G[1.3 1.8 0.6][0m
+[0;32mI (2897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2907) MAIN: IMU A[0.61 -0.36 0.83] G[1.5 2.0 0.7][0m
+[0;32mI (2907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2917) MAIN: IMU A[0.61 -0.36 0.83] G[1.5 2.0 0.7][0m
+[0;32mI (2917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2927) MAIN: IMU A[0.61 -0.36 0.84] G[1.3 2.2 0.6][0m
+[0;32mI (2927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2937) MAIN: IMU A[0.61 -0.36 0.84] G[1.3 2.2 0.6][0m
+[0;32mI (2937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2947) MAIN: IMU A[0.61 -0.36 0.84] G[1.3 2.0 0.6][0m
+[0;32mI (2947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2957) MAIN: IMU A[0.61 -0.36 0.84] G[1.3 2.0 0.6][0m
+[0;32mI (2957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2967) MAIN: IMU A[0.61 -0.36 0.84] G[1.5 1.8 0.7][0m
+[0;32mI (2967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2977) MAIN: IMU A[0.61 -0.36 0.84] G[1.5 1.8 0.7][0m
+[0;32mI (2977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2987) MAIN: IMU A[0.60 -0.36 0.82] G[1.4 1.9 0.7][0m
+[0;32mI (2987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (2997) MAIN: IMU A[0.60 -0.36 0.82] G[1.4 1.9 0.7][0m
+[0;32mI (2997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3007) MAIN: IMU A[0.61 -0.36 0.82] G[1.3 1.9 0.7][0m
+[0;32mI (3007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3017) MAIN: IMU A[0.61 -0.36 0.82] G[1.3 1.9 0.7][0m
+[0;32mI (3017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3027) MAIN: IMU A[0.61 -0.36 0.83] G[1.4 2.1 0.6][0m
+[0;32mI (3027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3037) MAIN: IMU A[0.61 -0.36 0.83] G[1.4 2.1 0.6][0m
+[0;32mI (3037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3047) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.7][0m
+[0;32mI (3047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3057) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.7][0m
+[0;32mI (3057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3067) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.8][0m
+[0;32mI (3067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (3067) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (3067) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (3067) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (3077) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 2.0 0.8][0m
+[0;33mW (3077) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (3077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3097) MAIN: IMU A[0.60 -0.35 0.81] G[1.5 1.8 0.4][0m
+[0;32mI (3097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3107) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.0 0.7][0m
+[0;32mI (3107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3117) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.0 0.7][0m
+[0;32mI (3117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3127) MAIN: IMU A[0.61 -0.36 0.83] G[1.5 2.1 0.7][0m
+[0;32mI (3127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3137) MAIN: IMU A[0.61 -0.36 0.83] G[1.5 2.1 0.7][0m
+[0;32mI (3137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3147) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.0 0.8][0m
+[0;32mI (3147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3157) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.0 0.8][0m
+[0;32mI (3157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3167) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 1.8 0.7][0m
+[0;32mI (3167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3177) MAIN: IMU A[0.61 -0.36 0.84] G[1.4 1.8 0.7][0m
+[0;32mI (3177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3187) MAIN: IMU A[0.60 -0.35 0.81] G[1.6 1.8 0.5][0m
+[0;32mI (3187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3197) MAIN: IMU A[0.60 -0.35 0.81] G[1.6 1.8 0.5][0m
+[0;32mI (3197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3207) MAIN: IMU A[0.61 -0.35 0.82] G[1.5 1.9 0.7][0m
+[0;32mI (3207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3217) MAIN: IMU A[0.61 -0.35 0.82] G[1.5 1.9 0.7][0m
+[0;32mI (3217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3227) MAIN: IMU A[0.61 -0.36 0.83] G[1.2 2.0 0.8][0m
+[0;32mI (3227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3237) MAIN: IMU A[0.61 -0.36 0.83] G[1.2 2.0 0.8][0m
+[0;32mI (3237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3247) MAIN: IMU A[0.61 -0.36 0.83] G[1.5 1.9 0.6][0m
+[0;32mI (3247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3257) MAIN: IMU A[0.61 -0.36 0.83] G[1.5 1.9 0.6][0m
+[0;32mI (3257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3267) MAIN: IMU A[0.61 -0.36 0.83] G[1.4 2.0 0.7][0m
+[0;32mI (3267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3277) MAIN: IMU A[0.61 -0.36 0.83] G[1.4 2.0 0.7][0m
+[0;32mI (3277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3287) MAIN: IMU A[0.61 -0.35 0.81] G[1.3 1.9 0.6][0m
+[0;32mI (3287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (3287) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (3287) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (3287) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (3297) MAIN: IMU A[0.61 -0.35 0.81] G[1.3 1.9 0.6][0m
+[0;33mW (3297) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (3297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3317) MAIN: IMU A[0.61 -0.36 0.82] G[1.3 2.0 0.6][0m
+[0;32mI (3317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3327) MAIN: IMU A[0.61 -0.36 0.83] G[1.4 1.9 0.8][0m
+[0;32mI (3327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3337) MAIN: IMU A[0.61 -0.36 0.83] G[1.4 1.9 0.8][0m
+[0;32mI (3337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3347) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.0 0.7][0m
+[0;32mI (3347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3357) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.0 0.7][0m
+[0;32mI (3357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3367) MAIN: IMU A[0.61 -0.36 0.83] G[1.2 1.9 0.6][0m
+[0;32mI (3367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3377) MAIN: IMU A[0.61 -0.36 0.83] G[1.2 1.9 0.6][0m
+[0;32mI (3377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3387) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.0 0.8][0m
+[0;32mI (3387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3397) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.0 0.8][0m
+[0;32mI (3397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3407) MAIN: IMU A[0.61 -0.36 0.82] G[1.5 1.9 0.7][0m
+[0;32mI (3407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3417) MAIN: IMU A[0.61 -0.36 0.82] G[1.5 1.9 0.7][0m
+[0;32mI (3417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3427) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.1 0.7][0m
+[0;32mI (3427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3437) MAIN: IMU A[0.61 -0.36 0.83] G[1.3 2.1 0.7][0m
+[0;32mI (3437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3447) MAIN: IMU A[0.61 -0.36 0.82] G[1.4 2.0 0.6][0m
+[0;32mI (3447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3457) MAIN: IMU A[0.61 -0.36 0.82] G[1.4 2.0 0.6][0m
+[0;32mI (3457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3467) MAIN: IMU A[0.61 -0.36 0.82] G[1.2 2.2 0.6][0m
+[0;32mI (3467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3477) MAIN: IMU A[0.61 -0.36 0.82] G[1.2 2.2 0.6][0m
+[0;32mI (3477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3487) MAIN: IMU A[0.61 -0.36 0.82] G[1.3 2.0 0.8][0m
+[0;32mI (3487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3497) MAIN: IMU A[0.61 -0.36 0.82] G[1.3 2.0 0.8][0m
+[0;32mI (3497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3507) MAIN: IMU A[0.61 -0.36 0.82] G[1.5 2.0 0.7][0m
+[0;32mI (3507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (3507) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (3507) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (3507) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (3517) MAIN: IMU A[0.61 -0.36 0.82] G[1.5 2.0 0.7][0m
+[0;33mW (3517) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (3517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3537) MAIN: IMU A[0.61 -0.36 0.82] G[1.3 1.9 0.6][0m
+[0;32mI (3537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3547) MAIN: IMU A[0.61 -0.36 0.82] G[1.4 1.8 0.7][0m
+[0;32mI (3547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3557) MAIN: IMU A[0.61 -0.36 0.82] G[1.4 1.8 0.7][0m
+[0;32mI (3557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3567) MAIN: IMU A[0.61 -0.36 0.81] G[1.3 1.7 0.5][0m
+[0;32mI (3567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3577) MAIN: IMU A[0.61 -0.36 0.81] G[1.3 1.7 0.5][0m
+[0;32mI (3577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3587) MAIN: IMU A[0.61 -0.36 0.80] G[1.4 1.9 0.7][0m
+[0;32mI (3587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3597) MAIN: IMU A[0.61 -0.36 0.80] G[1.4 1.9 0.7][0m
+[0;32mI (3597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3607) MAIN: IMU A[0.61 -0.36 0.81] G[1.3 1.9 0.7][0m
+[0;32mI (3607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3617) MAIN: IMU A[0.61 -0.36 0.81] G[1.3 1.9 0.7][0m
+[0;32mI (3617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3627) MAIN: IMU A[0.61 -0.36 0.81] G[1.5 2.1 0.7][0m
+[0;32mI (3627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3637) MAIN: IMU A[0.61 -0.36 0.81] G[1.5 2.1 0.7][0m
+[0;32mI (3637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3647) MAIN: IMU A[0.61 -0.36 0.81] G[1.4 2.0 0.7][0m
+[0;32mI (3647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3657) MAIN: IMU A[0.61 -0.36 0.81] G[1.4 2.0 0.7][0m
+[0;32mI (3657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3667) MAIN: IMU A[0.61 -0.36 0.81] G[1.4 1.9 0.7][0m
+[0;32mI (3667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3677) MAIN: IMU A[0.61 -0.36 0.81] G[1.4 1.9 0.7][0m
+[0;32mI (3677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3687) MAIN: IMU A[0.61 -0.36 0.81] G[1.4 1.9 0.7][0m
+[0;32mI (3687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3697) MAIN: IMU A[0.61 -0.36 0.81] G[1.4 1.9 0.7][0m
+[0;32mI (3697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3707) MAIN: IMU A[0.61 -0.36 0.81] G[1.3 2.1 0.7][0m
+[0;32mI (3707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3717) MAIN: IMU A[0.61 -0.36 0.81] G[1.3 2.1 0.7][0m
+[0;32mI (3717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3727) MAIN: IMU A[0.60 -0.36 0.81] G[1.3 1.9 0.6][0m
+[0;32mI (3727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (3727) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (3727) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (3727) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (3737) MAIN: IMU A[0.60 -0.36 0.81] G[1.3 1.9 0.6][0m
+[0;33mW (3737) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (3737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3757) MAIN: IMU A[0.61 -0.36 0.81] G[1.5 1.8 0.7][0m
+[0;32mI (3757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3767) MAIN: IMU A[0.61 -0.36 0.80] G[1.1 2.1 0.8][0m
+[0;32mI (3767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3777) MAIN: IMU A[0.61 -0.36 0.80] G[1.1 2.1 0.8][0m
+[0;32mI (3777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3787) MAIN: IMU A[0.60 -0.36 0.81] G[1.7 1.6 0.6][0m
+[0;32mI (3787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3797) MAIN: IMU A[0.60 -0.36 0.81] G[1.7 1.6 0.6][0m
+[0;32mI (3797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3807) MAIN: IMU A[0.61 -0.36 0.80] G[1.2 2.1 0.7][0m
+[0;32mI (3807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3817) MAIN: IMU A[0.61 -0.36 0.80] G[1.2 2.1 0.7][0m
+[0;32mI (3817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3827) MAIN: IMU A[0.61 -0.37 0.81] G[1.4 2.0 0.7][0m
+[0;32mI (3827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3837) MAIN: IMU A[0.61 -0.37 0.81] G[1.4 2.0 0.7][0m
+[0;32mI (3837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3847) MAIN: IMU A[0.61 -0.36 0.80] G[1.3 2.1 0.7][0m
+[0;32mI (3847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3857) MAIN: IMU A[0.61 -0.36 0.80] G[1.3 2.1 0.7][0m
+[0;32mI (3857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3867) MAIN: IMU A[0.60 -0.36 0.78] G[1.2 1.9 0.5][0m
+[0;32mI (3867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3877) MAIN: IMU A[0.60 -0.36 0.78] G[1.2 1.9 0.5][0m
+[0;32mI (3877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3887) MAIN: IMU A[0.61 -0.36 0.80] G[1.5 1.7 0.6][0m
+[0;32mI (3887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3897) MAIN: IMU A[0.61 -0.36 0.80] G[1.5 1.7 0.6][0m
+[0;32mI (3897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3907) MAIN: IMU A[0.61 -0.36 0.80] G[1.3 2.0 0.7][0m
+[0;32mI (3907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3917) MAIN: IMU A[0.61 -0.36 0.80] G[1.3 2.0 0.7][0m
+[0;32mI (3917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3927) MAIN: IMU A[0.61 -0.36 0.80] G[1.5 1.7 0.7][0m
+[0;32mI (3927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3937) MAIN: IMU A[0.61 -0.36 0.80] G[1.5 1.7 0.7][0m
+[0;32mI (3937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3947) MAIN: IMU A[0.61 -0.36 0.80] G[1.7 1.8 0.8][0m
+[0;32mI (3947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (3947) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (3947) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (3947) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (3957) MAIN: IMU A[0.61 -0.36 0.80] G[1.7 1.8 0.8][0m
+[0;33mW (3957) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (3957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3977) MAIN: IMU A[0.61 -0.36 0.79] G[1.5 1.8 0.6][0m
+[0;32mI (3977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3987) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.0 0.7][0m
+[0;32mI (3987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (3997) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.0 0.7][0m
+[0;32mI (3997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4007) MAIN: IMU A[0.61 -0.36 0.80] G[1.7 2.1 0.7][0m
+[0;32mI (4007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4017) MAIN: IMU A[0.61 -0.36 0.80] G[1.7 2.1 0.7][0m
+[0;32mI (4017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4027) MAIN: IMU A[0.61 -0.36 0.80] G[1.4 2.0 0.7][0m
+[0;32mI (4027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4037) MAIN: IMU A[0.61 -0.36 0.80] G[1.4 2.0 0.7][0m
+[0;32mI (4037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4047) MAIN: IMU A[0.61 -0.36 0.80] G[1.4 2.0 0.7][0m
+[0;32mI (4047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4057) MAIN: IMU A[0.61 -0.36 0.80] G[1.4 2.0 0.7][0m
+[0;32mI (4057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4067) MAIN: IMU A[0.61 -0.35 0.78] G[1.2 1.9 0.7][0m
+[0;32mI (4067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4077) MAIN: IMU A[0.61 -0.35 0.78] G[1.2 1.9 0.7][0m
+[0;32mI (4077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4087) MAIN: IMU A[0.61 -0.36 0.79] G[1.5 1.8 0.8][0m
+[0;32mI (4087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4097) MAIN: IMU A[0.61 -0.36 0.79] G[1.5 1.8 0.8][0m
+[0;32mI (4097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4107) MAIN: IMU A[0.61 -0.36 0.80] G[1.5 1.9 0.7][0m
+[0;32mI (4107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4117) MAIN: IMU A[0.61 -0.36 0.80] G[1.5 1.9 0.7][0m
+[0;32mI (4117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4127) MAIN: IMU A[0.61 -0.36 0.80] G[1.4 2.1 0.7][0m
+[0;32mI (4127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4137) MAIN: IMU A[0.61 -0.36 0.80] G[1.4 2.1 0.7][0m
+[0;32mI (4137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4147) MAIN: IMU A[0.61 -0.37 0.80] G[1.5 1.5 0.6][0m
+[0;32mI (4147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4157) MAIN: IMU A[0.61 -0.37 0.80] G[1.5 1.5 0.6][0m
+[0;32mI (4157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4167) MAIN: IMU A[0.61 -0.36 0.78] G[1.6 1.6 0.6][0m
+[0;32mI (4167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (4167) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (4167) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (4167) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (4177) MAIN: IMU A[0.61 -0.36 0.78] G[1.6 1.6 0.6][0m
+[0;33mW (4177) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (4177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4197) MAIN: IMU A[0.61 -0.35 0.78] G[1.3 2.1 0.8][0m
+[0;32mI (4197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4207) MAIN: IMU A[0.61 -0.36 0.80] G[1.3 2.1 0.9][0m
+[0;32mI (4207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4217) MAIN: IMU A[0.61 -0.36 0.80] G[1.3 2.1 0.9][0m
+[0;32mI (4217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4227) MAIN: IMU A[0.61 -0.36 0.80] G[1.5 2.1 0.8][0m
+[0;32mI (4227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4237) MAIN: IMU A[0.61 -0.36 0.80] G[1.5 2.1 0.8][0m
+[0;32mI (4237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4247) MAIN: IMU A[0.61 -0.36 0.80] G[1.8 1.7 0.7][0m
+[0;32mI (4247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4257) MAIN: IMU A[0.61 -0.36 0.80] G[1.8 1.7 0.7][0m
+[0;32mI (4257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4267) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.4 0.9][0m
+[0;32mI (4267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4277) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.4 0.9][0m
+[0;32mI (4277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4287) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.2 0.8][0m
+[0;32mI (4287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4297) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.2 0.8][0m
+[0;32mI (4297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4307) MAIN: IMU A[0.61 -0.36 0.79] G[1.5 1.7 0.6][0m
+[0;32mI (4307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4317) MAIN: IMU A[0.61 -0.36 0.79] G[1.5 1.7 0.6][0m
+[0;32mI (4317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4327) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.3 0.8][0m
+[0;32mI (4327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4337) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.3 0.8][0m
+[0;32mI (4337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4347) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 1.8 0.6][0m
+[0;32mI (4347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4357) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 1.8 0.6][0m
+[0;32mI (4357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4367) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (4367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4377) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (4377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4387) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.3 0.8][0m
+[0;32mI (4387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (4387) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (4387) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (4387) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (4397) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.3 0.8][0m
+[0;33mW (4397) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (4397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4417) MAIN: IMU A[0.61 -0.36 0.79] G[1.5 1.9 0.7][0m
+[0;32mI (4417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4427) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.1 0.8][0m
+[0;32mI (4427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4437) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.1 0.8][0m
+[0;32mI (4437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4447) MAIN: IMU A[0.61 -0.36 0.79] G[1.5 2.0 0.7][0m
+[0;32mI (4447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4457) MAIN: IMU A[0.61 -0.36 0.79] G[1.5 2.0 0.7][0m
+[0;32mI (4457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4467) MAIN: IMU A[0.61 -0.36 0.79] G[1.2 2.1 0.6][0m
+[0;32mI (4467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4477) MAIN: IMU A[0.61 -0.36 0.79] G[1.2 2.1 0.6][0m
+[0;32mI (4477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4487) MAIN: IMU A[0.61 -0.36 0.79] G[1.2 2.2 0.6][0m
+[0;32mI (4487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4497) MAIN: IMU A[0.61 -0.36 0.79] G[1.2 2.2 0.6][0m
+[0;32mI (4497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4507) MAIN: IMU A[0.60 -0.36 0.79] G[1.4 1.9 0.6][0m
+[0;32mI (4507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4517) MAIN: IMU A[0.60 -0.36 0.79] G[1.4 1.9 0.6][0m
+[0;32mI (4517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4527) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 1.8 0.6][0m
+[0;32mI (4527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4537) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 1.8 0.6][0m
+[0;32mI (4537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4547) MAIN: IMU A[0.61 -0.36 0.79] G[1.4 2.1 0.7][0m
+[0;32mI (4547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4557) MAIN: IMU A[0.61 -0.36 0.79] G[1.4 2.1 0.7][0m
+[0;32mI (4557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4567) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 1.9 0.7][0m
+[0;32mI (4567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4577) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 1.9 0.7][0m
+[0;32mI (4577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4587) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.1 0.7][0m
+[0;32mI (4587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4597) MAIN: IMU A[0.61 -0.36 0.79] G[1.3 2.1 0.7][0m
+[0;32mI (4597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4607) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.0 0.7][0m
+[0;32mI (4607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (4607) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (4607) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (4607) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (4617) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.0 0.7][0m
+[0;33mW (4617) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (4617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4637) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.8 0.7][0m
+[0;32mI (4637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4647) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.8 0.7][0m
+[0;32mI (4647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4657) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.8 0.7][0m
+[0;32mI (4657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4667) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.9 0.6][0m
+[0;32mI (4667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4677) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.9 0.6][0m
+[0;32mI (4677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4687) MAIN: IMU A[0.61 -0.37 0.78] G[1.3 1.8 0.6][0m
+[0;32mI (4687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4697) MAIN: IMU A[0.61 -0.37 0.78] G[1.3 1.8 0.6][0m
+[0;32mI (4697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4707) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.0 0.7][0m
+[0;32mI (4707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4717) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.0 0.7][0m
+[0;32mI (4717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4727) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 2.0 0.7][0m
+[0;32mI (4727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4737) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 2.0 0.7][0m
+[0;32mI (4737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4747) MAIN: IMU A[0.61 -0.36 0.78] G[1.1 2.0 0.6][0m
+[0;32mI (4747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4757) MAIN: IMU A[0.61 -0.36 0.78] G[1.1 2.0 0.6][0m
+[0;32mI (4757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4767) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (4767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4777) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (4777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4787) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.8 0.6][0m
+[0;32mI (4787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4797) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.8 0.6][0m
+[0;32mI (4797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4807) MAIN: IMU A[0.61 -0.37 0.78] G[1.5 1.6 0.7][0m
+[0;32mI (4807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4817) MAIN: IMU A[0.61 -0.37 0.78] G[1.5 1.6 0.7][0m
+[0;32mI (4817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4827) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.6][0m
+[0;32mI (4827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (4827) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (4827) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (4827) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (4837) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.6][0m
+[0;33mW (4837) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (4837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4857) MAIN: IMU A[0.61 -0.36 0.77] G[1.0 1.9 0.6][0m
+[0;32mI (4857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4867) MAIN: IMU A[0.61 -0.36 0.77] G[1.6 1.7 0.6][0m
+[0;32mI (4867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4877) MAIN: IMU A[0.61 -0.36 0.77] G[1.6 1.7 0.6][0m
+[0;32mI (4877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4887) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.7 0.6][0m
+[0;32mI (4887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4897) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.7 0.6][0m
+[0;32mI (4897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4907) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.9 0.6][0m
+[0;32mI (4907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4917) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.9 0.6][0m
+[0;32mI (4917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4927) MAIN: IMU A[0.61 -0.37 0.77] G[1.5 1.8 0.8][0m
+[0;32mI (4927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4937) MAIN: IMU A[0.61 -0.37 0.77] G[1.5 1.8 0.8][0m
+[0;32mI (4937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4947) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.6][0m
+[0;32mI (4947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4957) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.6][0m
+[0;32mI (4957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4967) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 1.9 0.8][0m
+[0;32mI (4967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4977) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 1.9 0.8][0m
+[0;32mI (4977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4987) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.6][0m
+[0;32mI (4987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (4997) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.6][0m
+[0;32mI (4997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5007) MAIN: IMU A[0.61 -0.37 0.78] G[1.2 2.0 0.8][0m
+[0;32mI (5007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5017) MAIN: IMU A[0.61 -0.37 0.78] G[1.2 2.0 0.8][0m
+[0;32mI (5017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5027) MAIN: IMU A[0.61 -0.37 0.77] G[1.5 1.8 0.6][0m
+[0;32mI (5027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5037) MAIN: IMU A[0.61 -0.37 0.77] G[1.5 1.8 0.6][0m
+[0;32mI (5037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5047) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.6][0m
+[0;32mI (5047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (5047) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (5047) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (5047) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (5057) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.6][0m
+[0;33mW (5057) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (5057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5077) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.8][0m
+[0;32mI (5077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5087) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.7][0m
+[0;32mI (5087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5097) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.7][0m
+[0;32mI (5097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5107) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (5107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5117) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (5117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5127) MAIN: IMU A[0.61 -0.37 0.78] G[1.5 1.8 0.7][0m
+[0;32mI (5127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5137) MAIN: IMU A[0.61 -0.37 0.78] G[1.5 1.8 0.7][0m
+[0;32mI (5137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5147) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.1 0.6][0m
+[0;32mI (5147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5157) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.1 0.6][0m
+[0;32mI (5157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5167) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 2.0 0.7][0m
+[0;32mI (5167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5177) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 2.0 0.7][0m
+[0;32mI (5177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5187) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.9 0.7][0m
+[0;32mI (5187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5197) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.9 0.7][0m
+[0;32mI (5197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5207) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.8 0.5][0m
+[0;32mI (5207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5217) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.8 0.5][0m
+[0;32mI (5217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5227) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.0 0.8][0m
+[0;32mI (5227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5237) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.0 0.8][0m
+[0;32mI (5237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5247) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (5247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5257) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (5257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5267) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.6][0m
+[0;32mI (5267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (5267) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (5267) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (5267) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (5277) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.6][0m
+[0;33mW (5277) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (5277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5297) MAIN: IMU A[0.61 -0.36 0.78] G[1.7 1.4 0.5][0m
+[0;32mI (5297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5307) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.9 0.5][0m
+[0;32mI (5307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5317) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.9 0.5][0m
+[0;32mI (5317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5327) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.1 0.6][0m
+[0;32mI (5327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5337) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.1 0.6][0m
+[0;32mI (5337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5347) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.7 0.7][0m
+[0;32mI (5347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5357) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.7 0.7][0m
+[0;32mI (5357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5367) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.1 0.8][0m
+[0;32mI (5367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5377) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.1 0.8][0m
+[0;32mI (5377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5387) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 2.0 0.8][0m
+[0;32mI (5387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5397) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 2.0 0.8][0m
+[0;32mI (5397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5407) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (5407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5417) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (5417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5427) MAIN: IMU A[0.61 -0.36 0.77] G[1.7 1.6 0.6][0m
+[0;32mI (5427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5437) MAIN: IMU A[0.61 -0.36 0.77] G[1.7 1.6 0.6][0m
+[0;32mI (5437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5447) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.8 0.6][0m
+[0;32mI (5447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5457) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.8 0.6][0m
+[0;32mI (5457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5467) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.1 0.8][0m
+[0;32mI (5467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5477) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.1 0.8][0m
+[0;32mI (5477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5487) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.6][0m
+[0;32mI (5487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (5487) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (5487) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (5487) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (5497) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.6][0m
+[0;33mW (5497) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (5497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5517) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 2.2 0.7][0m
+[0;32mI (5517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5527) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.6][0m
+[0;32mI (5527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5537) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.6][0m
+[0;32mI (5537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5547) MAIN: IMU A[0.61 -0.35 0.76] G[1.3 1.7 0.4][0m
+[0;32mI (5547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5557) MAIN: IMU A[0.61 -0.35 0.76] G[1.3 1.7 0.4][0m
+[0;32mI (5557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5567) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.6 0.7][0m
+[0;32mI (5567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5577) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.6 0.7][0m
+[0;32mI (5577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5587) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 2.0 0.8][0m
+[0;32mI (5587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5597) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 2.0 0.8][0m
+[0;32mI (5597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5607) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 2.0 0.7][0m
+[0;32mI (5607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5617) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 2.0 0.7][0m
+[0;32mI (5617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5627) MAIN: IMU A[0.61 -0.36 0.78] G[1.2 2.0 0.8][0m
+[0;32mI (5627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5637) MAIN: IMU A[0.61 -0.36 0.78] G[1.2 2.0 0.8][0m
+[0;32mI (5637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5647) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.9 0.7][0m
+[0;32mI (5647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5657) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.9 0.7][0m
+[0;32mI (5657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5667) MAIN: IMU A[0.61 -0.36 0.78] G[1.2 1.9 0.7][0m
+[0;32mI (5667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5677) MAIN: IMU A[0.61 -0.36 0.78] G[1.2 1.9 0.7][0m
+[0;32mI (5677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5687) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.1 0.7][0m
+[0;32mI (5687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5697) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.1 0.7][0m
+[0;32mI (5697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5707) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 2.0 0.7][0m
+[0;32mI (5707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (5707) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (5707) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (5707) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (5717) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 2.0 0.7][0m
+[0;33mW (5717) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (5717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5737) MAIN: IMU A[0.61 -0.36 0.78] G[1.1 2.0 0.6][0m
+[0;32mI (5737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5747) MAIN: IMU A[0.61 -0.36 0.77] G[1.6 1.8 0.6][0m
+[0;32mI (5747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5757) MAIN: IMU A[0.61 -0.36 0.77] G[1.6 1.8 0.6][0m
+[0;32mI (5757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5767) MAIN: IMU A[0.61 -0.36 0.77] G[1.6 1.9 0.5][0m
+[0;32mI (5767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5777) MAIN: IMU A[0.61 -0.36 0.77] G[1.6 1.9 0.5][0m
+[0;32mI (5777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5787) MAIN: IMU A[0.61 -0.37 0.77] G[1.1 2.3 0.8][0m
+[0;32mI (5787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5797) MAIN: IMU A[0.61 -0.37 0.77] G[1.1 2.3 0.8][0m
+[0;32mI (5797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5807) MAIN: IMU A[0.61 -0.36 0.76] G[1.7 1.7 0.6][0m
+[0;32mI (5807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5817) MAIN: IMU A[0.61 -0.36 0.76] G[1.7 1.7 0.6][0m
+[0;32mI (5817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5827) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.7][0m
+[0;32mI (5827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5837) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.7][0m
+[0;32mI (5837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5847) MAIN: IMU A[0.61 -0.37 0.76] G[1.5 1.8 0.7][0m
+[0;32mI (5847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5857) MAIN: IMU A[0.61 -0.37 0.76] G[1.5 1.8 0.7][0m
+[0;32mI (5857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5867) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (5867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5877) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (5877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5887) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.5 0.5][0m
+[0;32mI (5887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5897) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.5 0.5][0m
+[0;32mI (5897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5907) MAIN: IMU A[0.61 -0.37 0.77] G[1.5 1.8 0.6][0m
+[0;32mI (5907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5917) MAIN: IMU A[0.61 -0.37 0.77] G[1.5 1.8 0.6][0m
+[0;32mI (5917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5927) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.6][0m
+[0;32mI (5927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (5927) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (5927) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (5927) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (5937) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.6][0m
+[0;33mW (5937) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (5937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5957) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.0 0.6][0m
+[0;32mI (5957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5967) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 2.0 0.6][0m
+[0;32mI (5967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5977) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 2.0 0.6][0m
+[0;32mI (5977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5987) MAIN: IMU A[0.61 -0.37 0.76] G[1.7 1.7 0.6][0m
+[0;32mI (5987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (5997) MAIN: IMU A[0.61 -0.37 0.76] G[1.7 1.7 0.6][0m
+[0;32mI (5997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6007) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.6][0m
+[0;32mI (6007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6017) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.6][0m
+[0;32mI (6017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6027) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.7 0.7][0m
+[0;32mI (6027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6037) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.7 0.7][0m
+[0;32mI (6037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6047) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.0 0.8][0m
+[0;32mI (6047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6057) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.0 0.8][0m
+[0;32mI (6057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6067) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.7 0.6][0m
+[0;32mI (6067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6077) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.7 0.6][0m
+[0;32mI (6077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6087) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.9 0.6][0m
+[0;32mI (6087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6097) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.9 0.6][0m
+[0;32mI (6097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6107) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.8 0.6][0m
+[0;32mI (6107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6117) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.8 0.6][0m
+[0;32mI (6117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6127) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.9 0.6][0m
+[0;32mI (6127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6137) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.9 0.6][0m
+[0;32mI (6137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6147) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.9 0.8][0m
+[0;32mI (6147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (6147) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (6147) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (6147) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (6157) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.9 0.8][0m
+[0;33mW (6157) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (6157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6177) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 2.1 0.6][0m
+[0;32mI (6177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6187) MAIN: IMU A[0.61 -0.36 0.76] G[1.8 1.9 0.5][0m
+[0;32mI (6187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6197) MAIN: IMU A[0.61 -0.36 0.76] G[1.8 1.9 0.5][0m
+[0;32mI (6197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6207) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 1.8 0.8][0m
+[0;32mI (6207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6217) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 1.8 0.8][0m
+[0;32mI (6217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6227) MAIN: IMU A[0.61 -0.36 0.75] G[1.1 2.2 0.6][0m
+[0;32mI (6227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6237) MAIN: IMU A[0.61 -0.36 0.75] G[1.1 2.2 0.6][0m
+[0;32mI (6237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6247) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.9 0.7][0m
+[0;32mI (6247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6257) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.9 0.7][0m
+[0;32mI (6257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6267) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.7 0.6][0m
+[0;32mI (6267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6277) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.7 0.6][0m
+[0;32mI (6277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6287) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 2.0 0.7][0m
+[0;32mI (6287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6297) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 2.0 0.7][0m
+[0;32mI (6297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6307) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 2.0 0.7][0m
+[0;32mI (6307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6317) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 2.0 0.7][0m
+[0;32mI (6317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6327) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.9 0.7][0m
+[0;32mI (6327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6337) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.9 0.7][0m
+[0;32mI (6337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6347) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.7][0m
+[0;32mI (6347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6357) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.7][0m
+[0;32mI (6357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6367) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.6][0m
+[0;32mI (6367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (6367) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (6367) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (6367) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (6377) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.6][0m
+[0;33mW (6377) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (6377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6397) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (6397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6407) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.8][0m
+[0;32mI (6407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6417) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.8][0m
+[0;32mI (6417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6427) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.8 0.6][0m
+[0;32mI (6427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6437) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.8 0.6][0m
+[0;32mI (6437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6447) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.9 0.6][0m
+[0;32mI (6447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6457) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.9 0.6][0m
+[0;32mI (6457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6467) MAIN: IMU A[0.61 -0.36 0.77] G[1.1 2.1 0.6][0m
+[0;32mI (6467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6477) MAIN: IMU A[0.61 -0.36 0.77] G[1.1 2.1 0.6][0m
+[0;32mI (6477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6487) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.7 0.7][0m
+[0;32mI (6487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6497) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.7 0.7][0m
+[0;32mI (6497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6507) MAIN: IMU A[0.61 -0.37 0.78] G[1.2 1.7 0.6][0m
+[0;32mI (6507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6517) MAIN: IMU A[0.61 -0.37 0.78] G[1.2 1.7 0.6][0m
+[0;32mI (6517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6527) MAIN: IMU A[0.61 -0.35 0.76] G[1.4 1.7 0.6][0m
+[0;32mI (6527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6537) MAIN: IMU A[0.61 -0.35 0.76] G[1.4 1.7 0.6][0m
+[0;32mI (6537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6547) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (6547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6557) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (6557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6567) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.8 0.7][0m
+[0;32mI (6567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6577) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.8 0.7][0m
+[0;32mI (6577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6587) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.7 0.6][0m
+[0;32mI (6587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (6587) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (6587) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (6587) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (6597) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.7 0.6][0m
+[0;33mW (6597) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (6597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6617) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.8 0.6][0m
+[0;32mI (6617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6627) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.8 0.5][0m
+[0;32mI (6627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6637) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.8 0.5][0m
+[0;32mI (6637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6647) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (6647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6657) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (6657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6667) MAIN: IMU A[0.61 -0.36 0.78] G[1.2 1.8 0.7][0m
+[0;32mI (6667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6677) MAIN: IMU A[0.61 -0.36 0.78] G[1.2 1.8 0.7][0m
+[0;32mI (6677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6687) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.8 0.7][0m
+[0;32mI (6687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6697) MAIN: IMU A[0.61 -0.36 0.78] G[1.5 1.8 0.7][0m
+[0;32mI (6697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6707) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.7 0.6][0m
+[0;32mI (6707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6717) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.7 0.6][0m
+[0;32mI (6717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6727) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.0 0.7][0m
+[0;32mI (6727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6737) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 2.0 0.7][0m
+[0;32mI (6737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6747) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.9 0.6][0m
+[0;32mI (6747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6757) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.9 0.6][0m
+[0;32mI (6757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6767) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.7 0.6][0m
+[0;32mI (6767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6777) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.7 0.6][0m
+[0;32mI (6777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6787) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.6][0m
+[0;32mI (6787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6797) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.6][0m
+[0;32mI (6797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6807) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.6][0m
+[0;32mI (6807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (6807) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (6807) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (6807) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (6817) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.6][0m
+[0;33mW (6817) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (6817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6837) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.9 0.6][0m
+[0;32mI (6837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6847) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.6][0m
+[0;32mI (6847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6857) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.6][0m
+[0;32mI (6857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6867) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.5 0.5][0m
+[0;32mI (6867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6877) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.5 0.5][0m
+[0;32mI (6877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6887) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.9 0.6][0m
+[0;32mI (6887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6897) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.9 0.6][0m
+[0;32mI (6897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6907) MAIN: IMU A[0.61 -0.36 0.77] G[1.1 1.9 0.7][0m
+[0;32mI (6907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6917) MAIN: IMU A[0.61 -0.36 0.77] G[1.1 1.9 0.7][0m
+[0;32mI (6917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6927) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.6 0.6][0m
+[0;32mI (6927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6937) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.6 0.6][0m
+[0;32mI (6937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6947) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 2.0 0.6][0m
+[0;32mI (6947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6957) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 2.0 0.6][0m
+[0;32mI (6957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6967) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.8 0.7][0m
+[0;32mI (6967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6977) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.8 0.7][0m
+[0;32mI (6977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6987) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.7][0m
+[0;32mI (6987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (6997) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.7][0m
+[0;32mI (6997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7007) MAIN: IMU A[0.61 -0.37 0.76] G[1.6 1.8 0.5][0m
+[0;32mI (7007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7017) MAIN: IMU A[0.61 -0.37 0.76] G[1.6 1.8 0.5][0m
+[0;32mI (7017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7027) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.9 0.8][0m
+[0;32mI (7027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (7027) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (7027) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (7027) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (7037) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.9 0.8][0m
+[0;33mW (7037) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (7037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7057) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.0 0.6][0m
+[0;32mI (7057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7067) MAIN: IMU A[0.60 -0.37 0.76] G[1.4 1.8 0.5][0m
+[0;32mI (7067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7077) MAIN: IMU A[0.60 -0.37 0.76] G[1.4 1.8 0.5][0m
+[0;32mI (7077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7087) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.6 0.5][0m
+[0;32mI (7087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7097) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.6 0.5][0m
+[0;32mI (7097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7107) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.8 0.6][0m
+[0;32mI (7107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7117) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.8 0.6][0m
+[0;32mI (7117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7127) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.7 0.6][0m
+[0;32mI (7127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7137) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.7 0.6][0m
+[0;32mI (7137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7147) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.7 0.6][0m
+[0;32mI (7147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7157) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.7 0.6][0m
+[0;32mI (7157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7167) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.6 0.6][0m
+[0;32mI (7167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7177) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.6 0.6][0m
+[0;32mI (7177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7187) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.2 0.8][0m
+[0;32mI (7187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7197) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.2 0.8][0m
+[0;32mI (7197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7207) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 2.2 0.6][0m
+[0;32mI (7207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7217) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 2.2 0.6][0m
+[0;32mI (7217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7227) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.9 0.7][0m
+[0;32mI (7227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7237) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.9 0.7][0m
+[0;32mI (7237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7247) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.7][0m
+[0;32mI (7247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (7247) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (7247) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (7247) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (7257) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.7][0m
+[0;33mW (7257) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (7257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7277) MAIN: IMU A[0.61 -0.37 0.76] G[1.1 1.9 0.7][0m
+[0;32mI (7277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7287) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.6][0m
+[0;32mI (7287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7297) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.6][0m
+[0;32mI (7297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7307) MAIN: IMU A[0.61 -0.35 0.74] G[1.2 1.9 0.6][0m
+[0;32mI (7307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7317) MAIN: IMU A[0.61 -0.35 0.74] G[1.2 1.9 0.6][0m
+[0;32mI (7317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7327) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.7 0.6][0m
+[0;32mI (7327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7337) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.7 0.6][0m
+[0;32mI (7337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7347) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.4 0.4][0m
+[0;32mI (7347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7357) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.4 0.4][0m
+[0;32mI (7357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7367) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.8][0m
+[0;32mI (7367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7377) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.8][0m
+[0;32mI (7377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7387) MAIN: IMU A[0.61 -0.37 0.77] G[1.2 1.8 0.8][0m
+[0;32mI (7387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7397) MAIN: IMU A[0.61 -0.37 0.77] G[1.2 1.8 0.8][0m
+[0;32mI (7397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7407) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.8 0.6][0m
+[0;32mI (7407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7417) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.8 0.6][0m
+[0;32mI (7417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7427) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.8 0.7][0m
+[0;32mI (7427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7437) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.8 0.7][0m
+[0;32mI (7437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7447) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.1 0.7][0m
+[0;32mI (7447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7457) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.1 0.7][0m
+[0;32mI (7457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7467) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.7][0m
+[0;32mI (7467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (7467) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (7467) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (7467) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (7477) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.7][0m
+[0;33mW (7477) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (7477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7497) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (7497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7507) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.9 0.6][0m
+[0;32mI (7507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7517) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.9 0.6][0m
+[0;32mI (7517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7527) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.8 0.7][0m
+[0;32mI (7527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7537) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.8 0.7][0m
+[0;32mI (7537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7547) MAIN: IMU A[0.60 -0.36 0.77] G[1.5 1.6 0.6][0m
+[0;32mI (7547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7557) MAIN: IMU A[0.60 -0.36 0.77] G[1.5 1.6 0.6][0m
+[0;32mI (7557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7567) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.8 0.6][0m
+[0;32mI (7567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7577) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.8 0.6][0m
+[0;32mI (7577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7587) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.5][0m
+[0;32mI (7587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7597) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.5][0m
+[0;32mI (7597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7607) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.8 0.6][0m
+[0;32mI (7607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7617) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.8 0.6][0m
+[0;32mI (7617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7627) MAIN: IMU A[0.61 -0.36 0.75] G[1.6 1.7 0.6][0m
+[0;32mI (7627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7637) MAIN: IMU A[0.61 -0.36 0.75] G[1.6 1.7 0.6][0m
+[0;32mI (7637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7647) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (7647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7657) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (7657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7667) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.7][0m
+[0;32mI (7667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7677) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.7][0m
+[0;32mI (7677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7687) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.8][0m
+[0;32mI (7687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (7687) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (7687) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (7687) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (7697) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.8][0m
+[0;33mW (7697) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (7697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7717) MAIN: IMU A[0.61 -0.35 0.76] G[1.3 1.8 0.5][0m
+[0;32mI (7717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7727) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.7][0m
+[0;32mI (7727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7737) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.7][0m
+[0;32mI (7737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7747) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (7747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7757) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (7757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7767) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 2.0 0.6][0m
+[0;32mI (7767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7777) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 2.0 0.6][0m
+[0;32mI (7777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7787) MAIN: IMU A[0.61 -0.36 0.78] G[1.6 1.5 0.6][0m
+[0;32mI (7787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7797) MAIN: IMU A[0.61 -0.36 0.78] G[1.6 1.5 0.6][0m
+[0;32mI (7797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7807) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 1.8 0.6][0m
+[0;32mI (7807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7817) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 1.8 0.6][0m
+[0;32mI (7817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7827) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 1.9 0.7][0m
+[0;32mI (7827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7837) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 1.9 0.7][0m
+[0;32mI (7837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7847) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 1.9 0.6][0m
+[0;32mI (7847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7857) MAIN: IMU A[0.61 -0.36 0.78] G[1.4 1.9 0.6][0m
+[0;32mI (7857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7867) MAIN: IMU A[0.61 -0.36 0.78] G[1.2 1.7 0.7][0m
+[0;32mI (7867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7877) MAIN: IMU A[0.61 -0.36 0.78] G[1.2 1.7 0.7][0m
+[0;32mI (7877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7887) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.7 0.6][0m
+[0;32mI (7887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7897) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.7 0.6][0m
+[0;32mI (7897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7907) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.7 0.7][0m
+[0;32mI (7907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (7907) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (7907) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (7907) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (7917) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.7 0.7][0m
+[0;33mW (7917) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (7917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7937) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 2.1 0.7][0m
+[0;32mI (7937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7947) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (7947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7957) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (7957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7967) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.1 0.7][0m
+[0;32mI (7967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7977) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.1 0.7][0m
+[0;32mI (7977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7987) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 1.7 0.7][0m
+[0;32mI (7987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (7997) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 1.7 0.7][0m
+[0;32mI (7997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8007) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.9 0.6][0m
+[0;32mI (8007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8017) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.9 0.6][0m
+[0;32mI (8017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8027) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 2.0 0.7][0m
+[0;32mI (8027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8037) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 2.0 0.7][0m
+[0;32mI (8037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8047) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 1.8 0.6][0m
+[0;32mI (8047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8057) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 1.8 0.6][0m
+[0;32mI (8057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8067) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.7 0.7][0m
+[0;32mI (8067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8077) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.7 0.7][0m
+[0;32mI (8077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8087) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.7 0.6][0m
+[0;32mI (8087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8097) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.7 0.6][0m
+[0;32mI (8097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8107) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (8107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8117) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (8117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8127) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.8][0m
+[0;32mI (8127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (8127) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (8127) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (8127) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (8137) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.8][0m
+[0;33mW (8137) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (8137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8157) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.0 0.7][0m
+[0;32mI (8157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8167) MAIN: IMU A[0.61 -0.37 0.76] G[1.2 2.1 0.6][0m
+[0;32mI (8167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8177) MAIN: IMU A[0.61 -0.37 0.76] G[1.2 2.1 0.6][0m
+[0;32mI (8177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8187) MAIN: IMU A[0.60 -0.36 0.76] G[1.3 1.7 0.6][0m
+[0;32mI (8187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8197) MAIN: IMU A[0.60 -0.36 0.76] G[1.3 1.7 0.6][0m
+[0;32mI (8197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8207) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.8 0.6][0m
+[0;32mI (8207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8217) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.8 0.6][0m
+[0;32mI (8217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8227) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.0 0.7][0m
+[0;32mI (8227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8237) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.0 0.7][0m
+[0;32mI (8237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8247) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.6][0m
+[0;32mI (8247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8257) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.6][0m
+[0;32mI (8257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8267) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.7 0.8][0m
+[0;32mI (8267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8277) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.7 0.8][0m
+[0;32mI (8277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8287) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.5 0.5][0m
+[0;32mI (8287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8297) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.5 0.5][0m
+[0;32mI (8297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8307) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (8307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8317) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (8317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8327) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 1.9 0.7][0m
+[0;32mI (8327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8337) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 1.9 0.7][0m
+[0;32mI (8337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8347) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (8347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (8347) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (8347) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (8347) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (8357) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;33mW (8357) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (8357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8377) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 1.6 0.6][0m
+[0;32mI (8377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8387) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.9 0.6][0m
+[0;32mI (8387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8397) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.9 0.6][0m
+[0;32mI (8397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8407) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.8 0.7][0m
+[0;32mI (8407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8417) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.8 0.7][0m
+[0;32mI (8417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8427) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 2.0 0.7][0m
+[0;32mI (8427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8437) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 2.0 0.7][0m
+[0;32mI (8437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8447) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (8447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8457) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (8457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8467) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.7 0.7][0m
+[0;32mI (8467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8477) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.7 0.7][0m
+[0;32mI (8477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8487) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 1.8 0.6][0m
+[0;32mI (8487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8497) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 1.8 0.6][0m
+[0;32mI (8497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8507) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 2.0 0.8][0m
+[0;32mI (8507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8517) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 2.0 0.8][0m
+[0;32mI (8517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8527) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.7 0.8][0m
+[0;32mI (8527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8537) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.7 0.8][0m
+[0;32mI (8537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8547) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.7 0.6][0m
+[0;32mI (8547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8557) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.7 0.6][0m
+[0;32mI (8557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8567) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.8 0.7][0m
+[0;32mI (8567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (8567) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (8567) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (8567) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (8577) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.8 0.7][0m
+[0;33mW (8577) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (8577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8597) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 1.9 0.6][0m
+[0;32mI (8597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8607) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.1 0.7][0m
+[0;32mI (8607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8617) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.1 0.7][0m
+[0;32mI (8617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8627) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (8627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8637) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (8637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8647) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 1.9 0.6][0m
+[0;32mI (8647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8657) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 1.9 0.6][0m
+[0;32mI (8657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8667) MAIN: IMU A[0.61 -0.37 0.77] G[1.5 1.7 0.6][0m
+[0;32mI (8667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8677) MAIN: IMU A[0.61 -0.37 0.77] G[1.5 1.7 0.6][0m
+[0;32mI (8677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8687) MAIN: IMU A[0.60 -0.36 0.74] G[1.1 1.9 0.6][0m
+[0;32mI (8687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8697) MAIN: IMU A[0.60 -0.36 0.74] G[1.1 1.9 0.6][0m
+[0;32mI (8697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8707) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.0 0.7][0m
+[0;32mI (8707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8717) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.0 0.7][0m
+[0;32mI (8717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8727) MAIN: IMU A[0.61 -0.36 0.77] G[1.6 1.7 0.6][0m
+[0;32mI (8727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8737) MAIN: IMU A[0.61 -0.36 0.77] G[1.6 1.7 0.6][0m
+[0;32mI (8737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8747) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.8 0.6][0m
+[0;32mI (8747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8757) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.8 0.6][0m
+[0;32mI (8757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8767) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 1.8 0.8][0m
+[0;32mI (8767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8777) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 1.8 0.8][0m
+[0;32mI (8777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8787) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 2.0 0.8][0m
+[0;32mI (8787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (8787) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (8787) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (8787) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (8797) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 2.0 0.8][0m
+[0;33mW (8797) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (8797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8817) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.7 0.6][0m
+[0;32mI (8817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8827) MAIN: IMU A[0.61 -0.37 0.77] G[1.2 2.0 0.7][0m
+[0;32mI (8827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8837) MAIN: IMU A[0.61 -0.37 0.77] G[1.2 2.0 0.7][0m
+[0;32mI (8837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8847) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.7][0m
+[0;32mI (8847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8857) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 2.0 0.7][0m
+[0;32mI (8857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8867) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (8867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8877) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (8877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8887) MAIN: IMU A[0.61 -0.36 0.77] G[1.0 2.0 0.8][0m
+[0;32mI (8887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8897) MAIN: IMU A[0.61 -0.36 0.77] G[1.0 2.0 0.8][0m
+[0;32mI (8897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8907) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.7 0.6][0m
+[0;32mI (8907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8917) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.7 0.6][0m
+[0;32mI (8917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8927) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.8][0m
+[0;32mI (8927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8937) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.8][0m
+[0;32mI (8937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8947) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.9 0.7][0m
+[0;32mI (8947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8957) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.9 0.7][0m
+[0;32mI (8957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8967) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.9 0.7][0m
+[0;32mI (8967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8977) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.9 0.7][0m
+[0;32mI (8977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8987) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.7 0.7][0m
+[0;32mI (8987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (8997) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.7 0.7][0m
+[0;32mI (8997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9007) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.8 0.7][0m
+[0;32mI (9007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (9007) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (9007) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (9007) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (9017) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.8 0.7][0m
+[0;33mW (9017) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (9017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9037) MAIN: IMU A[0.60 -0.37 0.76] G[1.3 2.0 0.7][0m
+[0;32mI (9037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9047) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (9047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9057) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (9057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9067) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.7 0.7][0m
+[0;32mI (9067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9077) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.7 0.7][0m
+[0;32mI (9077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9087) MAIN: IMU A[0.61 -0.37 0.75] G[1.4 1.9 0.6][0m
+[0;32mI (9087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9097) MAIN: IMU A[0.61 -0.37 0.75] G[1.4 1.9 0.6][0m
+[0;32mI (9097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9107) MAIN: IMU A[0.61 -0.37 0.76] G[1.2 1.7 0.7][0m
+[0;32mI (9107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9117) MAIN: IMU A[0.61 -0.37 0.76] G[1.2 1.7 0.7][0m
+[0;32mI (9117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9127) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.0 0.7][0m
+[0;32mI (9127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9137) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.0 0.7][0m
+[0;32mI (9137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9147) MAIN: IMU A[0.61 -0.37 0.76] G[1.2 2.0 0.7][0m
+[0;32mI (9147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9157) MAIN: IMU A[0.61 -0.37 0.76] G[1.2 2.0 0.7][0m
+[0;32mI (9157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9167) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.8 0.7][0m
+[0;32mI (9167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9177) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.8 0.7][0m
+[0;32mI (9177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9187) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.7 0.8][0m
+[0;32mI (9187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9197) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.7 0.8][0m
+[0;32mI (9197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9207) MAIN: IMU A[0.61 -0.36 0.75] G[1.0 1.3 0.6][0m
+[0;32mI (9207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9217) MAIN: IMU A[0.61 -0.36 0.75] G[1.0 1.3 0.6][0m
+[0;32mI (9217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9227) MAIN: IMU A[0.62 -0.37 0.77] G[0.5 2.1 0.9][0m
+[0;32mI (9227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (9227) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (9227) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (9227) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (9237) MAIN: IMU A[0.62 -0.37 0.77] G[0.5 2.1 0.9][0m
+[0;33mW (9237) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (9237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9257) MAIN: IMU A[0.60 -0.36 0.76] G[1.9 1.2 0.2][0m
+[0;32mI (9257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9267) MAIN: IMU A[0.60 -0.36 0.75] G[0.8 2.0 0.9][0m
+[0;32mI (9267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9277) MAIN: IMU A[0.60 -0.36 0.75] G[0.8 2.0 0.9][0m
+[0;32mI (9277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9287) MAIN: IMU A[0.61 -0.37 0.75] G[1.3 2.1 0.9][0m
+[0;32mI (9287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9297) MAIN: IMU A[0.61 -0.37 0.75] G[1.3 2.1 0.9][0m
+[0;32mI (9297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9307) MAIN: IMU A[0.61 -0.37 0.74] G[1.7 1.9 0.5][0m
+[0;32mI (9307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9317) MAIN: IMU A[0.61 -0.37 0.74] G[1.7 1.9 0.5][0m
+[0;32mI (9317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9327) MAIN: IMU A[0.61 -0.37 0.75] G[1.0 1.9 0.9][0m
+[0;32mI (9327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9337) MAIN: IMU A[0.61 -0.37 0.75] G[1.0 1.9 0.9][0m
+[0;32mI (9337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9347) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.6 0.8][0m
+[0;32mI (9347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9357) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.6 0.8][0m
+[0;32mI (9357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9367) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.6 0.6][0m
+[0;32mI (9367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9377) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.6 0.6][0m
+[0;32mI (9377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9387) MAIN: IMU A[0.60 -0.36 0.74] G[1.7 1.7 0.5][0m
+[0;32mI (9387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9397) MAIN: IMU A[0.60 -0.36 0.74] G[1.7 1.7 0.5][0m
+[0;32mI (9397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9407) MAIN: IMU A[0.61 -0.37 0.75] G[1.0 2.0 0.7][0m
+[0;32mI (9407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9417) MAIN: IMU A[0.61 -0.37 0.75] G[1.0 2.0 0.7][0m
+[0;32mI (9417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9427) MAIN: IMU A[0.60 -0.37 0.76] G[1.2 1.9 0.8][0m
+[0;32mI (9427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9437) MAIN: IMU A[0.60 -0.37 0.76] G[1.2 1.9 0.8][0m
+[0;32mI (9437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9447) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (9447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (9447) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (9447) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (9447) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (9457) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.7][0m
+[0;33mW (9457) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (9457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9477) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.9 0.5][0m
+[0;32mI (9477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9487) MAIN: IMU A[0.61 -0.36 0.75] G[1.1 2.2 0.9][0m
+[0;32mI (9487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9497) MAIN: IMU A[0.61 -0.36 0.75] G[1.1 2.2 0.9][0m
+[0;32mI (9497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9507) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.6 0.7][0m
+[0;32mI (9507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9517) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.6 0.7][0m
+[0;32mI (9517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9527) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.4 0.6][0m
+[0;32mI (9527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9537) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.4 0.6][0m
+[0;32mI (9537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9547) MAIN: IMU A[0.60 -0.37 0.76] G[1.5 1.5 0.5][0m
+[0;32mI (9547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9557) MAIN: IMU A[0.60 -0.37 0.76] G[1.5 1.5 0.5][0m
+[0;32mI (9557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9567) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 1.8 0.7][0m
+[0;32mI (9567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9577) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 1.8 0.7][0m
+[0;32mI (9577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9587) MAIN: IMU A[0.60 -0.36 0.75] G[1.1 2.1 0.8][0m
+[0;32mI (9587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9597) MAIN: IMU A[0.60 -0.36 0.75] G[1.1 2.1 0.8][0m
+[0;32mI (9597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9607) MAIN: IMU A[0.60 -0.37 0.76] G[1.5 2.0 0.8][0m
+[0;32mI (9607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9617) MAIN: IMU A[0.60 -0.37 0.76] G[1.5 2.0 0.8][0m
+[0;32mI (9617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9627) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 2.1 0.9][0m
+[0;32mI (9627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9637) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 2.1 0.9][0m
+[0;32mI (9637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9647) MAIN: IMU A[0.61 -0.37 0.75] G[1.7 1.7 0.6][0m
+[0;32mI (9647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9657) MAIN: IMU A[0.61 -0.37 0.75] G[1.7 1.7 0.6][0m
+[0;32mI (9657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9667) MAIN: IMU A[0.61 -0.36 0.73] G[1.2 2.0 0.8][0m
+[0;32mI (9667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (9667) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (9667) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (9667) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (9677) MAIN: IMU A[0.61 -0.36 0.73] G[1.2 2.0 0.8][0m
+[0;33mW (9677) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (9677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9697) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.8 0.7][0m
+[0;32mI (9697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9707) MAIN: IMU A[0.60 -0.36 0.76] G[1.1 1.7 0.7][0m
+[0;32mI (9707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9717) MAIN: IMU A[0.60 -0.36 0.76] G[1.1 1.7 0.7][0m
+[0;32mI (9717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9727) MAIN: IMU A[0.60 -0.36 0.76] G[1.7 1.8 0.6][0m
+[0;32mI (9727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9737) MAIN: IMU A[0.60 -0.36 0.76] G[1.7 1.8 0.6][0m
+[0;32mI (9737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9747) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.6][0m
+[0;32mI (9747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9757) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.6][0m
+[0;32mI (9757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9767) MAIN: IMU A[0.61 -0.36 0.74] G[1.4 1.7 0.6][0m
+[0;32mI (9767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9777) MAIN: IMU A[0.61 -0.36 0.74] G[1.4 1.7 0.6][0m
+[0;32mI (9777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9787) MAIN: IMU A[0.61 -0.35 0.74] G[1.5 1.6 0.7][0m
+[0;32mI (9787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9797) MAIN: IMU A[0.61 -0.35 0.74] G[1.5 1.6 0.7][0m
+[0;32mI (9797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9807) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.5 0.6][0m
+[0;32mI (9807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9817) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.5 0.6][0m
+[0;32mI (9817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9827) MAIN: IMU A[0.60 -0.37 0.76] G[1.6 1.7 0.6][0m
+[0;32mI (9827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9837) MAIN: IMU A[0.60 -0.37 0.76] G[1.6 1.7 0.6][0m
+[0;32mI (9837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9847) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.8 0.7][0m
+[0;32mI (9847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9857) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.8 0.7][0m
+[0;32mI (9857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9867) MAIN: IMU A[0.60 -0.36 0.74] G[1.2 1.8 0.6][0m
+[0;32mI (9867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9877) MAIN: IMU A[0.60 -0.36 0.74] G[1.2 1.8 0.6][0m
+[0;32mI (9877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9887) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.8 0.6][0m
+[0;32mI (9887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (9887) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (9887) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (9887) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (9897) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.8 0.6][0m
+[0;33mW (9897) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (9897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9917) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.8 0.6][0m
+[0;32mI (9917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9927) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (9927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9937) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (9937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9947) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.7 0.6][0m
+[0;32mI (9947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9957) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.7 0.6][0m
+[0;32mI (9957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9967) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.6][0m
+[0;32mI (9967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9977) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.6][0m
+[0;32mI (9977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9987) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.8 0.7][0m
+[0;32mI (9987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (9997) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.8 0.7][0m
+[0;32mI (9997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10007) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.8][0m
+[0;32mI (10007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10017) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.8][0m
+[0;32mI (10017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10027) MAIN: IMU A[0.60 -0.36 0.76] G[1.5 1.8 0.6][0m
+[0;32mI (10027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10037) MAIN: IMU A[0.60 -0.36 0.76] G[1.5 1.8 0.6][0m
+[0;32mI (10037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10047) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.0 0.8][0m
+[0;32mI (10047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10057) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 2.0 0.8][0m
+[0;32mI (10057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10067) MAIN: IMU A[0.60 -0.36 0.73] G[1.2 1.9 0.7][0m
+[0;32mI (10067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10077) MAIN: IMU A[0.60 -0.36 0.73] G[1.2 1.9 0.7][0m
+[0;32mI (10077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10087) MAIN: IMU A[0.61 -0.36 0.75] G[1.0 1.9 0.8][0m
+[0;32mI (10087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10097) MAIN: IMU A[0.61 -0.36 0.75] G[1.0 1.9 0.8][0m
+[0;32mI (10097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10107) MAIN: IMU A[0.60 -0.36 0.76] G[1.6 1.5 0.5][0m
+[0;32mI (10107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (10107) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (10107) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (10107) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (10117) MAIN: IMU A[0.60 -0.36 0.76] G[1.6 1.5 0.5][0m
+[0;33mW (10117) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (10117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10137) MAIN: IMU A[0.60 -0.36 0.77] G[1.1 2.0 0.7][0m
+[0;32mI (10137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10147) MAIN: IMU A[0.60 -0.36 0.77] G[1.3 1.8 0.8][0m
+[0;32mI (10147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10157) MAIN: IMU A[0.60 -0.36 0.77] G[1.3 1.8 0.8][0m
+[0;32mI (10157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10167) MAIN: IMU A[0.61 -0.36 0.76] G[1.7 1.7 0.5][0m
+[0;32mI (10167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10177) MAIN: IMU A[0.61 -0.36 0.76] G[1.7 1.7 0.5][0m
+[0;32mI (10177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10187) MAIN: IMU A[0.60 -0.37 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (10187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10197) MAIN: IMU A[0.60 -0.37 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (10197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10207) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 2.0 0.8][0m
+[0;32mI (10207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10217) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 2.0 0.8][0m
+[0;32mI (10217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10227) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.7 0.6][0m
+[0;32mI (10227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10237) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.7 0.6][0m
+[0;32mI (10237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10247) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.7][0m
+[0;32mI (10247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10257) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 2.0 0.7][0m
+[0;32mI (10257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10267) MAIN: IMU A[0.61 -0.37 0.76] G[1.5 1.6 0.7][0m
+[0;32mI (10267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10277) MAIN: IMU A[0.61 -0.37 0.76] G[1.5 1.6 0.7][0m
+[0;32mI (10277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10287) MAIN: IMU A[0.60 -0.37 0.75] G[1.4 1.7 0.7][0m
+[0;32mI (10287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10297) MAIN: IMU A[0.60 -0.37 0.75] G[1.4 1.7 0.7][0m
+[0;32mI (10297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10307) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.9 0.6][0m
+[0;32mI (10307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10317) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.9 0.6][0m
+[0;32mI (10317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10327) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.7 0.8][0m
+[0;32mI (10327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (10327) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (10327) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (10327) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (10337) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.7 0.8][0m
+[0;33mW (10337) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (10337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10357) MAIN: IMU A[0.61 -0.36 0.75] G[1.7 1.5 0.5][0m
+[0;32mI (10357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10367) MAIN: IMU A[0.60 -0.37 0.75] G[1.2 2.0 0.8][0m
+[0;32mI (10367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10377) MAIN: IMU A[0.60 -0.37 0.75] G[1.2 2.0 0.8][0m
+[0;32mI (10377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10387) MAIN: IMU A[0.61 -0.37 0.75] G[1.4 1.9 0.8][0m
+[0;32mI (10387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10397) MAIN: IMU A[0.61 -0.37 0.75] G[1.4 1.9 0.8][0m
+[0;32mI (10397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10407) MAIN: IMU A[0.60 -0.37 0.76] G[1.4 1.6 0.7][0m
+[0;32mI (10407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10417) MAIN: IMU A[0.60 -0.37 0.76] G[1.4 1.6 0.7][0m
+[0;32mI (10417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10427) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.7 0.7][0m
+[0;32mI (10427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10437) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.7 0.7][0m
+[0;32mI (10437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10447) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 1.7 0.6][0m
+[0;32mI (10447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10457) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 1.7 0.6][0m
+[0;32mI (10457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10467) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.8 0.8][0m
+[0;32mI (10467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10477) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.8 0.8][0m
+[0;32mI (10477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10487) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.8 0.6][0m
+[0;32mI (10487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10497) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.8 0.6][0m
+[0;32mI (10497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10507) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.9 0.6][0m
+[0;32mI (10507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10517) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.9 0.6][0m
+[0;32mI (10517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10527) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.8][0m
+[0;32mI (10527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10537) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.8][0m
+[0;32mI (10537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10547) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.7 0.6][0m
+[0;32mI (10547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (10547) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (10547) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (10547) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (10557) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.7 0.6][0m
+[0;33mW (10557) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (10557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10577) MAIN: IMU A[0.60 -0.35 0.75] G[1.1 2.1 0.7][0m
+[0;32mI (10577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10587) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.9 0.9][0m
+[0;32mI (10587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10597) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.9 0.9][0m
+[0;32mI (10597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10607) MAIN: IMU A[0.61 -0.37 0.75] G[1.2 2.0 0.7][0m
+[0;32mI (10607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10617) MAIN: IMU A[0.61 -0.37 0.75] G[1.2 2.0 0.7][0m
+[0;32mI (10617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10627) MAIN: IMU A[0.61 -0.37 0.75] G[1.4 1.8 0.8][0m
+[0;32mI (10627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10637) MAIN: IMU A[0.61 -0.37 0.75] G[1.4 1.8 0.8][0m
+[0;32mI (10637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10647) MAIN: IMU A[0.60 -0.36 0.74] G[1.1 1.8 0.8][0m
+[0;32mI (10647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10657) MAIN: IMU A[0.60 -0.36 0.74] G[1.1 1.8 0.8][0m
+[0;32mI (10657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10667) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 2.0 0.6][0m
+[0;32mI (10667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10677) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 2.0 0.6][0m
+[0;32mI (10677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10687) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.8 0.7][0m
+[0;32mI (10687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10697) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.8 0.7][0m
+[0;32mI (10697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10707) MAIN: IMU A[0.61 -0.37 0.75] G[1.5 1.8 0.6][0m
+[0;32mI (10707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10717) MAIN: IMU A[0.61 -0.37 0.75] G[1.5 1.8 0.6][0m
+[0;32mI (10717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10727) MAIN: IMU A[0.61 -0.37 0.76] G[1.5 1.8 0.6][0m
+[0;32mI (10727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10737) MAIN: IMU A[0.61 -0.37 0.76] G[1.5 1.8 0.6][0m
+[0;32mI (10737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10747) MAIN: IMU A[0.60 -0.36 0.75] G[1.1 1.8 0.7][0m
+[0;32mI (10747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10757) MAIN: IMU A[0.60 -0.36 0.75] G[1.1 1.8 0.7][0m
+[0;32mI (10757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10767) MAIN: IMU A[0.61 -0.36 0.74] G[1.5 1.8 0.7][0m
+[0;32mI (10767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (10767) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (10767) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (10767) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (10777) MAIN: IMU A[0.61 -0.36 0.74] G[1.5 1.8 0.7][0m
+[0;33mW (10777) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (10777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10797) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.8][0m
+[0;32mI (10797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10807) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (10807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10817) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (10817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10827) MAIN: IMU A[0.60 -0.37 0.75] G[1.5 2.2 0.6][0m
+[0;32mI (10827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10837) MAIN: IMU A[0.60 -0.37 0.75] G[1.5 2.2 0.6][0m
+[0;32mI (10837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10847) MAIN: IMU A[0.60 -0.37 0.76] G[1.6 1.4 0.6][0m
+[0;32mI (10847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10857) MAIN: IMU A[0.60 -0.37 0.76] G[1.6 1.4 0.6][0m
+[0;32mI (10857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10867) MAIN: IMU A[0.61 -0.36 0.76] G[0.7 2.2 0.9][0m
+[0;32mI (10867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10877) MAIN: IMU A[0.61 -0.36 0.76] G[0.7 2.2 0.9][0m
+[0;32mI (10877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10887) MAIN: IMU A[0.60 -0.36 0.75] G[1.8 1.7 0.4][0m
+[0;32mI (10887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10897) MAIN: IMU A[0.60 -0.36 0.75] G[1.8 1.7 0.4][0m
+[0;32mI (10897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10907) MAIN: IMU A[0.60 -0.37 0.75] G[0.7 2.8 1.0][0m
+[0;32mI (10907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10917) MAIN: IMU A[0.60 -0.37 0.75] G[0.7 2.8 1.0][0m
+[0;32mI (10917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10927) MAIN: IMU A[0.61 -0.37 0.76] G[0.8 2.3 0.9][0m
+[0;32mI (10927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10937) MAIN: IMU A[0.61 -0.37 0.76] G[0.8 2.3 0.9][0m
+[0;32mI (10937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10947) MAIN: IMU A[0.61 -0.36 0.74] G[1.3 1.8 0.4][0m
+[0;32mI (10947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10957) MAIN: IMU A[0.61 -0.36 0.74] G[1.3 1.8 0.4][0m
+[0;32mI (10957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10967) MAIN: IMU A[0.60 -0.36 0.75] G[1.8 1.5 0.5][0m
+[0;32mI (10967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10977) MAIN: IMU A[0.60 -0.36 0.75] G[1.8 1.5 0.5][0m
+[0;32mI (10977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (10987) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.6 0.6][0m
+[0;32mI (10987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (10987) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (10987) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (10987) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (10997) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.6 0.6][0m
+[0;33mW (10997) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (10997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11017) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 1.8 0.8][0m
+[0;32mI (11017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11027) MAIN: IMU A[0.61 -0.37 0.76] G[1.2 2.0 0.8][0m
+[0;32mI (11027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11037) MAIN: IMU A[0.61 -0.37 0.76] G[1.2 2.0 0.8][0m
+[0;32mI (11037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11047) MAIN: IMU A[0.60 -0.36 0.73] G[1.6 1.6 0.5][0m
+[0;32mI (11047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11057) MAIN: IMU A[0.60 -0.36 0.73] G[1.6 1.6 0.5][0m
+[0;32mI (11057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11067) MAIN: IMU A[0.61 -0.36 0.74] G[0.9 2.1 0.7][0m
+[0;32mI (11067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11077) MAIN: IMU A[0.61 -0.36 0.74] G[0.9 2.1 0.7][0m
+[0;32mI (11077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11087) MAIN: IMU A[0.60 -0.36 0.76] G[1.4 2.1 0.6][0m
+[0;32mI (11087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11097) MAIN: IMU A[0.60 -0.36 0.76] G[1.4 2.1 0.6][0m
+[0;32mI (11097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11107) MAIN: IMU A[0.60 -0.36 0.77] G[1.7 1.4 0.5][0m
+[0;32mI (11107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11117) MAIN: IMU A[0.60 -0.36 0.77] G[1.7 1.4 0.5][0m
+[0;32mI (11117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11127) MAIN: IMU A[0.61 -0.37 0.77] G[1.0 1.8 0.8][0m
+[0;32mI (11127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11137) MAIN: IMU A[0.61 -0.37 0.77] G[1.0 1.8 0.8][0m
+[0;32mI (11137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11147) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.7 0.5][0m
+[0;32mI (11147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11157) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.7 0.5][0m
+[0;32mI (11157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11167) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.8 0.6][0m
+[0;32mI (11167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11177) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.8 0.6][0m
+[0;32mI (11177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11187) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (11187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11197) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (11197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11207) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 2.0 0.6][0m
+[0;32mI (11207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (11207) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (11207) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (11207) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (11217) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 2.0 0.6][0m
+[0;33mW (11217) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (11217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11237) MAIN: IMU A[0.61 -0.36 0.77] G[0.9 2.5 0.8][0m
+[0;32mI (11237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11247) MAIN: IMU A[0.60 -0.37 0.76] G[0.8 2.2 0.8][0m
+[0;32mI (11247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11257) MAIN: IMU A[0.60 -0.37 0.76] G[0.8 2.2 0.8][0m
+[0;32mI (11257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11267) MAIN: IMU A[0.60 -0.36 0.76] G[1.2 2.0 0.8][0m
+[0;32mI (11267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11277) MAIN: IMU A[0.60 -0.36 0.76] G[1.2 2.0 0.8][0m
+[0;32mI (11277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11287) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.6 0.6][0m
+[0;32mI (11287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11297) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.6 0.6][0m
+[0;32mI (11297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11307) MAIN: IMU A[0.60 -0.37 0.76] G[1.8 1.6 0.5][0m
+[0;32mI (11307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11317) MAIN: IMU A[0.60 -0.37 0.76] G[1.8 1.6 0.5][0m
+[0;32mI (11317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11327) MAIN: IMU A[0.60 -0.36 0.76] G[1.5 1.6 0.5][0m
+[0;32mI (11327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11337) MAIN: IMU A[0.60 -0.36 0.76] G[1.5 1.6 0.5][0m
+[0;32mI (11337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11347) MAIN: IMU A[0.61 -0.37 0.76] G[1.1 2.0 0.8][0m
+[0;32mI (11347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11357) MAIN: IMU A[0.61 -0.37 0.76] G[1.1 2.0 0.8][0m
+[0;32mI (11357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11367) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 2.3 1.0][0m
+[0;32mI (11367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11377) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 2.3 1.0][0m
+[0;32mI (11377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11387) MAIN: IMU A[0.59 -0.35 0.74] G[2.5 0.6 0.1][0m
+[0;32mI (11387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11397) MAIN: IMU A[0.59 -0.35 0.74] G[2.5 0.6 0.1][0m
+[0;32mI (11397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11407) MAIN: IMU A[0.61 -0.34 0.78] G[-2.2 4.0 2.4][0m
+[0;32mI (11407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11417) MAIN: IMU A[0.61 -0.34 0.78] G[-2.2 4.0 2.4][0m
+[0;32mI (11417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11427) MAIN: IMU A[0.62 -0.34 0.78] G[2.3 0.4 0.3][0m
+[0;32mI (11427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (11427) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (11427) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (11427) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (11437) MAIN: IMU A[0.62 -0.34 0.78] G[2.3 0.4 0.3][0m
+[0;33mW (11437) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (11437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11457) MAIN: IMU A[0.60 -0.38 0.76] G[3.0 -0.5 -0.2][0m
+[0;32mI (11457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11467) MAIN: IMU A[0.60 -0.37 0.74] G[5.1 -1.4 -1.0][0m
+[0;32mI (11467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11477) MAIN: IMU A[0.60 -0.37 0.74] G[5.1 -1.4 -1.0][0m
+[0;32mI (11477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11487) MAIN: IMU A[0.60 -0.36 0.75] G[-3.4 4.9 2.8][0m
+[0;32mI (11487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11497) MAIN: IMU A[0.60 -0.36 0.75] G[-3.4 4.9 2.8][0m
+[0;32mI (11497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11507) MAIN: IMU A[0.61 -0.37 0.77] G[-0.8 3.4 1.7][0m
+[0;32mI (11507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11517) MAIN: IMU A[0.61 -0.37 0.77] G[-0.8 3.4 1.7][0m
+[0;32mI (11517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11527) MAIN: IMU A[0.60 -0.36 0.74] G[3.0 0.3 -0.1][0m
+[0;32mI (11527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11537) MAIN: IMU A[0.60 -0.36 0.74] G[3.0 0.3 -0.1][0m
+[0;32mI (11537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11547) MAIN: IMU A[0.61 -0.36 0.75] G[0.1 2.8 1.1][0m
+[0;32mI (11547) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11557) MAIN: IMU A[0.61 -0.36 0.75] G[0.1 2.8 1.1][0m
+[0;32mI (11557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11567) MAIN: IMU A[0.61 -0.37 0.77] G[0.3 2.7 1.1][0m
+[0;32mI (11567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11577) MAIN: IMU A[0.61 -0.37 0.77] G[0.3 2.7 1.1][0m
+[0;32mI (11577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11587) MAIN: IMU A[0.60 -0.36 0.75] G[2.5 0.7 0.2][0m
+[0;32mI (11587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11597) MAIN: IMU A[0.60 -0.36 0.75] G[2.5 0.7 0.2][0m
+[0;32mI (11597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11607) MAIN: IMU A[0.60 -0.36 0.76] G[1.1 1.8 0.8][0m
+[0;32mI (11607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11617) MAIN: IMU A[0.60 -0.36 0.76] G[1.1 1.8 0.8][0m
+[0;32mI (11617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11627) MAIN: IMU A[0.61 -0.36 0.75] G[1.0 2.3 0.8][0m
+[0;32mI (11627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11637) MAIN: IMU A[0.61 -0.36 0.75] G[1.0 2.3 0.8][0m
+[0;32mI (11637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11647) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.9 0.8][0m
+[0;32mI (11647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (11647) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (11647) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (11647) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (11657) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.9 0.8][0m
+[0;33mW (11657) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (11657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11677) MAIN: IMU A[0.60 -0.36 0.75] G[1.7 1.7 0.6][0m
+[0;32mI (11677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11687) MAIN: IMU A[0.61 -0.37 0.75] G[1.2 1.9 0.8][0m
+[0;32mI (11687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11697) MAIN: IMU A[0.61 -0.37 0.75] G[1.2 1.9 0.8][0m
+[0;32mI (11697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11707) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.8 0.7][0m
+[0;32mI (11707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11717) MAIN: IMU A[0.61 -0.36 0.75] G[1.4 1.8 0.7][0m
+[0;32mI (11717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11727) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.8 0.5][0m
+[0;32mI (11727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11737) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.8 0.5][0m
+[0;32mI (11737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11747) MAIN: IMU A[0.61 -0.36 0.74] G[1.3 2.2 0.7][0m
+[0;32mI (11747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11757) MAIN: IMU A[0.61 -0.36 0.74] G[1.3 2.2 0.7][0m
+[0;32mI (11757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11767) MAIN: IMU A[0.60 -0.37 0.75] G[1.5 1.9 0.6][0m
+[0;32mI (11767) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11777) MAIN: IMU A[0.60 -0.37 0.75] G[1.5 1.9 0.6][0m
+[0;32mI (11777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11787) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.3 0.8][0m
+[0;32mI (11787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11797) MAIN: IMU A[0.61 -0.36 0.76] G[1.1 2.3 0.8][0m
+[0;32mI (11797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11807) MAIN: IMU A[0.61 -0.37 0.76] G[1.1 1.9 0.7][0m
+[0;32mI (11807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11817) MAIN: IMU A[0.61 -0.37 0.76] G[1.1 1.9 0.7][0m
+[0;32mI (11817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11827) MAIN: IMU A[0.61 -0.36 0.75] G[0.7 1.9 0.8][0m
+[0;32mI (11827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11837) MAIN: IMU A[0.61 -0.36 0.75] G[0.7 1.9 0.8][0m
+[0;32mI (11837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11847) MAIN: IMU A[0.60 -0.36 0.75] G[1.6 1.5 0.3][0m
+[0;32mI (11847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11857) MAIN: IMU A[0.60 -0.36 0.75] G[1.6 1.5 0.3][0m
+[0;32mI (11857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11867) MAIN: IMU A[0.61 -0.36 0.76] G[0.9 2.0 0.7][0m
+[0;32mI (11867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (11867) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (11867) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (11867) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (11877) MAIN: IMU A[0.61 -0.36 0.76] G[0.9 2.0 0.7][0m
+[0;33mW (11877) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (11877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11897) MAIN: IMU A[0.61 -0.37 0.77] G[1.2 2.2 0.8][0m
+[0;32mI (11897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11907) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.6 0.6][0m
+[0;32mI (11907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11917) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.6 0.6][0m
+[0;32mI (11917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11927) MAIN: IMU A[0.60 -0.35 0.74] G[1.3 1.5 0.6][0m
+[0;32mI (11927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11937) MAIN: IMU A[0.60 -0.35 0.74] G[1.3 1.5 0.6][0m
+[0;32mI (11937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11947) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.9 0.7][0m
+[0;32mI (11947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11957) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.9 0.7][0m
+[0;32mI (11957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11967) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.8 0.6][0m
+[0;32mI (11967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11977) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.8 0.6][0m
+[0;32mI (11977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11987) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.9 0.6][0m
+[0;32mI (11987) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (11997) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.9 0.6][0m
+[0;32mI (11997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12007) MAIN: IMU A[0.61 -0.37 0.77] G[1.2 1.8 0.8][0m
+[0;32mI (12007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12017) MAIN: IMU A[0.61 -0.37 0.77] G[1.2 1.8 0.8][0m
+[0;32mI (12017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12027) MAIN: IMU A[0.60 -0.36 0.75] G[1.2 1.7 0.6][0m
+[0;32mI (12027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12037) MAIN: IMU A[0.60 -0.36 0.75] G[1.2 1.7 0.6][0m
+[0;32mI (12037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12047) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 1.8 0.5][0m
+[0;32mI (12047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12057) MAIN: IMU A[0.60 -0.36 0.75] G[1.3 1.8 0.5][0m
+[0;32mI (12057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12067) MAIN: IMU A[0.61 -0.36 0.77] G[1.1 2.1 0.7][0m
+[0;32mI (12067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12077) MAIN: IMU A[0.61 -0.36 0.77] G[1.1 2.1 0.7][0m
+[0;32mI (12077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12087) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (12087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (12087) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (12087) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (12087) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (12097) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;33mW (12097) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (12097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12117) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.6][0m
+[0;32mI (12117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12127) MAIN: IMU A[0.61 -0.36 0.74] G[1.4 1.8 0.5][0m
+[0;32mI (12127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12137) MAIN: IMU A[0.61 -0.36 0.74] G[1.4 1.8 0.5][0m
+[0;32mI (12137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12147) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (12147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12157) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (12157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12167) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.7][0m
+[0;32mI (12167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12177) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.7][0m
+[0;32mI (12177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12187) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.6][0m
+[0;32mI (12187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12197) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.6][0m
+[0;32mI (12197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12207) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.8 0.7][0m
+[0;32mI (12207) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12217) MAIN: IMU A[0.61 -0.36 0.77] G[1.5 1.8 0.7][0m
+[0;32mI (12217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12227) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.8 0.7][0m
+[0;32mI (12227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12237) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.8 0.7][0m
+[0;32mI (12237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12247) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.9 0.7][0m
+[0;32mI (12247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12257) MAIN: IMU A[0.61 -0.36 0.75] G[1.5 1.9 0.7][0m
+[0;32mI (12257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12267) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 1.9 0.7][0m
+[0;32mI (12267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12277) MAIN: IMU A[0.61 -0.36 0.77] G[1.2 1.9 0.7][0m
+[0;32mI (12277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12287) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 1.8 0.7][0m
+[0;32mI (12287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12297) MAIN: IMU A[0.61 -0.37 0.77] G[1.4 1.8 0.7][0m
+[0;32mI (12297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12307) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.7][0m
+[0;32mI (12307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (12307) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (12307) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (12307) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (12317) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.7][0m
+[0;33mW (12317) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (12317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12337) MAIN: IMU A[0.60 -0.35 0.76] G[1.1 1.7 0.6][0m
+[0;32mI (12337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12347) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.8][0m
+[0;32mI (12347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12357) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.8][0m
+[0;32mI (12357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12367) MAIN: IMU A[0.60 -0.36 0.78] G[1.5 1.6 0.6][0m
+[0;32mI (12367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12377) MAIN: IMU A[0.60 -0.36 0.78] G[1.5 1.6 0.6][0m
+[0;32mI (12377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12387) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.8 0.7][0m
+[0;32mI (12387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12397) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.8 0.7][0m
+[0;32mI (12397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12407) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.7][0m
+[0;32mI (12407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12417) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.7][0m
+[0;32mI (12417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12427) MAIN: IMU A[0.60 -0.36 0.77] G[1.5 1.8 0.7][0m
+[0;32mI (12427) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12437) MAIN: IMU A[0.60 -0.36 0.77] G[1.5 1.8 0.7][0m
+[0;32mI (12437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12447) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (12447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12457) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (12457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12467) MAIN: IMU A[0.60 -0.37 0.77] G[1.5 1.9 0.8][0m
+[0;32mI (12467) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12477) MAIN: IMU A[0.60 -0.37 0.77] G[1.5 1.9 0.8][0m
+[0;32mI (12477) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12487) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 2.0 0.7][0m
+[0;32mI (12487) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12497) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 2.0 0.7][0m
+[0;32mI (12497) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12507) MAIN: IMU A[0.60 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (12507) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12517) MAIN: IMU A[0.60 -0.36 0.77] G[1.3 1.8 0.6][0m
+[0;32mI (12517) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12527) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.8 0.8][0m
+[0;32mI (12527) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (12527) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (12527) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (12527) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (12537) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.8 0.8][0m
+[0;33mW (12537) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (12537) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12557) MAIN: IMU A[0.61 -0.37 0.76] G[1.4 1.6 0.6][0m
+[0;32mI (12557) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12567) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.6 0.7][0m
+[0;32mI (12567) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12577) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.6 0.7][0m
+[0;32mI (12577) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12587) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (12587) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12597) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (12597) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12607) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.9 0.6][0m
+[0;32mI (12607) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12617) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.9 0.6][0m
+[0;32mI (12617) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12627) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 2.2 0.8][0m
+[0;32mI (12627) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12637) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 2.2 0.8][0m
+[0;32mI (12637) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12647) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.7 0.8][0m
+[0;32mI (12647) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12657) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.7 0.8][0m
+[0;32mI (12657) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12667) MAIN: IMU A[0.60 -0.37 0.76] G[1.3 1.8 0.6][0m
+[0;32mI (12667) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12677) MAIN: IMU A[0.60 -0.37 0.76] G[1.3 1.8 0.6][0m
+[0;32mI (12677) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12687) MAIN: IMU A[0.61 -0.37 0.76] G[1.6 1.6 0.7][0m
+[0;32mI (12687) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12697) MAIN: IMU A[0.61 -0.37 0.76] G[1.6 1.6 0.7][0m
+[0;32mI (12697) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12707) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.6][0m
+[0;32mI (12707) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12717) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.6][0m
+[0;32mI (12717) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12727) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.9 0.7][0m
+[0;32mI (12727) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12737) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.9 0.7][0m
+[0;32mI (12737) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12747) MAIN: IMU A[0.60 -0.36 0.76] G[1.3 2.0 0.8][0m
+[0;32mI (12747) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (12747) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (12747) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (12747) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (12757) MAIN: IMU A[0.60 -0.36 0.76] G[1.3 2.0 0.8][0m
+[0;33mW (12757) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (12757) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12777) MAIN: IMU A[0.60 -0.36 0.76] G[1.5 1.7 0.6][0m
+[0;32mI (12777) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12787) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.9 0.8][0m
+[0;32mI (12787) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12797) MAIN: IMU A[0.61 -0.37 0.76] G[1.3 1.9 0.8][0m
+[0;32mI (12797) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12807) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.7 0.6][0m
+[0;32mI (12807) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12817) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.7 0.6][0m
+[0;32mI (12817) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12827) MAIN: IMU A[0.61 -0.36 0.74] G[1.2 2.0 0.8][0m
+[0;32mI (12827) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12837) MAIN: IMU A[0.61 -0.36 0.74] G[1.2 2.0 0.8][0m
+[0;32mI (12837) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12847) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.7 0.7][0m
+[0;32mI (12847) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12857) MAIN: IMU A[0.61 -0.36 0.76] G[1.6 1.7 0.7][0m
+[0;32mI (12857) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12867) MAIN: IMU A[0.60 -0.37 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (12867) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12877) MAIN: IMU A[0.60 -0.37 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (12877) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12887) MAIN: IMU A[0.60 -0.37 0.77] G[1.6 1.9 0.8][0m
+[0;32mI (12887) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12897) MAIN: IMU A[0.60 -0.37 0.77] G[1.6 1.9 0.8][0m
+[0;32mI (12897) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12907) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.9 0.7][0m
+[0;32mI (12907) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12917) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.9 0.7][0m
+[0;32mI (12917) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12927) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 2.0 0.7][0m
+[0;32mI (12927) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12937) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 2.0 0.7][0m
+[0;32mI (12937) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12947) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.9 0.6][0m
+[0;32mI (12947) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12957) MAIN: IMU A[0.61 -0.36 0.76] G[1.5 1.9 0.6][0m
+[0;32mI (12957) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12967) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;32mI (12967) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (12967) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (12967) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (12967) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (12977) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.9 0.7][0m
+[0;33mW (12977) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (12977) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (12997) MAIN: IMU A[0.61 -0.37 0.77] G[1.3 1.9 0.7][0m
+[0;32mI (12997) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13007) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.9 0.8][0m
+[0;32mI (13007) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13017) MAIN: IMU A[0.60 -0.36 0.75] G[1.4 1.9 0.8][0m
+[0;32mI (13017) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13027) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.8][0m
+[0;32mI (13027) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13037) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.8][0m
+[0;32mI (13037) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13047) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.8][0m
+[0;32mI (13047) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13057) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 2.0 0.8][0m
+[0;32mI (13057) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13067) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.7][0m
+[0;32mI (13067) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13077) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.9 0.7][0m
+[0;32mI (13077) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13087) MAIN: IMU A[0.61 -0.37 0.76] G[1.5 1.8 0.7][0m
+[0;32mI (13087) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13097) MAIN: IMU A[0.61 -0.37 0.76] G[1.5 1.8 0.7][0m
+[0;32mI (13097) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13107) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.7 0.4][0m
+[0;32mI (13107) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13117) MAIN: IMU A[0.61 -0.36 0.76] G[1.4 1.7 0.4][0m
+[0;32mI (13117) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13127) MAIN: IMU A[0.60 -0.36 0.76] G[1.3 1.6 0.7][0m
+[0;32mI (13127) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13137) MAIN: IMU A[0.60 -0.36 0.76] G[1.3 1.6 0.7][0m
+[0;32mI (13137) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13147) MAIN: IMU A[0.60 -0.36 0.77] G[1.4 1.7 0.7][0m
+[0;32mI (13147) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13157) MAIN: IMU A[0.60 -0.36 0.77] G[1.4 1.7 0.7][0m
+[0;32mI (13157) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13167) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.7][0m
+[0;32mI (13167) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13177) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.7][0m
+[0;32mI (13177) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13187) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.6][0m
+[0;32mI (13187) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (13187) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (13187) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (13187) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (13197) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.6][0m
+[0;33mW (13197) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (13197) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13217) MAIN: IMU A[0.61 -0.36 0.75] G[1.2 1.9 0.7][0m
+[0;32mI (13217) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13227) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.8 0.6][0m
+[0;32mI (13227) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13237) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.8 0.6][0m
+[0;32mI (13237) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13247) MAIN: IMU A[0.60 -0.36 0.77] G[1.5 1.9 0.6][0m
+[0;32mI (13247) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13257) MAIN: IMU A[0.60 -0.36 0.77] G[1.5 1.9 0.6][0m
+[0;32mI (13257) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13267) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.8][0m
+[0;32mI (13267) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13277) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.8 0.8][0m
+[0;32mI (13277) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13287) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (13287) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13297) MAIN: IMU A[0.61 -0.36 0.77] G[1.4 1.9 0.7][0m
+[0;32mI (13297) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13307) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.7 0.6][0m
+[0;32mI (13307) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13317) MAIN: IMU A[0.61 -0.36 0.75] G[1.3 1.7 0.6][0m
+[0;32mI (13317) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13327) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (13327) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13337) MAIN: IMU A[0.61 -0.36 0.76] G[1.3 1.8 0.7][0m
+[0;32mI (13337) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13347) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.7][0m
+[0;32mI (13347) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13357) MAIN: IMU A[0.61 -0.36 0.77] G[1.3 1.8 0.7][0m
+[0;32mI (13357) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13367) MAIN: IMU A[0.61 -0.36 0.77] G[1.1 2.0 0.7][0m
+[0;32mI (13367) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13377) MAIN: IMU A[0.61 -0.36 0.77] G[1.1 2.0 0.7][0m
+[0;32mI (13377) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13387) MAIN: IMU A[0.61 -0.37 0.78] G[1.2 1.8 0.9][0m
+[0;32mI (13387) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13397) MAIN: IMU A[0.61 -0.37 0.78] G[1.2 1.8 0.9][0m
+[0;32mI (13397) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13407) MAIN: IMU A[0.60 -0.36 0.75] G[1.5 1.7 0.6][0m
+[0;32mI (13407) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;33mW (13407) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x48[0m
+[0;33mW (13407) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=0 addr=0x49[0m
+[0;33mW (13407) SENSOR_MGR: Fallo lectura ADS1115 FSR bus=1 addr=0x48[0m
+[0;32mI (13417) MAIN: IMU A[0.60 -0.36 0.75] G[1.5 1.7 0.6][0m
+[0;33mW (13417) SENSOR_MGR: Fallo lectura ADS1115 NTC bus=1 addr=0x49[0m
+[0;32mI (13417) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13437) MAIN: IMU A[0.61 -0.36 0.76] G[1.2 1.9 0.7][0m
+[0;32mI (13437) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13447) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.8 0.8][0m
+[0;32mI (13447) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13457) MAIN: IMU A[0.61 -0.36 0.78] G[1.3 1.8 0.8][0m
+[0;32mI (13457) MAIN: PKT 54 bytes -> BLE no conn[0m
+[0;32mI (13467) MAIN: IMU A[0.61 -0.36 0.77] G[1.7 1.6 0.6][0m
+[0;32mI (13467) MAIN: PKT 54 bytes -> BLE no conn[0m

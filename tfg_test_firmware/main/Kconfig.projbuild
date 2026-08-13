@@ -1,0 +1,13 @@
+menu "DAS Application Configuration"
+
+    config DAS_ENABLE_CONSOLE_TASK
+        bool "Habilitar console_task (log de sensores por UART)"
+        default y
+        help
+            console_task vuelca por consola, a 2 Hz, una linea con el
+            estado de IMU/FSR/NTC. Es solo para depuracion en banco de
+            pruebas: mantiene la CPU despierta con mas frecuencia de la
+            necesaria y ocupa UART/CPU. Desactivar esta opcion en un
+            build de "produccion" orientado a consumo, sin tocar codigo.
+
+endmenu

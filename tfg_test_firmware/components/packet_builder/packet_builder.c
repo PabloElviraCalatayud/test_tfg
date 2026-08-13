@@ -6,24 +6,12 @@
 static const char *TAG = "PKT_BUILDER";
 static uint16_t   s_seq = 0;
 
-/* ───────────────────────────────────────────────────────────────────────────
- * BIT-PACKING CORE
- * ─────────────────────────────────────────────────────────────────────────── */
-static void bitpack_write(uint8_t *buf, uint32_t *bit_pos,
-                          uint32_t value, uint8_t bits)
+/* ── Escritura int16 big-endian ─────────────────────────────────────────── */
+static void write_i16_be(uint8_t *buf, uint32_t *byte_pos, int16_t v)
 {
-  for (int i = bits - 1; i >= 0; i--) {
-    uint32_t byte_idx = *bit_pos / 8;
-    uint8_t  bit_idx  = 7u - (uint8_t)(*bit_pos % 8);
-
-    if (value & (1u << i)) {
-      buf[byte_idx] |=  (uint8_t)(1u << bit_idx);
-    } else {
-      buf[byte_idx] &= ~(uint8_t)(1u << bit_idx);
-    }
-
-    (*bit_pos)++;
-  }
+  buf[*byte_pos]     = (uint8_t)(((uint16_t)v) >> 8);
+  buf[*byte_pos + 1] = (uint8_t)(((uint16_t)v) & 0xFF);
+  *byte_pos += 2;
 }
 
 /* ── CRC-8 (polinomio 0x07, init 0xFF) ──────────────────────────────────── */
@@ -50,10 +38,10 @@ uint8_t packet_crc8(const uint8_t *data, size_t len)
 void packet_builder_init(void)
 {
   s_seq = 0;
-  ESP_LOGI(TAG, "Initialized. Packet size: %d bytes", PKT_SENSOR_SIZE);
+  ESP_LOGI(TAG, "Initialized. Packet size: %d bytes (proto v%d, RAW)", PKT_SENSOR_SIZE, PKT_PROTO_VERSION);
 }
 
-/* ── Sensor packet ───────────────────────────────────────────────────────── */
+/* ── Sensor packet (RAW, sin convertir) ─────────────────────────────────── */
 bool packet_build_sensor(const sensor_data_t *d, uint8_t *buf, size_t *out_len)
 {
   if (!d || !buf || !out_len) {
@@ -66,50 +54,36 @@ bool packet_build_sensor(const sensor_data_t *d, uint8_t *buf, size_t *out_len)
 
   /* ── Header ─────────────────────────────────────────────────────────── */
   buf[0] = PKT_TYPE_SENSOR;
-  buf[1] = (uint8_t)(s_seq >> 8);
-  buf[2] = (uint8_t)(s_seq & 0xFF);
-  buf[3] = (uint8_t)(ts_ms >> 24);
-  buf[4] = (uint8_t)(ts_ms >> 16);
-  buf[5] = (uint8_t)(ts_ms >>  8);
-  buf[6] = (uint8_t)(ts_ms      );
+  buf[1] = PKT_PROTO_VERSION;
+  buf[2] = (uint8_t)(s_seq >> 8);
+  buf[3] = (uint8_t)(s_seq & 0xFF);
+  buf[4] = (uint8_t)(ts_ms >> 24);
+  buf[5] = (uint8_t)(ts_ms >> 16);
+  buf[6] = (uint8_t)(ts_ms >>  8);
+  buf[7] = (uint8_t)(ts_ms      );
   s_seq++;
 
-  /* ── Payload ────────────────────────────────────────────────────────── */
-  uint8_t  *payload = &buf[PKT_HEADER_BYTES];
-  uint32_t  bit_pos = 0;
+  /* ── Payload: 25 x int16 BE, RAW, ancho fijo, sin convertir ───────────── */
+  uint32_t pos = PKT_HEADER_BYTES;
 
-  #define PACK_ACCEL(v) bitpack_write(payload, &bit_pos, \
-    (uint32_t)((int32_t)((v) * ACCEL_SCALE) + ACCEL_OFFSET), ACCEL_BITS)
+  write_i16_be(buf, &pos, d->accel_x);
+  write_i16_be(buf, &pos, d->accel_y);
+  write_i16_be(buf, &pos, d->accel_z);
 
-  PACK_ACCEL(d->accel_x);
-  PACK_ACCEL(d->accel_y);
-  PACK_ACCEL(d->accel_z);
+  write_i16_be(buf, &pos, d->gyro_x);
+  write_i16_be(buf, &pos, d->gyro_y);
+  write_i16_be(buf, &pos, d->gyro_z);
 
-  #define PACK_GYRO(v) bitpack_write(payload, &bit_pos, \
-    (uint32_t)((int32_t)((v) * GYRO_SCALE) + GYRO_OFFSET), GYRO_BITS)
-
-  PACK_GYRO(d->gyro_x);
-  PACK_GYRO(d->gyro_y);
-  PACK_GYRO(d->gyro_z);
-
-  #define PACK_MAG(v) bitpack_write(payload, &bit_pos, \
-    (uint32_t)((int32_t)((v) * MAG_SCALE) + MAG_OFFSET), MAG_BITS)
-
-  PACK_MAG(d->mag_x);
-  PACK_MAG(d->mag_y);
-  PACK_MAG(d->mag_z);
+  write_i16_be(buf, &pos, d->mag_x);
+  write_i16_be(buf, &pos, d->mag_y);
+  write_i16_be(buf, &pos, d->mag_z);
 
   for (int i = 0; i < NUM_PRESSURE_SENSORS; i++) {
-    uint32_t p = (d->pressure[i] > PRESSURE_MAX) ? PRESSURE_MAX : d->pressure[i];
-    bitpack_write(payload, &bit_pos, p, PRESSURE_BITS);
+    write_i16_be(buf, &pos, d->pressure_raw[i]);
   }
 
   for (int i = 0; i < NUM_THERMISTOR_SENSORS; i++) {
-    uint32_t t = (uint32_t)(d->temperature[i] * THERMISTOR_SCALE);
-    if (t > 1000) {
-      t = 1000;
-    }
-    bitpack_write(payload, &bit_pos, t, THERMISTOR_BITS);
+    write_i16_be(buf, &pos, d->thermistor_raw[i]);
   }
 
   buf[PKT_HEADER_BYTES + PKT_PAYLOAD_BYTES] =

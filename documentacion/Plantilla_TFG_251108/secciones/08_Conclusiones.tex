@@ -1,0 +1,60 @@
+\chapter{Conlcusiones}
+«Conclusiones personales del estudiante sobre el trabajo realizado y trabajos futuros. Extensión máxima: 1 página.»\\
+
+\textbf{Contenido de la sección:}
+\begin{itemize}
+    \item Recapitulación de los hallazgos más relevantes obtenidos
+    \item Resumen de los logros frente a los objetivos
+    \begin{itemize}
+        \item Vinculando explícitamente cada conclusión con los objetivos iniciales
+    \end{itemize}
+    \item Aportes teóricos y metodológicos realizados
+    \item Aplicaciones posibles
+    \item Reflexión crítica del proceso
+    \item \textbf{Sugerencias y Líneas futuras}
+\end{itemize}
+
+\begin{IAtext}
+
+\section{Recapitulación de los hallazgos más relevantes}
+
+Este Trabajo de Fin de Grado ha permitido diseñar, desarrollar y validar de forma cualitativa un sistema portátil de análisis dinámico de la pisada compuesto por un dispositivo de adquisición basado en ESP32-S3 y una aplicación móvil en Flutter. El desarrollo puso de manifiesto, más allá de los propios resultados técnicos, dos aprendizajes transversales de especial relevancia: primero, que en un sistema de sensorización distribuido la separación entre adquisición de datos crudos y su interpretación (calibración) simplifica de forma sustancial el mantenimiento y la depuración del sistema, evitando que un error de calibración se confunda con un fallo de hardware; segundo, que el comportamiento de sensores físicos de bajo coste, como los sensores de fuerza resistiva empleados, puede apartarse de forma significativa de las hipótesis de diseño iniciales (en este caso, la existencia de una precarga mecánica de reposo no nula), y que la depuración basada en registros reales de uso es imprescindible para detectar este tipo de desviaciones.
+
+\section{Logros frente a los objetivos}
+
+\begin{itemize}
+    \item Se ha diseñado e implementado un dispositivo de adquisición con doce sensores FSR, cuatro termorresistencias y una IMU de 9 grados de libertad, integrado en una plantilla y una tobillera impresas en 3D, cumpliendo el objetivo específico correspondiente.
+    \item Se ha desarrollado el firmware del ESP32-S3 para la lectura de los sensores y su transmisión por BLE, resolviendo además los problemas de fiabilidad de comunicación I2C detectados durante el desarrollo.
+    \item Se ha rediseñado el protocolo de comunicación para transmitir exclusivamente datos RAW, con versionado explícito, cumpliendo el objetivo de trasladar la calibración a la capa de aplicación.
+    \item Se ha optimizado el consumo energético del firmware mediante gestión dinámica de frecuencia, modos de bajo consumo del subsistema Bluetooth y una arquitectura de tareas dirigida por eventos.
+    \item Se ha desarrollado la aplicación móvil con visualización mediante mapas de calor de presión y horizonte artificial de orientación, cumpliendo el objetivo correspondiente.
+    \item Se ha implementado persistencia de la conexión Bluetooth en segundo plano y reconexión automática, así como historial local de pasos mediante una base de datos embebida, cumpliendo ambos objetivos específicos relativos a la robustez de uso real de la aplicación.
+    \item Se ha corregido el algoritmo de detección de pasos, sustituyendo la detección por umbral absoluto por una detección basada en incremento relativo, y vinculando el reinicio de su referencia interna exclusivamente a reconexiones Bluetooth genuinas.
+    \item La integración con la plataforma IoT en la nube (MQTT, PostgreSQL, Grafana) se mantiene operativa como capa complementaria de almacenamiento y visualización a largo plazo.
+\end{itemize}
+
+La validación cuantitativa completa de los objetivos relacionados con el consumo energético y la precisión del detector de pasos frente a un patrón de referencia queda pendiente de ejecución sobre el dispositivo físico final, tal y como se ha señalado en el Capítulo 5.
+
+\section{Aportes teóricos y metodológicos}
+
+El principal aporte metodológico de este trabajo es la validación práctica, en un proyecto real de sensorización distribuida, de la separación estricta entre adquisición de datos crudos y su conversión a unidades físicas como estrategia de diseño que reduce el coste de iteración y facilita el diagnóstico de errores de calibración. Asimismo, el proceso de depuración del algoritmo de detección de pasos —desde un umbral absoluto fallido hasta una detección basada en incremento relativo, informada por observación empírica del comportamiento real de los sensores— constituye un caso de estudio aplicable a otros sistemas de sensorización basados en sensores de fuerza resistiva de bajo coste.
+
+\section{Aplicaciones posibles}
+
+Más allá del contexto de este TFG, el sistema desarrollado es aplicable a la monitorización de pacientes en rehabilitación tras una lesión o cirugía, al seguimiento del pie diabético en atención primaria, al análisis del rendimiento y la técnica de carrera en deportistas amateur, y como plataforma docente para la enseñanza de sistemas embebidos e IoT aplicados a la salud.
+
+\section{Reflexión crítica del proceso}
+
+El desarrollo del proyecto ha evidenciado la importancia de contar con mecanismos de diagnóstico (registro por consola, registros estructurados en la aplicación móvil) desde las primeras fases del desarrollo, ya que la mayoría de los problemas más relevantes del proyecto —el \textit{timeout} I2C mal calculado, el fondo de escala de calibración incorrecto, y el reinicio indebido de la referencia del detector de pasos— resultaron invisibles a la simple inspección del código y solo se hicieron evidentes mediante la observación sistemática del comportamiento real del sistema. En retrospectiva, incorporar esta instrumentación de diagnóstico desde el diseño inicial del sistema, en lugar de añadirla de forma reactiva conforme surgían los problemas, habría reducido el tiempo dedicado a la depuración.
+
+\section{Líneas futuras}
+
+\begin{itemize}
+    \item Incorporación de un modelo de inteligencia artificial para el análisis e interpretación automática de los patrones de marcha, como herramienta de apoyo tanto para profesionales clínicos como para usuarios finales no especializados.
+    \item Validación cuantitativa del sistema en condiciones de uso real: medición de consumo energético, autonomía de batería y precisión del detector de pasos frente a un patrón de referencia.
+    \item Estudio de reciclabilidad y ciclo de vida de los materiales empleados en la fabricación aditiva de la plantilla y la tobillera.
+    \item Incorporación de mecanismos de cifrado extremo a extremo y consentimiento informado, como paso previo a cualquier validación clínica del sistema con pacientes reales.
+    \item Exploración de tecnologías de sensado alternativas (por ejemplo, sensores capacitivos flexibles) que mitiguen las limitaciones de saturación y no linealidad propias de los sensores de fuerza resistiva empleados en la versión actual del dispositivo.
+\end{itemize}
+
+\end{IAtext}

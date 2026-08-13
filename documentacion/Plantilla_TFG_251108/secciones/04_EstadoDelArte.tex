@@ -1,0 +1,53 @@
+\chapter{Estado del arte}
+«En este capítulo se contextualizará el trabajo realizado. Extensión máxima: 15 páginas.»\\
+
+\textbf{Contenido de la sección:}
+\begin{itemize}
+    \item Literatura más relevante de los últimos cinco años
+    \item Análisis del mercado
+    \item Análisis de las tecnologías empleadas
+    \item Mostrar las lagunas del conocimiento y el posicionamiento del aporte
+\end{itemize}
+
+Se deberán citar todas las referencias consultadas mediante el sistema de citación de IEEE \cite{sistema_citado_ieee}.
+
+\begin{IAtext}
+
+\section{Literatura relevante}
+
+El análisis instrumentado de la pisada mediante plantillas sensorizadas ha recibido una atención creciente en la literatura reciente. Una revisión sistemática sobre plantillas inteligentes para análisis de la marcha \cite{smart_insoles_review} recoge decenas de estudios que emplean sensores de presión resistivos, capacitivos o piezoeléctricos embebidos en plantillas, confirmando que los sensores de fuerza resistiva (FSR) siguen siendo, por su bajo coste y sencillez de acondicionamiento eléctrico, una de las tecnologías de sensado más empleadas en prototipos académicos, si bien presentan saturación de respuesta a partir de ciertos niveles de fuerza y no linealidad en los extremos de su rango \cite{piezo_insole_iohealth}.
+
+Trabajos recientes exploran variantes tecnológicas del sensado de presión plantar: sensores capacitivos flexibles fabricados mediante capas dieléctricas micropatrones \cite{mdpi_wireless_insole_2024}, o sistemas de bajo coste basados en láminas conductoras tipo Velostat con un elevado número de unidades de sensado independientes \cite{low_cost_instrumented_shoe}. En todos los casos, la arquitectura general coincide con la adoptada en este trabajo: una malla de sensores de presión distribuidos por la superficie plantar, un microcontrolador encargado de la adquisición y el acondicionamiento de la señal, y un enlace inalámbrico de baja energía (típicamente Bluetooth) para la transmisión de los datos a un dispositivo móvil \cite{ieee_smart_insole_wireless}.
+
+Una revisión centrada específicamente en el pie diabético \cite{diabetic_foot_review} subraya que la mayoría de los dispositivos comerciales de medición de presión plantar en el interior del calzado emplean configuraciones de entre cuatro y ocho sensores resistivos, un número sensiblemente inferior a los doce sensores FSR empleados en el dispositivo desarrollado en este trabajo, lo que permite una resolución espacial mayor en la reconstrucción del mapa de presión plantar.
+
+\section{Análisis del mercado}
+
+El mercado de dispositivos para el análisis de la pisada puede segmentarse en tres categorías, cuyas barreras de acceso han sido ya introducidas en el Capítulo 1:
+
+\begin{itemize}
+    \item \textbf{Sistemas de laboratorio}: plataformas de presión de suelo y sistemas de captura de movimiento por cámaras infrarrojas. Ofrecen la mayor precisión, pero requieren una instalación fija, personal especializado para su operación y un coste de adquisición que los sitúa fuera del alcance de la mayoría de consultas de fisioterapia o rehabilitación de tamaño pequeño o mediano.
+    \item \textbf{Plantillas instrumentadas de uso clínico}: dispositivos portátiles que sí permiten la medición durante la marcha real del paciente, pero que habitualmente requieren de una unidad de adquisición externa sujeta al tobillo o la pierna mediante una tobillera u ortesis, lo que limita la naturalidad del gesto y la comodidad de uso prolongado.
+    \item \textbf{Soluciones deportivas autónomas}: plantillas inteligentes orientadas al mercado del \textit{running} y el entrenamiento deportivo, con conectividad Bluetooth y aplicación móvil propia. Ofrecen buena portabilidad y autonomía, pero su precio las mantiene alejadas del uso clínico rutinario o de la investigación académica con recursos limitados.
+\end{itemize}
+
+Ninguno de los tres segmentos anteriores resuelve simultáneamente los tres criterios que motivan este trabajo: coste de materiales reducido, portabilidad completa (sin unidades externas más allá del propio soporte del microcontrolador) y autonomía de funcionamiento sin dependencia obligatoria de una plataforma en la nube para operar.
+
+\section{Análisis de las tecnologías empleadas}
+
+Las principales tecnologías empleadas en el desarrollo de este trabajo son:
+
+\begin{itemize}
+    \item \textbf{ESP32-S3}: microcontrolador de doble núcleo con conectividad Bluetooth Low Energy y Wi-Fi integradas, ampliamente adoptado en proyectos de IoT por su relación entre prestaciones, consumo energético y coste \cite{esp_idf_docs}.
+    \item \textbf{Bluetooth Low Energy (BLE) y NimBLE}: protocolo de comunicación inalámbrica de bajo consumo orientado a dispositivos con recursos limitados; NimBLE es la pila BLE de código abierto mantenida por Apache, integrada en ESP-IDF, empleada en este trabajo para la transmisión de los paquetes de datos de sensores \cite{nimble_ble}.
+    \item \textbf{ADS1115}: convertidor analógico-digital de 16 bits con amplificador de ganancia programable y bus I2C, empleado en este trabajo para digitalizar las lecturas de los sensores FSR y las termorresistencias \cite{ads1115_datasheet}.
+    \item \textbf{LSM9DS1}: unidad de medición inercial de 9 grados de libertad (acelerómetro, giroscopio y magnetómetro de 3 ejes cada uno), empleada para estimar la orientación del pie durante la marcha \cite{lsm9ds1_datasheet}.
+    \item \textbf{MQTT}: protocolo de mensajería ligero orientado a publicación-suscripción, estándar de facto en plataformas IoT, empleado en este trabajo para la integración del dispositivo con la plataforma en la nube (PostgreSQL y Grafana) \cite{mqtt_spec}.
+    \item \textbf{Flutter y Riverpod}: \textit{framework} multiplataforma de Google para el desarrollo de la aplicación móvil, y Riverpod como solución de gestión de estado reactiva, empleados en el desarrollo de la aplicación de usuario \cite{flutter_docs}.
+\end{itemize}
+
+\section{Posicionamiento del aporte}
+
+Frente a la literatura y el mercado descritos, el aporte de este trabajo se sitúa en la combinación de un número elevado de puntos de sensado de presión (doce sensores FSR, superior a las configuraciones típicas de cuatro a ocho sensores del mercado clínico), la transmisión exclusiva de datos RAW —una decisión de arquitectura poco habitual en los trabajos revisados, que en su mayoría realizan la conversión a unidades físicas en el propio microcontrolador—, y una capa de aplicación con persistencia local de datos y continuidad de conexión en segundo plano, aspectos de experiencia de usuario que rara vez se documentan con el mismo nivel de detalle que los aspectos puramente sensoriales en los trabajos académicos consultados.
+
+\end{IAtext}

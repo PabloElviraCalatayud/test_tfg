@@ -13,6 +13,7 @@ class StepCounterWidget extends ConsumerWidget {
     final data     = ref.watch(sensorDataProvider);
     final goal     = ref.watch(stepGoalProvider);
     final steps    = data.stepCount;
+    debugPrint('[STEPS] StepCounterWidget.build steps=$steps goal=$goal');
     final progress = goal > 0 ? (steps / goal).clamp(0.0, 1.0) : 0.0;
     final isComplete = steps >= goal && goal > 0;
 

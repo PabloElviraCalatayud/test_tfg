@@ -339,9 +339,12 @@ class _DeviceTile extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   result.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color:      _isTarget ? AppColors.accent : AppColors.textPrimary,
                     fontSize:   13,
@@ -350,12 +353,15 @@ class _DeviceTile extends StatelessWidget {
                 ),
                 Text(
                   result.id,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                       color: AppColors.textDisabled, fontSize: 10),
                 ),
               ],
             ),
           ),
+          const SizedBox(width: 6),
           Icon(_rssiIcon, color: _rssiColor, size: 16),
           const SizedBox(width: 4),
           Text('${result.rssi} dBm',

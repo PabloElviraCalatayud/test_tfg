@@ -1,35 +1,38 @@
 // lib/core/utils/packet_decoder.dart
 //
-// Espejo exacto del bit-packing definido en packet_builder.h / packet_builder.c
+// Espejo exacto del formato definido en packet_builder.h / packet_builder.c
 // del firmware ESP32-NimBLE.
 //
-// Formato del paquete (54 bytes):
-//   [0]      type     (0x01 = sensor, 0x02 = ACK, 0x03 = status)
-//   [1-2]    seq      uint16 big-endian
-//   [3-6]    ts_ms    uint32 big-endian
-//   [7-52]   payload  46 bytes, 361 bits empaquetados
-//   [53]     CRC-8    polinomio 0x07, init 0xFF
-//
-// Layout del payload (bits acumulados):
-//   Accel X/Y/Z    : 3 × 12 bits, offset 1600, scale 100  → g
-//   Gyro  X/Y/Z    : 3 × 13 bits, offset 4000, scale 2    → °/s
-//   Mag   X/Y/Z    : 3 × 14 bits, offset 8000, scale 1000 → Gauss
-//   Pressure[0-11] : 12 × 17 bits, 0–100000 g directo
-//   Thermistor[0-3]: 4 × 10 bits, ×10 → °C
-//   Total: 36+39+42+204+40 = 361 bits
+// Formato del paquete (59 bytes), RAW — el firmware NO convierte nada a
+// unidades físicas, solo manda las cuentas crudas de los sensores. Toda la
+// conversión física se hace aquí, con las fórmulas de sensor_calibration.dart
+// (así se puede recalibrar sin reflashear el ESP32-S3):
+//   [0]      type      (0x01 = sensor, 0x02 = ACK, 0x03 = status)
+//   [1]      version   debe coincidir con kPktProtoVersion
+//   [2-3]    seq       uint16 big-endian
+//   [4-7]    ts_ms     uint32 big-endian
+//   [8-57]   payload   50 bytes, 25 × int16 big-endian, RAW, orden fijo:
+//              [0-2]   accel_x, accel_y, accel_z   (registros LSM9DS1)
+//              [3-5]   gyro_x,  gyro_y,  gyro_z    (registros LSM9DS1)
+//              [6-8]   mag_x,   mag_y,   mag_z     (registros LSM9DS1)
+//              [9-20]  pressure_raw[0..11]         (cuentas ADC, 12 FSR)
+//              [21-24] thermistor_raw[0..3]        (cuentas ADC, 4 NTC)
+//   [58]     CRC-8     polinomio 0x07, init 0xFF
 
-import 'dart:math';
 import 'dart:typed_data';
+import 'dart:math';
 import '../../shared/models/sensor_data.dart';
+import 'sensor_calibration.dart';
 
 // ─── Constantes del protocolo ─────────────────────────────────────────────────
 
 const int kPktTypeSensor = 0x01;
 const int kPktTypeAck    = 0x02;
 const int kPktTypeStatus = 0x03;
-const int kPktSensorSize = 54;
-const int kPktHeaderBytes = 7;
-const int kPktPayloadBytes = 46;
+const int kPktProtoVersion = 2;
+const int kPktSensorSize = 59;
+const int kPktHeaderBytes = 8;
+const int kPktPayloadBytes = 50;
 const int kNumPressureSensors = 12;
 const int kNumThermistorSensors = 4;
 
@@ -86,22 +89,10 @@ class PacketDecoder {
     return crc;
   }
 
-  // ── Leer N bits desde la posición bitPos del buffer ───────────────────────
-  // Replica exactamente bitpack_write() en sentido inverso:
-  //   bit_pos 0 → byte 0, bit 7 (MSB)
-  //   bit_pos 1 → byte 0, bit 6
-  //   ...
-  static int _readBits(Uint8List buf, int bitPos, int numBits) {
-    int result = 0;
-    for (int i = numBits - 1; i >= 0; i--) {
-      final byteIdx = bitPos ~/ 8;
-      final bitIdx  = 7 - (bitPos % 8);
-      if (byteIdx < buf.length && (buf[byteIdx] >> bitIdx) & 1 == 1) {
-        result |= (1 << i);
-      }
-      bitPos++;
-    }
-    return result;
+  // ── Leer un int16 big-endian con signo desde el offset dado ───────────────
+  static int _readInt16BE(Uint8List buf, int offset) {
+    final v = (buf[offset] << 8) | buf[offset + 1];
+    return v >= 0x8000 ? v - 0x10000 : v;
   }
 
   // ── Punto de entrada principal ────────────────────────────────────────────
@@ -128,47 +119,51 @@ class PacketDecoder {
   static SensorPacket? _decodeSensorPacket(Uint8List buf) {
     if (buf.length < kPktSensorSize) return null;
 
+    // ── Version del protocolo ───────────────────────────────────────────────
+    // Firmware y app deben ir sincronizados. Sin esto, un mismatch de formato
+    // se descartaria en silencio por CRC/longitud, indistinguible de "no
+    // llega nada" al depurar.
+    final version = buf[1];
+    if (version != kPktProtoVersion) return null;
+
     // ── Verificar CRC ─────────────────────────────────────────────────────
     final expectedCrc = crc8(buf, kPktHeaderBytes + kPktPayloadBytes);
     if (buf[kPktHeaderBytes + kPktPayloadBytes] != expectedCrc) return null;
 
     // ── Header ────────────────────────────────────────────────────────────
-    final seq  = (buf[1] << 8) | buf[2];
-    final tsMs = (buf[3] << 24) | (buf[4] << 16) | (buf[5] << 8) | buf[6];
+    final seq  = (buf[2] << 8) | buf[3];
+    final tsMs = (buf[4] << 24) | (buf[5] << 16) | (buf[6] << 8) | buf[7];
 
-    // ── Payload ───────────────────────────────────────────────────────────
-    final payload = buf.sublist(kPktHeaderBytes, kPktHeaderBytes + kPktPayloadBytes);
-    int bitPos = 0;
-
-    // Acelerómetro — 3 × 12 bits, offset 1600, scale 100 → g → ×9.81 = m/s²
-    final axG = (_readBits(payload, bitPos,      12) - 1600) / 100.0; bitPos += 12;
-    final ayG = (_readBits(payload, bitPos,      12) - 1600) / 100.0; bitPos += 12;
-    final azG = (_readBits(payload, bitPos,      12) - 1600) / 100.0; bitPos += 12;
-
-    // Giróscopo — 3 × 13 bits, offset 4000, scale 2 → °/s
-    final gx = (_readBits(payload, bitPos, 13) - 4000) / 2.0; bitPos += 13;
-    final gy = (_readBits(payload, bitPos, 13) - 4000) / 2.0; bitPos += 13;
-    final gz = (_readBits(payload, bitPos, 13) - 4000) / 2.0; bitPos += 13;
-
-    // Magnetómetro — 3 × 14 bits, offset 8000, scale 1000 → Gauss → ×100 = µT
-    final mx = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
-    final my = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
-    final mz = (_readBits(payload, bitPos, 14) - 8000) / 1000.0 * 100.0; bitPos += 14;
-
-    // Presión — 12 × 17 bits, valor directo en gramos (0–100000)
-    final List<double> pressure = [];
-    for (int i = 0; i < kNumPressureSensors; i++) {
-      pressure.add(_readBits(payload, bitPos, 17).toDouble()); bitPos += 17;
+    // ── Payload: 25 × int16 BE, RAW ──────────────────────────────────────
+    int off = kPktHeaderBytes;
+    int nextI16() {
+      final v = _readInt16BE(buf, off);
+      off += 2;
+      return v;
     }
 
-    // Termistores — 4 × 10 bits, ×10 → °C
-    final List<double> temperature = [];
-    for (int i = 0; i < kNumThermistorSensors; i++) {
-      temperature.add(_readBits(payload, bitPos, 10) / 10.0); bitPos += 10;
-    }
+    final accelXRaw = nextI16(), accelYRaw = nextI16(), accelZRaw = nextI16();
+    final gyroXRaw  = nextI16(), gyroYRaw  = nextI16(), gyroZRaw  = nextI16();
+    final magXRaw   = nextI16(), magYRaw   = nextI16(), magZRaw   = nextI16();
 
-    // ── Orientación derivada ──────────────────────────────────────────────
-    // Acelerómetro en g, convertir a m/s² para el modelo
+    final pressureRaw = List<int>.generate(kNumPressureSensors, (_) => nextI16());
+    final thermistorRaw = List<int>.generate(kNumThermistorSensors, (_) => nextI16());
+
+    // ── IMU: raw -> unidades físicas ───────────────────────────────────────
+    final axG = SensorCalibration.accelG(accelXRaw);
+    final ayG = SensorCalibration.accelG(accelYRaw);
+    final azG = SensorCalibration.accelG(accelZRaw);
+
+    final gx = SensorCalibration.gyroDps(gyroXRaw);
+    final gy = SensorCalibration.gyroDps(gyroYRaw);
+    final gz = SensorCalibration.gyroDps(gyroZRaw);
+
+    // Gauss -> µT (×100), igual convención que usaban los widgets antes
+    final mx = SensorCalibration.magGauss(magXRaw) * 100.0;
+    final my = SensorCalibration.magGauss(magYRaw) * 100.0;
+    final mz = SensorCalibration.magGauss(magZRaw) * 100.0;
+
+    // Acelerómetro en g -> m/s² para el modelo
     final accX = axG * 9.81;
     final accY = ayG * 9.81;
     final accZ = azG * 9.81;
@@ -179,9 +174,14 @@ class PacketDecoder {
     // Yaw simplificado desde magnetómetro (asumiendo dispositivo nivelado)
     final yaw   = atan2(-my, mx) * 180.0 / pi;
 
-    // ── 12 sensores FSR y 4 termistores, uno a uno (sin agrupar por zonas) ──
-    const double kMaxPressureG = 100000.0;
-    final fsr = pressure.map((g) => (g / kMaxPressureG).clamp(0.0, 1.0)).toList();
+    // ── FSR: raw -> gramos -> normalizado 0..1 ─────────────────────────────
+    final fsr = pressureRaw
+        .map((raw) => (SensorCalibration.rawToGrams(raw) / SensorCalibration.kFsrPressureMaxG)
+            .clamp(0.0, 1.0))
+        .toList();
+
+    // ── Termistores: raw -> celsius ─────────────────────────────────────────
+    final temperature = thermistorRaw.map((raw) => SensorCalibration.rawToCelsius(raw)).toList();
 
     return SensorPacket(
       seq: seq,
@@ -193,7 +193,7 @@ class PacketDecoder {
         gyroX: gx,  gyroY: gy,  gyroZ: gz,
         magX: mx,   magY: my,   magZ: mz,
         roll: roll, pitch: pitch, yaw: yaw,
-        stepCount: 0, // detectado por lógica de pasos (futura)
+        stepCount: 0, // detección de pasos: ver SensorDataNotifier._detectSteps
         stepGoal: 10000,
       ),
     );

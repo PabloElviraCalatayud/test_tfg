@@ -15,6 +15,12 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
+    <!-- Foreground service: mantiene la conexion BLE viva cuando la app
+         esta minimizada/en background (no al cerrarla del todo). -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
     <application
         android:label="app_monitorizacion_pisada_dinamica"
         android:name="${applicationName}"
@@ -50,6 +56,16 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2"/>
+
+        <!-- flutter_foreground_task: mantiene vivo el proceso (con
+             notificacion persistente) mientras hay una plantilla BLE
+             conectada, para que la conexion sobreviva a minimizar la
+             app. La conexion GATT en si la sigue gestionando
+             flutter_blue_plus igual que hoy. -->
+        <service
+            android:name="com.pravera.flutter_foreground_task.service.ForegroundService"
+            android:foregroundServiceType="connectedDevice"
+            android:exported="false"/>
 
     </application>
 

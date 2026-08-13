@@ -6814,6 +6814,24 @@
     {
         "children": [
             {
+                "children": [],
+                "depends_on": null,
+                "help": "console_task vuelca por consola, a 2 Hz, una linea con el\nestado de IMU/FSR/NTC. Es solo para depuracion en banco de\npruebas: mantiene la CPU despierta con mas frecuencia de la\nnecesaria y ocupa UART/CPU. Desactivar esta opcion en un\nbuild de \"produccion\" orientado a consumo, sin tocar codigo.",
+                "id": "DAS_ENABLE_CONSOLE_TASK",
+                "name": "DAS_ENABLE_CONSOLE_TASK",
+                "range": null,
+                "title": "Habilitar console_task (log de sensores por UART)",
+                "type": "bool"
+            }
+        ],
+        "depends_on": null,
+        "id": "das-application-configuration",
+        "title": "DAS Application Configuration",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
                 "children": [
                     {
                         "children": [],
@@ -20775,7 +20793,10 @@
                         "help": "The value of this option determines the calibration interval of the RTC_FAST/SLOW clock during sleep when\npower management is enabled. When it is configured as N, the RTC_FAST/SLOW clock will be calibrated\nevery N times of lightsleep.\nDecreasing this value will increase the time the chip is in the active state, thereby increasing the\naverage power consumption of the chip.\nIncreasing this value can reduce the average power consumption, but when the external environment changes\ndrastically and the chip RTC_FAST/SLOW oscillator frequency drifts, it may cause system instability.",
                         "id": "PM_LIGHTSLEEP_RTC_OSC_CAL_INTERVAL",
                         "name": "PM_LIGHTSLEEP_RTC_OSC_CAL_INTERVAL",
-                        "range": null,
+                        "range": [
+                            1,
+                            128
+                        ],
                         "title": "Calibrate the RTC_FAST/SLOW clock every N times of light sleep",
                         "type": "int"
                     },
@@ -22318,7 +22339,7 @@
                         "name": "ESP_CONSOLE_UART_BAUDRATE",
                         "range": [
                             1200,
-                            4000000
+                            1000000
                         ],
                         "title": "UART console baud rate",
                         "type": "int"
@@ -25390,7 +25411,10 @@
                                         "help": "FreeRTOS will enter light sleep mode if no tasks need to run for this number of ticks.\nYou can enable PM_PROFILING feature in esp_pm components and dump the sleep status with\nesp_pm_dump_locks, if the proportion of rejected sleeps is too high, please increase\nthis value to improve scheduling efficiency",
                                         "id": "FREERTOS_IDLE_TIME_BEFORE_SLEEP",
                                         "name": "FREERTOS_IDLE_TIME_BEFORE_SLEEP",
-                                        "range": null,
+                                        "range": [
+                                            2,
+                                            4294967295
+                                        ],
                                         "title": "configEXPECTED_IDLE_TIME_BEFORE_SLEEP",
                                         "type": "int"
                                     }
