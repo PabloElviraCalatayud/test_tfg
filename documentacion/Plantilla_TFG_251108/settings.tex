@@ -83,6 +83,15 @@
 \definecolor{gray75}{gray}{.75}
 \definecolor{gray45}{gray}{.45}
 
+%%-----------------------------------------------
+%% Distinción de autoría: texto redactado por el asistente de IA (Claude)
+%% se muestra en este color para diferenciarlo del texto redactado
+%% originalmente por el/la autor/a del TFG (negro, por defecto).
+%%-----------------------------------------------
+\definecolor{colorIA}{RGB}{0,90,171}
+\newcommand{\IA}[1]{\textcolor{colorIA}{#1}}
+\newenvironment{IAtext}{\color{colorIA}}{\color{black}}
+
 \usepackage{listings}
 \lstset{ frame=Ltb,
      framerule=0pt,

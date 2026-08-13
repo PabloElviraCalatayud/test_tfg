@@ -10,3 +10,45 @@
     \item Limitaciones del estudio
     \item Validación / Evaluación del sistema (Métricas de desempeño, comparación con benchmarks, etc)
 \end{itemize}
+
+\begin{IAtext}
+
+\subsection*{\textcolor{colorIA}{Nota sobre esta sección}}
+\textcolor{colorIA}{Las métricas cuantitativas de desempeño (consumo energético medido en mA/mAh, duración exacta de la batería, tasa de acierto del detector de pasos frente a un conteo manual de referencia, alcance efectivo de la conexión BLE, etc.) requieren de mediciones físicas sobre el dispositivo real que no se han podido realizar en el entorno de trabajo empleado para esta redacción. Lo que se describe a continuación son los resultados cualitativos efectivamente verificados durante el desarrollo y las pruebas funcionales del sistema. Se han dejado tablas y huecos marcados para que el autor/a incorpore las cifras exactas obtenidas en sus propias pruebas de campo.}
+
+\section{Resultados funcionales verificados}
+
+Durante el desarrollo del sistema se verificaron de forma funcional los siguientes aspectos:
+
+\begin{itemize}
+    \item \textbf{Fiabilidad de la comunicación I2C}: tras corregir el valor de \textit{timeout} de las transferencias I2C con los conversores ADS1115 (que efectivamente se resolvía en aproximadamente 1\,ms en lugar del valor previsto), el sistema dejó de presentar los fallos de lectura intermitentes y los reinicios inesperados de la placa observados en las primeras fases de prueba, quedando estable en las sesiones de prueba posteriores.
+    \item \textbf{Coherencia de las lecturas de presión tras la recalibración}: al corregir el fondo de escala de los sensores FSR de 100\,kg a 1--10\,kg (su capacidad real de fábrica), las lecturas de presión normalizadas mostradas en la aplicación pasaron a estar dentro de rangos físicamente plausibles para el peso de un usuario adulto, mientras que con el fondo de escala anterior se observaban lecturas de presión sistemáticamente muy por debajo de lo esperado (una parte muy pequeña del rango, dado que el fondo de escala real era diez veces menor).
+    \item \textbf{Protocolo RAW y byte de versión}: la reestructuración del protocolo de comunicación a datos RAW con byte de versión explícito permitió detectar de forma inmediata, durante las propias pruebas de integración firmware-aplicación, cualquier desajuste de formato entre ambas partes, en lugar de manifestarse como una ausencia silenciosa de datos.
+    \item \textbf{Detección de pasos}: tras sustituir el umbral absoluto por la detección basada en incremento relativo, y tras corregir el reinicio indebido de la referencia de presión en cada reanudación de la aplicación, el contador de pasos dejó de quedar bloqueado de forma permanente en las pruebas realizadas, lo que se confirmó mediante registros de depuración (\texttt{[STEPS]}) que mostraban una alternancia correcta entre los estados de sensor armado y sensor presionado a lo largo de una sesión de marcha.
+    \item \textbf{Persistencia en segundo plano}: con el servicio en primer plano de Android y el modo de ejecución en segundo plano de iOS activos, la conexión Bluetooth se mantuvo, en las pruebas realizadas, al minimizar la aplicación, frente al comportamiento previo en el que la conexión se interrumpía de forma inmediata al cambiar de aplicación.
+\end{itemize}
+
+\section{Métricas pendientes de medición}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Métrica} & \textbf{Valor} \\
+\hline
+Consumo medio en reposo con BLE conectado (antes de optimización) & \textcolor{colorIA}{[pendiente]} \\
+Consumo medio en reposo con BLE conectado (tras optimización) & \textcolor{colorIA}{[pendiente]} \\
+Autonomía estimada de batería & \textcolor{colorIA}{[pendiente]} \\
+Alcance efectivo de la conexión BLE & \textcolor{colorIA}{[pendiente]} \\
+Precisión del contador de pasos (\% frente a conteo manual) & \textcolor{colorIA}{[pendiente]} \\
+Tiempo medio de reconexión BLE tras pérdida de señal & \textcolor{colorIA}{[pendiente]} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Discusión}
+
+Los resultados cualitativos obtenidos confirman que las tres decisiones de arquitectura adoptadas en la reestructuración del proyecto —protocolo de transmisión RAW con versionado explícito, optimización energética basada en un esquema de tareas dirigido por eventos, y persistencia de la conexión Bluetooth en segundo plano— resuelven los problemas concretos que las motivaron. No obstante, la validación cuantitativa completa del sistema (consumo energético en distintas condiciones de uso, precisión del detector de pasos frente a un patrón de referencia, y comportamiento en sesiones de marcha prolongadas con la aplicación en segundo plano de forma continuada) queda como trabajo pendiente de ejecución sobre el dispositivo físico final, tal y como se recoge en la tabla anterior.
+
+Como limitación del estudio cabe señalar que la persistencia de la conexión Bluetooth en segundo plano depende, en última instancia, de decisiones del sistema operativo (gestión agresiva de memoria en Android, presupuesto de ejecución en segundo plano en iOS) que escapan al control de la propia aplicación, por lo que ningún mecanismo de software puede garantizar una supervivencia indefinida de la conexión ante el cierre forzado de la aplicación por parte del sistema.
+
+\end{IAtext}

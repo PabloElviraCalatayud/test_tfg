@@ -17,3 +17,72 @@
         \item Requisitos
     \end{itemize}
 \end{itemize}
+
+\begin{IAtext}
+
+\section{Diseño, técnicas e instrumentos}
+
+El desarrollo del proyecto ha seguido una metodología iterativa de co-diseño hardware-software, en la que cada componente del sistema (electrónica, firmware, aplicación móvil y plataforma en la nube) se ha desarrollado y validado de forma incremental, priorizando en cada iteración la detección temprana de problemas de integración entre capas. Esta aproximación resultó especialmente relevante en un proyecto con una superficie de hardware física (sensores, cableado, impresión 3D) sujeta a fallos que no siempre se manifiestan de forma predecible en el software.
+
+Las principales técnicas e instrumentos empleados han sido:
+\begin{itemize}
+    \item \textbf{Desarrollo embebido}: ESP-IDF (v5.5.1) como \textit{framework} oficial de Espressif para el ESP32-S3, sobre FreeRTOS como sistema operativo de tiempo real, empleando tareas, colas y notificaciones para la concurrencia entre la adquisición de sensores y la transmisión BLE.
+    \item \textbf{Depuración por consola serie}: registro estructurado (\textit{logging}) de las lecturas de los sensores durante el desarrollo, permitiendo contrastar en tiempo real el valor físico esperado frente al valor efectivamente adquirido, fundamental para diagnosticar problemas de calibración y de comunicación I2C con los conversores ADS1115.
+    \item \textbf{Desarrollo móvil multiplataforma}: Flutter y Dart, con gestión de estado mediante Riverpod, siguiendo una arquitectura por características (\textit{feature-first}) que separa la lógica de adquisición y decodificación de datos (\texttt{core/}) de la presentación (\texttt{features/}).
+    \item \textbf{Depuración asistida por registros de dispositivo (\textit{logcat})}: durante el desarrollo del algoritmo de detección de pasos, se emplearon registros exhaustivos etiquetados (\texttt{[STEPS]}, \texttt{[BLE]}) para observar el comportamiento del sensor de presión en condiciones reales de uso, lo que permitió identificar que los sensores FSR no parten de un valor de reposo nulo, sino de una precarga mecánica constante debida al propio montaje de la plantilla.
+    \item \textbf{Control de versiones}: Git, con una rama de desarrollo dedicada y flujo de trabajo basado en \textit{commits} incrementales por área funcional del sistema.
+\end{itemize}
+
+\section{Análisis de datos}
+
+El análisis de los datos adquiridos por el dispositivo se ha abordado en dos niveles. En primer lugar, un análisis cualitativo durante el propio proceso de desarrollo, contrastando las lecturas RAW recibidas por Bluetooth con el comportamiento físico esperado (por ejemplo, verificando que la presión detectada aumenta de forma coherente con el peso aplicado sobre cada sensor, o que la orientación estimada a partir de la IMU se corresponde con la inclinación real del pie). En segundo lugar, un análisis de series temporales aplicado a la señal de presión plantar para la detección de pasos, basado en la variación relativa (delta) entre lecturas consecutivas de presión máxima, en lugar de en un umbral absoluto fijo; esta decisión metodológica surgió directamente de la observación empírica de que el valor de reposo de los sensores no es constante entre sesiones ni comparable a cero.
+
+\section{Justificación metodológica}
+
+La decisión de trasladar toda la conversión de unidades físicas (presión, temperatura, orientación) desde el firmware hacia la aplicación móvil, transmitiendo únicamente datos RAW, responde a una justificación metodológica concreta: durante el desarrollo, un error en el fondo de escala de calibración de los sensores FSR (asumido inicialmente en 100\,kg cuando la capacidad real de fábrica de los sensores es de 1 a 10\,kg) generó lecturas físicamente imposibles que fueron difíciles de diagnosticar precisamente porque el dato ya venía convertido —y por tanto aparentemente “legítimo”— desde el propio dispositivo. Al posponer toda conversión a la capa de aplicación, cualquier error de calibración futuro se corrige modificando un único fichero de constantes en Dart, sin necesidad de recompilar y volver a flashear el firmware, reduciendo drásticamente el coste de iteración.
+
+\section{Diseño de validación}
+
+La validación del sistema se ha diseñado en tres niveles:
+\begin{enumerate}
+    \item \textbf{Validación de componente}: verificación individual de cada sensor y subsistema (comunicación I2C con los ADS1115 y la IMU LSM9DS1, transmisión BLE, decodificación del protocolo en la aplicación) mediante lectura por consola y comparación con los valores físicos esperados.
+    \item \textbf{Validación de integración}: verificación de que el conjunto de sensores, firmware, protocolo BLE y aplicación móvil funciona de forma coherente de extremo a extremo, incluyendo la persistencia de la conexión en segundo plano y el correcto almacenamiento del historial local de pasos.
+    \item \textbf{Validación funcional en condiciones reales de uso}: pruebas de caminata con el dispositivo colocado en un usuario real, con la aplicación tanto en primer como en segundo plano, verificando la robustez del contador de pasos y la persistencia de la conexión Bluetooth ante los ciclos normales de uso de un teléfono móvil (bloqueo de pantalla, cambio de aplicación).
+\end{enumerate}
+
+\section{Planificación}
+
+\subsection*{\textcolor{colorIA}{Nota}}
+\textcolor{colorIA}{Las fechas concretas, el desglose de horas por tarea y los costes de material dependen de datos personales del autor/a (fecha de inicio real, horas dedicadas por semana, presupuesto disponible) que no forman parte del conocimiento técnico del proyecto y por tanto no se han podido inferir. Se propone a continuación una estructura de planificación por fases y una tabla de costes de materiales con los componentes efectivamente utilizados en el desarrollo, quedando pendiente de completar por el autor/a con las fechas, horas y precios reales.}
+
+\subsubsection*{Fases del proyecto}
+\begin{enumerate}
+    \item \textbf{Fase 1 — Diseño del dispositivo}: selección de sensores (FSR, termorresistencias, IMU), diseño del circuito de acondicionamiento con conversores ADS1115, diseño e impresión 3D de la plantilla y la tobillera.
+    \item \textbf{Fase 2 — Firmware base}: puesta en marcha del ESP32-S3, drivers I2C para ADS1115 y LSM9DS1, primera versión de la transmisión BLE.
+    \item \textbf{Fase 3 — Depuración de hardware}: resolución de problemas de comunicación I2C, calibración de sensores, estabilización del sistema frente a fallos de sensores individuales.
+    \item \textbf{Fase 4 — Aplicación móvil}: desarrollo de la aplicación Flutter, decodificación del protocolo BLE, visualización mediante mapas de calor y horizonte artificial, detector de pasos.
+    \item \textbf{Fase 5 — Reestructuración}: rediseño del protocolo de comunicación a datos RAW, optimización energética del firmware, persistencia de la conexión Bluetooth en segundo plano, historial local de pasos.
+    \item \textbf{Fase 6 — Integración con plataforma IoT}: publicación de datos a un \textit{broker} MQTT, almacenamiento en PostgreSQL y visualización en Grafana.
+    \item \textbf{Fase 7 — Validación y documentación}: pruebas funcionales en condiciones reales de uso y redacción de la memoria.
+\end{enumerate}
+
+\subsubsection*{Tabla de costes de materiales}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Componente} & \textbf{Cantidad} \\
+\hline
+Microcontrolador ESP32-S3 & 1 \\
+Conversor analógico-digital ADS1115 & 4 \\
+IMU LSM9DS1 (9 grados de libertad) & 1 \\
+Sensores de fuerza resistiva (FSR, 1--10\,kg) & 12 \\
+Termorresistencias (NTC) & 4 \\
+Filamento de impresión 3D (plantilla y tobillera) & --- \\
+Goma EVA de recubrimiento & --- \\
+Batería y componentes de cableado & --- \\
+\hline
+\end{tabular}
+\end{center}
+\textcolor{colorIA}{(Cantidades a precio unitario y coste total pendientes de completar por el autor/a.)}
+
+\end{IAtext}

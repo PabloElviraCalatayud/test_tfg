@@ -20,3 +20,84 @@ deben estar alineados al margen izquierdo. Ejemplo:
 \subsubsection{Subsección 2}
 \section{Apartado 2 de capítulo 3}
 \section{Apartado 3 de capítulo 3}
+
+\begin{IAtext}
+
+\section{Arquitectura general del sistema}
+
+El sistema se organiza en tres capas claramente diferenciadas: el \textbf{dispositivo de adquisición}, basado en un microcontrolador ESP32-S3 que lee los sensores físicos y transmite los datos por Bluetooth Low Energy; la \textbf{aplicación móvil}, desarrollada en Flutter, que recibe, decodifica, calibra y visualiza los datos en tiempo real, además de mantener un historial local; y la \textbf{plataforma en la nube}, compuesta por un \textit{broker} MQTT público, una base de datos PostgreSQL y un panel Grafana, encargada del almacenamiento y la visualización a largo plazo. Esta separación en capas permite que cada una evolucione de forma independiente, siempre que se respete el contrato del protocolo de comunicación entre ellas.
+
+Una decisión de arquitectura transversal a todo el sistema, adoptada durante una reestructuración del proyecto ya avanzado su desarrollo, es que el dispositivo de adquisición transmite exclusivamente \textbf{datos RAW}: cuentas del convertidor analógico-digital sin convertir a gramos o grados Celsius, y registros de la IMU sin convertir a unidades de aceleración angular o campo magnético. Toda la conversión a unidades físicas se realiza en la aplicación móvil. Esta decisión, motivada por un incidente de calibración detallado en la \cref{sec:proto_raw}, reduce el coste de iterar sobre la calibración de los sensores a modificar un único fichero de constantes en la aplicación, sin necesidad de recompilar y volver a flashear el firmware del microcontrolador.
+
+\section{Hardware}
+
+El dispositivo de adquisición está compuesto por:
+\begin{itemize}
+    \item Un microcontrolador \textbf{ESP32-S3}, encargado de la lectura de los sensores y de la transmisión de los datos por BLE.
+    \item Cuatro convertidores analógico-digitales \textbf{ADS1115} (16 bits, amplificador de ganancia programable, bus I2C), repartidos en dos buses I2C independientes para reducir la carga de cada bus y aislar posibles fallos de comunicación con un chip concreto del resto de sensores.
+    \item Doce \textbf{sensores de fuerza resistiva (FSR)}, con un rango de fábrica de 1 a 10\,kg, distribuidos por la superficie plantar de la plantilla para reconstruir un mapa de presión.
+    \item Cuatro \textbf{termorresistencias} (NTC), para la medición de la temperatura superficial del pie en distintos puntos de la plantilla.
+    \item Una \textbf{IMU LSM9DS1} de 9 grados de libertad (acelerómetro, giroscopio y magnetómetro de 3 ejes), situada junto al microcontrolador, empleada para estimar la orientación del pie durante la marcha.
+    \item Una \textbf{plantilla impresa en 3D}, recubierta de goma EVA, que aloja los sensores FSR y las termorresistencias.
+    \item Una \textbf{tobillera impresa en 3D}, que aloja el microcontrolador, los ADS1115 y la IMU, conectada a la plantilla mediante cableado.
+\end{itemize}
+
+Durante la fase de depuración de hardware se detectaron y corrigieron dos problemas relevantes que afectaron directamente al diseño final: en primer lugar, la comunicación I2C con los cuatro ADS1115 resultó inestable a 400\,kHz, por lo que el bus se mantiene deliberadamente a 100\,kHz; en segundo lugar, un valor de \textit{timeout} de transferencia I2C mal calculado (se pasaba un valor ya convertido a \textit{ticks} de FreeRTOS a un parámetro que esperaba milisegundos crudos, resultando en un \textit{timeout} efectivo de aproximadamente un milisegundo) provocaba fallos de lectura intermitentes que fueron la causa raíz de gran parte de la inestabilidad observada en las primeras fases de prueba del dispositivo.
+
+\section{Firmware del ESP32-S3}
+
+El firmware se estructura sobre ESP-IDF y FreeRTOS en los siguientes componentes:
+
+\subsection{\texttt{drivers/ads1115}}
+Controlador del convertidor analógico-digital ADS1115, responsable de configurar el amplificador de ganancia programable y la velocidad de muestreo, y de iniciar y leer conversiones por I2C. Expone tanto el valor RAW de 16 bits (empleado para el paquete BLE) como funciones de conversión a voltaje, gramos (para los sensores FSR) y grados Celsius mediante la ecuación de Steinhart-Hart simplificada (para las termorresistencias); estas últimas se emplean únicamente para el registro de depuración por consola, nunca para el dato transmitido.
+
+\subsection{\texttt{sensor\_manager/imu\_driver}}
+Controlador de la IMU LSM9DS1 sobre I2C, responsable de leer los registros de aceleración, velocidad angular y campo magnético. Tras la reestructuración a protocolo RAW, este módulo ya no aplica los factores de sensibilidad del fabricante (por ejemplo, 0.00875 para el giroscopio o 0.000061 para el acelerómetro); se limita a componer los enteros de 16 bits directamente desde los bytes leídos, delegando la escala física a la aplicación móvil.
+
+\subsection{\texttt{sensor\_manager}}
+Componente central del firmware, que orquesta tres tareas de FreeRTOS: una tarea de lectura de los ADS1115 (\texttt{adc\_task}), una tarea de lectura de la IMU (\texttt{imu\_task}) y una tarea de registro por consola opcional (\texttt{console\_task}), activable o desactivable mediante una opción de \texttt{Kconfig} (\texttt{CONFIG\_DAS\_ENABLE\_CONSOLE\_TASK}) para poder generar compilaciones de producción sin sobrecarga de registro. Tras cada actualización de la IMU, \texttt{imu\_task} notifica a la tarea principal de la aplicación mediante \texttt{xTaskNotifyGive()}, sustituyendo un esquema previo de sondeo periódico a 100\,Hz por un esquema dirigido por eventos, alineado con la tasa real de refresco de la IMU (aproximadamente 50\,Hz).
+
+\subsection{\texttt{packet\_builder}}\label{sec:proto_raw}
+Encargado de serializar los datos recogidos en el paquete que se transmite por BLE. La primera versión del protocolo empleaba una codificación compacta de bits variable (\textit{bit-packing}) para minimizar el tamaño del paquete, con cada campo convertido a su unidad física antes de empaquetarse. Un fondo de escala de calibración incorrecto en esa primera versión —asumiendo una capacidad de 100\,kg en los sensores FSR, cuando la capacidad real de fábrica es de 1 a 10\,kg— provocó lecturas de presión físicamente imposibles que resultaron difíciles de diagnosticar, ya que el dato llegaba a la aplicación ya convertido y aparentemente válido.
+
+A raíz de este problema se rediseñó el protocolo en una segunda versión, empleada en la versión final del sistema: veinticinco campos de 16 bits con signo, de ancho fijo y en orden \textit{big-endian} (nueve ejes de la IMU, doce lecturas de presión y cuatro lecturas de temperatura), todos ellos valores RAW sin convertir. La cabecera del paquete incorpora un byte de versión de protocolo explícito, de forma que un desajuste entre la versión de firmware y la versión de la aplicación se detecta y se registra de forma explícita, en lugar de manifestarse como una pérdida silenciosa de paquetes indistinguible de una simple desconexión.
+
+\subsection{\texttt{ble\_transport}}
+Gestiona el servidor GATT sobre NimBLE y la cola de paquetes pendientes de envío. Al establecerse la conexión, se negocia un intervalo de conexión BLE de entre 20 y 30\,ms mediante \texttt{ble\_gap\_update\_params()}, alineado con la nueva cadencia de generación de paquetes, en lugar de emplear los parámetros por defecto de la pila.
+
+\subsection{Gestión de energía}
+Sobre la base del esquema de tareas dirigido por eventos descrito anteriormente, se han incorporado las siguientes optimizaciones energéticas en el firmware:
+\begin{itemize}
+    \item Escalado dinámico de la frecuencia de la CPU mediante \texttt{esp\_pm\_configure()} (entre 80 y 160\,MHz) junto con \textit{tickless idle} de FreeRTOS, permitiendo que el procesador reduzca su frecuencia o entre en reposo ligero (\textit{light-sleep}) durante los intervalos sin actividad de sensores.
+    \item Activación del modo de bajo consumo (\textit{modem-sleep}) del controlador Bluetooth.
+    \item Desactivación completa del subsistema Wi-Fi, sin uso en ningún punto del proyecto.
+    \item Incremento de la velocidad de conversión del ADS1115 (de 128 a 860 muestras por segundo), reduciendo el tiempo de espera por canal de aproximadamente 10\,ms a 2\,ms sin modificar la frecuencia del bus I2C, liberando tiempo de CPU para el modo de reposo.
+\end{itemize}
+
+\section{Aplicación móvil}
+
+La aplicación, desarrollada en Flutter con gestión de estado mediante Riverpod, sigue una arquitectura por características (\textit{feature-first}), con la lógica de acceso a datos y servicios transversales concentrada en \texttt{core/} y la interfaz de usuario organizada por funcionalidad en \texttt{features/} (panel principal, historial, depuración).
+
+\subsection{Decodificación y calibración}
+El módulo \texttt{packet\_decoder.dart} implementa el lado receptor del protocolo descrito en la \cref{sec:proto_raw}: comprueba el byte de versión del paquete recibido y descarta (registrando el incidente) cualquier paquete que no coincida con la versión esperada, y decodifica los veinticinco campos de 16 bits con signo en el orden acordado con el firmware. La conversión a unidades físicas se delega íntegramente en el módulo \texttt{sensor\_calibration.dart}, que reproduce en Dart, constante a constante, las mismas fórmulas empleadas en el firmware (voltaje de referencia, sensibilidad del ADS1115 según la ganancia configurada, curva de conversión de los sensores FSR y ecuación de Steinhart-Hart de las termorresistencias), de forma que constituye el único punto del proyecto que es necesario modificar para recalibrar el sistema.
+
+\subsection{Persistencia de la conexión Bluetooth en segundo plano}
+Para evitar que la conexión BLE se interrumpa al pasar la aplicación a segundo plano —un comportamiento observado en la versión inicial de la aplicación y poco realista para un dispositivo pensado para usarse durante una sesión de marcha o ejercicio prolongada—, se han incorporado dos mecanismos complementarios:
+\begin{itemize}
+    \item Un \textbf{servicio en primer plano} (\textit{foreground service}) en Android, mediante el paquete \texttt{flutter\_foreground\_task}, que mantiene activo el proceso de la aplicación y muestra una notificación persistente mientras el dispositivo está conectado, junto con el modo de ejecución en segundo plano \texttt{bluetooth-central} declarado en iOS.
+    \item Una estrategia de \textbf{reconexión automática}: el identificador del último dispositivo conectado se persiste localmente; si la aplicación detecta, al volver a primer plano, que no hay conexión activa, que la desconexión no fue solicitada explícitamente por el usuario, y que existe un dispositivo recordado, se reintenta la conexión con un esquema de espera creciente (2, 5 y 10 segundos).
+\end{itemize}
+
+\subsection{Detección de pasos}
+El algoritmo de detección de pasos analiza la señal de presión máxima entre los doce sensores FSR en cada paquete recibido. La primera implementación empleaba un umbral absoluto sobre el nivel de presión normalizado. Un proceso de depuración basado en registros del dispositivo reveló que esta aproximación era incorrecta: los sensores FSR, debido al propio montaje mecánico de la plantilla, no parten de un valor de reposo cercano a cero, sino de una precarga constante (en las pruebas realizadas, en torno al 17\,\% del rango normalizado), por lo que cualquier umbral absoluto quedaba permanentemente por debajo o por encima de dicho nivel de reposo, dependiendo del caso, impidiendo la detección. La solución adoptada sustituye el umbral absoluto por una \textbf{detección basada en el incremento relativo} (\textit{delta}) entre lecturas consecutivas de presión máxima, independiente del nivel de reposo mecánico de cada sensor concreto.
+
+Un segundo problema, relacionado con el anterior, se detectó en la gestión del ciclo de vida de la aplicación: la referencia de presión empleada por el detector se reiniciaba en cada reanudación de la aplicación (por ejemplo, al desbloquear la pantalla del teléfono), y no únicamente ante una reconexión Bluetooth genuina, perdiendo la referencia de pico a mitad de una zancada. La solución final vincula el reinicio de dicha referencia exclusivamente a las transiciones reales de estado de la conexión BLE (de desconectado a conectado), en lugar de al ciclo de vida de la interfaz de usuario.
+
+\subsection{Historial local de pasos}
+Para permitir la consulta del historial de pasos sin depender de la disponibilidad del \textit{broker} MQTT ni de la plataforma en la nube, se ha incorporado una base de datos SQLite embebida (mediante el paquete \texttt{sqflite}), con una tabla que acumula el número de pasos detectados por día. Cada paso detectado incrementa de forma asíncrona el contador del día en curso; al iniciar la aplicación, el contador de pasos mostrado en pantalla se inicializa con el valor ya almacenado para el día actual, evitando que un reinicio de la aplicación reinicie visualmente el progreso del usuario. Una pantalla de historial dedicada muestra un gráfico de barras (implementado mediante un \texttt{CustomPainter}, sin dependencias externas de gráficos, en línea con el resto de visualizaciones de la aplicación) con los pasos registrados en los últimos siete días.
+
+\section{Plataforma en la nube}
+
+De forma complementaria al almacenamiento local, la aplicación publica los datos recibidos a un \textit{broker} MQTT público (\texttt{broker.emqx.io}) mediante el paquete \texttt{mqtt\_client}, con reconexión automática y codificación de los mensajes en formato JSON. Desde el \textit{broker}, y según lo descrito por el propio flujo de datos del proyecto, los mensajes se destinan a una base de datos PostgreSQL para su almacenamiento persistente a largo plazo y a un panel Grafana para su visualización histórica, completando así la cadena de datos IoT de extremo a extremo, desde el sensor físico hasta el análisis en la nube.
+
+\end{IAtext}

@@ -24,8 +24,62 @@
     \end{itemize}
 \end{itemize}
 
-\textbf{= OLD =}
+\begin{IAtext}
 
+\section{Introducción al tema}
+
+La marcha humana es un proceso biomecánico complejo en el que intervienen de forma coordinada el sistema musculoesquelético, el sistema nervioso y el equilibrio dinámico del cuerpo. El estudio de este proceso, conocido como análisis de la pisada o análisis de la marcha, tiene aplicaciones que van desde la detección temprana de patologías como el pie diabético, el Parkinson o alteraciones ortopédicas, hasta la optimización del rendimiento deportivo y la prevención de lesiones. Tradicionalmente, este análisis se ha realizado mediante plataformas de presión de laboratorio o sistemas de captura de movimiento por cámaras, equipos de coste elevado y de uso exclusivo en entornos clínicos o deportivos especializados.
+
+Este Trabajo de Fin de Grado nace de la pregunta de si es posible construir, con componentes electrónicos de bajo coste y técnicas de fabricación aditiva accesibles, un dispositivo portátil capaz de capturar de forma sincronizada presión plantar, temperatura superficial y datos inerciales del pie durante la marcha, y transmitir esa información en tiempo real a una aplicación móvil capaz de visualizarla, almacenarla y ponerla a disposición de un usuario no especializado. En otras palabras, el trabajo explora hasta qué punto es viable democratizar el análisis dinámico de la pisada, sacándolo del laboratorio y llevándolo al propio calzado del usuario.
+
+\section{Contextualización}
+
+El proyecto se enmarca en el auge de los dispositivos \textit{wearables} y la Internet de las Cosas (IoT) aplicada a la salud y al deporte. La proliferación de microcontroladores de bajo consumo con conectividad inalámbrica integrada (como la familia ESP32), de sensores MEMS de bajo coste (unidades de medición inercial, sensores de fuerza resistiva, termorresistencias) y de protocolos de comunicación de baja energía como Bluetooth Low Energy (BLE), ha reducido drásticamente la barrera de entrada para desarrollar sistemas de monitorización fisiológica portátiles. Al mismo tiempo, la impresión 3D ha permitido fabricar estructuras mecánicas personalizadas —en este caso, una plantilla y una tobillera— sin necesidad de moldes ni procesos de fabricación industrial, lo que resulta especialmente adecuado para un desarrollo académico como el presente TFG.
+
+El sistema desarrollado en este trabajo se apoya en tres pilares tecnológicos: (1) un dispositivo de adquisición basado en un microcontrolador ESP32-S3 que recoge datos de 12 sensores de fuerza resistiva, 4 termorresistencias y una IMU de 9 grados de libertad, transmitiéndolos mediante NimBLE; (2) una aplicación móvil desarrollada en Flutter que decodifica, calibra, visualiza y almacena localmente dichos datos; y (3) una plataforma de análisis en la nube compuesta por un \textit{broker} MQTT, una base de datos PostgreSQL y un panel de visualización en Grafana.
+
+\section{Motivación}
+
+La motivación de este trabajo surge de una carencia detectada en las soluciones existentes: no hay, en el mercado actual, un dispositivo que combine simultáneamente portabilidad total (sin depender de tobilleras u ortesis adicionales más allá del propio soporte electrónico), autonomía de funcionamiento (sin necesidad de conexión a una plataforma externa para operar) y un coste de materiales reducido. Las plataformas de laboratorio son precisas pero inmóviles y caras; las plantillas médicas dependen de equipamiento ortopédico adicional; las soluciones deportivas de gama alta son autónomas y portátiles, pero inaccesibles económicamente para el usuario particular o para un centro de rehabilitación con recursos limitados.
+
+Durante el propio desarrollo del proyecto se puso de manifiesto la relevancia práctica de otra motivación menos evidente a priori: la separación entre la adquisición de datos crudos y su interpretación. Un fondo de escala de calibración mal ajustado en el firmware, indetectable durante buena parte de las pruebas, provocó lecturas de presión físicamente imposibles que exigieron un proceso de depuración significativo. Esta experiencia motivó una decisión de diseño central del proyecto: el microcontrolador debe transmitir exclusivamente datos RAW (cuentas del convertidor analógico-digital y registros de la IMU sin convertir), trasladando toda la lógica de calibración a la aplicación móvil, que es mucho más rápida de modificar, probar y desplegar que el firmware embebido.
+
+La relevancia del proyecto en el contexto actual es doble: por un lado, se alinea con la tendencia creciente hacia la telemedicina y la monitorización continua de pacientes fuera del entorno clínico; por otro, sirve como caso de estudio integral de un sistema IoT de extremo a extremo, desde el sensor físico hasta la visualización en la nube, pasando por la comunicación inalámbrica de bajo consumo, el diseño mecánico y el desarrollo de aplicaciones móviles multiplataforma.
+
+\section{Objetivos}
+
+\subsection{Objetivo general}
+
+Diseñar, desarrollar y validar un sistema portátil y autónomo de análisis dinámico de la pisada, compuesto por un dispositivo de adquisición basado en ESP32-S3 y una aplicación móvil, capaz de capturar, transmitir, visualizar y almacenar de forma local el historial de datos biomecánicos de la marcha de un usuario.
+
+\subsection{Objetivos específicos}
+
+\begin{itemize}
+    \item Diseñar e implementar un dispositivo de adquisición de datos compuesto por 12 sensores de fuerza resistiva, 4 termorresistencias y una IMU de 9 grados de libertad, integrado en una plantilla y una tobillera impresas en 3D.
+    \item Desarrollar el firmware del microcontrolador ESP32-S3 responsable de la lectura de los sensores mediante convertidores analógico-digitales ADS1115 y de la IMU LSM9DS1, y de la transmisión de dichos datos en tiempo real mediante un protocolo BLE propio.
+    \item Garantizar que los datos transmitidos por el dispositivo sean siempre datos RAW, sin conversión a unidades físicas, delegando la calibración a la capa de aplicación para facilitar su mantenimiento y ajuste.
+    \item Optimizar el consumo energético del firmware mediante gestión dinámica de frecuencia de CPU, modos de bajo consumo del subsistema Bluetooth y una arquitectura de tareas dirigida por eventos.
+    \item Desarrollar una aplicación móvil multiplataforma (Flutter) capaz de conectarse al dispositivo, decodificar y calibrar los datos recibidos, y visualizarlos mediante mapas de calor de presión plantar y un horizonte artificial que represente la orientación del pie.
+    \item Garantizar la persistencia de la conexión Bluetooth cuando la aplicación pasa a segundo plano, así como la reconexión automática tras una pérdida de conexión.
+    \item Implementar persistencia local del historial de pasos del usuario, de forma que pueda consultarse sin depender de la disponibilidad de la plataforma en la nube.
+    \item Diseñar e implementar un algoritmo de detección de pasos robusto frente a variaciones en la línea base mecánica de los sensores de presión.
+    \item Integrar el sistema con una plataforma IoT en la nube (MQTT, PostgreSQL, Grafana) para el análisis y la visualización histórica de los datos.
+\end{itemize}
+
+\subsection{Pregunta de investigación}
+
+¿Es posible construir, con componentes electrónicos de bajo coste y fabricación aditiva, un sistema portátil de análisis dinámico de la pisada que ofrezca una experiencia de uso robusta —persistencia de la conexión en segundo plano, historial local de datos y bajo consumo energético— comparable a la de soluciones comerciales de gama alta, manteniendo un coste de materiales sustancialmente inferior?
+
+\section{Estructura del manuscrito}
+
+El resto de este documento se organiza como sigue. El \textbf{Capítulo 2} describe la metodología de trabajo seguida y la planificación temporal del proyecto. El \textbf{Capítulo 3} presenta el estado del arte en análisis de la pisada, dispositivos \textit{wearables} y las tecnologías empleadas en el desarrollo. El \textbf{Capítulo 4} constituye el núcleo del trabajo, detallando el desarrollo del hardware, el firmware del ESP32-S3, el protocolo de comunicación BLE y la aplicación móvil. El \textbf{Capítulo 5} recoge los resultados obtenidos y su discusión. El \textbf{Capítulo 6} reflexiona sobre los Objetivos de Desarrollo Sostenible relacionados con el proyecto y su impacto social. Finalmente, el \textbf{Capítulo 7} presenta las conclusiones del trabajo y las líneas futuras de desarrollo.
+
+\end{IAtext}
+
+% Bloque de instrucciones original de la plantilla, conservado deshabilitado
+% (\iffalse ... \fi) como referencia de formato; no forma parte del
+% contenido final de la memoria.
+\iffalse
 
 Esta plantilla muestra la estructura básica de la memoria final del TFG, así como algunas instrucciones de formato.
 
@@ -134,3 +188,4 @@ int main() {
     return 0;
 }
 \end{lstlisting}
+\fi
