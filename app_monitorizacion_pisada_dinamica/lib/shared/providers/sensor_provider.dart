@@ -110,6 +110,15 @@ class SensorDataNotifier extends StateNotifier<SensorData>
 
     if (!mounted) return;
 
+    // El MQTT es independiente de si hay un ESP32-S3 conectado por BLE o
+    // no: se conecta una vez al arrancar la app y se queda intentando
+    // reconectar solo (ver MqttService._scheduleReconnect). Antes solo se
+    // conectaba dentro de DeviceNotifier.connectTo(), tras un emparejamiento
+    // BLE real -- por eso en modo "datos simulados" nunca se publicaba nada.
+    _ref.read(mqttServiceProvider).connect('mqtt_web_client').catchError((e) {
+      debugPrint('[MQTT] Error al conectar: $e');
+    });
+
     _ref.listen<bool>(useFakeDataProvider, (_, useFake) {
       _restartFlow();
     });
@@ -158,7 +167,12 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   }
 
   void _publishAll(SensorData data) {
-    final rawDeviceId = _ref.read(deviceProvider).deviceId ?? "unknown";
+    // Datos simulados -> topic "test" fijo, para poder probar el pipeline
+    // MQTT/backend sin tener el ESP32-S3 conectado. Datos reales -> el id
+    // (MAC) del dispositivo BLE conectado.
+    final useFake = _ref.read(useFakeDataProvider);
+    final rawDeviceId =
+        useFake ? "test" : (_ref.read(deviceProvider).deviceId ?? "unknown");
     final topicDeviceId = rawDeviceId.replaceAll(':', '');
 
     _publish(

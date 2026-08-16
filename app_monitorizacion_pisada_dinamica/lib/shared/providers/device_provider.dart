@@ -266,9 +266,6 @@ class DeviceNotifier extends StateNotifier<DeviceInfo>
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_kLastDeviceId, result.id);
       await prefs.setString(_kLastDeviceName, result.name);
-
-      final mqtt = _ref.read(mqttServiceProvider);
-      await mqtt.connect(result.id);
     } catch (e) {
       state = DeviceInfo(
         status: DeviceStatus.disconnected,
@@ -285,13 +282,13 @@ class DeviceNotifier extends StateNotifier<DeviceInfo>
   }
 
   Future<void> disconnect() async {
+    // El MQTT no se toca aqui: es independiente de la sesion BLE (ver
+    // sensor_provider.dart), sigue conectado publicando datos simulados
+    // si el usuario esta en modo demo aunque no haya ningun ESP32-S3.
     _userDisconnected = true;
     _reconnectTimer?.cancel();
 
     try {
-      final mqtt = _ref.read(mqttServiceProvider);
-      mqtt.disconnect();
-
       await ForegroundBleService.stop();
       await _ble.disconnect();
     } catch (_) {}

@@ -1,21 +1,35 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 import 'package:mqtt_client/mqtt_client.dart' as mqtt;
-import 'package:mqtt_client/mqtt_server_client.dart';
+import 'mqtt_platform_io.dart'
+    if (dart.library.js_interop) 'mqtt_platform_web.dart';
+
+// Broker publico EMQX, sobre WebSocket seguro (wss, puerto 8084, path
+// /mqtt). Se usa WebSocket -- en vez del puerto TCP directo 1883 -- porque
+// Flutter Web no tiene sockets TCP (dart:io no existe en el navegador), asi
+// el mismo MqttService sirve tanto para movil/escritorio como para un build
+// web usado para generar datos simulados sin el ESP32-S3 conectado.
+const _kMqttServer = 'wss://broker.emqx.io/mqtt';
+const _kMqttPort = 8084;
 
 class MqttService {
-  late MqttServerClient _client;
+  late mqtt.MqttClient _client;
   bool _connected = false;
   String? _clientId;
 
   Timer? _reconnectTimer;
 
-  Future<void> connect(String clientId) async {
+  Future<void> connect(String clientIdPrefix) async {
+    // El Client ID debe ser unico por broker: con un prefijo fijo, dos
+    // sesiones conectadas a la vez (p.ej. el movil real y un build de
+    // pruebas en el navegador) hacen que el broker desconecte en
+    // silencio a la que ya estaba conectada.
+    final clientId =
+        '${clientIdPrefix}_${Random().nextInt(0xFFFFFF).toRadixString(16)}';
     _clientId = clientId;
 
-    _client = MqttServerClient('broker.emqx.io', clientId);
-    _client.port = 1883;
-    _client.secure = false;
+    _client = createPlatformMqttClient(_kMqttServer, clientId, _kMqttPort);
     _client.keepAlivePeriod = 20;
     _client.logging(on: false);
 
@@ -41,7 +55,7 @@ class MqttService {
 
   Future<void> _tryConnect() async {
     try {
-      print("[MQTT] Intentando conectar a EMQX...");
+      print("[MQTT] Intentando conectar a EMQX ($_kMqttServer:$_kMqttPort)...");
       await _client.connect();
 
       final status = _client.connectionStatus;
@@ -158,7 +172,7 @@ class MqttService {
       return;
     }
 
-    publish("miapp/test", {
+    publish("flutter_pisada/test/manual_test", {
       "device_id": _clientId,
       "msg": "hola desde flutter",
       "timestamp": DateTime.now().toIso8601String(),
