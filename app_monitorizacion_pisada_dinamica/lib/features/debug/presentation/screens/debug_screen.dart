@@ -47,11 +47,12 @@ class DebugScreen extends ConsumerWidget {
 
             const SizedBox(height: 16),
 
-            _DebugGroup(title: 'FSR (Presión plantar)', children: [
+            _DebugGroup(title: 'FSR (Presión plantar, normalizado + % relativo)', children: [
               for (int i = 0; i < data.fsr.length; i++)
                 _DebugRow(
                     label: 'FSR${i + 1}',
-                    value: data.fsr[i].toStringAsFixed(3)),
+                    value: '${data.fsr[i].toStringAsFixed(3)}  ·  '
+                        '${data.relativePercent[i].toStringAsFixed(1)}%'),
             ]),
 
             const SizedBox(height: 12),

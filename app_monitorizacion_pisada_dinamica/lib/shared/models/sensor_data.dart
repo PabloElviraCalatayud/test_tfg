@@ -50,6 +50,24 @@ class SensorData {
     return mx == mn ? mn + 0.1 : mx; // prevent division by zero
   }
 
+  /// Reparto relativo de la presión entre los 12 sensores FSR, en % del
+  /// peso total detectado en este instante (suma siempre <= 100%, nunca
+  /// se excede). Con sensores de bajo coste como estos, un valor absoluto
+  /// (gramos) no es fiable entre sensores -- el reparto relativo si es
+  /// interpretable ("el sensor 7 se lleva el 18% de tu peso al pisar") y
+  /// no depende de la calibración exacta de cada unidad.
+  ///
+  /// OJO: es un valor derivado solo para mostrar en pantalla. La detección
+  /// de pasos y el centro de presión siguen usando `fsr` (normalizado por
+  /// el fondo de escala fijo), no este getter, para no romper su ajuste ya
+  /// validado.
+  List<double> get relativePercent {
+    if (fsr.isEmpty) return const [];
+    final total = fsr.fold(0.0, (sum, v) => sum + v);
+    if (total <= 0) return List.filled(fsr.length, 0.0);
+    return fsr.map((v) => (v / total) * 100).toList();
+  }
+
   /// Pressure-weighted centre of pressure (x, y) in 0..1 space.
   /// x: medial(0) – lateral(1), y: heel(0) – toe(1)
   /// Debe coincidir con _fsrPositions en pressure_map_widget.dart (12 FSR reales).

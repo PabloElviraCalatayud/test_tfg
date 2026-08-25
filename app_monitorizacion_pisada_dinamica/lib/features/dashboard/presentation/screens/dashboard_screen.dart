@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../widgets/step_counter_widget.dart';
+import '../widgets/foot_balance_widget.dart';
 import '../widgets/pressure_map_widget.dart';
 import '../widgets/heat_map_widget.dart';
 import '../widgets/imu_widget.dart';
@@ -37,6 +38,10 @@ class DashboardScreen extends ConsumerWidget {
 
           // ── Cada widget ocupa el ancho completo ──────────────────────────
           const StepCounterWidget(),
+          const SizedBox(height: 12),
+          // Lectura en lenguaje llano ANTES que los mapas técnicos: es lo
+          // primero que un usuario no especializado necesita entender.
+          const FootBalanceWidget(),
           const SizedBox(height: 12),
           const PressureMapWidget(),
           const SizedBox(height: 12),

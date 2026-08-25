@@ -24,12 +24,78 @@ Color _pressureColor(double value) {
   return Color.lerp(colors[idx], colors[idx + 1], scaled - idx)!;
 }
 
-class PressureMapWidget extends ConsumerWidget {
+class PressureMapWidget extends ConsumerStatefulWidget {
   const PressureMapWidget({super.key});
+  @override
+  ConsumerState<PressureMapWidget> createState() => _PressureMapWidgetState();
+}
+
+class _PressureMapWidgetState extends ConsumerState<PressureMapWidget> {
+  OverlayEntry? _tooltip;
+
+  // Mismo patron de tooltip por toque que HeatMapWidget, para que tocar un
+  // nodo numerado diga en % (no en gramos crudos, poco fiables con estos
+  // sensores) cuanto peso relativo se lleva ese sensor concreto.
+  void _showTooltip(
+      BuildContext context,
+      Offset globalPos,
+      int nodeNumber,
+      double percent,
+      ) {
+    _removeTooltip();
+    _tooltip = OverlayEntry(
+      builder: (_) => Positioned(
+        left: (globalPos.dx - 60)
+            .clamp(8.0, MediaQuery.of(context).size.width - 130),
+        top: (globalPos.dy - 64).clamp(8.0, double.infinity),
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+            decoration: BoxDecoration(
+              color: AppColors.bgCardAlt,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: AppColors.accent.withOpacity(0.3)),
+              boxShadow: [
+                BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 10),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Sensor $nodeNumber',
+                    style: const TextStyle(
+                        color: AppColors.textSecondary, fontSize: 10)),
+                Text('${percent.toStringAsFixed(0)}% del peso',
+                    style: const TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+    Overlay.of(context).insert(_tooltip!);
+    Future.delayed(const Duration(seconds: 2), _removeTooltip);
+  }
+
+  void _removeTooltip() {
+    _tooltip?.remove();
+    _tooltip = null;
+  }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  void dispose() {
+    _removeTooltip();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final data = ref.watch(sensorDataProvider);
+    final percents = data.relativePercent;
 
     return Container(
       width: double.infinity,
@@ -51,18 +117,52 @@ class PressureMapWidget extends ConsumerWidget {
               letterSpacing: 1.5,
             ),
           ),
+          const SizedBox(height: 4),
+          const Text(
+            'Toca un número para ver su % de peso',
+            style: TextStyle(color: AppColors.textDisabled, fontSize: 10),
+          ),
           const SizedBox(height: 8),
           _PressureLegend(),
           const SizedBox(height: 8),
           AspectRatio(
             aspectRatio: 0.52,
-            child: CustomPaint(
-              painter: _FootPressurePainter(
-                fsrValues: data.fsr,
-                copX: data.centerOfPressure.$1,
-                copY: data.centerOfPressure.$2,
-              ),
-            ),
+            child: LayoutBuilder(builder: (context, constraints) {
+              final w = constraints.maxWidth;
+              final h = constraints.maxHeight;
+              return Stack(
+                children: [
+                  CustomPaint(
+                    size: Size(w, h),
+                    painter: _FootPressurePainter(
+                      fsrValues: data.fsr,
+                      copX: data.centerOfPressure.$1,
+                      copY: data.centerOfPressure.$2,
+                    ),
+                  ),
+
+                  // Zonas táctiles por sensor (encima del mapa).
+                  for (int i = 0;
+                      i < _fsrPositions.length && i < percents.length;
+                      i++)
+                    Positioned(
+                      left: _fsrPositions[i].$1 * w - 22,
+                      top: (1 - _fsrPositions[i].$2) * h - 22,
+                      child: GestureDetector(
+                        onTapDown: (_) {
+                          final box = context.findRenderObject() as RenderBox;
+                          final global = box.localToGlobal(Offset(
+                            _fsrPositions[i].$1 * w,
+                            (1 - _fsrPositions[i].$2) * h,
+                          ));
+                          _showTooltip(context, global, i + 1, percents[i]);
+                        },
+                        child: const SizedBox(width: 44, height: 44),
+                      ),
+                    ),
+                ],
+              );
+            }),
           ),
         ],
       ),

@@ -204,7 +204,7 @@ class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
                                 h,
                           ));
                           _showTooltip(context, global,
-                              _thermistorLabels[i], temps[i]);
+                              '${i + 1} · ${_thermistorLabels[i]}', temps[i]);
                         },
                         child: const SizedBox(
                             width: 44, height: 44),
@@ -373,6 +373,10 @@ class _ThermalPainter extends CustomPainter {
         5,
         Paint()..color = color,
       );
+
+      // Numero de nodo (1-4), para poder identificar cada termistor
+      // fisico -- mismo criterio que los 12 nodos FSR del mapa de presion.
+      _drawNodeNumber(canvas, Offset(px, py), i + 1);
     }
 
     canvas.restore(); // ← quita el clip
@@ -385,6 +389,26 @@ class _ThermalPainter extends CustomPainter {
         ..style      = PaintingStyle.stroke
         ..strokeWidth = 1.5,
     );
+  }
+
+  void _drawNodeNumber(Canvas canvas, Offset pos, int number) {
+    final tp = TextPainter(
+      text: TextSpan(
+        text: '$number',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 9,
+          fontWeight: FontWeight.w700,
+          shadows: [Shadow(color: Colors.black87, blurRadius: 3)],
+        ),
+      ),
+      textDirection: TextDirection.ltr,
+    )..layout();
+
+    // Numero desplazado justo encima del punto para no taparlo -- los
+    // puntos termicos son mas pequenos que los blobs de presion y no hay
+    // sitio para centrar el texto encima sin que quede ilegible.
+    tp.paint(canvas, pos - Offset(tp.width / 2, tp.height + 6));
   }
 
   @override
