@@ -5,19 +5,16 @@ import 'package:mqtt_client/mqtt_client.dart' as mqtt;
 import 'mqtt_platform_io.dart'
     if (dart.library.js_interop) 'mqtt_platform_web.dart';
 
-// Broker publico EMQX, sobre WebSocket plano (ws, puerto 8083, path /mqtt).
-// Se usa WebSocket -- en vez del puerto TCP directo 1883 -- porque Flutter
-// Web no tiene sockets TCP (dart:io no existe en el navegador), asi el mismo
-// MqttService sirve tanto para movil/escritorio como para un build web usado
-// para generar datos simulados sin el ESP32-S3 conectado.
-//
-// TEMPORAL: se bajo de wss/8084 a ws/8083 (sin TLS) para descartar que un
-// proxy universitario con inspeccion/terminacion TLS este rompiendo el
-// framing del WebSocket a medio camino del handshake SUBSCRIBE/SUBACK.
-// Si esto arregla la suscripcion en MQTTX, confirma que el problema era el
-// TLS intermedio; si se quiere volver a wss, revertir a 'wss://.../mqtt' + 8084.
-const _kMqttServer = 'ws://broker.emqx.io/mqtt';
-const _kMqttPort = 8083;
+// Broker publico EMQX, sobre WebSocket seguro (wss, puerto 8084, path
+// /mqtt). Wss es obligatorio (requisito de red de la universidad -- el
+// trafico tiene que ir cifrado), asi que no se contempla bajar a ws/8083
+// aunque fuera util como diagnostico. Se usa WebSocket -- en vez del
+// puerto TCP directo 1883 -- porque Flutter Web no tiene sockets TCP
+// (dart:io no existe en el navegador), asi el mismo MqttService sirve
+// tanto para movil/escritorio como para un build web usado para generar
+// datos simulados sin el ESP32-S3 conectado.
+const _kMqttServer = 'wss://broker.emqx.io/mqtt';
+const _kMqttPort = 8084;
 
 class MqttService {
   late mqtt.MqttClient _client;
