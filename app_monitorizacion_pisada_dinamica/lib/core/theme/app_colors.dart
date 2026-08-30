@@ -29,16 +29,23 @@ class AppColors {
   // Divider
   static const Color divider = Color(0xFF2E2E38);
 
-  // Pressure map gradient
+  // Pressure map gradient. Antes era un arcoíris tipo "jet" (azul-verde-
+  // amarillo-rojo con tonos primarios muy saturados), un tipo de gradiente
+  // que en visualización de datos se evita precisamente porque no es
+  // perceptualmente uniforme (crea bandas/fronteras falsas) y resulta
+  // visualmente chillón. Esta progresión es monótona en intensidad
+  // percibida (frío/calma -> cálido/intenso) y usa los mismos tonos ya
+  // presentes en el resto de la app (accent, success, warning, danger),
+  // así que el mapa de presión se lee con el mismo lenguaje de color que
+  // el resto de la interfaz en vez de uno ajeno.
   static const List<Color> pressureGradient = [
-    Color(0xFF0A1628), // no pressure
-    Color(0xFF1A3A6E),
-    Color(0xFF0077FF),
-    Color(0xFF00C8FF),
-    Color(0xFF00FF88),
-    Color(0xFFFFFF00),
-    Color(0xFFFF8800),
-    Color(0xFFFF2200), // max pressure
+    Color(0xFF12263A), // sin apenas presión
+    Color(0xFF1B4B91),
+    Color(0xFF1C8C9C), // cerca de accent
+    Color(0xFF4FAE64), // cerca de success
+    Color(0xFFE0B23D),
+    Color(0xFFE8783C), // cerca de warning
+    Color(0xFFD64550), // max presión, cerca de danger
   ];
 
   // Heat map gradient (thermal)

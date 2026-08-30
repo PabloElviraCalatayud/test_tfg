@@ -74,8 +74,6 @@ class _PressureMapWidgetState extends ConsumerState<PressureMapWidget> {
             style: TextStyle(color: AppColors.textDisabled, fontSize: 10),
           ),
           const SizedBox(height: 8),
-          _PressureLegend(),
-          const SizedBox(height: 8),
           AspectRatio(
             aspectRatio: 0.52,
             child: LayoutBuilder(builder: (context, constraints) {
@@ -109,6 +107,8 @@ class _PressureMapWidgetState extends ConsumerState<PressureMapWidget> {
               );
             }),
           ),
+          const SizedBox(height: 8),
+          _PressureLegend(),
           const SizedBox(height: 10),
           _SelectedReadout(
             label: _selected == null ? null : 'Sensor ${_selected! + 1}',

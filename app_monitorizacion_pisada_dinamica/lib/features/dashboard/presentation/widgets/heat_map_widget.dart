@@ -162,23 +162,6 @@ class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
               );
             }),
           ),
-          const SizedBox(height: 10),
-          _SelectedReadout(
-            label: _selected == null
-                ? null
-                : '${_selected! + 1} · ${_thermistorLabels[_selected!]}',
-            temp: _selected == null || _selected! >= temps.length
-                ? null
-                : temps[_selected!],
-            zonePercent: _selected == null
-                ? null
-                : _thermistorZoneFsrIndices[_selected!].fold<double>(
-                    0,
-                    (s, idx) => idx < data.relativePercent.length
-                        ? s + data.relativePercent[idx]
-                        : s,
-                  ),
-          ),
           const SizedBox(height: 8),
 
           // ── Leyenda de temperatura ────────────────────────────────────
@@ -203,6 +186,23 @@ class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
                   style: const TextStyle(
                       color: AppColors.textDisabled, fontSize: 9)),
             ],
+          ),
+          const SizedBox(height: 10),
+          _SelectedReadout(
+            label: _selected == null
+                ? null
+                : '${_selected! + 1} · ${_thermistorLabels[_selected!]}',
+            temp: _selected == null || _selected! >= temps.length
+                ? null
+                : temps[_selected!],
+            zonePercent: _selected == null
+                ? null
+                : _thermistorZoneFsrIndices[_selected!].fold<double>(
+                    0,
+                    (s, idx) => idx < data.relativePercent.length
+                        ? s + data.relativePercent[idx]
+                        : s,
+                  ),
           ),
         ],
       ),
