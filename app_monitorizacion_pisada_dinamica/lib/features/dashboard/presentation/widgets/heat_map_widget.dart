@@ -49,73 +49,12 @@ class HeatMapWidget extends ConsumerStatefulWidget {
 }
 
 class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
-  OverlayEntry? _tooltip;
-
-  void _showTooltip(
-      BuildContext context,
-      Offset globalPos,
-      String label,
-      double temp,
-      double zonePercent,
-      ) {
-    _removeTooltip();
-    _tooltip = OverlayEntry(
-      builder: (_) => Positioned(
-        left: (globalPos.dx - 60)
-            .clamp(8.0, MediaQuery.of(context).size.width - 130),
-        top: (globalPos.dy - 64).clamp(8.0, double.infinity),
-        child: Material(
-          color: Colors.transparent,
-          child: Container(
-            padding:
-            const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-            decoration: BoxDecoration(
-              color: AppColors.bgCardAlt,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(
-                  color: AppColors.accent.withOpacity(0.3)),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    blurRadius: 10)
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(label,
-                    style: const TextStyle(
-                        color: AppColors.textSecondary, fontSize: 10)),
-                Text('${temp.toStringAsFixed(1)} °C',
-                    style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600)),
-                Text('${zonePercent.toStringAsFixed(0)}% del peso en la zona',
-                    style: const TextStyle(
-                        color: AppColors.accent,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600)),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-    Overlay.of(context).insert(_tooltip!);
-    Future.delayed(const Duration(seconds: 2), _removeTooltip);
-  }
-
-  void _removeTooltip() {
-    _tooltip?.remove();
-    _tooltip = null;
-  }
-
-  @override
-  void dispose() {
-    _removeTooltip();
-    super.dispose();
-  }
+  // Igual que en PressureMapWidget: antes esto era un OverlayEntry
+  // posicionado a mano con context.findRenderObject()+localToGlobal sobre
+  // el RenderBox de TODA la tarjeta (no el del mapa), asi que el aviso
+  // podia salir desplazado fuera de sitio y desaparecer a los 2s sin que
+  // se llegase a ver. Un panel fijo en el layout no puede des-posicionarse.
+  int? _selected;
 
   @override
   Widget build(BuildContext context) {
@@ -213,20 +152,8 @@ class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
                           h -
                           22,
                       child: GestureDetector(
-                        onTapDown: (_) {
-                          final box = context.findRenderObject()
-                          as RenderBox;
-                          final global = box.localToGlobal(Offset(
-                            _thermistorPositions[i].$1 * w,
-                            (1 - _thermistorPositions[i].$2) *
-                                h,
-                          ));
-                          final pct = data.relativePercent;
-                          final zonePercent = _thermistorZoneFsrIndices[i]
-                              .fold<double>(0, (s, idx) => idx < pct.length ? s + pct[idx] : s);
-                          _showTooltip(context, global,
-                              '${i + 1} · ${_thermistorLabels[i]}', temps[i], zonePercent);
-                        },
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => setState(() => _selected = i),
                         child: const SizedBox(
                             width: 44, height: 44),
                       ),
@@ -234,6 +161,23 @@ class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
                 ],
               );
             }),
+          ),
+          const SizedBox(height: 10),
+          _SelectedReadout(
+            label: _selected == null
+                ? null
+                : '${_selected! + 1} · ${_thermistorLabels[_selected!]}',
+            temp: _selected == null || _selected! >= temps.length
+                ? null
+                : temps[_selected!],
+            zonePercent: _selected == null
+                ? null
+                : _thermistorZoneFsrIndices[_selected!].fold<double>(
+                    0,
+                    (s, idx) => idx < data.relativePercent.length
+                        ? s + data.relativePercent[idx]
+                        : s,
+                  ),
           ),
           const SizedBox(height: 8),
 
@@ -262,6 +206,59 @@ class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Panel fijo (siempre en el mismo sitio del layout) con el ultimo
+/// termistor tocado: temperatura y % de peso que soporta esa misma zona.
+class _SelectedReadout extends StatelessWidget {
+  final String? label;
+  final double? temp;
+  final double? zonePercent;
+  const _SelectedReadout({
+    required this.label,
+    required this.temp,
+    required this.zonePercent,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final hasSelection = label != null && temp != null && zonePercent != null;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.bgCardAlt,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: hasSelection ? AppColors.accent.withOpacity(0.3) : AppColors.divider,
+        ),
+      ),
+      child: hasSelection
+          ? Row(
+              children: [
+                Text(label!,
+                    style: const TextStyle(
+                        color: AppColors.textSecondary, fontSize: 12)),
+                const Spacer(),
+                Text('${temp!.toStringAsFixed(1)} °C',
+                    style: const TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700)),
+                const SizedBox(width: 10),
+                Text('${zonePercent!.toStringAsFixed(0)}% del peso',
+                    style: const TextStyle(
+                        color: AppColors.accent,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700)),
+              ],
+            )
+          : const Text(
+              'Ningún termistor seleccionado',
+              style: TextStyle(color: AppColors.textDisabled, fontSize: 12),
+            ),
     );
   }
 }

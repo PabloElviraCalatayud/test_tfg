@@ -31,66 +31,17 @@ class PressureMapWidget extends ConsumerStatefulWidget {
 }
 
 class _PressureMapWidgetState extends ConsumerState<PressureMapWidget> {
-  OverlayEntry? _tooltip;
-
-  // Mismo patron de tooltip por toque que HeatMapWidget, para que tocar un
-  // nodo numerado diga en % (no en gramos crudos, poco fiables con estos
-  // sensores) cuanto peso relativo se lleva ese sensor concreto.
-  void _showTooltip(
-      BuildContext context,
-      Offset globalPos,
-      int nodeNumber,
-      double percent,
-      ) {
-    _removeTooltip();
-    _tooltip = OverlayEntry(
-      builder: (_) => Positioned(
-        left: (globalPos.dx - 60)
-            .clamp(8.0, MediaQuery.of(context).size.width - 130),
-        top: (globalPos.dy - 64).clamp(8.0, double.infinity),
-        child: Material(
-          color: Colors.transparent,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-            decoration: BoxDecoration(
-              color: AppColors.bgCardAlt,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: AppColors.accent.withOpacity(0.3)),
-              boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 10),
-              ],
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Sensor $nodeNumber',
-                    style: const TextStyle(
-                        color: AppColors.textSecondary, fontSize: 10)),
-                Text('${percent.toStringAsFixed(0)}% del peso',
-                    style: const TextStyle(
-                        color: AppColors.textPrimary,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600)),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-    Overlay.of(context).insert(_tooltip!);
-    Future.delayed(const Duration(seconds: 2), _removeTooltip);
-  }
-
-  void _removeTooltip() {
-    _tooltip?.remove();
-    _tooltip = null;
-  }
-
-  @override
-  void dispose() {
-    _removeTooltip();
-    super.dispose();
-  }
+  // Indice del nodo tocado, o null si no se ha tocado ninguno todavia.
+  //
+  // Antes esto se mostraba en un OverlayEntry flotante posicionado a mano
+  // con context.findRenderObject()+localToGlobal -- pero ese RenderBox era
+  // el de TODA la tarjeta (cabecera + leyenda + mapa), no el del mapa en
+  // si, asi que la posicion calculada quedaba desplazada por la altura de
+  // la cabecera y el aviso podia aparecer fuera de la vista o detras de
+  // otro contenido, desapareciendo a los 2s sin que se llegase a ver. Un
+  // panel fijo dentro del propio Column no depende de ningun calculo de
+  // coordenadas: no puede des-posicionarse, y no desaparece solo.
+  int? _selected;
 
   @override
   Widget build(BuildContext context) {
@@ -149,14 +100,8 @@ class _PressureMapWidgetState extends ConsumerState<PressureMapWidget> {
                       left: _fsrPositions[i].$1 * w - 22,
                       top: (1 - _fsrPositions[i].$2) * h - 22,
                       child: GestureDetector(
-                        onTapDown: (_) {
-                          final box = context.findRenderObject() as RenderBox;
-                          final global = box.localToGlobal(Offset(
-                            _fsrPositions[i].$1 * w,
-                            (1 - _fsrPositions[i].$2) * h,
-                          ));
-                          _showTooltip(context, global, i + 1, percents[i]);
-                        },
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => setState(() => _selected = i),
                         child: const SizedBox(width: 44, height: 44),
                       ),
                     ),
@@ -164,8 +109,58 @@ class _PressureMapWidgetState extends ConsumerState<PressureMapWidget> {
               );
             }),
           ),
+          const SizedBox(height: 10),
+          _SelectedReadout(
+            label: _selected == null ? null : 'Sensor ${_selected! + 1}',
+            value: _selected == null
+                ? null
+                : '${percents[_selected!].toStringAsFixed(0)}% del peso',
+          ),
         ],
       ),
+    );
+  }
+}
+
+/// Panel fijo (siempre en el mismo sitio, dentro del layout normal) que
+/// muestra el ultimo nodo tocado. Cuando no hay ninguno seleccionado
+/// muestra una pista en vez de dejar un hueco en blanco que parezca roto.
+class _SelectedReadout extends StatelessWidget {
+  final String? label;
+  final String? value;
+  const _SelectedReadout({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    final hasSelection = label != null && value != null;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: AppColors.bgCardAlt,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(
+          color: hasSelection ? AppColors.accent.withOpacity(0.3) : AppColors.divider,
+        ),
+      ),
+      child: hasSelection
+          ? Row(
+              children: [
+                Text(label!,
+                    style: const TextStyle(
+                        color: AppColors.textSecondary, fontSize: 12)),
+                const Spacer(),
+                Text(value!,
+                    style: const TextStyle(
+                        color: AppColors.accent,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700)),
+              ],
+            )
+          : const Text(
+              'Ningún sensor seleccionado',
+              style: TextStyle(color: AppColors.textDisabled, fontSize: 12),
+            ),
     );
   }
 }
