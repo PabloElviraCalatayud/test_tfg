@@ -12,11 +12,13 @@ const List<String> _weekdayLabels = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 class MonthCalendarHeatmap extends StatelessWidget {
   final List<DailyStepEntry> entries; // desde el día 1 del mes hasta hoy
   final int goal;
+  final void Function(DateTime day)? onDayTap;
 
   const MonthCalendarHeatmap({
     super.key,
     required this.entries,
     required this.goal,
+    this.onDayTap,
   });
 
   Color _cellColor(int steps) {
@@ -60,6 +62,9 @@ class MonthCalendarHeatmap extends StatelessWidget {
           isToday: now.year == first.year &&
               now.month == first.month &&
               now.day == day,
+          onTap: onDayTap == null
+              ? null
+              : () => onDayTap!(DateTime(first.year, first.month, day)),
         ),
     ];
 
@@ -102,33 +107,38 @@ class _DayCell extends StatelessWidget {
   final bool hasData;
   final Color? color;
   final bool isToday;
+  final VoidCallback? onTap;
 
   const _DayCell({
     required this.day,
     required this.hasData,
     required this.color,
     required this.isToday,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: hasData ? color : Colors.transparent,
-        borderRadius: BorderRadius.circular(6),
-        border: isToday
-            ? Border.all(color: AppColors.accent, width: 1.5)
-            : (hasData
-                ? null
-                : Border.all(color: AppColors.divider, width: 1)),
-      ),
-      alignment: Alignment.center,
-      child: Text(
-        '$day',
-        style: TextStyle(
-          color: hasData ? Colors.white.withOpacity(0.9) : AppColors.textDisabled,
-          fontSize: 10,
-          fontWeight: isToday ? FontWeight.w800 : FontWeight.w500,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: hasData ? color : Colors.transparent,
+          borderRadius: BorderRadius.circular(6),
+          border: isToday
+              ? Border.all(color: AppColors.accent, width: 1.5)
+              : (hasData
+                  ? null
+                  : Border.all(color: AppColors.divider, width: 1)),
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          '$day',
+          style: TextStyle(
+            color: hasData ? Colors.white.withOpacity(0.9) : AppColors.textDisabled,
+            fontSize: 10,
+            fontWeight: isToday ? FontWeight.w800 : FontWeight.w500,
+          ),
         ),
       ),
     );

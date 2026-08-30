@@ -50,7 +50,7 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   int _stepCount = 0;
   bool _stepArmed = true;
 
-  int _detectSteps(List<double> fsr) {
+  int _detectSteps(List<double> fsr, List<double> temperature) {
     if (fsr.isEmpty) {
       debugPrint('[STEPS] fsr vacio, no se puede detectar nada');
       return _stepCount;
@@ -78,9 +78,19 @@ class SensorDataNotifier extends StateNotifier<SensorData>
       // Fire-and-forget: no bloquea el procesado del siguiente paquete BLE.
       // Solo pasos reales (datos BLE) se persisten -- _fakeTick() nunca
       // llama a _detectSteps, asi que el modo demo no contamina el historial.
-      _ref.read(historyServiceProvider).incrementToday(1).catchError((e) {
+      final history = _ref.read(historyServiceProvider);
+      history.incrementToday(1).catchError((e) {
         debugPrint('[STEPS] Error guardando en el historial: $e');
       });
+      // Trazabilidad: guarda con que reparto de FSR/temperatura se dio
+      // exactamente este paso, para poder consultarlo despues en el
+      // historial (ver dayStepEventsProvider).
+      history.recordStepEvent(fsr: fsr, temperature: temperature).catchError((e) {
+        debugPrint('[STEPS] Error guardando evento de paso: $e');
+      });
+      // Refresca el Historial en vivo si el usuario lo tiene abierto
+      // mientras camina -- si no, es un invalidate barato que no hace nada.
+      invalidateHistory(_ref);
     } else if (!_stepArmed && delta <= -_stepRiseThreshold) {
       _stepArmed = true;
       debugPrint('[STEPS] rearmado peak=${peak.toStringAsFixed(4)} '
@@ -266,7 +276,7 @@ class SensorDataNotifier extends StateNotifier<SensorData>
 
       if (packet is SensorPacket) {
         final goal = _ref.read(stepGoalProvider);
-        final newStepCount = _detectSteps(packet.data.fsr);
+        final newStepCount = _detectSteps(packet.data.fsr, packet.data.temperature);
 
         final newData = SensorData(
           fsr: packet.data.fsr,
