@@ -90,7 +90,7 @@ class SensorDataNotifier extends StateNotifier<SensorData>
       });
       // Refresca el Historial en vivo si el usuario lo tiene abierto
       // mientras camina -- si no, es un invalidate barato que no hace nada.
-      invalidateHistory(_ref);
+      invalidateHistory(_ref.invalidate);
     } else if (!_stepArmed && delta <= -_stepRiseThreshold) {
       _stepArmed = true;
       debugPrint('[STEPS] rearmado peak=${peak.toStringAsFixed(4)} '

@@ -114,9 +114,16 @@ final dayStepEventsProvider =
 /// historial. Se llama tras cada paso real detectado (para que la
 /// pantalla de Historial se actualice sola si está abierta mientras
 /// caminas) y tras generar/borrar datos de prueba desde Debug.
-void invalidateHistory(Ref ref) {
-  ref.invalidate(todayStepsProvider);
-  ref.invalidate(filteredStepsProvider);
-  ref.invalidate(calendarMonthStepsProvider);
-  ref.invalidate(dayStepEventsProvider);
+///
+/// Recibe el METODO `invalidate` en vez del objeto `ref` completo a
+/// proposito: `Ref` (dentro de providers) y `WidgetRef` (dentro de
+/// widgets) son tipos distintos en Riverpod, ninguno subtipo del otro,
+/// pero los dos exponen `invalidate(ProviderOrFamily)` con la misma
+/// firma -- pasando ese metodo (`ref.invalidate`) esta funcion sirve
+/// para los dos sin duplicar las llamadas en cada sitio donde se usa.
+void invalidateHistory(void Function(ProviderOrFamily provider) invalidate) {
+  invalidate(todayStepsProvider);
+  invalidate(filteredStepsProvider);
+  invalidate(calendarMonthStepsProvider);
+  invalidate(dayStepEventsProvider);
 }

@@ -182,7 +182,7 @@ class DebugScreen extends ConsumerWidget {
                 onPressed: () async {
                   final messenger = ScaffoldMessenger.of(context);
                   await ref.read(historyServiceProvider).seedDemoHistory();
-                  invalidateHistory(ref);
+                  invalidateHistory(ref.invalidate);
                   messenger.showSnackBar(
                     const SnackBar(content: Text('Historial de prueba generado')),
                   );
@@ -235,7 +235,7 @@ class DebugScreen extends ConsumerWidget {
 
                   final messenger = ScaffoldMessenger.of(context);
                   await ref.read(historyServiceProvider).clearAllHistory();
-                  invalidateHistory(ref);
+                  invalidateHistory(ref.invalidate);
                   messenger.showSnackBar(
                     const SnackBar(content: Text('Historial borrado')),
                   );
