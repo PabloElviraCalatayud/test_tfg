@@ -19,6 +19,18 @@ const List<String> _thermistorLabels = [
   'Talón', 'Arco', 'Metatarso', 'Dedos',
 ];
 
+// Cada termistor cae en la misma zona anatomica que un grupo de sensores
+// FSR del mapa de presion (ver _fsrPositions en pressure_map_widget.dart:
+// dedos=0-2, metatarsos=3-6, arco=7-8, talon=9-11). Se usa para poder
+// mostrar, al tocar un termistor, que % del peso total se lleva esa
+// misma zona -- no solo la temperatura.
+const List<List<int>> _thermistorZoneFsrIndices = [
+  [9, 10, 11], // Talón
+  [7, 8], // Arco
+  [3, 4, 5, 6], // Metatarso
+  [0, 1, 2], // Dedos
+];
+
 Color _thermalColor(double norm) {
   // norm: 0.0 (frío) → 1.0 (caliente)
   const colors = AppColors.thermalGradient;
@@ -44,12 +56,13 @@ class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
       Offset globalPos,
       String label,
       double temp,
+      double zonePercent,
       ) {
     _removeTooltip();
     _tooltip = OverlayEntry(
       builder: (_) => Positioned(
-        left: (globalPos.dx - 55)
-            .clamp(8.0, MediaQuery.of(context).size.width - 120),
+        left: (globalPos.dx - 60)
+            .clamp(8.0, MediaQuery.of(context).size.width - 130),
         top: (globalPos.dy - 64).clamp(8.0, double.infinity),
         child: Material(
           color: Colors.transparent,
@@ -77,6 +90,11 @@ class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
                     style: const TextStyle(
                         color: AppColors.textPrimary,
                         fontSize: 15,
+                        fontWeight: FontWeight.w600)),
+                Text('${zonePercent.toStringAsFixed(0)}% del peso en la zona',
+                    style: const TextStyle(
+                        color: AppColors.accent,
+                        fontSize: 10,
                         fontWeight: FontWeight.w600)),
               ],
             ),
@@ -203,8 +221,11 @@ class _HeatMapWidgetState extends ConsumerState<HeatMapWidget> {
                             (1 - _thermistorPositions[i].$2) *
                                 h,
                           ));
+                          final pct = data.relativePercent;
+                          final zonePercent = _thermistorZoneFsrIndices[i]
+                              .fold<double>(0, (s, idx) => idx < pct.length ? s + pct[idx] : s);
                           _showTooltip(context, global,
-                              '${i + 1} · ${_thermistorLabels[i]}', temps[i]);
+                              '${i + 1} · ${_thermistorLabels[i]}', temps[i], zonePercent);
                         },
                         child: const SizedBox(
                             width: 44, height: 44),
