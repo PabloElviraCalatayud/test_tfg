@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1700" height="930" viewBox="0 0 1700 930" font-family="Helvetica, Arial, sans-serif">
+<rect width="1700" height="930" fill="#ffffff"/>
+<text x="850.0" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="#111">El ciclo de la marcha (gait cycle)</text>
+<text x="850.0" y="52" text-anchor="middle" font-size="13" fill="#666">Fases de un único apoyo, de un contacto con el suelo al siguiente contacto del mismo pie</text>
+<rect x="110.0" y="220" width="29.80000000000001" height="60" fill="#8e2a1f" stroke="#fff" stroke-width="1.5"/>
+<text x="124.9" y="247.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">Contacto</text>
+<text x="124.9" y="261.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">inicial</text>
+<rect x="139.8" y="220" width="119.19999999999999" height="60" fill="#b5402f" stroke="#fff" stroke-width="1.5"/>
+<text x="199.4" y="247.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">Respuesta a</text>
+<text x="199.4" y="261.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">la carga</text>
+<rect x="259.0" y="220" width="298.0" height="60" fill="#c0392b" stroke="#fff" stroke-width="1.5"/>
+<text x="408.0" y="254.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">Apoyo medio</text>
+<rect x="557.0" y="220" width="298.0" height="60" fill="#d2654f" stroke="#fff" stroke-width="1.5"/>
+<text x="706.0" y="247.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">Apoyo</text>
+<text x="706.0" y="261.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">terminal</text>
+<rect x="855.0" y="220" width="149.0" height="60" fill="#e08a73" stroke="#fff" stroke-width="1.5"/>
+<text x="929.5" y="247.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">Pre-oscilación</text>
+<text x="929.5" y="261.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">(despegue)</text>
+<rect x="1004.0" y="220" width="193.70000000000005" height="60" fill="#1f6f8b" stroke="#fff" stroke-width="1.5"/>
+<text x="1100.85" y="247.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">Oscilación</text>
+<text x="1100.85" y="261.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">inicial</text>
+<rect x="1197.7" y="220" width="208.5999999999999" height="60" fill="#3a8da8" stroke="#fff" stroke-width="1.5"/>
+<text x="1302.0" y="247.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">Oscilación</text>
+<text x="1302.0" y="261.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">media</text>
+<rect x="1406.3" y="220" width="193.70000000000005" height="60" fill="#6fb3c9" stroke="#fff" stroke-width="1.5"/>
+<text x="1503.15" y="247.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">Oscilación</text>
+<text x="1503.15" y="261.0" text-anchor="middle" font-size="10.5" fill="#fff" font-weight="bold">terminal</text>
+<line x1="110.0" y1="280" x2="110.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="110.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">0%</text>
+<line x1="259.0" y1="280" x2="259.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="259.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">10%</text>
+<line x1="408.0" y1="280" x2="408.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="408.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">20%</text>
+<line x1="557.0" y1="280" x2="557.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="557.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">30%</text>
+<line x1="706.0" y1="280" x2="706.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="706.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">40%</text>
+<line x1="855.0" y1="280" x2="855.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="855.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">50%</text>
+<line x1="1004.0" y1="280" x2="1004.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="1004.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">60%</text>
+<line x1="1153.0" y1="280" x2="1153.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="1153.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">70%</text>
+<line x1="1302.0" y1="280" x2="1302.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="1302.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">80%</text>
+<line x1="1451.0" y1="280" x2="1451.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="1451.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">90%</text>
+<line x1="1600.0" y1="280" x2="1600.0" y2="288" stroke="#333" stroke-width="1.2"/>
+<text x="1600.0" y="302" text-anchor="middle" font-size="10.5" fill="#333">100%</text>
+<text x="557.0" y="210" text-anchor="middle" font-size="15" font-weight="bold" fill="#8e2a1f">FASE DE APOYO (stance) — ≈ 60% del ciclo</text>
+<text x="1302.0" y="210" text-anchor="middle" font-size="15" font-weight="bold" fill="#1f6f8b">FASE DE OSCILACIÓN (swing) — ≈ 40% del ciclo</text>
+<ellipse cx="234.16666666666669" cy="360" rx="35.0" ry="75.0" fill="#fafafa" stroke="#999" stroke-width="1.5"/>
+<ellipse cx="234.16666666666669" cy="408.0" rx="22.400000000000002" ry="24.0" fill="#c0392b" opacity="0.90"/>
+<ellipse cx="234.16666666666669" cy="360" rx="21.0" ry="30.0" fill="#d08a2a" opacity="0.15"/>
+<ellipse cx="234.16666666666669" cy="310.5" rx="25.2" ry="27.0" fill="#2e7d32" opacity="0.00"/>
+<text x="234.16666666666669" y="455" text-anchor="middle" font-size="11.5" fill="#333">Contacto</text>
+<text x="234.16666666666669" y="470" text-anchor="middle" font-size="11.5" fill="#333">inicial (0%)</text>
+<line x1="234.16666666666669" y1="278" x2="124.9" y2="310" stroke="#ccc" stroke-width="1" stroke-dasharray="3,3"/>
+<ellipse cx="482.50000000000006" cy="360" rx="35.0" ry="75.0" fill="#fafafa" stroke="#999" stroke-width="1.5"/>
+<ellipse cx="482.50000000000006" cy="408.0" rx="22.400000000000002" ry="24.0" fill="#c0392b" opacity="0.80"/>
+<ellipse cx="482.50000000000006" cy="360" rx="21.0" ry="30.0" fill="#d08a2a" opacity="0.50"/>
+<ellipse cx="482.50000000000006" cy="310.5" rx="25.2" ry="27.0" fill="#2e7d32" opacity="0.10"/>
+<text x="482.50000000000006" y="455" text-anchor="middle" font-size="11.5" fill="#333">Respuesta a la</text>
+<text x="482.50000000000006" y="470" text-anchor="middle" font-size="11.5" fill="#333">carga (≈6%)</text>
+<line x1="482.50000000000006" y1="278" x2="199.4" y2="310" stroke="#ccc" stroke-width="1" stroke-dasharray="3,3"/>
+<ellipse cx="730.8333333333334" cy="360" rx="35.0" ry="75.0" fill="#fafafa" stroke="#999" stroke-width="1.5"/>
+<ellipse cx="730.8333333333334" cy="408.0" rx="22.400000000000002" ry="24.0" fill="#c0392b" opacity="0.25"/>
+<ellipse cx="730.8333333333334" cy="360" rx="21.0" ry="30.0" fill="#d08a2a" opacity="0.90"/>
+<ellipse cx="730.8333333333334" cy="310.5" rx="25.2" ry="27.0" fill="#2e7d32" opacity="0.30"/>
+<text x="730.8333333333334" y="455" text-anchor="middle" font-size="11.5" fill="#333">Apoyo</text>
+<text x="730.8333333333334" y="470" text-anchor="middle" font-size="11.5" fill="#333">medio (≈20%)</text>
+<line x1="730.8333333333334" y1="278" x2="408.0" y2="310" stroke="#ccc" stroke-width="1" stroke-dasharray="3,3"/>
+<ellipse cx="979.1666666666666" cy="360" rx="35.0" ry="75.0" fill="#fafafa" stroke="#999" stroke-width="1.5"/>
+<ellipse cx="979.1666666666666" cy="408.0" rx="22.400000000000002" ry="24.0" fill="#c0392b" opacity="0.10"/>
+<ellipse cx="979.1666666666666" cy="360" rx="21.0" ry="30.0" fill="#d08a2a" opacity="0.55"/>
+<ellipse cx="979.1666666666666" cy="310.5" rx="25.2" ry="27.0" fill="#2e7d32" opacity="0.75"/>
+<text x="979.1666666666666" y="455" text-anchor="middle" font-size="11.5" fill="#333">Apoyo</text>
+<text x="979.1666666666666" y="470" text-anchor="middle" font-size="11.5" fill="#333">terminal (≈40%)</text>
+<line x1="979.1666666666666" y1="278" x2="706.0" y2="310" stroke="#ccc" stroke-width="1" stroke-dasharray="3,3"/>
+<ellipse cx="1227.5000000000002" cy="360" rx="35.0" ry="75.0" fill="#fafafa" stroke="#999" stroke-width="1.5"/>
+<ellipse cx="1227.5000000000002" cy="408.0" rx="22.400000000000002" ry="24.0" fill="#c0392b" opacity="0.00"/>
+<ellipse cx="1227.5000000000002" cy="360" rx="21.0" ry="30.0" fill="#d08a2a" opacity="0.15"/>
+<ellipse cx="1227.5000000000002" cy="310.5" rx="25.2" ry="27.0" fill="#2e7d32" opacity="0.90"/>
+<text x="1227.5000000000002" y="455" text-anchor="middle" font-size="11.5" fill="#333">Despegue /</text>
+<text x="1227.5000000000002" y="470" text-anchor="middle" font-size="11.5" fill="#333">pre-osc. (≈55%)</text>
+<line x1="1227.5000000000002" y1="278" x2="929.5" y2="310" stroke="#ccc" stroke-width="1" stroke-dasharray="3,3"/>
+<ellipse cx="1475.8333333333335" cy="360" rx="35.0" ry="75.0" fill="#fafafa" stroke="#999" stroke-width="1.5"/>
+<ellipse cx="1475.8333333333335" cy="408.0" rx="22.400000000000002" ry="24.0" fill="#c0392b" opacity="0.00"/>
+<ellipse cx="1475.8333333333335" cy="360" rx="21.0" ry="30.0" fill="#d08a2a" opacity="0.00"/>
+<ellipse cx="1475.8333333333335" cy="310.5" rx="25.2" ry="27.0" fill="#2e7d32" opacity="0.00"/>
+<text x="1475.8333333333335" y="365" text-anchor="middle" font-size="10" fill="#1f6f8b">sin apoyo</text>
+<text x="1475.8333333333335" y="455" text-anchor="middle" font-size="11.5" fill="#333">Oscilación</text>
+<text x="1475.8333333333335" y="470" text-anchor="middle" font-size="11.5" fill="#333">(60–100%)</text>
+<line x1="1475.8333333333335" y1="278" x2="1302.0" y2="310" stroke="#ccc" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="110" y="255" font-size="12.5" font-weight="bold" fill="#333">Zonas de carga aproximadas bajo el pie en cada instante (talón / mediopié / antepié)</text>
+<rect x="80" y="560" width="1540" height="330" fill="#fbfbfb" stroke="#888" stroke-width="1.5" stroke-dasharray="8,6" rx="10"/>
+<text x="110" y="592" font-size="16" font-weight="bold" fill="#222">Por qué es relevante para interpretar los datos de la plantilla</text>
+<text x="110" y="618" font-size="12.3" fill="#333">El patrón de presión recorrido por los 12 sensores FSR durante una zancada reproduce, en líneas generales, la secuencia de fases descrita arriba: un</text>
+<text x="110" y="635" font-size="12.3" fill="#333">pico de presión en los sensores del talón en el contacto inicial, una distribución más repartida en el apoyo medio, y un desplazamiento de la carga</text>
+<text x="110" y="652" font-size="12.3" fill="#333">hacia los sensores del antepié en el despegue, seguido de una caída generalizada de la presión durante toda la fase de oscilación.</text>
+<text x="110" y="675" font-size="12.3" fill="#333">El algoritmo de detección de pasos implementado en este TFG (sensor_provider.dart, función _detectSteps) aprovecha precisamente esta transición: un</text>
+<text x="110" y="692" font-size="12.3" fill="#333">incremento relativo brusco de la presión máxima entre dos lecturas consecutivas señala, de forma aproximada, el paso de la fase de oscilación a la</text>
+<text x="110" y="709" font-size="12.3" fill="#333">fase de apoyo (contacto inicial), independientemente del nivel de precarga mecánica de reposo de cada sensor concreto.</text>
+<text x="110" y="732" font-size="12.3" fill="#333">La implementación actual se limita a contar este evento; no segmenta automáticamente el resto de fases intermedias del ciclo. Una extensión posible</text>
+<text x="110" y="749" font-size="12.3" fill="#333">—de naturaleza exploratoria, sin que ello implique ningún tipo de validación clínica del prototipo actual— sería emplear el patrón conjunto de los</text>
+<text x="110" y="766" font-size="12.3" fill="#333">12 FSR junto con la orientación estimada por la IMU para clasificar cada fase de la marcha de forma más fina, lo que en la literatura se explora</text>
+<text x="110" y="783" font-size="12.3" fill="#333">como posible apoyo al análisis de patrones de marcha asociados a determinadas condiciones clínicas o deportivas (ver Estado del Arte).</text>
+<text x="110" y="806" font-size="12.3" fill="#333">La proporción aproximada 60 % apoyo / 40 % oscilación corresponde a la marcha a paso normal; varía con la velocidad del movimiento y, en la carrera,</text>
+<text x="110" y="823" font-size="12.3" fill="#333">la fase de apoyo se reduce de forma notable y aparecen fases de vuelo sin ningún punto de contacto con el suelo.</text>
+</svg>

@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1180" viewBox="0 0 1760 1180" font-family="Helvetica, Arial, sans-serif">
+<rect width="1760" height="1180" fill="#ffffff"/>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#111"/>
+</marker>
+<marker id="arrowB" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#1f6f8b"/>
+</marker>
+<marker id="arrowR" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#c0392b"/>
+</marker>
+<marker id="arrowG" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#2e7d32"/>
+</marker>
+</defs>
+<text x="880.0" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="#111">Arquitectura general del sistema (tres capas)</text>
+<text x="880.0" y="52" text-anchor="middle" font-size="13" fill="#666">Prototipo académico — ningún componente está certificado como dispositivo médico</text>
+<rect x="30" y="85" width="560" height="1065" fill="#fdf5f4" stroke="#c0392b" stroke-width="2" stroke-dasharray="9,6" rx="14"/>
+<text x="310.0" y="111" text-anchor="middle" font-size="17" font-weight="bold" fill="#8e2a1f">1. Dispositivo de adquisición (ESP32-S3)</text>
+<rect x="610" y="85" width="560" height="1065" fill="#f3f8fb" stroke="#1f6f8b" stroke-width="2" stroke-dasharray="9,6" rx="14"/>
+<text x="890.0" y="111" text-anchor="middle" font-size="17" font-weight="bold" fill="#14506a">2. Aplicación móvil (Flutter)</text>
+<rect x="1190" y="85" width="540" height="1065" fill="#f3faf4" stroke="#2e7d32" stroke-width="2" stroke-dasharray="9,6" rx="14"/>
+<text x="1460.0" y="111" text-anchor="middle" font-size="17" font-weight="bold" fill="#1b5e20">3. Plataforma en la nube (universidad)</text>
+<rect x="50" y="115" width="260" height="110" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="180.0" y="137" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Sensores de presión</text>
+<line x1="60" y1="145" x2="300" y2="145" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="64" y="163" font-size="11.5" fill="#444">&#8226; 12 × FSR (1–10 kg fábrica)</text>
+<text x="64" y="181" font-size="11.5" fill="#444">&#8226; Divisor de tensión + R fija</text>
+<text x="64" y="199" font-size="11.5" fill="#444">&#8226; Distribuidos en la plantilla</text>
+<rect x="330" y="115" width="260" height="110" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="460.0" y="137" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Sensores de temperatura</text>
+<line x1="340" y1="145" x2="580" y2="145" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="344" y="163" font-size="11.5" fill="#444">&#8226; 4 × NTC (termorresistencia)</text>
+<text x="344" y="181" font-size="11.5" fill="#444">&#8226; Steinhart-Hart simplificada</text>
+<text x="344" y="199" font-size="11.5" fill="#444">&#8226; Distribuidos en la plantilla</text>
+<rect x="50" y="245" width="260" height="95" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="180.0" y="267" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">IMU LSM9DS1</text>
+<line x1="60" y1="275" x2="300" y2="275" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="64" y="293" font-size="11.5" fill="#444">&#8226; 9 grados de libertad</text>
+<text x="64" y="311" font-size="11.5" fill="#444">&#8226; Accel + gyro + magnetómetro</text>
+<text x="64" y="329" font-size="11.5" fill="#444">&#8226; Bus I2C 0 (junto a ESP32-S3)</text>
+<rect x="330" y="245" width="260" height="95" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="460.0" y="267" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Alimentación</text>
+<line x1="340" y1="275" x2="580" y2="275" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="344" y="293" font-size="11.5" fill="#444">&#8226; Batería + regulador</text>
+<text x="344" y="311" font-size="11.5" fill="#444">&#8226; esp_pm_configure 80–160MHz</text>
+<text x="344" y="329" font-size="11.5" fill="#444">&#8226; light-sleep / modem-sleep</text>
+<rect x="50" y="360" width="540" height="85" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="320.0" y="382" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">4 × ADS1115 (ADC 16 bits, I2C, 100 kHz)</text>
+<line x1="60" y1="390" x2="580" y2="390" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="64" y="408" font-size="11.5" fill="#444">&#8226; Bus I2C 0: @0x48 (FSR 1–4), @0x49 (FSR 5–8) — junto a la IMU</text>
+<text x="64" y="426" font-size="11.5" fill="#444">&#8226; Bus I2C 1: @0x48 (FSR 9–12), @0x49 (4 × NTC)</text>
+<polyline points="180,225 180,300 180,360" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="460,225 460,300 460,360" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="180,340 180,360" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="50" y="465" width="540" height="150" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="320.0" y="487" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">ESP32-S3 — ESP-IDF + FreeRTOS (sensor_manager)</text>
+<line x1="60" y1="495" x2="580" y2="495" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="64" y="513" font-size="11.5" fill="#444">&#8226; adc_task — lee los 4 ADS1115 por I2C</text>
+<text x="64" y="531" font-size="11.5" fill="#444">&#8226; imu_task — lee LSM9DS1, notifica por evento (~50 Hz) vía xTaskNotifyGive()</text>
+<text x="64" y="549" font-size="11.5" fill="#444">&#8226; console_task — logging opcional (Kconfig CONFIG_DAS_ENABLE_CONSOLE_TASK)</text>
+<text x="64" y="567" font-size="11.5" fill="#444">&#8226; Escalado dinámico de frecuencia CPU + tickless idle entre lecturas</text>
+<polyline points="320,445 320,465" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="50" y="635" width="540" height="95" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="320.0" y="657" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">packet_builder — formato RAW v2</text>
+<line x1="60" y1="665" x2="580" y2="665" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="64" y="683" font-size="11.5" fill="#444">&#8226; 25 × int16 big-endian (9 IMU + 12 FSR + 4 NTC)</text>
+<text x="64" y="701" font-size="11.5" fill="#444">&#8226; Header 8B (tipo+versión+seq+ts_ms) + payload 50B + CRC-8 = 59 B</text>
+<polyline points="320,615 320,635" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="50" y="750" width="540" height="110" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="320.0" y="772" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">ble_transport — servidor GATT (NimBLE)</text>
+<line x1="60" y1="780" x2="580" y2="780" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="64" y="798" font-size="11.5" fill="#444">&#8226; CHR_SENSOR: notify del paquete de 59 B a ~30–50 Hz</text>
+<text x="64" y="816" font-size="11.5" fill="#444">&#8226; CHR_CMD: comandos OTA (start/chunk/end/abort) desde la app</text>
+<text x="64" y="834" font-size="11.5" fill="#444">&#8226; Intervalo de conexión negociado: 20–30 ms (ble_gap_update_params)</text>
+<polyline points="320,730 320,750" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="90" y="885" width="460" height="55" fill="#fbfbfb" stroke="#111" stroke-width="1.8" rx="6"/>
+<text x="320.0" y="908.5" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">ota_manager</text>
+<text x="320.0" y="924.5" text-anchor="middle" font-size="11" fill="#555">Actualización de firmware por BLE, sin flasheo físico</text>
+<polyline points="320,860 320,885" fill="none" stroke="#999" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+<line x1="580" y1="805" x2="620" y2="805" stroke="#111" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="533.16" y="787.0" width="133.68" height="16" fill="#ffffff" opacity="0.88"/>
+<text x="600.0" y="799.0" text-anchor="middle" font-size="12" fill="#111">BLE GATT — notify()</text>
+<rect x="630" y="115" width="520" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="890.0" y="137" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">ble_service.dart  +  foreground_service.dart</text>
+<line x1="640" y1="145" x2="1140" y2="145" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="644" y="163" font-size="11.5" fill="#444">&#8226; Cliente BLE central; servicio en primer plano Android /</text>
+<text x="644" y="181" font-size="11.5" fill="#444">&#8226; modo bluetooth-central en iOS; reconexión automática 2-5-10 s</text>
+<line x1="890" y1="205" x2="890" y2="245" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="245" width="520" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="890.0" y="267" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">packet_decoder.dart</text>
+<line x1="640" y1="275" x2="1140" y2="275" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="644" y="293" font-size="11.5" fill="#444">&#8226; Verifica byte de versión de protocolo y CRC-8</text>
+<text x="644" y="311" font-size="11.5" fill="#444">&#8226; Descarta (con log) cualquier paquete inconsistente</text>
+<line x1="890" y1="335" x2="890" y2="375" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="375" width="520" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="890.0" y="397" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">sensor_calibration.dart</text>
+<line x1="640" y1="405" x2="1140" y2="405" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="644" y="423" font-size="11.5" fill="#444">&#8226; RAW → g, °/s, µT, gramos (curva FSR), °C (Steinhart-Hart)</text>
+<text x="644" y="441" font-size="11.5" fill="#444">&#8226; Único fichero a tocar para recalibrar (sin reflashear)</text>
+<line x1="890" y1="465" x2="890" y2="505" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="505" width="520" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="890.0" y="527" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">sensor_provider.dart (Riverpod)</text>
+<line x1="640" y1="535" x2="1140" y2="535" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="644" y="553" font-size="11.5" fill="#444">&#8226; Orquestador central: detección de pasos (delta relativo),</text>
+<text x="644" y="571" font-size="11.5" fill="#444">&#8226; publica a MQTT, notifica UI e historial</text>
+<polyline points="760,595 760,635" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="1020,595 1020,635" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="890,595 890,655 670,655 670,700" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="630" y="635" width="240" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="750.0" y="657" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">UI (features/)</text>
+<line x1="640" y1="665" x2="860" y2="665" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="644" y="683" font-size="11.5" fill="#444">&#8226; dashboard: mapa de calor,</text>
+<text x="644" y="701" font-size="11.5" fill="#444">&#8226; mapa de presión, horizonte</text>
+<text x="644" y="719" font-size="11.5" fill="#444">&#8226; history / debug / profile</text>
+<rect x="910" y="635" width="240" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="1030.0" y="657" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">history_service.dart</text>
+<line x1="920" y1="665" x2="1140" y2="665" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="924" y="683" font-size="11.5" fill="#444">&#8226; SQLite (sqflite) embebida</text>
+<text x="924" y="701" font-size="11.5" fill="#444">&#8226; pasos/día + step_events</text>
+<text x="924" y="719" font-size="11.5" fill="#444">&#8226; (trazabilidad FSR/NTC)</text>
+<rect x="630" y="745" width="520" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="890.0" y="767" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">mqtt_service.dart</text>
+<line x1="640" y1="775" x2="1140" y2="775" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="644" y="793" font-size="11.5" fill="#444">&#8226; mqtt_client sobre WebSocket seguro (wss), reconexión automática</text>
+<text x="644" y="811" font-size="11.5" fill="#444">&#8226; Topic: flutter_pisada/&lt;id_dispositivo&gt;/telemetry  (o /test en modo simulado)</text>
+<polyline points="890,725 890,745" fill="none" stroke="#111" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="670" y="870" width="440" height="55" fill="#fbfbfb" stroke="#111" stroke-width="1.8" rx="6"/>
+<text x="890.0" y="893.5" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">features/ota</text>
+<text x="890.0" y="909.5" text-anchor="middle" font-size="11" fill="#555">Envío del firmware por BLE (CHR_CMD) desde la app</text>
+<line x1="1160" y1="790" x2="1200" y2="790" stroke="#1f6f8b" stroke-width="3" marker-end="url(#arrowB)"/>
+<rect x="1123.24" y="772.0" width="113.52000000000001" height="16" fill="#ffffff" opacity="0.88"/>
+<text x="1180.0" y="784.0" text-anchor="middle" font-size="12" fill="#1f6f8b">MQTT / WSS :8084</text>
+<rect x="1210" y="115" width="500" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="1460.0" y="137" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Broker MQTT</text>
+<line x1="1220" y1="145" x2="1700" y2="145" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="1224" y="163" font-size="11.5" fill="#444">&#8226; broker.emqx.io — WebSocket seguro, puerto 8084</text>
+<text x="1224" y="181" font-size="11.5" fill="#444">&#8226; Suscripción a flutter_pisada/#</text>
+<line x1="1460" y1="205" x2="1460" y2="245" stroke="#1f6f8b" stroke-width="2" marker-end="url(#arrowB)"/>
+<rect x="1210" y="245" width="500" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="1460.0" y="267" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Servicio de ingesta (plataforma universitaria)</text>
+<line x1="1220" y1="275" x2="1700" y2="275" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="1224" y="293" font-size="11.5" fill="#444">&#8226; Se suscribe al broker y decodifica el JSON de cada mensaje</text>
+<text x="1224" y="311" font-size="11.5" fill="#444">&#8226; Inserta cada lectura como fila en la base de datos</text>
+<line x1="1460" y1="335" x2="1460" y2="375" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowG)"/>
+<rect x="1210" y="375" width="500" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="1460.0" y="397" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">PostgreSQL</text>
+<line x1="1220" y1="405" x2="1700" y2="405" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="1224" y="423" font-size="11.5" fill="#444">&#8226; Almacenamiento persistente a largo plazo</text>
+<text x="1224" y="441" font-size="11.5" fill="#444">&#8226; Serie temporal de presión, temperatura e IMU</text>
+<line x1="1460" y1="465" x2="1460" y2="505" stroke="#2e7d32" stroke-width="2" marker-end="url(#arrowG)"/>
+<rect x="1210" y="505" width="500" height="90" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="1460.0" y="527" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Grafana</text>
+<line x1="1220" y1="535" x2="1700" y2="535" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="1224" y="553" font-size="11.5" fill="#444">&#8226; Panel de visualización histórica</text>
+<text x="1224" y="571" font-size="11.5" fill="#444">&#8226; Consultas SQL directas sobre PostgreSQL</text>
+<rect x="1240" y="625" width="440" height="90" fill="#fbfbfb" stroke="#111" stroke-width="1.8" rx="6"/>
+<text x="1460.0" y="647" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Nota</text>
+<line x1="1250" y1="655" x2="1670" y2="655" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="1254" y="673" font-size="11.5" fill="#444">&#8226; Esta capa es complementaria: la app conserva un</text>
+<text x="1254" y="691" font-size="11.5" fill="#444">&#8226; historial local (SQLite) y funciona sin depender de ella.</text>
+</svg>

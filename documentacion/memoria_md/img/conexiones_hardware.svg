@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="1200" viewBox="0 0 1760 1200" font-family="Helvetica, Arial, sans-serif">
+<rect width="1760" height="1200" fill="#ffffff"/>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#111"/>
+</marker>
+<marker id="arrowB" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#1f6f8b"/>
+</marker>
+<marker id="arrowR" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#c0392b"/>
+</marker>
+<marker id="arrowG" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#2e7d32"/>
+</marker>
+</defs>
+<text x="880.0" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="#111">Conexiones físicas del hardware</text>
+<text x="880.0" y="52" text-anchor="middle" font-size="13" fill="#666">ESP32-S3, 2 buses I2C independientes, 4 × ADS1115, IMU LSM9DS1, 12 FSR y 4 NTC</text>
+<rect x="740" y="460" width="280" height="200" fill="#fff" stroke="#111" stroke-width="3" rx="6"/>
+<text x="880.0" y="482" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">ESP32-S3</text>
+<line x1="750" y1="490" x2="1010" y2="490" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="754" y="508" font-size="11.5" fill="#444">&#8226; GPIO8 (SDA0) / GPIO9 (SCL0)</text>
+<text x="754" y="526" font-size="11.5" fill="#444">&#8226; GPIO4 (SDA1) / GPIO5 (SCL1)</text>
+<text x="754" y="544" font-size="11.5" fill="#444">&#8226; NimBLE (BLE 5, GATT server)</text>
+<text x="754" y="562" font-size="11.5" fill="#444">&#8226; esp_pm: 80–160 MHz + light-sleep</text>
+<rect x="740" y="110" width="280" height="120" fill="#fdf8ec" stroke="#111" stroke-width="2" rx="6"/>
+<text x="880.0" y="132" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Alimentación</text>
+<line x1="750" y1="140" x2="1010" y2="140" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="754" y="158" font-size="11.5" fill="#444">&#8226; Batería Li-Po + regulador 3.3V</text>
+<text x="754" y="176" font-size="11.5" fill="#444">&#8226; Raíl 3.3V compartido (todos los</text>
+<text x="754" y="194" font-size="11.5" fill="#444">&#8226; chips) y raíl GND común</text>
+<line x1="880.0" y1="230" x2="880.0" y2="460" stroke="#b8860b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="846.2" y="328.0" width="67.60000000000001" height="15" fill="#ffffff" opacity="0.88"/>
+<text x="880.0" y="339.0" text-anchor="middle" font-size="11" fill="#b8860b">3.3V / GND</text>
+<text x="30" y="486" font-size="13" font-weight="bold" fill="#1f6f8b">Bus I2C 0 — GPIO8/GPIO9 (100 kHz)</text>
+<line x1="740" y1="500" x2="680" y2="500" stroke="#1f6f8b" stroke-width="2.5" marker-end="url(#arrowB)"/>
+<line x1="30" y1="500" x2="680" y2="500" stroke="#1f6f8b" stroke-width="2.5"/>
+<rect x="30" y="405" width="230" height="80" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="145.0" y="427" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">LSM9DS1 (IMU)</text>
+<line x1="40" y1="435" x2="250" y2="435" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="44" y="453" font-size="11.5" fill="#444">&#8226; 9 DoF — accel/gyro/mag</text>
+<text x="44" y="471" font-size="11.5" fill="#444">&#8226; @0x6B / @0x1E · I2C bus 0</text>
+<polyline points="145,485 145,500" fill="none" stroke="#1f6f8b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="30" y="540" width="230" height="85" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="145.0" y="562" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">ADS1115 #1 — @0x48</text>
+<line x1="40" y1="570" x2="250" y2="570" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="44" y="588" font-size="11.5" fill="#444">&#8226; I2C bus 0 · 860 SPS</text>
+<text x="44" y="606" font-size="11.5" fill="#444">&#8226; 4 canales → FSR 1–4</text>
+<polyline points="145,500 145,540" fill="none" stroke="#1f6f8b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="280" y="540" width="230" height="85" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="395.0" y="562" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">ADS1115 #2 — @0x49</text>
+<line x1="290" y1="570" x2="500" y2="570" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="294" y="588" font-size="11.5" fill="#444">&#8226; I2C bus 0 · 860 SPS</text>
+<text x="294" y="606" font-size="11.5" fill="#444">&#8226; 4 canales → FSR 5–8</text>
+<polyline points="395,500 395,540" fill="none" stroke="#1f6f8b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="1300" y="586" text-anchor="end" font-size="13" font-weight="bold" fill="#c0392b">Bus I2C 1 — GPIO4/GPIO5 (100 kHz)</text>
+<line x1="1020" y1="600" x2="1330" y2="600" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="1020" y1="600" x2="1080" y2="600" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrowR)"/>
+<rect x="1100" y="505" width="230" height="85" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="1215.0" y="527" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">ADS1115 #3 — @0x48</text>
+<line x1="1110" y1="535" x2="1320" y2="535" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="1114" y="553" font-size="11.5" fill="#444">&#8226; I2C bus 1 · 860 SPS</text>
+<text x="1114" y="571" font-size="11.5" fill="#444">&#8226; 4 canales → FSR 9–12</text>
+<polyline points="1215,600 1215,590" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="1100" y="640" width="230" height="85" fill="#fff" stroke="#111" stroke-width="2.5" rx="6"/>
+<text x="1215.0" y="662" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">ADS1115 #4 — @0x49</text>
+<line x1="1110" y1="670" x2="1320" y2="670" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="1114" y="688" font-size="11.5" fill="#444">&#8226; I2C bus 1 · 860 SPS</text>
+<text x="1114" y="706" font-size="11.5" fill="#444">&#8226; 4 canales → 4 × NTC</text>
+<polyline points="1215,600 1215,640" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="1330" y="520" font-size="13" fill="#555">(lectura secuencial: adc_task las consulta por turnos)</text>
+<rect x="30" y="760" width="230" height="70" fill="#fbfbfb" stroke="#111" stroke-width="1.8" rx="6"/>
+<text x="145.0" y="782" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">FSR 1–4 (plantilla)</text>
+<line x1="40" y1="790" x2="250" y2="790" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="44" y="808" font-size="11.5" fill="#444">&#8226; 4 × FSR, cableado a divisor</text>
+<polyline points="145,625 145,760" fill="none" stroke="#999" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+<rect x="280" y="760" width="230" height="70" fill="#fbfbfb" stroke="#111" stroke-width="1.8" rx="6"/>
+<text x="395.0" y="782" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">FSR 5–8 (plantilla)</text>
+<line x1="290" y1="790" x2="500" y2="790" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="294" y="808" font-size="11.5" fill="#444">&#8226; 4 × FSR, cableado a divisor</text>
+<polyline points="395,625 395,760" fill="none" stroke="#999" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+<rect x="1100" y="760" width="230" height="70" fill="#fbfbfb" stroke="#111" stroke-width="1.8" rx="6"/>
+<text x="1215.0" y="782" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">FSR 9–12 (plantilla)</text>
+<line x1="1110" y1="790" x2="1320" y2="790" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="1114" y="808" font-size="11.5" fill="#444">&#8226; 4 × FSR, cableado a divisor</text>
+<polyline points="1215,590 1215,760" fill="none" stroke="#999" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+<rect x="1100" y="760" width="230" height="70" fill="#fbfbfb" stroke="#111" stroke-width="1.8" rx="6"/>
+<text x="1215.0" y="782" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">Termistores 1–4 (plantilla)</text>
+<line x1="1110" y1="790" x2="1320" y2="790" stroke="#111" stroke-width="1" opacity="0.4"/>
+<text x="1114" y="808" font-size="11.5" fill="#444">&#8226; 4 × NTC, cableado a divisor</text>
+<polyline points="1215,725 1215,760" fill="none" stroke="#999" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+<line x1="880.0" y1="660" x2="880.0" y2="730" stroke="#111" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="750" y="730" width="260" height="60" fill="#fff" stroke="#111" stroke-width="2.2" rx="6"/>
+<text x="880.0" y="756.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#111">BLE GATT (NimBLE)</text>
+<text x="880.0" y="772.0" text-anchor="middle" font-size="11" fill="#555">Notificación del paquete de 59 B a la app</text>
+<rect x="30" y="870" width="900" height="270" fill="#fbfbfb" stroke="#888" stroke-width="1.5" stroke-dasharray="8,6" rx="10"/>
+<text x="480" y="896" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">Detalle de un canal de sensor (divisor de tensión)</text>
+<rect x="90" y="925" width="140" height="50" fill="#fff" stroke="#111" stroke-width="2.5"/>
+<text x="160" y="955" text-anchor="middle" font-size="15" fill="#111">FSR / NTC</text>
+<line x1="160" y1="925" x2="160" y2="900" stroke="#111" stroke-width="2"/>
+<line x1="144" y1="900" x2="176" y2="900" stroke="#111" stroke-width="2"/>
+<text x="184" y="905" font-size="12" fill="#111">3.3V</text>
+<line x1="160" y1="975" x2="160" y2="1030" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="160" cy="1030" r="5" fill="#c0392b"/>
+<rect x="450" y="1000" width="160" height="60" fill="#fff" stroke="#111" stroke-width="2.5"/>
+<text x="530" y="1027" text-anchor="middle" font-size="13" fill="#111">ADS1115</text>
+<text x="530" y="1045" text-anchor="middle" font-size="11" fill="#555">entrada AINx</text>
+<line x1="160" y1="1030" x2="450" y2="1030" stroke="#c0392b" stroke-width="2.5"/>
+<line x1="160" y1="1030" x2="160" y2="1042" stroke="#111" stroke-width="2"/>
+<polyline points="160.0,1042.0 160.0,1051.3 167.0,1059.2 153.0,1067.1 167.0,1074.9 153.0,1082.8 167.0,1090.7 160.0,1090.7 160.0,1100.0" fill="none" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<text x="178" y="1075.0" font-size="12" fill="#111">R 10K (FSR) / R 5K (NTC)</text>
+<line x1="160" y1="1100" x2="160" y2="1115" stroke="#111" stroke-width="2"/>
+<line x1="149.0" y1="1115" x2="171.0" y2="1115" stroke="#111" stroke-width="2.2"/>
+<line x1="153.0" y1="1121" x2="167.0" y2="1121" stroke="#111" stroke-width="2.2"/>
+<line x1="156.5" y1="1127" x2="163.5" y2="1127" stroke="#111" stroke-width="2.2"/>
+<text x="178" y="1121" font-size="12" fill="#555">GND</text>
+<text x="530" y="1100" font-size="12.5" fill="#666">La resistencia fija y el ADS1115 se agrupan en la placa</text>
+<text x="530" y="1120" font-size="12.5" fill="#666">central; del sensor remoto solo sale un hilo de señal.</text>
+<rect x="970" y="870" width="760" height="270" fill="#fbfbfb" stroke="#888" stroke-width="1.5" stroke-dasharray="8,6" rx="10"/>
+<text x="1000" y="898" font-size="14" font-weight="bold" fill="#333">Notas de diseño</text>
+<text x="1000" y="925" font-size="12.5" fill="#444">El bus I2C se mantiene a 100 kHz (no 400 kHz): a mayor velocidad se</text>
+<text x="1000" y="944" font-size="12.5" fill="#444">observaron fallos de comunicación intermitentes con los 4 ADS1115.</text>
+<text x="1000" y="982" font-size="12.5" fill="#444">Dos buses independientes en vez de uno solo con 4 direcciones:</text>
+<text x="1000" y="1001" font-size="12.5" fill="#444">reduce la carga de cada bus y aísla el fallo de un chip concreto.</text>
+<text x="1000" y="1039" font-size="12.5" fill="#444">La IMU comparte el bus 0 con dos de los ADS1115 porque su</text>
+<text x="1000" y="1058" font-size="12.5" fill="#444">frecuencia de refresco (~50 Hz) es mucho menor que la de los ADC.</text>
+<text x="1000" y="1096" font-size="12.5" fill="#444">Plantilla (FSR + NTC) y tobillera (ESP32-S3 + ADS1115 + IMU) son</text>
+<text x="1000" y="1115" font-size="12.5" fill="#444">piezas impresas en 3D distintas, unidas por cableado.</text>
+</svg>
