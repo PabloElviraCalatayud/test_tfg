@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="430" viewBox="0 0 1600 430" font-family="Helvetica, Arial, sans-serif">
+<rect width="1600" height="430" fill="#ffffff"/>
+<text x="800.0" y="38" text-anchor="middle" font-size="21" font-weight="bold" fill="#111">Formato del paquete de sensores (59 bytes, RAW)</text>
+<text x="800.0" y="60" text-anchor="middle" font-size="12.5" fill="#666">25 campos int16 con signo, big-endian, ancho fijo — packet_builder.c / packet_decoder.dart</text>
+<rect x="42" y="143" width="71" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="40" y="140" width="75" height="76" fill="#e6e7e9" stroke="#5a6472" stroke-width="2" rx="8"/>
+<text x="77.5" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">type</text>
+<text x="77.5" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">1 B</text>
+<text x="77.5" y="130" text-anchor="middle" font-size="10.5" fill="#666">byte 0</text>
+<rect x="117" y="143" width="71" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="115" y="140" width="75" height="76" fill="#e6e7e9" stroke="#5a6472" stroke-width="2" rx="8"/>
+<text x="152.5" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">version</text>
+<text x="152.5" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">1 B</text>
+<text x="152.5" y="130" text-anchor="middle" font-size="10.5" fill="#666">byte 1</text>
+<rect x="192" y="143" width="91" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="190" y="140" width="95" height="76" fill="#e6e7e9" stroke="#5a6472" stroke-width="2" rx="8"/>
+<text x="237.5" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">seq</text>
+<text x="237.5" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">2 B</text>
+<text x="237.5" y="130" text-anchor="middle" font-size="10.5" fill="#666">bytes 2–3</text>
+<rect x="287" y="143" width="106" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="285" y="140" width="110" height="76" fill="#e6e7e9" stroke="#5a6472" stroke-width="2" rx="8"/>
+<text x="340.0" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">ts_ms</text>
+<text x="340.0" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">4 B</text>
+<text x="340.0" y="130" text-anchor="middle" font-size="10.5" fill="#666">bytes 4–7</text>
+<rect x="397" y="143" width="161" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="395" y="140" width="165" height="76" fill="#f3e7dd" stroke="#b5651d" stroke-width="2" rx="8"/>
+<text x="477.5" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">accel x,y,z</text>
+<text x="477.5" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">6 B</text>
+<text x="477.5" y="130" text-anchor="middle" font-size="10.5" fill="#666">bytes 8–13</text>
+<rect x="562" y="143" width="161" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="560" y="140" width="165" height="76" fill="#f3e7dd" stroke="#b5651d" stroke-width="2" rx="8"/>
+<text x="642.5" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">gyro x,y,z</text>
+<text x="642.5" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">6 B</text>
+<text x="642.5" y="130" text-anchor="middle" font-size="10.5" fill="#666">bytes 14–19</text>
+<rect x="727" y="143" width="161" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="725" y="140" width="165" height="76" fill="#f3e7dd" stroke="#b5651d" stroke-width="2" rx="8"/>
+<text x="807.5" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">mag x,y,z</text>
+<text x="807.5" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">6 B</text>
+<text x="807.5" y="130" text-anchor="middle" font-size="10.5" fill="#666">bytes 20–25</text>
+<rect x="892" y="143" width="356" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="890" y="140" width="360" height="76" fill="#eedfdd" stroke="#8e2a1f" stroke-width="2" rx="8"/>
+<text x="1070.0" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">pressure_raw[0..11]</text>
+<text x="1070.0" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">24 B</text>
+<text x="1070.0" y="130" text-anchor="middle" font-size="10.5" fill="#666">bytes 26–49</text>
+<rect x="1252" y="143" width="166" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="1250" y="140" width="170" height="76" fill="#dbe4e8" stroke="#14506a" stroke-width="2" rx="8"/>
+<text x="1335.0" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">thermistor_raw[0..3]</text>
+<text x="1335.0" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">8 B</text>
+<text x="1335.0" y="130" text-anchor="middle" font-size="10.5" fill="#666">bytes 50–57</text>
+<rect x="1422" y="143" width="71" height="76" fill="#000" opacity="0.08" rx="8"/>
+<rect x="1420" y="140" width="75" height="76" fill="#e6e1eb" stroke="#5a3d7a" stroke-width="2" rx="8"/>
+<text x="1457.5" y="172.0" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#1a2433">CRC-8</text>
+<text x="1457.5" y="190.0" text-anchor="middle" font-size="10.5" fill="#444">1 B</text>
+<text x="1457.5" y="130" text-anchor="middle" font-size="10.5" fill="#666">byte 58</text>
+<line x1="40" y1="242" x2="395" y2="242" stroke="#5a6472" stroke-width="2"/>
+<line x1="40" y1="242" x2="40" y2="234" stroke="#5a6472" stroke-width="2"/>
+<line x1="395" y1="242" x2="395" y2="234" stroke="#5a6472" stroke-width="2"/>
+<text x="217.5" y="262" text-anchor="middle" font-size="13" font-weight="bold" fill="#5a6472">Cabecera — 8 B</text>
+<line x1="395" y1="242" x2="1420" y2="242" stroke="#8e2a1f" stroke-width="2"/>
+<line x1="395" y1="242" x2="395" y2="234" stroke="#8e2a1f" stroke-width="2"/>
+<line x1="1420" y1="242" x2="1420" y2="234" stroke="#8e2a1f" stroke-width="2"/>
+<text x="907.5" y="262" text-anchor="middle" font-size="13" font-weight="bold" fill="#8e2a1f">Carga útil (payload) — 50 B  =  25 × int16</text>
+<line x1="1420" y1="242" x2="1495" y2="242" stroke="#5a3d7a" stroke-width="2"/>
+<line x1="1420" y1="242" x2="1420" y2="234" stroke="#5a3d7a" stroke-width="2"/>
+<line x1="1495" y1="242" x2="1495" y2="234" stroke="#5a3d7a" stroke-width="2"/>
+<text x="1457.5" y="262" text-anchor="middle" font-size="13" font-weight="bold" fill="#5a3d7a">CRC</text>
+<text x="40" y="297" font-size="13" fill="#333">Tamaño total: 59 bytes  —  cabecera (tipo + versión de protocolo + número de secuencia + timestamp) + 25 campos RAW de los sensores + CRC-8 (polinomio 0x07, init 0xFF).</text>
+<text x="40" y="320" font-size="13" fill="#333">El byte de versión permite detectar un desajuste entre firmware y aplicación de forma explícita, en vez de como una pérdida silenciosa de paquetes.</text>
+</svg>

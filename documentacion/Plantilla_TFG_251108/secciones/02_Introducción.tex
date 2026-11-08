@@ -32,11 +32,20 @@ La marcha humana es un proceso biomecánico complejo en el que intervienen de fo
 
 Este Trabajo de Fin de Grado nace de la pregunta de si es posible construir, con componentes electrónicos de bajo coste y técnicas de fabricación aditiva accesibles, un dispositivo portátil capaz de capturar de forma sincronizada presión plantar, temperatura superficial y datos inerciales del pie durante la marcha, y transmitir esa información en tiempo real a una aplicación móvil capaz de visualizarla, almacenarla y ponerla a disposición de un usuario no especializado. En otras palabras, el trabajo explora hasta qué punto es viable democratizar el análisis dinámico de la pisada, sacándolo del laboratorio y llevándolo al propio calzado del usuario.
 
+Conviene precisar desde el principio el alcance exacto de este trabajo, para no tener que repetirlo a lo largo del documento: el dispositivo descrito es una \textbf{prueba de concepto académica}, no un producto terminado ni un dispositivo médico. No ha sido sometido a ningún proceso de certificación o marcado regulatorio ni validado clínicamente, y su objetivo es demostrar la viabilidad técnica y económica de la arquitectura propuesta, no ofrecer una herramienta lista para uso clínico, deportivo profesional o diagnóstico. Cuando a lo largo de la memoria se mencionen posibles aplicaciones médicas o deportivas, estas deben entenderse siempre como líneas de investigación que la literatura explora para este tipo de tecnología en general, y nunca como una capacidad ya demostrada de este prototipo concreto.
+
 \section{Contextualización}
 
-El proyecto se enmarca en el auge de los dispositivos \textit{wearables} y la Internet de las Cosas (IoT) aplicada a la salud y al deporte. La proliferación de microcontroladores de bajo consumo con conectividad inalámbrica integrada (como la familia ESP32), de sensores MEMS de bajo coste (unidades de medición inercial, sensores de fuerza resistiva, termorresistencias) y de protocolos de comunicación de baja energía como Bluetooth Low Energy (BLE), ha reducido drásticamente la barrera de entrada para desarrollar sistemas de monitorización fisiológica portátiles. Al mismo tiempo, la impresión 3D ha permitido fabricar estructuras mecánicas personalizadas —en este caso, una plantilla y una tobillera— sin necesidad de moldes ni procesos de fabricación industrial, lo que resulta especialmente adecuado para un desarrollo académico como el presente TFG.
+El proyecto se enmarca en el auge de los dispositivos \textit{wearables} y la Internet de las Cosas (IoT) aplicada a la salud y al deporte. La proliferación de microcontroladores de bajo consumo con conectividad inalámbrica integrada, de sensores MEMS de bajo coste y de protocolos de comunicación de baja energía como Bluetooth Low Energy (BLE) ha reducido drásticamente la barrera de entrada para desarrollar sistemas de monitorización fisiológica portátiles. Al mismo tiempo, la impresión 3D ha permitido fabricar estructuras mecánicas personalizadas, en este caso una plantilla y una tobillera, sin necesidad de moldes ni procesos de fabricación industrial, lo que resulta especialmente adecuado para un desarrollo académico como el presente TFG.
 
-El sistema desarrollado en este trabajo se apoya en tres pilares tecnológicos: (1) un dispositivo de adquisición basado en un microcontrolador ESP32-S3 que recoge datos de 12 sensores de fuerza resistiva, 4 termorresistencias y una IMU de 9 grados de libertad, transmitiéndolos mediante NimBLE; (2) una aplicación móvil desarrollada en Flutter que decodifica, calibra, visualiza y almacena localmente dichos datos; y (3) una plataforma de análisis en la nube compuesta por un \textit{broker} MQTT, una base de datos PostgreSQL y un panel de visualización en Grafana.
+El sistema desarrollado en este trabajo se apoya en tres pilares tecnológicos. El primero es un dispositivo de adquisición basado en un microcontrolador ESP32-S3 que recoge datos de 12 sensores de fuerza resistiva, 4 termorresistencias y una IMU de 9 grados de libertad, transmitiéndolos mediante NimBLE. El segundo es una aplicación móvil desarrollada en Flutter que decodifica, calibra, visualiza y almacena localmente dichos datos. El tercero es una plataforma de análisis en la nube, alojada en infraestructura de la universidad, compuesta por un \textit{broker} MQTT, una base de datos PostgreSQL y un panel de visualización en Grafana. La \cref{fig:tres_pilares} resume esta arquitectura de alto nivel; su desarrollo detallado, componente a componente, se aborda en el \cref{sec:arquitectura_general} del Capítulo 4.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figuras/tres_pilares.pdf}
+  \caption{Los tres pilares tecnológicos del sistema: dispositivo de adquisición, aplicación móvil y plataforma en la nube.}
+  \label{fig:tres_pilares}
+\end{figure}
 
 \section{Motivación}
 
@@ -54,21 +63,13 @@ Diseñar, desarrollar y validar un sistema portátil y autónomo de análisis di
 
 \subsection{Objetivos específicos}
 
-\begin{itemize}
-    \item Diseñar e implementar un dispositivo de adquisición de datos compuesto por 12 sensores de fuerza resistiva, 4 termorresistencias y una IMU de 9 grados de libertad, integrado en una plantilla y una tobillera impresas en 3D.
-    \item Desarrollar el firmware del microcontrolador ESP32-S3 responsable de la lectura de los sensores mediante convertidores analógico-digitales ADS1115 y de la IMU LSM9DS1, y de la transmisión de dichos datos en tiempo real mediante un protocolo BLE propio.
-    \item Garantizar que los datos transmitidos por el dispositivo sean siempre datos RAW, sin conversión a unidades físicas, delegando la calibración a la capa de aplicación para facilitar su mantenimiento y ajuste.
-    \item Optimizar el consumo energético del firmware mediante gestión dinámica de frecuencia de CPU, modos de bajo consumo del subsistema Bluetooth y una arquitectura de tareas dirigida por eventos.
-    \item Desarrollar una aplicación móvil multiplataforma (Flutter) capaz de conectarse al dispositivo, decodificar y calibrar los datos recibidos, y visualizarlos mediante mapas de calor de presión plantar y un horizonte artificial que represente la orientación del pie.
-    \item Garantizar la persistencia de la conexión Bluetooth cuando la aplicación pasa a segundo plano, así como la reconexión automática tras una pérdida de conexión.
-    \item Implementar persistencia local del historial de pasos del usuario, de forma que pueda consultarse sin depender de la disponibilidad de la plataforma en la nube.
-    \item Diseñar e implementar un algoritmo de detección de pasos robusto frente a variaciones en la línea base mecánica de los sensores de presión.
-    \item Integrar el sistema con una plataforma IoT en la nube (MQTT, PostgreSQL, Grafana) para el análisis y la visualización histórica de los datos.
-\end{itemize}
+Del objetivo general se derivan nueve objetivos específicos. En primer lugar, diseñar e implementar un dispositivo de adquisición de datos compuesto por 12 sensores de fuerza resistiva, 4 termorresistencias y una IMU de 9 grados de libertad, integrado en una plantilla y una tobillera impresas en 3D. En segundo lugar, desarrollar el firmware del microcontrolador ESP32-S3 responsable de la lectura de los sensores mediante convertidores analógico-digitales ADS1115 y de la IMU LSM9DS1, y de la transmisión de dichos datos en tiempo real mediante un protocolo BLE propio. En tercer lugar, garantizar que los datos transmitidos por el dispositivo sean siempre datos RAW, sin conversión a unidades físicas, delegando la calibración a la capa de aplicación para facilitar su mantenimiento y ajuste. En cuarto lugar, optimizar el consumo energético del firmware mediante gestión dinámica de frecuencia de CPU, modos de bajo consumo del subsistema Bluetooth y una arquitectura de tareas dirigida por eventos.
+
+El quinto objetivo es desarrollar una aplicación móvil multiplataforma en Flutter capaz de conectarse al dispositivo, decodificar y calibrar los datos recibidos, y visualizarlos mediante mapas de calor de presión plantar y un horizonte artificial que represente la orientación del pie. El sexto es garantizar la persistencia de la conexión Bluetooth cuando la aplicación pasa a segundo plano, así como la reconexión automática tras una pérdida de conexión. El séptimo es implementar persistencia local del historial de pasos del usuario, de forma que pueda consultarse sin depender de la disponibilidad de la plataforma en la nube. El octavo es diseñar e implementar un algoritmo de detección de pasos robusto frente a variaciones en la línea base mecánica de los sensores de presión. Y el noveno es integrar el sistema con una plataforma IoT en la nube, compuesta por MQTT, PostgreSQL y Grafana, para el análisis y la visualización histórica de los datos.
 
 \subsection{Pregunta de investigación}
 
-¿Es posible construir, con componentes electrónicos de bajo coste y fabricación aditiva, un sistema portátil de análisis dinámico de la pisada que ofrezca una experiencia de uso robusta —persistencia de la conexión en segundo plano, historial local de datos y bajo consumo energético— comparable a la de soluciones comerciales de gama alta, manteniendo un coste de materiales sustancialmente inferior?
+¿Es posible construir, con componentes electrónicos de bajo coste y fabricación aditiva, un sistema portátil de análisis dinámico de la pisada que ofrezca una experiencia de uso robusta (persistencia de la conexión en segundo plano, historial local de datos y bajo consumo energético) comparable a la de soluciones comerciales de gama alta, manteniendo un coste de materiales sustancialmente inferior?
 
 \section{Estructura del manuscrito}
 

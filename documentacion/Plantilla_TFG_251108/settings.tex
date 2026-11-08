@@ -92,6 +92,14 @@
 \newcommand{\IA}[1]{\textcolor{colorIA}{#1}}
 \newenvironment{IAtext}{\color{colorIA}}{\color{black}}
 
+%%-----------------------------------------------
+%% Datos pendientes de completar por el autor/a (p.ej. medidas físicas,
+%% fechas, costes): se marcan en rojo para que destaquen sobre el resto
+%% del texto y sean fáciles de localizar antes de la entrega final.
+%%-----------------------------------------------
+\definecolor{colorPendiente}{RGB}{200,0,0}
+\newcommand{\pendiente}[1]{\textcolor{colorPendiente}{\textbf{[PENDIENTE: #1]}}}
+
 \usepackage{listings}
 \lstset{ frame=Ltb,
      framerule=0pt,
