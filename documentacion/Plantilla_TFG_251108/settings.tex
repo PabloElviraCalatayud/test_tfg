@@ -42,8 +42,8 @@
 \setcounter{tocdepth}{4}
 \setcounter{secnumdepth}{4}
 
-\renewcommand{\chaptermark}[1]{\markboth{\textbf{#1}}{}}
-\renewcommand{\sectionmark}[1]{\markright{\textbf{\thesection. #1}}}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 \newcommand{\bigrule}{\titlerule[0.5mm]}
 
@@ -150,6 +150,9 @@ morekeywords=[3]{,object,type,isinstance,copy,deepcopy,zip,enumerate,reversed,li
 \crefformat{figure}{#2Figura~#1#3}
 \crefformat{table}{#2Tabla~#1#3}
 \crefformat{equation}{#2Ecuación~#1#3}
+\crefformat{section}{#2sección~#1#3}
+\crefformat{subsection}{#2sección~#1#3}
+\crefformat{chapter}{#2capítulo~#1#3}
 
 % Bloques de comentarios
 \newcommand{\comentar}[1]{}
