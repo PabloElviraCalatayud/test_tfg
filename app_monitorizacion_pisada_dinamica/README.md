@@ -57,3 +57,6 @@ flutter run
 La app arranca en modo de datos simulados (interruptor "Datos simulados" en
 la pestaña Debug); para usar el dispositivo real, desactívalo y empareja el
 ESP32-S3 desde el botón de dispositivo de la barra superior.
+
+Mejoras pendientes y limitaciones conocidas: ver [`TODO.md`](../TODO.md) en
+la raíz del repositorio.
