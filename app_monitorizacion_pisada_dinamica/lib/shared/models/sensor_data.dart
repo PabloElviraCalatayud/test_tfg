@@ -1,5 +1,6 @@
 // lib/shared/models/sensor_data.dart
 import '../../core/utils/fake_data.dart';
+import 'gait_phase.dart';
 
 class SensorData {
   final List<double> fsr;
@@ -9,6 +10,7 @@ class SensorData {
   final double magX, magY, magZ;
   final double roll, pitch, yaw;
   final int stepCount, stepGoal;
+  final GaitPhase gaitPhase;
 
   const SensorData({
     required this.fsr, required this.temperature,
@@ -17,9 +19,10 @@ class SensorData {
     required this.magX, required this.magY, required this.magZ,
     required this.roll, required this.pitch, required this.yaw,
     required this.stepCount, required this.stepGoal,
+    this.gaitPhase = GaitPhase.swing,
   });
 
-  factory SensorData.fromSnapshot(SensorDataSnapshot s) {
+  factory SensorData.fromSnapshot(SensorDataSnapshot s, {GaitPhase? gaitPhase}) {
     return SensorData(
       fsr: s.fsr, temperature: s.temperature,
       accX: s.accX, accY: s.accY, accZ: s.accZ,
@@ -27,6 +30,7 @@ class SensorData {
       magX: s.magX, magY: s.magY, magZ: s.magZ,
       roll: s.roll, pitch: s.pitch, yaw: s.yaw,
       stepCount: s.stepCount, stepGoal: s.stepGoal,
+      gaitPhase: gaitPhase ?? GaitPhase.swing,
     );
   }
 

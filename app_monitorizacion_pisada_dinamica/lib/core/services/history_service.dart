@@ -10,6 +10,9 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as p;
 import '../../shared/models/daily_step_entry.dart';
 import '../../shared/models/step_event.dart';
+import '../../shared/models/gait_phase.dart';
+import '../../shared/models/recording_sample.dart';
+import '../../shared/models/recording_session.dart';
 
 class HistoryService {
   Database? _db;
@@ -31,7 +34,7 @@ class HistoryService {
 
     _db = await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: (db, version) async {
         await db.execute('''
           CREATE TABLE daily_steps (
@@ -41,10 +44,14 @@ class HistoryService {
           )
         ''');
         await _createStepEventsTable(db);
+        await _createRecordingTables(db);
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         if (oldVersion < 2) {
           await _createStepEventsTable(db);
+        }
+        if (oldVersion < 3) {
+          await _createRecordingTables(db);
         }
       },
     );
@@ -67,6 +74,170 @@ class HistoryService {
     ''');
     await db.execute(
       'CREATE INDEX IF NOT EXISTS idx_step_events_date ON step_events(date)',
+    );
+  }
+
+  Future<void> _createRecordingTables(Database db) async {
+    // Grabaciones explícitas, iniciadas por el usuario desde la pantalla
+    // de Sesiones -- a diferencia de step_events (solo una instantánea
+    // por paso detectado), aquí se guarda CADA muestra recibida mientras
+    // dura la grabación, para poder reconstruir series temporales
+    // completas de presión/temperatura/fase de marcha y exportarlas a
+    // CSV para generar gráficas.
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS recording_sessions (
+        id         INTEGER PRIMARY KEY AUTOINCREMENT,
+        started_at INTEGER NOT NULL,
+        ended_at   INTEGER,
+        label      TEXT NOT NULL,
+        source     TEXT NOT NULL
+      )
+    ''');
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS recording_samples (
+        id         INTEGER PRIMARY KEY AUTOINCREMENT,
+        session_id INTEGER NOT NULL,
+        t_ms       INTEGER NOT NULL,
+        fsr         TEXT NOT NULL,
+        temperature TEXT NOT NULL,
+        acc_x  REAL NOT NULL, acc_y  REAL NOT NULL, acc_z  REAL NOT NULL,
+        gyro_x REAL NOT NULL, gyro_y REAL NOT NULL, gyro_z REAL NOT NULL,
+        roll REAL NOT NULL, pitch REAL NOT NULL, yaw REAL NOT NULL,
+        gait_phase TEXT NOT NULL,
+        step_edge  INTEGER NOT NULL DEFAULT 0
+      )
+    ''');
+    await db.execute(
+      'CREATE INDEX IF NOT EXISTS idx_recording_samples_session '
+      'ON recording_samples(session_id)',
+    );
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // GRABACIÓN DE SESIONES (para exportar y generar gráficas)
+  // ─────────────────────────────────────────────────────────
+
+  /// Crea una nueva sesión de grabación y devuelve su id. `source` debe
+  /// ser 'ble' o 'fake', para dejar claro en cualquier export si los
+  /// datos vienen de un dispositivo real o de la simulación.
+  Future<int> startRecordingSession({
+    required String source,
+    String? label,
+  }) async {
+    final db = await _database();
+    final now = DateTime.now();
+    final effectiveLabel = label ?? _defaultSessionLabel(now);
+
+    return db.insert('recording_sessions', {
+      'started_at': now.millisecondsSinceEpoch,
+      'ended_at': null,
+      'label': effectiveLabel,
+      'source': source,
+    });
+  }
+
+  String _defaultSessionLabel(DateTime d) {
+    String two(int n) => n.toString().padLeft(2, '0');
+    return 'Sesión ${d.year}-${two(d.month)}-${two(d.day)} '
+        '${two(d.hour)}:${two(d.minute)}';
+  }
+
+  /// Inserta un lote de muestras de golpe (db.batch) -- se llama cada
+  /// pocos segundos con el buffer acumulado en memoria, nunca una a una
+  /// por paquete BLE, para no machacar sqlite a 30-50 escrituras/segundo.
+  Future<void> appendRecordingSamples(
+    int sessionId,
+    List<RecordingSample> samples,
+  ) async {
+    if (samples.isEmpty) return;
+    final db = await _database();
+    final batch = db.batch();
+
+    for (final s in samples) {
+      batch.insert('recording_samples', {
+        'session_id': sessionId,
+        't_ms': s.tMs,
+        'fsr': jsonEncode(s.fsr),
+        'temperature': jsonEncode(s.temperature),
+        'acc_x': s.accX, 'acc_y': s.accY, 'acc_z': s.accZ,
+        'gyro_x': s.gyroX, 'gyro_y': s.gyroY, 'gyro_z': s.gyroZ,
+        'roll': s.roll, 'pitch': s.pitch, 'yaw': s.yaw,
+        'gait_phase': s.gaitPhase.csvCode,
+        'step_edge': s.stepEdge ? 1 : 0,
+      });
+    }
+
+    await batch.commit(noResult: true);
+  }
+
+  Future<void> endRecordingSession(int sessionId) async {
+    final db = await _database();
+    await db.update(
+      'recording_sessions',
+      {'ended_at': DateTime.now().millisecondsSinceEpoch},
+      where: 'id = ?',
+      whereArgs: [sessionId],
+    );
+  }
+
+  /// Lista todas las sesiones de grabación, más recientes primero, con el
+  /// número de muestras y de pasos detectados ya agregados -- evita que
+  /// la pantalla de Sesiones tenga que hacer una consulta aparte por fila.
+  Future<List<RecordingSession>> getRecordingSessions() async {
+    final db = await _database();
+    final rows = await db.rawQuery('''
+      SELECT s.id, s.started_at, s.ended_at, s.label, s.source,
+             COUNT(r.id) AS sample_count,
+             COALESCE(SUM(r.step_edge), 0) AS step_count
+      FROM recording_sessions s
+      LEFT JOIN recording_samples r ON r.session_id = s.id
+      GROUP BY s.id
+      ORDER BY s.started_at DESC
+    ''');
+
+    return rows.map((r) {
+      final endedAtRaw = r['ended_at'] as int?;
+      return RecordingSession(
+        id: r['id'] as int,
+        startedAt: DateTime.fromMillisecondsSinceEpoch(r['started_at'] as int),
+        endedAt: endedAtRaw == null
+            ? null
+            : DateTime.fromMillisecondsSinceEpoch(endedAtRaw),
+        label: r['label'] as String,
+        source: r['source'] as String,
+        sampleCount: r['sample_count'] as int,
+        stepCount: (r['step_count'] as num).toInt(),
+      );
+    }).toList();
+  }
+
+  /// Todas las muestras de una sesión, en orden temporal, como filas
+  /// crudas -- es justo lo que necesita ExportService para volcarlas a
+  /// CSV sin tener que decodificar primero a RecordingSample y perder
+  /// tiempo/memoria con una sesión larga.
+  Future<List<Map<String, Object?>>> getRecordingSamplesRaw(
+    int sessionId,
+  ) async {
+    final db = await _database();
+    return db.query(
+      'recording_samples',
+      where: 'session_id = ?',
+      whereArgs: [sessionId],
+      orderBy: 't_ms ASC',
+    );
+  }
+
+  Future<void> deleteRecordingSession(int sessionId) async {
+    final db = await _database();
+    await db.delete(
+      'recording_samples',
+      where: 'session_id = ?',
+      whereArgs: [sessionId],
+    );
+    await db.delete(
+      'recording_sessions',
+      where: 'id = ?',
+      whereArgs: [sessionId],
     );
   }
 

@@ -7,6 +7,8 @@ import '../widgets/foot_balance_widget.dart';
 import '../widgets/pressure_map_widget.dart';
 import '../widgets/heat_map_widget.dart';
 import '../widgets/imu_widget.dart';
+import '../../../../shared/providers/sensor_provider.dart';
+import '../../../recording/presentation/widgets/gait_phase_badge.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -25,14 +27,22 @@ class DashboardScreen extends ConsumerWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 14, top: 4),
-            child: Text(
-              _formattedDate(),
-              style: const TextStyle(
-                color: AppColors.textDisabled,
-                fontSize: 11,
-                fontWeight: FontWeight.w500,
-                letterSpacing: 0.5,
-              ),
+            child: Row(
+              children: [
+                Text(
+                  _formattedDate(),
+                  style: const TextStyle(
+                    color: AppColors.textDisabled,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                const Spacer(),
+                GaitPhaseBadge(phase: ref.watch(
+                  sensorDataProvider.select((d) => d.gaitPhase),
+                )),
+              ],
             ),
           ),
 

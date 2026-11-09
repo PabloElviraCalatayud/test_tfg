@@ -14,7 +14,8 @@ class AppScaffold extends ConsumerWidget {
 
   int _locationToIndex(String location) {
     if (location.startsWith('/history')) return 1;
-    if (location.startsWith('/debug')) return 2;
+    if (location.startsWith('/sessions')) return 2;
+    if (location.startsWith('/debug')) return 3;
     return 0;
   }
 
@@ -22,7 +23,8 @@ class AppScaffold extends ConsumerWidget {
     switch (index) {
       case 0: context.go('/dashboard'); break;
       case 1: context.go('/history'); break;
-      case 2: context.go('/debug'); break;
+      case 2: context.go('/sessions'); break;
+      case 3: context.go('/debug'); break;
     }
   }
 
@@ -88,6 +90,11 @@ class AppScaffold extends ConsumerWidget {
             icon: Icon(Icons.history_outlined),
             selectedIcon: Icon(Icons.history),
             label: 'Historial',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.fiber_manual_record_outlined),
+            selectedIcon: Icon(Icons.fiber_manual_record),
+            label: 'Sesiones',
           ),
           NavigationDestination(
             icon: Icon(Icons.bug_report_outlined),

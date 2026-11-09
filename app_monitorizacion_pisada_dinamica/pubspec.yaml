@@ -30,6 +30,10 @@ dependencies:
   sqflite: ^2.3.3
   path: ^1.9.0
 
+  # Exportar sesiones grabadas (CSV) para generar gráficas de la memoria.
+  share_plus: ^10.1.2
+  path_provider: ^2.1.4
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

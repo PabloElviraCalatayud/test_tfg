@@ -4,6 +4,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/providers/device_provider.dart';
 import '../../../../shared/providers/sensor_provider.dart';
 import '../../../../shared/providers/history_provider.dart';
+import '../../../../shared/providers/recording_provider.dart';
 import '../../../../core/services/mqtt_service.dart';
 
 class DebugScreen extends ConsumerWidget {
@@ -13,6 +14,7 @@ class DebugScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(sensorDataProvider);
     final useFake = ref.watch(useFakeDataProvider);
+    final isRecording = ref.watch(isRecordingProvider);
 
     return Scaffold(
       backgroundColor: AppColors.bgPrimary,
@@ -39,12 +41,25 @@ class DebugScreen extends ConsumerWidget {
                   Switch(
                     value: useFake,
                     activeThumbColor: AppColors.accent,
-                    onChanged: (v) =>
-                    ref.read(useFakeDataProvider.notifier).state = v,
+                    // Desactivado mientras hay una grabación en curso: cambiar
+                    // de fuente a mitad de una sesión mezclaría datos reales
+                    // y simulados bajo el mismo "source" grabado al empezar.
+                    onChanged: isRecording
+                        ? null
+                        : (v) => ref.read(useFakeDataProvider.notifier).state = v,
                   ),
                 ],
               ),
             ),
+            if (isRecording)
+              const Padding(
+                padding: EdgeInsets.only(top: 6),
+                child: Text(
+                  'Hay una grabación en curso (pestaña Sesiones): no se puede '
+                  'cambiar de fuente de datos hasta detenerla.',
+                  style: TextStyle(color: AppColors.textDisabled, fontSize: 11),
+                ),
+              ),
 
             const SizedBox(height: 16),
 
