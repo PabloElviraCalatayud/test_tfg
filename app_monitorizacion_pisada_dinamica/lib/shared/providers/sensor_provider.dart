@@ -3,12 +3,15 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/sensor_data.dart';
 import '../models/mqtt_message.dart';
+import '../models/gait_phase.dart';
+import '../models/recording_sample.dart';
 import '../../core/utils/fake_data.dart';
 import '../../core/utils/packet_decoder.dart';
 import '../../core/services/ble_service.dart';
 import 'device_provider.dart';
 import '../../core/services/mqtt_service.dart';
 import 'history_provider.dart';
+import 'recording_provider.dart';
 
 final useFakeDataProvider = StateProvider<bool>((ref) => true);
 final _extraStepsProvider = StateProvider<int>((ref) => 0);
@@ -25,6 +28,18 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   Timer? _fakeTimer;
   StreamSubscription? _bleSub;
   StreamSubscription? _bleConnStateSub;
+  DateTime? _lastFakeTick;
+
+  // ─────────────────────────────────────────────────────────
+  // FASE DE MARCHA + GRABACIÓN DE SESIONES
+  // ─────────────────────────────────────────────────────────
+  final GaitPhaseClassifier _phaseClassifier = GaitPhaseClassifier();
+  GaitPhase _lastPhase = GaitPhase.swing;
+
+  int? _recordingSessionId;
+  DateTime? _recordingStartedAt;
+  final List<RecordingSample> _recordingBuffer = [];
+  Timer? _recordingFlushTimer;
 
   // ─────────────────────────────────────────────────────────
   // DETECCIÓN DE PASOS (datos BLE reales)
@@ -50,7 +65,7 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   int _stepCount = 0;
   bool _stepArmed = true;
 
-  int _detectSteps(List<double> fsr) {
+  int _detectSteps(List<double> fsr, List<double> temperature) {
     if (fsr.isEmpty) {
       debugPrint('[STEPS] fsr vacio, no se puede detectar nada');
       return _stepCount;
@@ -78,9 +93,19 @@ class SensorDataNotifier extends StateNotifier<SensorData>
       // Fire-and-forget: no bloquea el procesado del siguiente paquete BLE.
       // Solo pasos reales (datos BLE) se persisten -- _fakeTick() nunca
       // llama a _detectSteps, asi que el modo demo no contamina el historial.
-      _ref.read(historyServiceProvider).incrementToday(1).catchError((e) {
+      final history = _ref.read(historyServiceProvider);
+      history.incrementToday(1).catchError((e) {
         debugPrint('[STEPS] Error guardando en el historial: $e');
       });
+      // Trazabilidad: guarda con que reparto de FSR/temperatura se dio
+      // exactamente este paso, para poder consultarlo despues en el
+      // historial (ver dayStepEventsProvider).
+      history.recordStepEvent(fsr: fsr, temperature: temperature).catchError((e) {
+        debugPrint('[STEPS] Error guardando evento de paso: $e');
+      });
+      // Refresca el Historial en vivo si el usuario lo tiene abierto
+      // mientras camina -- si no, es un invalidate barato que no hace nada.
+      invalidateHistory(_ref.invalidate);
     } else if (!_stepArmed && delta <= -_stepRiseThreshold) {
       _stepArmed = true;
       debugPrint('[STEPS] rearmado peak=${peak.toStringAsFixed(4)} '
@@ -211,24 +236,52 @@ class SensorDataNotifier extends StateNotifier<SensorData>
   // FAKE DATA
   // ─────────────────────────────────────────────────────────
 
+  // Cadencia del modo simulado: suficientemente rápida (unos 8 Hz) para que
+  // se pueda apreciar la forma del ciclo de marcha en el gráfico en vivo y
+  // en una grabación de ejemplo, sin acercarse a la carga de un flujo BLE
+  // real (~30-50 Hz). Antes era un tick por segundo, demasiado espaciado
+  // para mostrar nada parecido a una zancada (dura ~1 s entera).
+  static const Duration _fakeTickInterval = Duration(milliseconds: 120);
+
   void _startFakeTimer() {
     _fakeTimer?.cancel();
-    _fakeTimer = Timer.periodic(const Duration(seconds: 1), (_) => _fakeTick());
+    _lastFakeTick = null;
+    _phaseClassifier.reset();
+    _lastPhase = GaitPhase.swing;
+    _fakeTimer = Timer.periodic(_fakeTickInterval, (_) => _fakeTick());
     _fakeTick();
   }
 
   void _fakeTick() {
     if (!mounted) return;
 
+    final now = DateTime.now();
+    final dt = _lastFakeTick == null
+        ? _fakeTickInterval
+        : now.difference(_lastFakeTick!);
+    _lastFakeTick = now;
+
     final extra = _ref.read(_extraStepsProvider) + 1;
     _ref.read(_extraStepsProvider.notifier).state = extra;
 
-    final newData = SensorData.fromSnapshot(
-      FakeData.generateRandom(stepCount: 6842 + extra),
-    );
+    final snapshot = FakeData.generateWalking(dt, stepCount: 6842 + extra);
+    final phase = _phaseClassifier.classify(snapshot.fsr);
+    final stepEdge = _lastPhase == GaitPhase.swing && phase != GaitPhase.swing;
+    _lastPhase = phase;
+
+    final newData = SensorData.fromSnapshot(snapshot, gaitPhase: phase);
 
     state = newData;
     _publishAll(newData);
+    _maybeRecordSample(
+      fsr: snapshot.fsr,
+      temperature: snapshot.temperature,
+      accX: snapshot.accX, accY: snapshot.accY, accZ: snapshot.accZ,
+      gyroX: snapshot.gyroX, gyroY: snapshot.gyroY, gyroZ: snapshot.gyroZ,
+      roll: snapshot.roll, pitch: snapshot.pitch, yaw: snapshot.yaw,
+      phase: phase,
+      stepEdge: stepEdge,
+    );
   }
 
   // ─────────────────────────────────────────────────────────
@@ -255,6 +308,8 @@ class SensorDataNotifier extends StateNotifier<SensorData>
           lastBleState != BleConnectionState.connected) {
         _lastPeak = null;
         _stepArmed = true;
+        _phaseClassifier.reset();
+        _lastPhase = GaitPhase.swing;
         debugPrint('[STEPS] Conexion BLE nueva -> base de pasos reseteada');
       }
       lastBleState = bleState;
@@ -266,7 +321,12 @@ class SensorDataNotifier extends StateNotifier<SensorData>
 
       if (packet is SensorPacket) {
         final goal = _ref.read(stepGoalProvider);
-        final newStepCount = _detectSteps(packet.data.fsr);
+        final newStepCount = _detectSteps(packet.data.fsr, packet.data.temperature);
+
+        final phase = _phaseClassifier.classify(packet.data.fsr);
+        final phaseStepEdge =
+            _lastPhase == GaitPhase.swing && phase != GaitPhase.swing;
+        _lastPhase = phase;
 
         final newData = SensorData(
           fsr: packet.data.fsr,
@@ -285,10 +345,20 @@ class SensorDataNotifier extends StateNotifier<SensorData>
           yaw: packet.data.yaw,
           stepCount: newStepCount,
           stepGoal: goal,
+          gaitPhase: phase,
         );
 
         state = newData;
         _publishAll(newData);
+        _maybeRecordSample(
+          fsr: packet.data.fsr,
+          temperature: packet.data.temperature,
+          accX: packet.data.accX, accY: packet.data.accY, accZ: packet.data.accZ,
+          gyroX: packet.data.gyroX, gyroY: packet.data.gyroY, gyroZ: packet.data.gyroZ,
+          roll: packet.data.roll, pitch: packet.data.pitch, yaw: packet.data.yaw,
+          phase: phase,
+          stepEdge: phaseStepEdge,
+        );
       } else {
         debugPrint('[STEPS] Paquete recibido pero NO es SensorPacket: ${packet.runtimeType}');
       }
@@ -304,10 +374,122 @@ class SensorDataNotifier extends StateNotifier<SensorData>
     _bleConnStateSub = null;
   }
 
+  // ─────────────────────────────────────────────────────────
+  // GRABACIÓN DE SESIONES
+  // ─────────────────────────────────────────────────────────
+  // A diferencia del historial de pasos persistente (que solo se alimenta
+  // de datos BLE reales, ver _detectSteps), una grabación SÍ puede hacerse
+  // en modo simulado a propósito: sirve para poder generar una sesión de
+  // ejemplo y sus gráficas (presión/temperatura/fase de marcha) sin
+  // depender de tener el ESP32-S3 a mano. Cada sesión queda etiquetada con
+  // su origen ('ble' o 'fake') para que eso quede siempre claro en el CSV
+  // exportado.
+
+  bool get isRecording => _recordingSessionId != null;
+
+  Future<void> startRecording({String? label}) async {
+    if (_recordingSessionId != null) return;
+
+    final useFake = _ref.read(useFakeDataProvider);
+    final history = _ref.read(historyServiceProvider);
+
+    _recordingStartedAt = DateTime.now();
+    try {
+      _recordingSessionId = await history.startRecordingSession(
+        source: useFake ? 'fake' : 'ble',
+        label: label,
+      );
+    } catch (e) {
+      debugPrint('[RECORDING] Error creando la sesión: $e');
+      _recordingStartedAt = null;
+      return;
+    }
+
+    _ref.read(isRecordingProvider.notifier).state = true;
+    _ref.read(recordingStartedAtProvider.notifier).state = _recordingStartedAt;
+    _ref.read(recordingStepCountProvider.notifier).state = 0;
+
+    _recordingFlushTimer?.cancel();
+    _recordingFlushTimer =
+        Timer.periodic(const Duration(seconds: 2), (_) => _flushRecordingBuffer());
+  }
+
+  Future<void> stopRecording() async {
+    if (_recordingSessionId == null) return;
+    final sessionId = _recordingSessionId!;
+
+    _recordingFlushTimer?.cancel();
+    _recordingFlushTimer = null;
+    await _flushRecordingBuffer();
+
+    try {
+      await _ref.read(historyServiceProvider).endRecordingSession(sessionId);
+    } catch (e) {
+      debugPrint('[RECORDING] Error cerrando la sesión: $e');
+    }
+
+    _recordingSessionId = null;
+    _recordingStartedAt = null;
+    _ref.read(isRecordingProvider.notifier).state = false;
+    _ref.read(recordingStartedAtProvider.notifier).state = null;
+    _ref.invalidate(recordingSessionsProvider);
+  }
+
+  Future<void> _flushRecordingBuffer() async {
+    if (_recordingSessionId == null || _recordingBuffer.isEmpty) return;
+    final sessionId = _recordingSessionId!;
+    final toFlush = List<RecordingSample>.from(_recordingBuffer);
+    _recordingBuffer.clear();
+
+    try {
+      await _ref
+          .read(historyServiceProvider)
+          .appendRecordingSamples(sessionId, toFlush);
+    } catch (e) {
+      debugPrint('[RECORDING] Error guardando ${toFlush.length} muestras: $e');
+    }
+  }
+
+  void _maybeRecordSample({
+    required List<double> fsr,
+    required List<double> temperature,
+    required double accX, required double accY, required double accZ,
+    required double gyroX, required double gyroY, required double gyroZ,
+    required double roll, required double pitch, required double yaw,
+    required GaitPhase phase,
+    required bool stepEdge,
+  }) {
+    if (_recordingSessionId == null || _recordingStartedAt == null) return;
+
+    if (stepEdge) {
+      _ref.read(recordingStepCountProvider.notifier).state++;
+    }
+
+    final tMs = DateTime.now().difference(_recordingStartedAt!).inMilliseconds;
+    _recordingBuffer.add(RecordingSample(
+      tMs: tMs,
+      fsr: fsr,
+      temperature: temperature,
+      accX: accX, accY: accY, accZ: accZ,
+      gyroX: gyroX, gyroY: gyroY, gyroZ: gyroZ,
+      roll: roll, pitch: pitch, yaw: yaw,
+      gaitPhase: phase,
+      stepEdge: stepEdge,
+    ));
+
+    // No esperar al timer periódico si el buffer crece deprisa (flujo BLE
+    // real a 30-50 Hz): vacía antes para no acumular miles de muestras en
+    // memoria durante una grabación larga.
+    if (_recordingBuffer.length >= 80) {
+      unawaited(_flushRecordingBuffer());
+    }
+  }
+
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _stopAll();
+    _recordingFlushTimer?.cancel();
     super.dispose();
   }
 }

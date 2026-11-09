@@ -6,10 +6,13 @@ import 'mqtt_platform_io.dart'
     if (dart.library.js_interop) 'mqtt_platform_web.dart';
 
 // Broker publico EMQX, sobre WebSocket seguro (wss, puerto 8084, path
-// /mqtt). Se usa WebSocket -- en vez del puerto TCP directo 1883 -- porque
-// Flutter Web no tiene sockets TCP (dart:io no existe en el navegador), asi
-// el mismo MqttService sirve tanto para movil/escritorio como para un build
-// web usado para generar datos simulados sin el ESP32-S3 conectado.
+// /mqtt). Wss es obligatorio (requisito de red de la universidad -- el
+// trafico tiene que ir cifrado), asi que no se contempla bajar a ws/8083
+// aunque fuera util como diagnostico. Se usa WebSocket -- en vez del
+// puerto TCP directo 1883 -- porque Flutter Web no tiene sockets TCP
+// (dart:io no existe en el navegador), asi el mismo MqttService sirve
+// tanto para movil/escritorio como para un build web usado para generar
+// datos simulados sin el ESP32-S3 conectado.
 const _kMqttServer = 'wss://broker.emqx.io/mqtt';
 const _kMqttPort = 8084;
 

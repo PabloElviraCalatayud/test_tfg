@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2220" height="1160" viewBox="0 0 2220 1160" font-family="Helvetica, Arial, sans-serif">
+<rect width="2220" height="1160" fill="#ffffff"/>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#111"/>
+</marker>
+<marker id="arrowB" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#1f6f8b"/>
+</marker>
+<marker id="arrowR" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#c0392b"/>
+</marker>
+<marker id="arrowG" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#2e7d32"/>
+</marker>
+</defs>
+<text x="1110.0" y="30" text-anchor="middle" font-size="21" font-weight="bold" fill="#111">Diagrama de secuencia (UML): recorrido de un paquete de sensores</text>
+<text x="1110.0" y="50" text-anchor="middle" font-size="12.5" fill="#666">Desde la lectura física hasta la actualización de la interfaz, el historial local y la publicación MQTT</text>
+<rect x="28" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="110" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">Sensores</text>
+<text x="110" y="145" text-anchor="middle" font-size="9.5" fill="#555">FSR / NTC / IMU</text>
+<line x1="110" y1="156" x2="110" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="223" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="305" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">sensor_manager</text>
+<text x="305" y="145" text-anchor="middle" font-size="9.5" fill="#555">firmware (FreeRTOS)</text>
+<line x1="305" y1="156" x2="305" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="418" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="500" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">packet_builder</text>
+<text x="500" y="145" text-anchor="middle" font-size="9.5" fill="#555">firmware</text>
+<line x1="500" y1="156" x2="500" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="613" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="695" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">BLE</text>
+<text x="695" y="145" text-anchor="middle" font-size="9.5" fill="#555">ble_transport ↔ NimBLE GATT</text>
+<line x1="695" y1="156" x2="695" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="808" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="890" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">ble_service.dart</text>
+<text x="890" y="145" text-anchor="middle" font-size="9.5" fill="#555">app — cliente BLE</text>
+<line x1="890" y1="156" x2="890" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="1003" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="1085" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">packet_decoder.dart</text>
+<text x="1085" y="145" text-anchor="middle" font-size="9.5" fill="#555">app</text>
+<line x1="1085" y1="156" x2="1085" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="1198" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="1280" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">sensor_calibration.dart</text>
+<text x="1280" y="145" text-anchor="middle" font-size="9.5" fill="#555">app</text>
+<line x1="1280" y1="156" x2="1280" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="1393" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="1475" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">sensor_provider.dart</text>
+<text x="1475" y="145" text-anchor="middle" font-size="9.5" fill="#555">app — Riverpod</text>
+<line x1="1475" y1="156" x2="1475" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="1588" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="1670" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">history_service.dart</text>
+<text x="1670" y="145" text-anchor="middle" font-size="9.5" fill="#555">app — SQLite</text>
+<line x1="1670" y1="156" x2="1670" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="1783" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="1865" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">mqtt_service.dart</text>
+<text x="1865" y="145" text-anchor="middle" font-size="9.5" fill="#555">app</text>
+<line x1="1865" y1="156" x2="1865" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<rect x="1978" y="110" width="164" height="46" fill="#f0f0f0" stroke="#333" stroke-width="1.8" rx="4"/>
+<text x="2060" y="129" text-anchor="middle" font-size="12.5" font-weight="bold" fill="#111">UI (widgets)</text>
+<text x="2060" y="145" text-anchor="middle" font-size="9.5" fill="#555">Riverpod listeners</text>
+<line x1="2060" y1="156" x2="2060" y2="1120" stroke="#aaa" stroke-width="1.5" stroke-dasharray="5,4"/>
+<line x1="110" y1="195" x2="305" y2="195" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="207.5" y="189" text-anchor="middle" font-size="11" fill="#111">lectura I2C (ADS1115) / notificación IMU</text>
+<path d="M 305 241 C 375 241, 375 267, 305 267" fill="none" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="381" y="258.0" font-size="10.5" fill="#111">compone sensor_frame_t</text>
+<line x1="305" y1="283" x2="500" y2="283" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="402.5" y="277" text-anchor="middle" font-size="11" fill="#111">sensor_frame_t</text>
+<path d="M 500 329 C 570 329, 570 355, 500 355" fill="none" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="576" y="346.0" font-size="10.5" fill="#111">packet_build_sensor(): 25×int16 BE + CRC-8</text>
+<line x1="500" y1="371" x2="695" y2="371" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="597.5" y="365" text-anchor="middle" font-size="11" fill="#111">buffer RAW, 59 B</text>
+<line x1="695" y1="417" x2="890" y2="417" stroke="#1f6f8b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="792.5" y="411" text-anchor="middle" font-size="11" fill="#1f6f8b">GATT notify(CHR_SENSOR)</text>
+<line x1="890" y1="463" x2="1085" y2="463" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="987.5" y="457" text-anchor="middle" font-size="11" fill="#111">decode(bytes)</text>
+<rect x="1025" y="519" width="315" height="90" fill="none" stroke="#b8860b" stroke-width="1.6"/>
+<path d="M 1025 519 L 1083 519 L 1083 535 L 1073 535 L 1025 541 Z" fill="#fff3d6" stroke="#b8860b" stroke-width="1.4"/>
+<text x="1033" y="533" font-size="11" font-weight="bold" fill="#b8860b">alt  versión / CRC</text>
+<line x1="1085" y1="551" x2="1280" y2="551" stroke="#555" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1182.5" y="545" text-anchor="middle" font-size="11" fill="#555">verifica version==2 y CRC-8</text>
+<line x1="1025" y1="587" x2="1340" y2="587" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="1033" y="582" font-size="10.5" font-style="italic" fill="#c0392b">[si no coincide: descarta + log, return null]</text>
+<line x1="1025" y1="519" x2="1025" y2="609" stroke="#b8860b" stroke-width="1.6"/>
+<line x1="1085" y1="623" x2="1280" y2="623" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1182.5" y="617" text-anchor="middle" font-size="11" fill="#111">rawToGrams / rawToCelsius / accelG / gyroDps</text>
+<line x1="1280" y1="669" x2="1085" y2="669" stroke="#111" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrow)"/>
+<text x="1182.5" y="663" text-anchor="middle" font-size="11" fill="#111">valores físicos (fsr[], temperature[], IMU)</text>
+<line x1="1085" y1="715" x2="890" y2="715" stroke="#111" stroke-width="1.8" stroke-dasharray="6,4" marker-end="url(#arrow)"/>
+<text x="987.5" y="709" text-anchor="middle" font-size="11" fill="#111">SensorPacket</text>
+<line x1="890" y1="761" x2="1475" y2="761" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1182.5" y="755" text-anchor="middle" font-size="11" fill="#111">packetStream: SensorPacket</text>
+<path d="M 1475 807 C 1545 807, 1545 833, 1475 833" fill="none" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1551" y="824.0" font-size="10.5" fill="#111">_detectSteps(): delta de presión máxima</text>
+<rect x="1415" y="849" width="705" height="150" fill="none" stroke="#b8860b" stroke-width="1.6"/>
+<path d="M 1415 849 L 1473 849 L 1473 865 L 1463 865 L 1415 871 Z" fill="#fff3d6" stroke="#b8860b" stroke-width="1.4"/>
+<text x="1423" y="863" font-size="11" font-weight="bold" fill="#b8860b">alt  paso detectado</text>
+<line x1="1475" y1="881" x2="1670" y2="881" stroke="#2e7d32" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1572.5" y="875" text-anchor="middle" font-size="11" fill="#2e7d32">incrementToday() + recordStepEvent(fsr, temperature)</text>
+<line x1="1475" y1="917" x2="1865" y2="917" stroke="#1f6f8b" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1670.0" y="911" text-anchor="middle" font-size="11" fill="#1f6f8b">publish(topic, json)</text>
+<line x1="1475" y1="953" x2="2060" y2="953" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="1767.5" y="947" text-anchor="middle" font-size="11" fill="#111">state = newData  →  notifica listeners</text>
+<line x1="1415" y1="991" x2="2120" y2="991" stroke="#777" stroke-width="1.2" stroke-dasharray="5,4"/>
+<text x="1423" y="986" font-size="10.5" font-style="italic" fill="#777">[si no hay paso: solo se actualiza el estado en vivo (misma última flecha)]</text>
+<line x1="1415" y1="849" x2="1415" y2="999" stroke="#b8860b" stroke-width="1.6"/>
+<path d="M 2060 1019 C 2130 1019, 2130 1045, 2060 1045" fill="none" stroke="#111" stroke-width="1.8" marker-end="url(#arrow)"/>
+<text x="2136" y="1036.0" font-size="10.5" fill="#111">rebuild: mapa de calor, mapa de presión, historial</text>
+<text x="30" y="1085" font-size="11.5" fill="#666">Este ciclo se repite a la cadencia de la IMU (≈ 50 Hz) mientras dura la conexión BLE; MQTT y SQLite reciben únicamente eventos de paso detectado.</text>
+</svg>

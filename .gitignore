@@ -1,0 +1,15 @@
+# Artefactos de compilación de LaTeX (generados a partir de los .tex;
+# no se versionan, se regeneran con pdflatex + bibtex + pdflatex x2).
+documentacion/Plantilla_TFG_251108/*.aux
+documentacion/Plantilla_TFG_251108/*.bbl
+documentacion/Plantilla_TFG_251108/*.blg
+documentacion/Plantilla_TFG_251108/*.log
+documentacion/Plantilla_TFG_251108/*.out
+documentacion/Plantilla_TFG_251108/*.toc
+documentacion/Plantilla_TFG_251108/*.lof
+documentacion/Plantilla_TFG_251108/*.lot
+documentacion/Plantilla_TFG_251108/*.fls
+documentacion/Plantilla_TFG_251108/*.fdb_latexmk
+documentacion/Plantilla_TFG_251108/*.synctex.gz
+# main.pdf SÍ se versiona a propósito, para poder leer la memoria
+# compilada directamente desde el repositorio sin instalar LaTeX.

@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/providers/device_provider.dart';
 import '../../../../shared/providers/sensor_provider.dart';
+import '../../../../shared/providers/history_provider.dart';
+import '../../../../shared/providers/recording_provider.dart';
 import '../../../../core/services/mqtt_service.dart';
 
 class DebugScreen extends ConsumerWidget {
@@ -12,6 +14,7 @@ class DebugScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(sensorDataProvider);
     final useFake = ref.watch(useFakeDataProvider);
+    final isRecording = ref.watch(isRecordingProvider);
 
     return Scaffold(
       backgroundColor: AppColors.bgPrimary,
@@ -38,20 +41,34 @@ class DebugScreen extends ConsumerWidget {
                   Switch(
                     value: useFake,
                     activeThumbColor: AppColors.accent,
-                    onChanged: (v) =>
-                    ref.read(useFakeDataProvider.notifier).state = v,
+                    // Desactivado mientras hay una grabación en curso: cambiar
+                    // de fuente a mitad de una sesión mezclaría datos reales
+                    // y simulados bajo el mismo "source" grabado al empezar.
+                    onChanged: isRecording
+                        ? null
+                        : (v) => ref.read(useFakeDataProvider.notifier).state = v,
                   ),
                 ],
               ),
             ),
+            if (isRecording)
+              const Padding(
+                padding: EdgeInsets.only(top: 6),
+                child: Text(
+                  'Hay una grabación en curso (pestaña Sesiones): no se puede '
+                  'cambiar de fuente de datos hasta detenerla.',
+                  style: TextStyle(color: AppColors.textDisabled, fontSize: 11),
+                ),
+              ),
 
             const SizedBox(height: 16),
 
-            _DebugGroup(title: 'FSR (Presión plantar)', children: [
+            _DebugGroup(title: 'FSR (Presión plantar, normalizado + % relativo)', children: [
               for (int i = 0; i < data.fsr.length; i++)
                 _DebugRow(
                     label: 'FSR${i + 1}',
-                    value: data.fsr[i].toStringAsFixed(3)),
+                    value: '${data.fsr[i].toStringAsFixed(3)}  ·  '
+                        '${data.relativePercent[i].toStringAsFixed(1)}%'),
             ]),
 
             const SizedBox(height: 12),
@@ -143,6 +160,104 @@ class DebugScreen extends ConsumerWidget {
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            const Text(
+              'HISTORIAL (PRUEBAS)',
+              style: TextStyle(
+                color: AppColors.textDisabled,
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.2,
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Rellena el historial con datos de ejemplo (o bórralo) para '
+              'poder probar la pantalla de Historial sin esperar semanas '
+              'de uso real.',
+              style: TextStyle(color: AppColors.textDisabled, fontSize: 11),
+            ),
+            const SizedBox(height: 12),
+
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: AppColors.accent),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () async {
+                  final messenger = ScaffoldMessenger.of(context);
+                  await ref.read(historyServiceProvider).seedDemoHistory();
+                  invalidateHistory(ref.invalidate);
+                  messenger.showSnackBar(
+                    const SnackBar(content: Text('Historial de prueba generado')),
+                  );
+                },
+                child: const Text(
+                  'Generar historial de prueba',
+                  style: TextStyle(color: AppColors.accent, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+
+            const SizedBox(height: 10),
+
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                style: OutlinedButton.styleFrom(
+                  side: const BorderSide(color: AppColors.danger),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () async {
+                  final confirmed = await showDialog<bool>(
+                    context: context,
+                    builder: (dialogContext) => AlertDialog(
+                      backgroundColor: AppColors.bgCard,
+                      title: const Text('Borrar historial',
+                          style: TextStyle(color: AppColors.textPrimary)),
+                      content: const Text(
+                        'Se borrarán todos los pasos guardados y su trazabilidad, '
+                        'de prueba o reales. Esta acción no se puede deshacer.',
+                        style: TextStyle(color: AppColors.textSecondary),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(dialogContext).pop(false),
+                          child: const Text('Cancelar'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(dialogContext).pop(true),
+                          child: const Text('Borrar',
+                              style: TextStyle(color: AppColors.danger)),
+                        ),
+                      ],
+                    ),
+                  );
+                  if (confirmed != true) return;
+
+                  final messenger = ScaffoldMessenger.of(context);
+                  await ref.read(historyServiceProvider).clearAllHistory();
+                  invalidateHistory(ref.invalidate);
+                  messenger.showSnackBar(
+                    const SnackBar(content: Text('Historial borrado')),
+                  );
+                },
+                child: const Text(
+                  'Borrar historial',
+                  style: TextStyle(color: AppColors.danger, fontWeight: FontWeight.bold),
                 ),
               ),
             ),

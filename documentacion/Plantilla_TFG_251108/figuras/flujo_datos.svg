@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1760" height="610" viewBox="0 0 1760 610" font-family="Helvetica, Arial, sans-serif">
+<rect width="1760" height="610" fill="#ffffff"/>
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#111"/>
+</marker>
+<marker id="arrowB" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#1f6f8b"/>
+</marker>
+<marker id="arrowR" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#c0392b"/>
+</marker>
+<marker id="arrowG" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+  <path d="M0,0 L0,6 L9,3 z" fill="#2e7d32"/>
+</marker>
+</defs>
+<text x="880.0" y="32" text-anchor="middle" font-size="22" font-weight="bold" fill="#111">Flujo de datos de extremo a extremo</text>
+<text x="880.0" y="52" text-anchor="middle" font-size="13" fill="#666">Desde el sensor físico hasta el almacenamiento y la visualización en la plataforma de la universidad</text>
+<rect x="42" y="93" width="310" height="115" fill="#000" opacity="0.08" rx="10"/>
+<rect x="40" y="90" width="310" height="115" fill="#f7e7e5" stroke="#c0392b" stroke-width="2.5" rx="10"/>
+<circle cx="62" cy="112" r="15" fill="#c0392b"/>
+<text x="62" y="117" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">1</text>
+<text x="207.0" y="118" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#111">Muestreo físico</text>
+<text x="195.0" y="138" text-anchor="middle" font-size="11" fill="#555">12 FSR + 4 NTC (divisor de</text>
+<text x="195.0" y="153" text-anchor="middle" font-size="11" fill="#555">tensión) + IMU LSM9DS1</text>
+<rect x="377" y="93" width="310" height="115" fill="#000" opacity="0.08" rx="10"/>
+<rect x="375" y="90" width="310" height="115" fill="#f7e7e5" stroke="#c0392b" stroke-width="2.5" rx="10"/>
+<circle cx="397" cy="112" r="15" fill="#c0392b"/>
+<text x="397" y="117" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">2</text>
+<text x="542.0" y="118" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#111">Digitalización</text>
+<text x="530.0" y="138" text-anchor="middle" font-size="11" fill="#555">4 × ADS1115, 16 bits,</text>
+<text x="530.0" y="153" text-anchor="middle" font-size="11" fill="#555">bus I2C (100 kHz, 860 SPS)</text>
+<rect x="712" y="93" width="310" height="115" fill="#000" opacity="0.08" rx="10"/>
+<rect x="710" y="90" width="310" height="115" fill="#f7e7e5" stroke="#c0392b" stroke-width="2.5" rx="10"/>
+<circle cx="732" cy="112" r="15" fill="#c0392b"/>
+<text x="732" y="117" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">3</text>
+<text x="877.0" y="118" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#111">Lectura en firmware</text>
+<text x="865.0" y="138" text-anchor="middle" font-size="11" fill="#555">sensor_manager: adc_task +</text>
+<text x="865.0" y="153" text-anchor="middle" font-size="11" fill="#555">imu_task (FreeRTOS, ESP-IDF)</text>
+<rect x="1047" y="93" width="310" height="115" fill="#000" opacity="0.08" rx="10"/>
+<rect x="1045" y="90" width="310" height="115" fill="#f7e7e5" stroke="#c0392b" stroke-width="2.5" rx="10"/>
+<circle cx="1067" cy="112" r="15" fill="#c0392b"/>
+<text x="1067" y="117" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">4</text>
+<text x="1212.0" y="118" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#111">Empaquetado RAW</text>
+<text x="1200.0" y="138" text-anchor="middle" font-size="11" fill="#555">packet_builder: 59 B</text>
+<text x="1200.0" y="153" text-anchor="middle" font-size="11" fill="#555">(header 8B+payload 50B+CRC)</text>
+<rect x="1382" y="93" width="310" height="115" fill="#000" opacity="0.08" rx="10"/>
+<rect x="1380" y="90" width="310" height="115" fill="#f7e7e5" stroke="#c0392b" stroke-width="2.5" rx="10"/>
+<circle cx="1402" cy="112" r="15" fill="#c0392b"/>
+<text x="1402" y="117" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">5</text>
+<text x="1547.0" y="118" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#111">Transmisión BLE</text>
+<text x="1535.0" y="138" text-anchor="middle" font-size="11" fill="#555">ble_transport: GATT notify()</text>
+<text x="1535.0" y="153" text-anchor="middle" font-size="11" fill="#555">~30–50 Hz, intervalo 20–30 ms</text>
+<line x1="350" y1="147.5" x2="375" y2="147.5" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="685" y1="147.5" x2="710" y2="147.5" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="1020" y1="147.5" x2="1045" y2="147.5" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="1355" y1="147.5" x2="1380" y2="147.5" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="1535.0,205 1535.0,245 195.0,245 195.0,315" fill="none" stroke="#111" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="139.64" y="232" width="110.72000000000001" height="15" fill="#ffffff" opacity="0.88"/>
+<text x="195.0" y="245" text-anchor="middle" font-size="11" fill="#111">dispositivo → app</text>
+<rect x="42" y="318" width="310" height="115" fill="#000" opacity="0.08" rx="10"/>
+<rect x="40" y="315" width="310" height="115" fill="#e4edf1" stroke="#1f6f8b" stroke-width="2.5" rx="10"/>
+<circle cx="62" cy="337" r="15" fill="#1f6f8b"/>
+<text x="62" y="342" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">6</text>
+<text x="207.0" y="343" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#111">Recepción y decodificación</text>
+<text x="195.0" y="363" text-anchor="middle" font-size="11" fill="#555">ble_service.dart recibe;</text>
+<text x="195.0" y="378" text-anchor="middle" font-size="11" fill="#555">packet_decoder valida CRC/versión</text>
+<rect x="377" y="318" width="310" height="115" fill="#000" opacity="0.08" rx="10"/>
+<rect x="375" y="315" width="310" height="115" fill="#e4edf1" stroke="#1f6f8b" stroke-width="2.5" rx="10"/>
+<circle cx="397" cy="337" r="15" fill="#1f6f8b"/>
+<text x="397" y="342" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">7</text>
+<text x="542.0" y="343" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#111">Calibración y reparto</text>
+<text x="530.0" y="363" text-anchor="middle" font-size="11" fill="#555">sensor_calibration (RAW→físico)</text>
+<text x="530.0" y="378" text-anchor="middle" font-size="11" fill="#555">+ sensor_provider (orquestador)</text>
+<rect x="712" y="318" width="310" height="115" fill="#000" opacity="0.08" rx="10"/>
+<rect x="710" y="315" width="310" height="115" fill="#e5efe6" stroke="#2e7d32" stroke-width="2.5" rx="10"/>
+<circle cx="732" cy="337" r="15" fill="#2e7d32"/>
+<text x="732" y="342" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">8</text>
+<text x="877.0" y="343" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#111">Publicación MQTT</text>
+<text x="865.0" y="363" text-anchor="middle" font-size="11" fill="#555">mqtt_service.dart, wss://</text>
+<text x="865.0" y="378" text-anchor="middle" font-size="11" fill="#555">broker.emqx.io:8084</text>
+<rect x="1047" y="318" width="310" height="115" fill="#000" opacity="0.08" rx="10"/>
+<rect x="1045" y="315" width="310" height="115" fill="#e5efe6" stroke="#2e7d32" stroke-width="2.5" rx="10"/>
+<circle cx="1067" cy="337" r="15" fill="#2e7d32"/>
+<text x="1067" y="342" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">9</text>
+<text x="1212.0" y="343" text-anchor="middle" font-size="13.5" font-weight="bold" fill="#111">Ingesta y almacenamiento</text>
+<text x="1200.0" y="363" text-anchor="middle" font-size="11" fill="#555">suscripción al broker →</text>
+<text x="1200.0" y="378" text-anchor="middle" font-size="11" fill="#555">inserción en PostgreSQL</text>
+<line x1="350" y1="372.5" x2="375" y2="372.5" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="685" y1="372.5" x2="710" y2="372.5" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="1020" y1="372.5" x2="1045" y2="372.5" stroke="#999" stroke-width="2" marker-end="url(#arrow)"/>
+<polyline points="530.0,430 530.0,460 380.0,460 380.0,500" fill="none" stroke="#777" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+<polyline points="530.0,430 530.0,460 680.0,460 680.0,500" fill="none" stroke="#777" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+<rect x="252.5" y="503.5" width="260" height="60" fill="#000000" opacity="0.10" rx="12"/>
+<rect x="250.0" y="500" width="260" height="60" fill="#fbfbfb" stroke="#2b3a55" stroke-width="1.8" rx="12"/>
+<text x="380.0" y="526.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a2433">UI en tiempo real</text>
+<text x="380.0" y="542.0" text-anchor="middle" font-size="11" fill="#5a6472">mapas de calor, horizonte</text>
+<rect x="552.5" y="503.5" width="260" height="60" fill="#000000" opacity="0.10" rx="12"/>
+<rect x="550.0" y="500" width="260" height="60" fill="#fbfbfb" stroke="#2b3a55" stroke-width="1.8" rx="12"/>
+<text x="680.0" y="526.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a2433">SQLite local</text>
+<text x="680.0" y="542.0" text-anchor="middle" font-size="11" fill="#5a6472">history_service (pasos + trazabilidad)</text>
+<text x="530.0" y="455" text-anchor="middle" font-size="10.5" fill="#777">(no dependen de la nube)</text>
+<line x1="1200.0" y1="430" x2="1200.0" y2="500" stroke="#2e7d32" stroke-width="2.5" marker-end="url(#arrowG)"/>
+<rect x="1052.5" y="503.5" width="300" height="60" fill="#000000" opacity="0.10" rx="12"/>
+<rect x="1050.0" y="500" width="300" height="60" fill="#fbfbfb" stroke="#2b3a55" stroke-width="1.8" rx="12"/>
+<text x="1200.0" y="526.0" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a2433">Grafana</text>
+<text x="1200.0" y="542.0" text-anchor="middle" font-size="11" fill="#5a6472">visualización histórica (consultas SQL)</text>
+</svg>

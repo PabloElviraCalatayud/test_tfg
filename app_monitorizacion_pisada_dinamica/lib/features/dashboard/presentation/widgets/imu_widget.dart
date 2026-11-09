@@ -67,50 +67,44 @@ class ImuWidget extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
 
-          // ── Axis rows — all use fixed-width value containers ──────────
-          _AxisRow(label: 'ROLL',  value: data.roll,  color: AppColors.accent),
-          const SizedBox(height: 6),
-          _AxisRow(label: 'PITCH', value: data.pitch, color: AppColors.warning),
-          const SizedBox(height: 6),
-          _AxisRow(label: 'YAW',   value: data.yaw,   color: Colors.purpleAccent),
-
-          const Divider(height: 24, color: AppColors.divider),
-
-          // ── 9-DOF raw — fixed-height grid ─────────────────────────────
-          const Padding(
-            padding: EdgeInsets.only(bottom: 8),
-            child: Text(
-              '9-DOF RAW',
-              style: TextStyle(
-                color: AppColors.textDisabled,
-                fontSize: 9,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 1.2,
-              ),
-            ),
+          // ── Lectura simple: nada de grados en crudo por delante, solo
+          // una barra que se inclina como un nivel de burbuja (mismo
+          // signo que usa el horizonte de arriba) más una palabra. El
+          // roll ya lo cubre el badge de pronación de la cabecera, así
+          // que aquí solo van pitch (balanceo frontal) y yaw (giro) —
+          // los datos en crudo (ACC/GYRO/MAG de los 9 ejes) se han
+          // movido a la pantalla de Debug, donde sí tienen sentido.
+          _TiltIndicatorRow(
+            label: 'BALANCEO FRONTAL',
+            angleDeg: data.pitch,
+            magnitudeLabel: _tiltMagnitudeLabel(data.pitch, word: 'Inclinación'),
+            color: _tiltColor(data.pitch),
           ),
-          // IntrinsicHeight ensures all three groups are the same height
-          IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(child: _SensorGroup(title: 'ACC (m/s²)',
-                    labels: const ['X', 'Y', 'Z'],
-                    values: [data.accX, data.accY, data.accZ])),
-                const VerticalDivider(color: AppColors.divider, width: 1),
-                Expanded(child: _SensorGroup(title: 'GYRO (°/s)',
-                    labels: const ['X', 'Y', 'Z'],
-                    values: [data.gyroX, data.gyroY, data.gyroZ])),
-                const VerticalDivider(color: AppColors.divider, width: 1),
-                Expanded(child: _SensorGroup(title: 'MAG (µT)',
-                    labels: const ['X', 'Y', 'Z'],
-                    values: [data.magX, data.magY, data.magZ])),
-              ],
-            ),
+          const SizedBox(height: 10),
+          _TiltIndicatorRow(
+            label: 'GIRO',
+            angleDeg: data.yaw,
+            magnitudeLabel: _tiltMagnitudeLabel(data.yaw, word: 'Giro'),
+            color: _tiltColor(data.yaw),
           ),
         ],
       ),
     );
+  }
+
+  static String _tiltMagnitudeLabel(double deg, {required String word}) {
+    final a = deg.abs();
+    if (a < 3) return 'Nivelado';
+    if (a < 8) return '$word ligero';
+    if (a < 15) return '$word moderado';
+    return '$word pronunciado';
+  }
+
+  static Color _tiltColor(double deg) {
+    final a = deg.abs();
+    if (a < 3) return AppColors.success;
+    if (a < 8) return AppColors.warning;
+    return AppColors.danger;
   }
 }
 
@@ -153,131 +147,80 @@ class _PronationBadge extends StatelessWidget {
   }
 }
 
-// ─── Axis Row ─────────────────────────────────────────────────────────────────
+// ─── Tilt Indicator Row ─────────────────────────────────────────────────────
 
-class _AxisRow extends StatelessWidget {
+/// Fila de lectura simple para pitch/yaw: una barra que se inclina como un
+/// nivel de burbuja (mismo ángulo/signo que usa `_HorizonPainter` arriba,
+/// así que gira exactamente igual que el horizonte) más una palabra de
+/// magnitud. El grado exacto se muestra pequeño y secundario -- el dato
+/// crudo sigue disponible, pero no es lo primero que se lee.
+class _TiltIndicatorRow extends StatelessWidget {
   final String label;
-  final double value;
+  final double angleDeg;
+  final String magnitudeLabel;
   final Color color;
 
-  const _AxisRow({required this.label, required this.value, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    // Clamp display range to -30..+30 degrees
-    final barVal = ((value + 30) / 60).clamp(0.0, 1.0);
-
-    return SizedBox(
-      height: 20, // fixed height — never grows/shrinks with content
-      child: Row(
-        children: [
-          // Fixed-width label
-          SizedBox(
-            width: 44,
-            child: Text(
-              label,
-              style: TextStyle(
-                color: color.withOpacity(0.85),
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 0.8,
-              ),
-            ),
-          ),
-          // Progress bar fills remaining space
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(2),
-              child: LinearProgressIndicator(
-                value: barVal,
-                backgroundColor: AppColors.bgCardAlt,
-                valueColor: AlwaysStoppedAnimation(color.withOpacity(0.6)),
-                minHeight: 4,
-              ),
-            ),
-          ),
-          // Fixed-width value — tabular figures, sign always shown
-          SizedBox(
-            width: 58,
-            child: Text(
-              '${value >= 0 ? '+' : ''}${value.toStringAsFixed(1)}°',
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                color: color,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
-                fontFeatures: const [FontFeature.tabularFigures()],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ─── Sensor Group ─────────────────────────────────────────────────────────────
-
-class _SensorGroup extends StatelessWidget {
-  final String title;
-  final List<String> labels;
-  final List<double> values;
-
-  const _SensorGroup({
-    required this.title,
-    required this.labels,
-    required this.values,
+  const _TiltIndicatorRow({
+    required this.label,
+    required this.angleDeg,
+    required this.magnitudeLabel,
+    required this.color,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.textDisabled,
-              fontSize: 8,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.8,
-            ),
-          ),
-          const SizedBox(height: 4),
-          for (int i = 0; i < labels.length; i++)
-          // Each value row has a fixed height of 18px
-            SizedBox(
-              height: 18,
-              child: Row(
-                children: [
-                  Text(
-                    '${labels[i]}: ',
-                    style: const TextStyle(
-                      color: AppColors.textDisabled,
-                      fontSize: 10,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      values[i].toStringAsFixed(2),
-                      textAlign: TextAlign.right,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: AppColors.textSecondary,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w500,
-                        fontFeatures: [FontFeature.tabularFigures()],
-                      ),
-                    ),
-                  ),
-                ],
+    final clamped = angleDeg.clamp(-45.0, 45.0);
+
+    return Row(
+      children: [
+        SizedBox(
+          width: 44,
+          height: 28,
+          child: Center(
+            child: Transform.rotate(
+              angle: clamped * pi / 180,
+              child: Container(
+                width: 34,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
             ),
-        ],
-      ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                label,
+                style: const TextStyle(
+                  color: AppColors.textDisabled,
+                  fontSize: 9,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.0,
+                ),
+              ),
+              Text(
+                magnitudeLabel,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Text(
+          '${angleDeg.toStringAsFixed(0)}°',
+          style: const TextStyle(color: AppColors.textDisabled, fontSize: 11),
+        ),
+      ],
     );
   }
 }
