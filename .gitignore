@@ -11,4 +11,5 @@ documentacion/Plantilla_TFG_251108/*.lot
 documentacion/Plantilla_TFG_251108/*.fls
 documentacion/Plantilla_TFG_251108/*.fdb_latexmk
 documentacion/Plantilla_TFG_251108/*.synctex.gz
-documentacion/Plantilla_TFG_251108/main.pdf
+# main.pdf SÍ se versiona a propósito, para poder leer la memoria
+# compilada directamente desde el repositorio sin instalar LaTeX.
